@@ -1,4 +1,5 @@
 from django.db import models
+from django.core.validators import MaxValueValidator, MinValueValidator
 
 # TODO: largely a placeholder, flesh out more later
 class Neighborhood(models.Model):
@@ -12,7 +13,8 @@ class Location(models.Model):
 	'''
 	Handles specific information about where a physical place is located.
 	
-	A location must include either a longitude/latitude pair or street address.
+	A location must include either a longitude/latitude pair or street address
+	to be saved.
 	'''
 	# 2-char country code (see http://en.wikipedia.org/wiki/ISO_3166-1)
 	country = models.CharField(max_length=2,blank=True)
@@ -27,9 +29,13 @@ class Location(models.Model):
 	address = models.TextField('street address',blank=True)
 
 	# should always be between -90,90
-	latitude = models.DecimalField(max_digits=9,decimal_places=6,blank=True,null=True)	
+	latitude = models.DecimalField(	max_digits=9,decimal_places=6,
+									blank=True,null=True,
+									validators=[MinValueValidator(-90),MaxValueValidator(90)])
 	# should always be between -180,180
-	longitude = models.DecimalField(max_digits=9,decimal_places=6,blank=True,null=True)	
+	longitude = models.DecimalField(max_digits=9,decimal_places=6,
+									blank=True,null=True,
+									validators=[MinValueValidator(-180),MaxValueValidator(180)])
 
 	def _normalize_address(self):
 		'''
@@ -52,8 +58,15 @@ class Location(models.Model):
 		# TODO: revisit missing location info api
 		pass
 
+	def save(self,*args,**kwargs):
+		self.full_clean()		# run field validators
+		return super(Location,self).save(*args,**kwargs)
+
 	def __unicode__(self):
-		return u'%s (%.3f,%.3f)' % (self.address,self.latitude,self.longitude)
+		addr_s = self.address if self.address else ''
+		lat_s = '%.3f' % self.latitude if self.latitude is not None else '-'
+		lon_s = '%.3f' % self.latitude if self.latitude is not None else '-'
+		return u'%s (%s,%s)' % (addr_s,lat_s,lon_s)
 
 class Place(models.Model):
 	'''
@@ -78,6 +91,9 @@ class PlaceMeta(models.Model):
 	# blank values allowed (boolean meta attributes)
 	meta_value = models.TextField(blank=True)
 
+	def __unicode__(self):
+		return '%s: %s' % (self.meta_key,self.meta_value)
+
 class LocationMeta(models.Model):
 	'''
 	Handles meta information (tags, external API ids, etc.) for a Place.
@@ -86,3 +102,6 @@ class LocationMeta(models.Model):
 	meta_key = models.CharField(max_length=100)
 	# blank values allowed (boolean meta attributes)
 	meta_value = models.TextField(blank=True)
+
+	def __unicode__(self):
+		return '%s: %s' % (self.meta_key,self.meta_value)

@@ -1,4 +1,7 @@
 from django.test import TestCase
+from django.core.exceptions import ValidationError
+
+from places.models import Location, Place
 
 class LocationModelTest(TestCase):
     def test_two_letter_us_state(self):
@@ -12,8 +15,14 @@ class LocationModelTest(TestCase):
     	'''
     	Ensures latitude and longitude are within accepted ranges.
     	'''
-    	# test latitude is in [-90,90] and longitude is in [-180,180]
-    	self.fail()
+    	# does an exhaustive 3x3 attempt to set various lat/long values, should only succeed once
+    	for lat,lat_valid in ((-90.1,False),(90.1,False),(40.4,True)):
+    		for lon,lon_valid in ((-180.1,False),(180.1,False),(-80,True)):
+    			location = Location(latitude=lat,longitude=lon)
+    			if lon_valid and lat_valid:
+    				location.save()	# should be ok
+    			else:
+    				self.assertRaises(ValidationError,location.save)
 
     def test_minimum_information(self):
     	'''
