@@ -1,0 +1,69 @@
+{
+   "results" : [
+      {
+         "address_components" : [
+            {
+               "long_name" : "Forbes Ave",
+               "short_name" : "Forbes Ave",
+               "types" : [ "route" ]
+            },
+            {
+               "long_name" : "West Oakland",
+               "short_name" : "West Oakland",
+               "types" : [ "neighborhood", "political" ]
+            },
+            {
+               "long_name" : "Pittsburgh",
+               "short_name" : "Pittsburgh",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Pittsburgh",
+               "short_name" : "Pittsburgh",
+               "types" : [ "administrative_area_level_3", "political" ]
+            },
+            {
+               "long_name" : "Allegheny",
+               "short_name" : "Allegheny",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Pennsylvania",
+               "short_name" : "PA",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "United States",
+               "short_name" : "US",
+               "types" : [ "country", "political" ]
+            },
+            {
+               "long_name" : "15213",
+               "short_name" : "15213",
+               "types" : [ "postal_code" ]
+            }
+         ],
+         "formatted_address" : "Forbes Ave & Halket St, Pittsburgh, PA 15213, USA",
+         "geometry" : {
+            "location" : {
+               "lat" : 40.43845450,
+               "lng" : -79.96124619999999
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 40.43980348029149,
+                  "lng" : -79.95989721970848
+               },
+               "southwest" : {
+                  "lat" : 40.43710551970850,
+                  "lng" : -79.96259518029149
+               }
+            }
+         },
+         "partial_match" : true,
+         "types" : [ "intersection" ]
+      }
+   ],
+   "status" : "OK"
+}

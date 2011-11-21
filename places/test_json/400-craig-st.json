@@ -1,0 +1,212 @@
+{
+   "results" : [
+      {
+         "address_components" : [
+            {
+               "long_name" : "400",
+               "short_name" : "400",
+               "types" : [ "street_number" ]
+            },
+            {
+               "long_name" : "N Craig St",
+               "short_name" : "N Craig St",
+               "types" : [ "route" ]
+            },
+            {
+               "long_name" : "North Oakland",
+               "short_name" : "North Oakland",
+               "types" : [ "neighborhood", "political" ]
+            },
+            {
+               "long_name" : "Pittsburgh",
+               "short_name" : "Pittsburgh",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Allegheny",
+               "short_name" : "Allegheny",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Pennsylvania",
+               "short_name" : "PA",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "United States",
+               "short_name" : "US",
+               "types" : [ "country", "political" ]
+            },
+            {
+               "long_name" : "15213",
+               "short_name" : "15213",
+               "types" : [ "postal_code" ]
+            }
+         ],
+         "formatted_address" : "400 N Craig St, Pittsburgh, PA 15213, USA",
+         "geometry" : {
+            "location" : {
+               "lat" : 40.4542610,
+               "lng" : -79.953090
+            },
+            "location_type" : "ROOFTOP",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 40.45560998029149,
+                  "lng" : -79.95174101970851
+               },
+               "southwest" : {
+                  "lat" : 40.45291201970849,
+                  "lng" : -79.95443898029151
+               }
+            }
+         },
+         "partial_match" : true,
+         "types" : [ "street_address" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "400",
+               "short_name" : "400",
+               "types" : [ "street_number" ]
+            },
+            {
+               "long_name" : "S Craig St",
+               "short_name" : "S Craig St",
+               "types" : [ "route" ]
+            },
+            {
+               "long_name" : "North Oakland",
+               "short_name" : "North Oakland",
+               "types" : [ "neighborhood", "political" ]
+            },
+            {
+               "long_name" : "Pittsburgh",
+               "short_name" : "Pittsburgh",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Pittsburgh",
+               "short_name" : "Pittsburgh",
+               "types" : [ "administrative_area_level_3", "political" ]
+            },
+            {
+               "long_name" : "Allegheny",
+               "short_name" : "Allegheny",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Pennsylvania",
+               "short_name" : "PA",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "United States",
+               "short_name" : "US",
+               "types" : [ "country", "political" ]
+            },
+            {
+               "long_name" : "15213",
+               "short_name" : "15213",
+               "types" : [ "postal_code" ]
+            }
+         ],
+         "formatted_address" : "400 S Craig St, Pittsburgh, PA 15213, USA",
+         "geometry" : {
+            "location" : {
+               "lat" : 40.44513240,
+               "lng" : -79.94887989999999
+            },
+            "location_type" : "ROOFTOP",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 40.44648138029150,
+                  "lng" : -79.94753091970848
+               },
+               "southwest" : {
+                  "lat" : 40.44378341970850,
+                  "lng" : -79.95022888029149
+               }
+            }
+         },
+         "partial_match" : true,
+         "types" : [ "street_address" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "400",
+               "short_name" : "400",
+               "types" : [ "street_number" ]
+            },
+            {
+               "long_name" : "Craig St",
+               "short_name" : "Craig St",
+               "types" : [ "route" ]
+            },
+            {
+               "long_name" : "New Brighton",
+               "short_name" : "New Brighton",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Daugherty",
+               "short_name" : "Daugherty",
+               "types" : [ "administrative_area_level_3", "political" ]
+            },
+            {
+               "long_name" : "Beaver",
+               "short_name" : "Beaver",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Pennsylvania",
+               "short_name" : "PA",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "United States",
+               "short_name" : "US",
+               "types" : [ "country", "political" ]
+            },
+            {
+               "long_name" : "15066",
+               "short_name" : "15066",
+               "types" : [ "postal_code" ]
+            }
+         ],
+         "formatted_address" : "400 Craig St, New Brighton, PA 15066, USA",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 40.72656580,
+                  "lng" : -80.28317939999999
+               },
+               "southwest" : {
+                  "lat" : 40.72655560,
+                  "lng" : -80.28317960
+               }
+            },
+            "location" : {
+               "lat" : 40.72656580,
+               "lng" : -80.28317960
+            },
+            "location_type" : "RANGE_INTERPOLATED",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 40.72790968029150,
+                  "lng" : -80.28183051970849
+               },
+               "southwest" : {
+                  "lat" : 40.72521171970850,
+                  "lng" : -80.28452848029150
+               }
+            }
+         },
+         "partial_match" : true,
+         "types" : [ "street_address" ]
+      }
+   ],
+   "status" : "OK"
+}

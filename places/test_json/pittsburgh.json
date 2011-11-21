@@ -1,0 +1,58 @@
+{
+   "results" : [
+      {
+         "address_components" : [
+            {
+               "long_name" : "Pittsburgh",
+               "short_name" : "Pittsburgh",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Allegheny",
+               "short_name" : "Allegheny",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Pennsylvania",
+               "short_name" : "PA",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "United States",
+               "short_name" : "US",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Pittsburgh, PA, USA",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 40.5013680,
+                  "lng" : -79.8657230
+               },
+               "southwest" : {
+                  "lat" : 40.36136890,
+                  "lng" : -80.09527790
+               }
+            },
+            "location" : {
+               "lat" : 40.44062479999999,
+               "lng" : -79.99588640
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 40.50852730,
+                  "lng" : -79.86782699999999
+               },
+               "southwest" : {
+                  "lat" : 40.37265360,
+                  "lng" : -80.12394580
+               }
+            }
+         },
+         "types" : [ "locality", "political" ]
+      }
+   ],
+   "status" : "OK"
+}

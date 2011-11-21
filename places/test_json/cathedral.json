@@ -1,0 +1,73 @@
+{
+   "results" : [
+      {
+         "address_components" : [
+            {
+               "long_name" : "Cathedral of Learning",
+               "short_name" : "Cathedral of Learning",
+               "types" : [ "establishment" ]
+            },
+            {
+               "long_name" : "North Oakland",
+               "short_name" : "North Oakland",
+               "types" : [ "neighborhood", "political" ]
+            },
+            {
+               "long_name" : "Pittsburgh",
+               "short_name" : "Pittsburgh",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Allegheny",
+               "short_name" : "Allegheny",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Pennsylvania",
+               "short_name" : "PA",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "United States",
+               "short_name" : "US",
+               "types" : [ "country", "political" ]
+            },
+            {
+               "long_name" : "15213",
+               "short_name" : "15213",
+               "types" : [ "postal_code" ]
+            }
+         ],
+         "formatted_address" : "Cathedral of Learning, Pittsburgh, PA 15213, USA",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 40.44483030,
+                  "lng" : -79.95248789999999
+               },
+               "southwest" : {
+                  "lat" : 40.44381580,
+                  "lng" : -79.95381970
+               }
+            },
+            "location" : {
+               "lat" : 40.4442450,
+               "lng" : -79.95310740000001
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 40.44567203029150,
+                  "lng" : -79.95180481970849
+               },
+               "southwest" : {
+                  "lat" : 40.44297406970850,
+                  "lng" : -79.95450278029151
+               }
+            }
+         },
+         "types" : [ "university", "establishment" ]
+      }
+   ],
+   "status" : "OK"
+}

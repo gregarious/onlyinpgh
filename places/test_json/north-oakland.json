@@ -1,0 +1,63 @@
+{
+   "results" : [
+      {
+         "address_components" : [
+            {
+               "long_name" : "North Oakland",
+               "short_name" : "North Oakland",
+               "types" : [ "neighborhood", "political" ]
+            },
+            {
+               "long_name" : "Pittsburgh",
+               "short_name" : "Pittsburgh",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Allegheny",
+               "short_name" : "Allegheny",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Pennsylvania",
+               "short_name" : "PA",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "United States",
+               "short_name" : "US",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "North Oakland, Pittsburgh, PA, USA",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 40.4604680,
+                  "lng" : -79.94637290
+               },
+               "southwest" : {
+                  "lat" : 40.4406560,
+                  "lng" : -79.96317410
+               }
+            },
+            "location" : {
+               "lat" : 40.44662960,
+               "lng" : -79.95424380
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 40.45512040,
+                  "lng" : -79.93823639999999
+               },
+               "southwest" : {
+                  "lat" : 40.43813770,
+                  "lng" : -79.97025119999999
+               }
+            }
+         },
+         "types" : [ "neighborhood", "political" ]
+      }
+   ],
+   "status" : "OK"
+}
