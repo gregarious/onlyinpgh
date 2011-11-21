@@ -118,11 +118,8 @@ class GoogleGeocodingTest(TestCase):
         '''Tests preprocessing to avoid particular quirks of Google API'''
         # test removal of parenthesis
         self.assertEquals(
-            self.api.preprocess_address('210 Atwood St. (2nd Fl)'), 
-            '210 Atwood St. ')
-        self.assertEquals(
-            self.api.preprocess_address('(super (embedded)) 100 Elm St.'),
-            ' 100 Elm St.')
+            self.api.preprocess_address('(hello) 210 Atwood St. (2nd Fl)'), 
+            ' 210 Atwood St. ')
         # test translation of pound sign to "Unit "
         self.assertEquals(
             self.api.preprocess_address('6351 Walnut St. #5'),

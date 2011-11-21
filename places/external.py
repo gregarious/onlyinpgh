@@ -63,9 +63,7 @@ class GGAgent(object):
             2. Removes parenthesized content
         '''
         cleaned = address.replace('#','Unit ')
-        match = re.match(r'^(.*?)\(.*\)(.*?)$',cleaned)
-        if match:
-            cleaned = match.group(1) + match.group(2)
+        cleaned = re.sub(r'\([^)]*\)', '',cleaned)
         return cleaned
 
 GG_PREMISE_TYPES = ('premise','establishment','point_of_interest','natural_feature','airport','park')
