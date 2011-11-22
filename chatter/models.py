@@ -9,8 +9,8 @@ class Post(models.Model):
         ('conversation','Conversation'),
         ('question','Question'),
     )
+    dt = models.DateTimeField('post datetime (UTC)',auto_now_add=True)
 
-    dt = models.DateTimeField('post datetime (UTC)')
     post_type = models.CharField('type (e.g. photo, question, etc.)',
                                     max_length=30,choices=POST_TYPES)
     author = models.ForeignKey(Identity)
@@ -26,7 +26,7 @@ class Post(models.Model):
 
 class Comment(models.Model):
     post = models.ForeignKey(Post)
-    dt = models.DateTimeField('post datetime (UTC)')
+    dt = models.DateTimeField('comment datetime (UTC)',auto_now_add=True)
 
     identity = models.ForeignKey(Identity)
     content = models.TextField()
