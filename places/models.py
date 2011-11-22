@@ -2,22 +2,20 @@ from django.db import models
 from django.core.validators import MinValueValidator, MaxValueValidator, MinLengthValidator
 from django.core.exceptions import ValidationError
 
-
+from onlyinpgh.tagging.models import Tag
+from onlyinpgh.tagging.identity import Organization
 
 # TODO: largely a placeholder, flesh out more later
 class Neighborhood(models.Model):
     name = models.CharField(max_length=100)
     description = models.TextField(blank=True)
-
     def __unicode__(self):
         return self.name
 
 class Location(models.Model):
     '''
-    Handles specific information about where a physical place is located.
-    
-    A location must include either a longitude/latitude pair or street address
-    to be saved.
+    Handles specific information about where a physical place is located. Should
+    rarely be exposed without a Place wrapping it on the front end.
     '''
     # 2-char country code (see http://en.wikipedia.org/wiki/ISO_3166-1)
     country = models.CharField(max_length=2,blank=True,
@@ -96,12 +94,30 @@ class Place(models.Model):
     url = models.URLField(max_length=400,blank=True)
     location = models.ForeignKey(Location,blank=True,null=True)
 
+    tags = models.ManyToManyField(Tag,blank=True,null=True)
+
+    def __unicode__(self):
+        return self.name
+
+# TODO: revisit model inheritance here. do some performance testing if we go with this
+class Establishment(Place):
+    '''
+    Handles information about places.
+    '''
+    dtcreated = models.DateTimeField('dt created',auto_now_add=True)
+    owner = models.ForeignKey(Organization)
+
+    phone_number = models.CharField(max_length=20,blank=True)
+    
+    # probably beef this hours representation up. text ok for now.
+    hours = models.TextField(blank=True)
+
     def __unicode__(self):
         return self.name
 
 class PlaceMeta(models.Model):
     '''
-    Handles meta information (tags, external API ids, etc.) for a Place.
+    Handles meta information (external API ids, etc.) for a Place.
     '''
     place = models.ForeignKey(Place)
     meta_key = models.CharField(max_length=100)
@@ -113,7 +129,7 @@ class PlaceMeta(models.Model):
 
 class LocationMeta(models.Model):
     '''
-    Handles meta information (tags, external API ids, etc.) for a Place.
+    Handles meta information (external API ids, etc.) for a Place.
     '''
     location = models.ForeignKey(Location)
     meta_key = models.CharField(max_length=100)
