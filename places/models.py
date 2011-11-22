@@ -3,7 +3,7 @@ from django.core.validators import MinValueValidator, MaxValueValidator, MinLeng
 from django.core.exceptions import ValidationError
 
 from onlyinpgh.tagging.models import Tag
-from onlyinpgh.tagging.identity import Organization
+from onlyinpgh.identity.models import Organization
 
 # TODO: largely a placeholder, flesh out more later
 class Neighborhood(models.Model):
@@ -104,7 +104,6 @@ class Establishment(Place):
     '''
     Handles information about places.
     '''
-    dtcreated = models.DateTimeField('dt created',auto_now_add=True)
     owner = models.ForeignKey(Organization)
 
     phone_number = models.CharField(max_length=20,blank=True)
