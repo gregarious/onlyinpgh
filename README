@@ -1,1 +1,5 @@
-In the beginning God created the heavens and the earth. ~ Genesis 1:1
+required external package installs (might include these in source later -- we'll see):
+
+django-extensions
+pytz
+pil
