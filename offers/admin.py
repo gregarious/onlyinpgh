@@ -1,4 +1,7 @@
 from django.contrib import admin
 from offers.models import Offer
 
-admin.site.register(Offer)
+class OfferAdmin(admin.ModelAdmin):
+    filter_horizontal = ('tags',)
+
+admin.site.register(Offer,OfferAdmin)

@@ -1,4 +1,7 @@
 from django.contrib import admin
 from news.models import Article
 
-admin.site.register(Article)
+class ArticleAdmin(admin.ModelAdmin):
+    filter_horizontal = ('tags',)
+
+admin.site.register(Article,ArticleAdmin)

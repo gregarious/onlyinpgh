@@ -17,15 +17,19 @@ class Location(models.Model):
     Handles specific information about where a physical place is located. Should
     rarely be exposed without a Place wrapping it on the front end.
     '''
+    # TODO: probably take out defaults for town and state, definitely country
     # 2-char country code (see http://en.wikipedia.org/wiki/ISO_3166-1)
     country = models.CharField(max_length=2,blank=True,
-                                validators=[MinLengthValidator(2)])
+                                validators=[MinLengthValidator(2)],
+                                default='US')
 
     # should only include 2-letter codes (US states and CA provinces obey this)
     state = models.CharField(max_length=2,blank=True,
-                                validators=[MinLengthValidator(2)])
+                                validators=[MinLengthValidator(2)],
+                                default='PA')
 
-    town = models.CharField(max_length=60,blank=True)
+    town = models.CharField(max_length=60,blank=True,
+                                default='Pittsburgh')
     neighborhood = models.ForeignKey(Neighborhood,blank=True,null=True)
     
     postcode = models.CharField(max_length=10,blank=True)
@@ -65,6 +69,11 @@ class Location(models.Model):
 
     def save(self,*args,**kwargs):
         self.full_clean()        # run field validators
+        # ensure country and state are saved in db in uppercase
+        if self.country:
+            self.country = self.country.upper()
+        if self.state:
+            self.state = self.state.upper()
         return super(Location,self).save(*args,**kwargs)
 
     def clean(self,*args,**kwargs):

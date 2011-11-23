@@ -8,7 +8,7 @@ class Identity(models.Model):
 
     # account is not required to have an identity on the site
     account = models.ManyToManyField(User,null=True,blank=True)
-    avatar = models.ImageField(upload_to='avatars',blank=True,null=True)
+    avatar = models.URLField(blank=True)
 
     display_name = models.CharField(max_length=30)
     
@@ -16,14 +16,12 @@ class Identity(models.Model):
         return self.display_name
 
 class Organization(models.Model):
-    dt_created = models.DateTimeField(auto_now_add=True)
     identity = models.ForeignKey(Identity,unique=True)
     
     def __unicode__(self):
         return unicode(self.identity)
 
 class Individual(models.Model):
-    dt_created = models.DateTimeField(auto_now_add=True)
     identity = models.ForeignKey(Identity,unique=True)
 
     def __unicode__(self):

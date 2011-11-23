@@ -1,6 +1,7 @@
 from django.db import models
 from onlyinpgh.identity.models import Identity
 from onlyinpgh.tagging.models import Tag
+from datetime import datetime
 
 class Post(models.Model):
     # might turn earch post type into an implementation of a Post ABC, we'll see
@@ -9,7 +10,7 @@ class Post(models.Model):
         ('conversation','Conversation'),
         ('question','Question'),
     )
-    dt = models.DateTimeField('post datetime (UTC)',auto_now_add=True)
+    dt = models.DateTimeField('post datetime (UTC)',default=datetime.utcnow())
 
     post_type = models.CharField('type (e.g. photo, question, etc.)',
                                     max_length=30,choices=POST_TYPES)
@@ -26,7 +27,7 @@ class Post(models.Model):
 
 class Comment(models.Model):
     post = models.ForeignKey(Post)
-    dt = models.DateTimeField('comment datetime (UTC)',auto_now_add=True)
+    dt = models.DateTimeField('comment datetime (UTC)',default=datetime.utcnow())
 
     commenter = models.ForeignKey(Identity)
     content = models.TextField()
