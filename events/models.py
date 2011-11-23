@@ -1,4 +1,5 @@
 from django.db import models
+
 from onlyinpgh.places.models import Place
 from onlyinpgh.tagging.models import Tag
 from onlyinpgh.identity.models import Identity

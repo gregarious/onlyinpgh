@@ -89,7 +89,7 @@ class Place(models.Model):
 
     dtcreated = models.DateTimeField('dt created',auto_now_add=True)
     
-    name = models.CharField(max_length=200)
+    name = models.CharField(max_length=200,blank=True)
     description = models.TextField(blank=True)
     url = models.URLField(max_length=400,blank=True)
     location = models.ForeignKey(Location,blank=True,null=True)

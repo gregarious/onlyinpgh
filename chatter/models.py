@@ -28,7 +28,7 @@ class Comment(models.Model):
     post = models.ForeignKey(Post)
     dt = models.DateTimeField('comment datetime (UTC)',auto_now_add=True)
 
-    identity = models.ForeignKey(Identity)
+    commenter = models.ForeignKey(Identity)
     content = models.TextField()
 
     def __unicode__(self):
