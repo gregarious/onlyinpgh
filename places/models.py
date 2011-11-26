@@ -25,11 +25,9 @@ class Location(models.Model):
 
     # should only include 2-letter codes (US states and CA provinces obey this)
     state = models.CharField(max_length=2,blank=True,
-                                validators=[MinLengthValidator(2)],
-                                default='PA')
+                                validators=[MinLengthValidator(2)])
 
-    town = models.CharField(max_length=60,blank=True,
-                                default='Pittsburgh')
+    town = models.CharField(max_length=60,blank=True)
     neighborhood = models.ForeignKey(Neighborhood,blank=True,null=True)
     
     postcode = models.CharField(max_length=10,blank=True)
@@ -108,7 +106,9 @@ class Place(models.Model):
     def __unicode__(self):
         return self.name
 
-# TODO: revisit model inheritance here. do some performance testing if we go with this
+# TODO: revisit model inheritance here. maybe do some contenttypes fun.
+#       do some performance testing if we go with this
+
 class Establishment(Place):
     '''
     Handles information about places.
@@ -151,6 +151,7 @@ class LocationLookupNotice(models.Model):
     '''
     Records information about a questionable lookup result from an external API
     '''
+    # this should be in sync with external.API_NOTICE_TYPES 
     NOTICE_TYPES = (
         ('PartialMatch',            'Partial Match'),
         ('MultipleResults',         'Multiple Results Returned'),

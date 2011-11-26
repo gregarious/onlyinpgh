@@ -2,7 +2,10 @@ import urllib, re, json
 from datetime import datetime
 from copy import deepcopy
 
-from places.models import LocationLookupNotice
+from places.models import Location, LocationLookupNotice
+
+API_NOTICE_TYPES = ('PartialMatch','MultipleResults','NoStreetAddress',
+                    'NonConcreteAddress','PreprocessingOccurred','LookupFailure')
 
 '''
 Manages external API calls for place/location verification
@@ -17,9 +20,10 @@ class GGAgent(object):
     def __init__(self):
         self.notice_stub = None
 
-    def run_query(self,address,bounds=None,region='us',sensor=False):
+    def run_text_query(self,address,bounds=None,region='US',sensor=False):
         '''
-        Calls the Google Geocoding API and return a GGResponse
+        Calls the Google Geocoding API with given text query and returns a 
+        GGResponse
 
         address should be a raw string (not urlencoded).
         bounds should be a pair of (lat,long) pairs for the upper left and 
@@ -38,7 +42,7 @@ class GGAgent(object):
             options['region'] = region
         
         url = self.GOOGLE_BASE_URL + '?' + urllib.urlencode(options)
-
+        
         fp = urllib.urlopen(url)
         response_json = fp.read()
         response_dict = json.loads(response_json)
@@ -52,6 +56,38 @@ class GGAgent(object):
 
         return GGResponse(response_dict,self.notice_stub)
     
+    def run_location_query(self,location,bounds=None,region=None,sensor=False):
+        '''
+        Calls the Google Geocoding API with a text query based on the fields
+        in the given location. Note that region is not given 'US' as a default
+        since many Location objects will have region expliclty provided.
+
+        If bounds or region is given as a function argument, lat/longitude or 
+        country, respectively, from the Location will be ignored.
+
+        Rest of behavior is same as run_text_query
+        '''
+        LAT_BUFFER, LONG_BUFFER = 0.005, 0.005
+        address_str = ''
+        state = location.state
+        if location.postcode:
+            state += ' ' + location.postcode
+        nbrhd = location.neighborhood.name if location.neighborhood else ''
+
+        fields = [location.address, nbrhd, location.town, state]
+        address_str = ', '.join( [field for field in [location.address, nbrhd, location.town, state] 
+                                 if field != '' ])
+        
+        if bounds is None:
+            if location.latitude is not None and location.longitude is not None:
+                bounds = ( (location.latitude-LAT_BUFFER, location.longitude-LONG_BUFFER),
+                           (location.latitude+LAT_BUFFER, location.longitude+LONG_BUFFER))
+
+        if region is None:
+            region = location.country
+
+        return self.run_text_query(address_str,bounds=bounds,region=region,sensor=sensor)
+
     def preprocess_address(self,address):
         '''
         Special preprocessing based on known 'quirks' of API
@@ -153,7 +189,13 @@ class GGResponse(object):
         notice_list.append(notice)
 
     def best_result(self):
-        return self.results[0]
+        '''
+        Returns the best result. Will be None if no results exist.
+        '''
+        if len(self.results) > 0:
+            return self.results[0]
+        else:
+            return None
 
 class GGResult(object):
     '''
@@ -182,17 +224,21 @@ class GGResult(object):
     def __contains__(self):
         return self._result.__contains__(key)
 
-    def get_address_component(self,component_name,allow_multiple=False):
+    def get_address_component(self,component_name,default=None,allow_multiple=False):
         '''
         Shortcut to returning the named address component. Returns the 
-        "short_name" version of the component.
+        "short_name" version of the component. If default argument given,
+        this value will be returned if no components match the name.
 
         If allow_multiple is False, a single string will be returned and
         a KeyError will be thrown if the component occurs either zero or 
         multiple times.
 
         If allow_multiple is True, a list of strings will be returned that
-        include all occurrances of the component type.
+        include all occurrances of the component type. 
+
+        Note that default will NEVER be returned when allow_multiple is 
+        True: in this case an empty list will be returned.
         '''
         matches = [comp for comp in self._result['address_components'] if component_name in comp['types']]
         if allow_multiple:
@@ -201,7 +247,7 @@ class GGResult(object):
             if len(matches) == 1:
                 return matches[0]['short_name']
             elif len(matches) == 0:
-                raise KeyError(component_name)
+                return default
             elif len(matches) > 1:
                 raise KeyError("%s is not a unique component" % component_name)
 
@@ -210,6 +256,108 @@ class GGResult(object):
         Returns true if the given notice type is present in the notices
         '''
         return notice_type in [n.notice_type for n in self.notices]
+
+    ### methods to return normalized Location components
+
+    # TODO: optmize a bit? doing a ton of repetitive linear searches inthe multiple get_address_components
+    def get_address(self,default=None):
+        '''
+        Returns the normalized "address" component for a Location representation
+        '''            
+        named_address_types = list(GG_PREMISE_TYPES)
+        named_address_types.remove('premise')   # we want to consider premises seperately from the rest of the named types
+        named_components = [ comp for comp in [ self.get_address_component(t) for t in named_address_types ] 
+                                if comp is not None ]
+        named_component = named_components[0] if len(named_components) > 0 else None
+        premise = self.get_address_component('premise',None)
+        subpremise = self.get_address_component('subpremise',None)
+        intersection = self.get_address_component('intersection',None)
+        street_number = self.get_address_component('street_number',None)
+        route = self.get_address_component('route',None)
+
+        # normalizing scheme:
+        # if a named component exists, printing it
+        # if a premise exists, print it next. if subpremise exists, print it too now
+        # if a route exists, print it
+        # otherwise if a route exists, print it (proceeded by the street number)
+        # finally, if the subpremise hasn't been printed yet, print it last
+        address = ''
+        if named_component is not None:
+            address += named_component + ', '
+        if premise is not None:
+            address += premise + \
+                        ((' #' + subpremise) if subpremise is not None else '') + \
+                        ','
+        if intersection is not None:
+            address += intersection
+        elif route is not None:
+            if street_number is not None:
+                address += street_number + ' '
+            address += route
+        
+        if premise is None:
+            if subpremise is not None:
+                address += ' #' + subpremise
+
+        return address.rstrip(', ')
+
+    def get_postalcode(self,default=None):
+        '''
+        Returns the postal code component for a Location representation
+        '''
+        return self.get_address_component('postal_code',default)
+
+    # TODO
+    def get_neighborhood(self,default=None):
+        '''
+        Returns a string representation of the neighborhood for a Location 
+        representation
+        '''
+        raise NotImplementedError
+
+    def get_town(self,default=None):
+        '''
+        Returns the town component for a Location representation
+        '''
+        return self.get_address_component('locality',default)
+
+    def get_state(self,default=None):
+        '''
+        Returns the state component for a Location representation
+        '''
+        return self.get_address_component('administrative_area_level_1',default)
+        
+    def get_country(self,default=None):
+        '''
+        Returns the country component for a Location representation
+        '''
+        return self.get_address_component('country',default)
+
+    def get_geocoding(self,default=None):
+        '''
+        Returns the longitude and latitude components as a 2-tuple for a 
+        Location representation.
+
+        Returns (None,None) if geocoding result is not available.
+        '''
+        try:
+            geocoding = self._result['geometry']['location']
+        except KeyError:
+            return None
+        return (geocoding['lat'],geocoding['lng'])
+    
+    # TODO: add neighborhood
+    def to_location(self):
+        geocode = self.get_geocoding()
+        return Location(
+            address = self.get_address(),
+            postcode = self.get_postalcode(),
+            town = self.get_town(),
+            state = self.get_state(),
+            country = self.get_country(),
+            latitude = geocode[0],
+            longitude = geocode[1]
+            )
 
 # maybe useful for refactoring
 #class APIResultInfo(object):
@@ -232,11 +380,56 @@ class GGResult(object):
     #     '''
     #     if len(notice_types) == 0:
     #         raise Exception('No notices to save')
+
+class LocationValidator(object):
+    SUPPORTED_APIS = ('GG',)
+    def __init__(self,api):
+        if api == 'GG':
+            self.api_agent = GGAgent()
+        else:
+            raise Exception('Given api is not in the supported list.')
+
+    def resolve_full(self,seed_location):
+        '''
+        Returns a Location with as many fields filled in as possible using 
+        the input Location as a seed.
+        '''
+        
+        result = self.api_agent.run_location_query(seed_location).best_result()
+        if result is None:
+            return None
+        # TODO: decide how to process notices. probably not fail on non concrete for resolve?
+        # TODO: also consider creating new notices here
+        if result.contains_notice('NonConcreteAddress'):
+            raise LocationValidationError('Non-concrete address generated from seed %s' % unicode(seed_location))
+        return result.to_location()
+    
+    def normalize_address(self,seed):
+        '''
+        Returns a string that normalizes the given seed address.
+
+        seed can be either:
+        - a text address (with at least street info)
+        - a Location object. If a Location is provided, the query will be 
+            biased using the other available information.
+            '''
+        if isinstance(seed,Location):
+            response = self.api_agent.run_location_query(seed)
+        else:
+            response = self.api_agent.run_text_query(seed)
+        result = response.best_result()
+        # TODO: decide how to process notices
+        # TODO: also consider creating new notices here
+
+        if result.contains_notice('NonConcreteAddress'):
+            raise LocationValidationError('Non-concrete address generated from seed %s' % unicode(seed))
+        return result.get_address()
         
 
-
-
 class APIFailureError(Exception):
+    pass
+
+class LocationValidationError(Exception):
     pass
 
 # probably move this into models or some other class

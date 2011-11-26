@@ -3,7 +3,7 @@ from django.test import TestCase
 from django.core.exceptions import ValidationError
 
 from places.models import Location, Place, LocationLookupNotice
-from places.external import GGAgent, GGResponse, APIFailureError
+from places.external import GGAgent, GGResponse, APIFailureError, LocationValidator, LocationValidationError
 
 SAMPLE_JSON_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)),
                                 'test_json')
@@ -94,7 +94,7 @@ class GoogleGeocodingTest(TestCase):
     def _quickrun(self,address):
         '''shortcut to return the best result for the given address query'''
         time.sleep(.2)      # ironically, we sleep for a bit in quickrun. don't want to go over API limit
-        return self.api.run_query(address).best_result()
+        return self.api.run_text_query(address).best_result()
 
     def _read_test_json(self,fn):
         with open(os.path.join(SAMPLE_JSON_DIR,fn)) as fp:
@@ -103,15 +103,15 @@ class GoogleGeocodingTest(TestCase):
     def test_query_options(self):
         '''Tests all API request options behave as expected (no sensor test currently)'''
         # test bounding box search: adapted from http://code.google.com/apis/maps/documentation/geocoding/#Viewports
-        result_nobounds = self.api.run_query('Winnetka',bounds=None).best_result()
+        result_nobounds = self.api.run_text_query('Winnetka',bounds=None).best_result()
         self.assertEquals(result_nobounds.get_address_component('administrative_area_level_1'),'IL')
-        result_bounds = self.api.run_query('Winnetka',bounds=((34.17,-118.60),(34.23,-118.50))).best_result()
+        result_bounds = self.api.run_text_query('Winnetka',bounds=((34.17,-118.60),(34.23,-118.50))).best_result()
         self.assertEquals(result_bounds.get_address_component('administrative_area_level_1'),'CA')
 
         # test region search: adapted from http://code.google.com/apis/maps/documentation/geocoding/#RegionCodes
-        result_us = self.api.run_query('Toledo',region='us').best_result()
+        result_us = self.api.run_text_query('Toledo',region='us').best_result()
         self.assertEquals(result_us.get_address_component('country'),'US')
-        result_es = self.api.run_query('Toledo',region='es').best_result()
+        result_es = self.api.run_text_query('Toledo',region='es').best_result()
         self.assertEquals(result_es.get_address_component('country'),'ES')
     
     def test_preprocessing(self):
@@ -138,6 +138,11 @@ class GoogleGeocodingTest(TestCase):
         # ensure exception is thrown if multiple results aren't asked for
         with self.assertRaises(KeyError):
             result.get_address_component('political')
+        # ensure empty list is returned works for unavaible key whene allow_multiple=True
+        self.assertEquals(len(result.get_address_component('route',allow_multiple=True)),0)
+        # ensure default argument works for unavaible key
+        self.assertEquals(result.get_address_component('route'),None)
+        self.assertEquals(result.get_address_component('route',default='boo boo kitty'),'boo boo kitty')
 
     def test_api_response_content(self):
         '''runs a battery of API calls against the actual live service'''
@@ -191,20 +196,46 @@ class GoogleGeocodingTest(TestCase):
         # test 'floor' results aren't returned
         result = self._quickrun('249 N Craig St (Floor 2), Pittsburgh, PA')
         self.assertNotIn('floor',result['types'])
-        with self.assertRaises(KeyError):
-            result.get_address_component('floor')
+        self.assertIsNone(result.get_address_component('floor'))
 
         # test 'room' results aren't returned
         result = self._quickrun('Posvar Hall, Room 1501')
         self.assertNotIn('room',result['types'])
-        with self.assertRaises(KeyError):
-            result.get_address_component('room')
+        self.assertIsNone(result.get_address_component('room'))
 
         # test 'post_box' results aren't returned
         result = self._quickrun('P.O. Box 5452, Pittsburgh, PA 15206')
         self.assertNotIn('post_box',result['types'])
-        with self.assertRaises(KeyError):
-            result.get_address_component('post_box')
+        self.assertIsNone(result.get_address_component('post_box'))
+
+    def test_normalized_address_construction(self):
+        '''tests that addresses are correctly normalized'''
+        # read in some sample JSON and test what get_address spits out
+        json_address_pairs = (
+            ('1555-coraopolis-heights-rd-ste-4200.json','1555 Coraopolis Heights Rd #4200'),
+            ('cathedral.json',                          'Cathedral of Learning'),
+            ('pittsburgh-zoo.json',                     'Pittsburgh Zoo and PPG Aquarium, 7340 Butler St'),
+            ('forbes-halket-intersection.json',         'Forbes Ave & Halket St'),
+            ('north-oakland.json',                      '')
+        )
+
+        for fn,expected_addr in json_address_pairs:
+            response = GGResponse(self._read_test_json(fn),LocationLookupNotice())
+            address = response.best_result().get_address()
+            self.assertEquals(address,expected_addr,
+                                msg="Expected address '%s', got '%s', from sample JSON '%s'" % ( expected_addr, address, fn ) )
+
+    def test_location_construction(self):
+        '''tests that Location objects are correclty generated'''
+        response = GGResponse(self._read_test_json('1555-coraopolis-heights-rd-ste-4200.json'),LocationLookupNotice())
+        location = response.best_result().to_location()
+        self.assertEquals(location.address,'1555 Coraopolis Heights Rd #4200')
+        self.assertEquals(location.postcode,'15108')
+        self.assertEquals(location.town,'Coraopolis')
+        self.assertEquals(location.state,'PA')
+        self.assertEquals(location.country,'US')
+        self.assertAlmostEquals(location.latitude,40.5005190,6)
+        self.assertAlmostEquals(location.longitude,-80.2050830,6)
 
     def test_notice_generation(self):
         '''ensure the correct API response notices get generated'''
@@ -249,21 +280,83 @@ class GoogleGeocodingTest(TestCase):
         '''ensure geocoding wrapper gracefully handles zero results returned'''
         response = GGResponse(self._read_test_json('zero-results.json'))
         self.assertEquals(len(response.results),0)
+        self.assertIsNone(response.best_result(),None)
+
+class LocationValidatorTest(TestCase):
+    def test_normalization_results(self):
+        '''tests for expected output from normalization calls'''
+        # mostly just a random assortment of tests with known answers. more detailed
+        # tests in GoogleGeocodingTest.test_normalized_address_construction
+        in_out_pairs = (
+            # bare address examples
+            ('201 south bouquet st','201 S Bouquet St'),
+            ('6351 walnut street apt. 5','6351 Walnut St #5'),
+            ('one schenley drive','1 Schenley Dr'),
+            # various examples using Location objects as seed
+            (Location(address='negley & stanton ave',town='Pittsburgh',state='PA'),'Stanton Ave & N Negley Ave'),
+            (Location(address='425 N. Craig Street, Ste. 100',town='Pittsburgh',state='PA'),'425 N Craig St #100'),
+            (Location(address='Great Salt',state='UT'), 'Great Salt Lake'),
+            (Location(address='Children\'s Hospital',town='Pittsburgh',state='PA'), 'Children\'s Hospital of Pittsburgh of UPMC, 4401 Penn Ave'),
+        )
+
+        apis = ['GG']
+        for api in apis:
+            validator = LocationValidator(api)
+            for seed,expected in in_out_pairs:
+                time.sleep(.2)
+                msg = 'normalized(%s) != %s' % (unicode(seed),expected)
+                self.assertEquals(validator.normalize_address(seed),expected,msg=msg)
+            time.sleep(.2)
+            # finally, assert that a validation error is thrown if there is no address
+            with self.assertRaises(LocationValidationError):
+                validator.normalize_address(Location(town='Pittsburgh',state='PA'))
+
+    # TODO
+    #def test_normalization_notices(self):
+
+    def test_resolve_results(self):
+        '''tests for expected output from resolve calls'''
+        if len(LocationValidator.SUPPORTED_APIS) > 1:
+            self.fail('no resolve tests provided for non-Google APIs')
+        validator = LocationValidator('GG')
+        
+        # test basic address lookup -- ensure zip and geocoding info is filled in
+        # https://maps.googleapis.com/maps/api/geocode/json?address=3411+Blvd+of+the+Allies&region=US&sensor=false
+        time.sleep(.2)
+        resolved = validator.resolve_full(Location(address='3411 Blvd of the Allies'))
+        self.assertEquals(resolved.address,'3411 Boulevard of the Allies')
+        self.assertEquals(resolved.postcode,'15213')
+        self.assertEquals(resolved.town,'Pittsburgh')
+        self.assertEquals(resolved.state,'PA')
+        self.assertEquals(resolved.country,'US')
+        self.assertAlmostEquals(resolved.latitude,40.435938,3)   # assert equals up to 2 places
+        self.assertAlmostEquals(resolved.longitude,-79.958309,3)
+
+        # test zip codes properly bias searches -- if these fail, make sure the geocoding info
+        # at the following links matches the expected values below:
+        # https://maps.googleapis.com/maps/api/geocode/json?address=800+penn+ave%2C+15222&region=US&sensor=false
+        # https://maps.googleapis.com/maps/api/geocode/json?address=800+penn+ave%2C+15221&region=US&sensor=false
+        time.sleep(.2)
+        resolved = validator.resolve_full(Location(address='800 penn ave',postcode='15222'))
+        self.assertAlmostEquals(resolved.latitude,40.443290,places=4)   # assert equals up to 2 places
+        self.assertAlmostEquals(resolved.longitude,-79.999092,places=2)
+        time.sleep(.2)
+        resolved = validator.resolve_full(Location(address='800 penn ave',postcode='15221'))
+        self.assertAlmostEquals(resolved.latitude,40.442470,4)   # assert equals up to 2 places
+        self.assertAlmostEquals(resolved.longitude,-79.881871,2)        
+
+        # tests that geocoding info properly biases searches
+        # expected results are based on the following geocoding API calls:
+        # http://maps.googleapis.com/maps/api/geocode/json?region=US&sensor=false&bounds=40.438000%2C-80.005000%7C40.448000%2C-79.995000&address=800+penn+ave
+        # http://maps.googleapis.com/maps/api/geocode/json?region=US&sensor=false&bounds=40.437000%2C-79.905000%7C40.447000%2C-79.895000&address=800+penn+ave
+        time.sleep(.2)
+        resolved = validator.resolve_full(Location(address='800 penn ave',latitude=40.443,longitude=-80))
+        self.assertEquals(resolved.postcode,'15222')
+        time.sleep(.2)
+        resolved = validator.resolve_full(Location(address='800 penn ave',latitude=40.442,longitude=-79.9))
+        self.assertEquals(resolved.postcode,'15221')
+
+    # TODO
+    #def test_resolve_notices(self):
 
 
-# these belong elsewhere -- not testing basic Location assertions
-    # def test_address_normalization(self):
-    #     '''
-    #     Ensures all street addresses saved in the DB are normalized.
-    #     '''
-    #     # Try to save a non-normalized address and see if it gets normalized
-    #     # include interesting cases like apartment numbers
-    #     self.fail()
-
-    # def test_missing_field_completion(self):
-    #     '''
-    #     Various tests to ensure missing fields are filled if enough
-    #     information is given.
-    #     '''
-    #     # do a bunch of tests here with some fairly easy pieces of information
-    #     self.fail()
