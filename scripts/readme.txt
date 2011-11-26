@@ -1,4 +1,6 @@
-things hacked through:
+To clear data from all tabels before importing (must be in project root dir):
+./scripts/clear_data.sh
 
-- creating identity before organization kind of sucks
-- entries that don't get resolved to a mappable address get saved in errors.csv
+To import data:
+./manage.py runscript import_all
+
