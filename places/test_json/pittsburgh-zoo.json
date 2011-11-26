@@ -1,0 +1,78 @@
+{
+   "results" : [
+      {
+         "address_components" : [
+            {
+               "long_name" : "Pittsburgh Zoo and PPG Aquarium",
+               "short_name" : "Pittsburgh Zoo and PPG Aquarium",
+               "types" : [ "establishment" ]
+            },
+            {
+               "long_name" : "7340",
+               "short_name" : "7340",
+               "types" : [ "street_number" ]
+            },
+            {
+               "long_name" : "Butler St",
+               "short_name" : "Butler St",
+               "types" : [ "route" ]
+            },
+            {
+               "long_name" : "Pittsburgh",
+               "short_name" : "Pittsburgh",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Allegheny",
+               "short_name" : "Allegheny",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Pennsylvania",
+               "short_name" : "PA",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "United States",
+               "short_name" : "US",
+               "types" : [ "country", "political" ]
+            },
+            {
+               "long_name" : "15206",
+               "short_name" : "15206",
+               "types" : [ "postal_code" ]
+            }
+         ],
+         "formatted_address" : "Pittsburgh Zoo and PPG Aquarium, 7340 Butler St, Pittsburgh, PA 15206, USA",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 40.48769590,
+                  "lng" : -79.91243790
+               },
+               "southwest" : {
+                  "lat" : 40.47849780,
+                  "lng" : -79.92645430
+               }
+            },
+            "location" : {
+               "lat" : 40.48309680,
+               "lng" : -79.91944610
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 40.4915830,
+                  "lng" : -79.90343870
+               },
+               "southwest" : {
+                  "lat" : 40.47460950,
+                  "lng" : -79.93545350000001
+               }
+            }
+         },
+         "types" : [ "establishment" ]
+      }
+   ],
+   "status" : "OK"
+}

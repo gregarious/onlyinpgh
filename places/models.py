@@ -2,7 +2,8 @@ from django.db import models
 from django.core.validators import MinValueValidator, MaxValueValidator, MinLengthValidator
 from django.core.exceptions import ValidationError
 
-
+from onlyinpgh.tagging.models import Tag
+from onlyinpgh.identity.models import Organization
 
 # TODO: largely a placeholder, flesh out more later
 class Neighborhood(models.Model):
@@ -96,6 +97,28 @@ class Place(models.Model):
     url = models.URLField(max_length=400,blank=True)
     location = models.ForeignKey(Location,blank=True,null=True)
 
+    tags = models.ManyToManyField(Tag,blank=True,null=True)
+
+    @models.permalink
+    def get_absolute_url(self):
+        return ('people.views.details', [str(self.id)])
+
+    def __unicode__(self):
+        return self.name
+
+# TODO: revisit model inheritance here. maybe do some contenttypes fun.
+#       do some performance testing if we go with this
+class Establishment(Place):
+    '''
+    Handles information about places.
+    '''
+    owner = models.ForeignKey(Organization)
+
+    phone_number = models.CharField(max_length=20,blank=True)
+    
+    # probably beef this hours representation up. text ok for now.
+    hours = models.TextField(blank=True)
+
     def __unicode__(self):
         return self.name
 
@@ -127,6 +150,7 @@ class LocationLookupNotice(models.Model):
     '''
     Records information about a questionable lookup result from an external API
     '''
+    # this should be in sync with external.API_NOTICE_TYPES 
     NOTICE_TYPES = (
         ('PartialMatch',            'Partial Match'),
         ('MultipleResults',         'Multiple Results Returned'),
