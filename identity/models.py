@@ -10,7 +10,7 @@ class Identity(models.Model):
     account = models.ManyToManyField(User,null=True,blank=True)
     avatar = models.URLField(blank=True)
 
-    display_name = models.CharField(max_length=30)
+    display_name = models.CharField(max_length=50)
     
     def __unicode__(self):
         return self.display_name
