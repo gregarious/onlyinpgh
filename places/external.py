@@ -2,7 +2,7 @@ import urllib, re, json
 from datetime import datetime
 from copy import deepcopy
 
-from places.models import Location, LocationLookupNotice
+from onlyinpgh.places.models import Location, LocationLookupNotice
 
 API_NOTICE_TYPES = ('PartialMatch','MultipleResults','NoStreetAddress',
                     'NonConcreteAddress','PreprocessingOccurred','LookupFailure')

@@ -1,5 +1,5 @@
 from django.contrib import admin
-from offers.models import Offer
+from onlyinpgh.offers.models import Offer
 
 class OfferAdmin(admin.ModelAdmin):
     filter_horizontal = ('tags',)

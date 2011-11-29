@@ -1,5 +1,5 @@
 from django.contrib import admin
-from events.models import Event, Role, Attendee
+from onlyinpgh.events.models import Event, Role, Attendee
 
 class RoleInline(admin.TabularInline):
     model = Role

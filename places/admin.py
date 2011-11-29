@@ -1,5 +1,5 @@
 from django.contrib import admin
-from places.models import Place,Location,Establishment
+from onlyinpgh.places.models import Place,Location,Establishment
 
 
 class PlaceAdmin(admin.ModelAdmin):
