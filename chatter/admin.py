@@ -1,5 +1,5 @@
 from django.contrib import admin
-from chatter.models import Post, Comment
+from onlyinpgh.chatter.models import Post, Comment
 
 class CommentInline(admin.StackedInline):
     model = Comment
