@@ -1,5 +1,5 @@
 from django.shortcuts import render_to_response
-from places.models import Establishment
+from onlyinpgh.places.models import Establishment
 
 def demo_establishments(request):
     subset_names = [

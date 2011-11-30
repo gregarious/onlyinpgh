@@ -1,5 +1,5 @@
 from django.shortcuts import render_to_response
-from offers.models import Offer
+from onlyinpgh.offers.models import Offer
 
 def demo_offers(request):
     variables = { 'offers': Offer.objects.all() }
