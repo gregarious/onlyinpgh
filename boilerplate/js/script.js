@@ -161,7 +161,7 @@ $(document).ready(function(){
 function initializeMap() {	
 		
 	// Your location will be the center of the map	
-	var youLoc = new google.maps.LatLng(40.43616876605956, -79.99231338500977);
+	var youLoc = new google.maps.LatLng(40.44201350, -79.96255210);
 
 	var mapOptions = {
 		zoom: 14,
