@@ -245,7 +245,6 @@ body {
   height: 100%;
   width: 100%;
   background-image: url('img/ui-bg_diagonals-medium_85_f7f7ba_40x40.png');
-  background: url("img/skyline.png") repeat-x bottom;
 }
 
 h1 {
@@ -268,7 +267,7 @@ h4, h5 {
 }
 
 .container {
-  height: 75%;
+  height: 90%;
 }
 
 .wrap {
@@ -280,22 +279,25 @@ h4, h5 {
   padding: 1% 0;
   width: 100%;
 }
-
+ 
 .scene-page-footer {
-  height: 6%;
-  
+  height: 15em;
+  background: url("img/skyline.png") repeat-x top;
+  position: relative;
+  bottom: 30%;
+  z-index: 999;
+
   .credits {
+    top: 70%;
     color: #aaa;
     float: left;  
     position: relative;
-    top: 53%;
     left: 1%;
   }
 
   .logo {
     float: right;
     position: relative;
-    bottom: 5em;
   }
 
 }
@@ -304,8 +306,6 @@ h4, h5 {
   width: 50%;
   height: 100%;
   float: left;
-  padding: 1%;
-  border: 0.5em dashed #999;
   position: relative;
 }
 
