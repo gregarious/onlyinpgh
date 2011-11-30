@@ -1,0 +1,12 @@
+{% comment %}
+template to be included inside the #places div
+{% endcomment %}
+
+{% for o in offers %}
+    <img src="{{ o.sponsor.identity.avatar }}" />
+    <p>{{ o.description }}</p>
+    <p><i>+ {{ o.point_value }}</i></p>
+    {% if not forloop.last %}
+        <hr>
+    {% endif %}
+{% endfor %}

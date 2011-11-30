@@ -1,0 +1,12 @@
+{% comment %}
+template to be included inside the #places div
+{% endcomment %}
+
+{% for a in articles %}
+    <h3>{{ a.title }}</h3>
+    <h4>from <a href="{{ a.source_url }}">{{ a.source_name }}</a></h4>
+    <p>{{ a.short_description }}</p>
+    {% if not forloop.last %}
+        <hr>
+    {% endif %}
+{% endfor %}
