@@ -2,8 +2,8 @@ import os, json, time
 from django.test import TestCase
 from django.core.exceptions import ValidationError
 
-from places.models import Location, Place, LocationLookupNotice
-from places.external import GGAgent, GGResponse, APIFailureError, LocationValidator, LocationValidationError
+from onlyinpgh.places.models import Location, Place, LocationLookupNotice
+from onlyinpgh.places.external import GGAgent, GGResponse, APIFailureError, LocationValidator, LocationValidationError
 
 SAMPLE_JSON_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)),
                                 'test_json')

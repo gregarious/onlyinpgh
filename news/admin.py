@@ -1,5 +1,5 @@
 from django.contrib import admin
-from news.models import Article
+from onlyinpgh.news.models import Article
 
 class ArticleAdmin(admin.ModelAdmin):
     filter_horizontal = ('tags',)

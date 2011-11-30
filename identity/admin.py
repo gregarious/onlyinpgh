@@ -1,5 +1,5 @@
 from django.contrib import admin
-from identity.models import Identity, Individual, Organization
+from onlyinpgh.identity.models import Identity, Individual, Organization
 
 admin.site.register(Identity)
 admin.site.register(Individual)
