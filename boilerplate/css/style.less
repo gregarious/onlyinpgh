@@ -249,10 +249,11 @@ body {
 
 h1 {
   margin: 0;
-  float: left;
+  
   letter-spacing: 1px;
-  font-family: 'FrancoisOneRegular', Impact, Sans-serif;
-  font-size: 5em;
+  text-align: center;
+  font-family: 'PT Serif Caption', Impact, Sans-serif;
+  font-size: 6em;
   text-shadow: 2px 2px 2px #aaa;
 }
 
@@ -266,25 +267,34 @@ h4, h5 {
   text-decoration: underline;
 }
 
+.main {
+  height: 100%;
+  background-color: green;
+}
+
 .container {
-  height: 90%;
+  height: 100%;
+  width: 100%;
 }
 
 .wrap {
   width: 200%;
+  height: 100%;
 }
 
 .scene-page-header {
-  height: 10%;
   padding: 1% 0;
-  width: 100%;
+  .secondary-head {
+    font-family: 'FrancoisOneRegular', Impact, Sans-serif;
+    font-size: 0.7em;
+  }
 }
  
 .scene-page-footer {
   height: 15em;
-  background: url("img/skyline.png") repeat-x top;
+  background: url("/static/img/skyline.png") repeat-x top;
   position: relative;
-  bottom: 30%;
+  bottom: 25%;
   z-index: 999;
 
   .credits {
@@ -298,6 +308,9 @@ h4, h5 {
   .logo {
     float: right;
     position: relative;
+    -moz-box-shadow: 1px 1px 2px #444;
+    -webkit-box-shadow: 1px 1px 2px #444;
+    box-shadow: 1px 1px 2px #999;
   }
 
 }
@@ -351,33 +364,53 @@ h4, h5 {
 
 // This could be done more efficiently?
 
-.main-panel-head {
-  background-color: #E1E463;
-  padding: 1%;
-  cursor: pointer;
-}
-
 .hide-show {
   float: left;
   position: relative;
   top: 2%;
-  height: 10%;
-  width: 3%;
+  height: 43px;
+  width: 35px;
   cursor: pointer;
-
-  &:hover {
-    background-color: #aaa;
-  }
-
-  &:active {
-    background-color: #ccc;
-  }
-
+  background-color: #fff;
+  z-index: 0;
 }
 
-#map_canvas {
-  float: left;
-  width: 100%;
+.arrow-collapse {
+    margin: auto;
+    width: 20px;
+    height: 40px;
+
+    &.left {
+      background: #fff url('/static/img/arrow-sprite.png') no-repeat 0 4px;
+      
+      &:hover {
+        background-position: -20px 4px;
+      }
+      
+      &:active {
+        background-position: -40px 4px;
+      }
+  }
+
+  &.right {
+
+    background: #fff url('/static/img/arrow-sprite.png') no-repeat -60px 4px;
+
+    &:hover {
+      background-position: -80px 4px;
+    }
+
+    &:active {
+      background-position: -100px 4px;
+    }
+  }
+}
+
+.arrow-collapse.right {
+    margin: auto;
+    width: 20px;
+    height: 40px;
+   
 }
 
 .mapnat {
@@ -392,11 +425,24 @@ h4, h5 {
   }*/
 
   .map-container {
-    width: 60%;
+    width: 59%;
     height: 100%;
     float: left;
+    position: relative;
+    z-index: 1;
+    padding: 0.5%;
+    background-color: #fff;
+    -moz-box-shadow: 1px 1px 2px #444;
+    -webkit-box-shadow: 1px 1px 2px #444;
+    box-shadow: 1px 1px 2px #444;
   }
 
+  #map_canvas {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    z-index: 2;
+  }
   .nat-container {
     width: 35%;
     height: 100%;

@@ -20,6 +20,7 @@ $(document).ready(function(){
 	}
 
 
+	initializeMap();
 	
 	// **** Lara's **** //	
 			
@@ -67,11 +68,15 @@ $(document).ready(function(){
 		$('.nat-container').animate({ width:($('.nat-container').width()*2.7) }, 500);
 		$('.sidebar-tabs').addClass('expanded');
 		$('.sidebar-tabs').removeClass('collapsed');
+		$('.arrow-collapse').removeClass('left');
+		$('.arrow-collapse').addClass('right');
 	}, function() {
 		$('.nat-container').animate({width:($('.nat-container').width()/3.5)}, { duration: 500 });
 		$('.map-container').animate({ width:($('.nat-container').width()/1.4) },500);
 		$('.sidebar-tabs').removeClass('expanded');
 		$('.sidebar-tabs').addClass('collapsed');
+		$('.arrow-collapse').removeClass('right');
+		$('.arrow-collapse').addClass('left');
 	});
 	
 	/*$('.hide-show#chatterbox').click(function() {
@@ -148,3 +153,30 @@ $(document).ready(function(){
 	);*/
 	
 });
+
+/////////
+// MAP //
+/////////
+
+function initializeMap() {	
+		
+	// Your location will be the center of the map	
+	var youLoc = new google.maps.LatLng(40.43616876605956, -79.99231338500977);
+
+	var mapOptions = {
+		zoom: 14,
+		mapTypeId: google.maps.MapTypeId.ROADMAP,
+		center: youLoc
+	};
+
+	// Create the map
+	map = new google.maps.Map(document.getElementById("map_canvas"),
+	   mapOptions);
+
+	// Add a dummy 'Your location' maker
+    var youMarker = new google.maps.Marker({
+        position: youLoc,
+        map: map,
+    });
+	
+} // initializeMap
