@@ -6,6 +6,9 @@ from onlyinpgh.identity.models import Identity
 
 # Create your models here.
 class Event(models.Model):
+    class Meta:
+        ordering = ['name']
+
     name = models.CharField(max_length=200)
     description = models.TextField()
 

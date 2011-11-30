@@ -4,6 +4,8 @@ from django.contrib.auth.models import User
 class Identity(models.Model):
     class Meta:
         verbose_name_plural = 'identities'
+        ordering = ['display_name']
+        
     dt_created = models.DateTimeField(auto_now_add=True)
 
     # account is not required to have an identity on the site
