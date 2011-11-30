@@ -1,10 +1,10 @@
-import settings_local
 # Django settings for onlyinpgh project.
 
-# many settings are left with default values and assumed to be overridden
-# when settings_local is imported below
+# import settings that differ based on deployment
+import settings_local
 
 def to_abspath(path):
+    '''prepends ROOT_DIR setting from settings_local to the given path'''
     return settings_local.ROOT_DIR + '/' + path
 
 DEBUG = settings_local.DEBUG
