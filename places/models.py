@@ -17,6 +17,9 @@ class Location(models.Model):
     Handles specific information about where a physical place is located. Should
     rarely be exposed without a Place wrapping it on the front end.
     '''
+    class Meta:
+        ordering = ['address','latitude']
+
     # TODO: probably take out defaults for town and state, definitely country
     # 2-char country code (see http://en.wikipedia.org/wiki/ISO_3166-1)
     country = models.CharField(max_length=2,blank=True,
@@ -93,6 +96,7 @@ class Place(models.Model):
     '''
     class Meta:
         unique_together = ('name','location')
+        ordering = ['name']
 
     dtcreated = models.DateTimeField('dt created',auto_now_add=True)
     
