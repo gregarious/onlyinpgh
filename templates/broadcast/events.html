@@ -1,0 +1,12 @@
+{% comment %}
+template to be included inside the #places div
+{% endcomment %}
+
+{% for e in events %}
+    <img src="{{ e.image_url }}" />
+    <h3>{{ e.name }}</h3>
+    <p>{{ e.place.location.address }}</p>
+    {% if not forloop.last %}
+        <hr>
+    {% endif %}
+{% endfor %}
