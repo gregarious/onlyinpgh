@@ -269,7 +269,6 @@ h4, h5 {
 
 .main {
   height: 100%;
-  background-color: green;
 }
 
 .container {
@@ -373,6 +372,9 @@ h4, h5 {
   cursor: pointer;
   background-color: #fff;
   z-index: 0;
+  -moz-box-shadow: 1px 1px 2px #444;
+  -webkit-box-shadow: 1px 1px 2px #444;
+  box-shadow: 1px 1px 2px #444;
 }
 
 .arrow-collapse {
@@ -425,7 +427,7 @@ h4, h5 {
   }*/
 
   .map-container {
-    width: 59%;
+    width: 500px;
     height: 100%;
     float: left;
     position: relative;
@@ -444,7 +446,7 @@ h4, h5 {
     z-index: 2;
   }
   .nat-container {
-    width: 35%;
+    width: 350px;
     height: 100%;
     float: right;
   }
@@ -466,6 +468,12 @@ h4, h5 {
 }
 
 .sidebar-tabs {
+
+    background-color: #fff;
+    -moz-box-shadow: 1px 1px 2px #444;
+    -webkit-box-shadow: 1px 1px 2px #444;
+    box-shadow: 1px 1px 2px #444;
+
   &.expanded {
 
     article {
@@ -497,34 +505,6 @@ h4, h5 {
   }
 
 }
-
-    
-
-
-/*.user-stats {
-  aside {
-    margin-bottom: 3%;
-  }
-}
-
-.level {
-  width: 65%;
-  float: left;
-}
-
-.level-name {
-  text-align: center;
-  font-size: 3em;
-}
-
-.ahrs {
-  width: 30%;
-  padding-left: 2%;
-  float: left;
-  ul {
-    padding-left: 10%;
-  }
-}*/
 
 .more-info-link {
   cursor: pointer;
