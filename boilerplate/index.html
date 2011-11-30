@@ -75,19 +75,37 @@ License: http://creativecommons.org/licenses/MIT
 	<link rel="canonical" href="/">
 </head>
 
-<body class="clearfix ">
-	<nav class="top-nav row">
-		<div class="user-stats">
-			<span class="expand-stats ui-icon ui-icon-triangle-1-s" id="showUserStats"></span>
+<body class="clearfix">
+
+	<nav class="top-nav">
+		<div class="user-stats fourcol">
+			<span class="ui-icon ui-icon-triangle-1-s" id="showUserStats"></span>
 			<span class="username">&nbsp; laras126 &rarr;</span>
 			<span class="hrs available">&nbsp;20</span> • <span class="ahrs lifetime">60</span> <span class="more-info-link">(Perogie)</span>
-		</div>
+
+			<section class="additional-info drop-down threecol last" id="dropDown" style="float: right">
+				<div>
+					<figure class="progressbar row"></figure>
+					<figcaption class="row">
+						<span class="begin-level points">50</span>
+						<span class="end-level points">75</span>
+					</figcaption>
+					<ul>
+						<li>25 checkins in past month</li>
+						<li></li>
+						<li></li>
+					</ul>
+				</div>
+			</section> <!-- .additional-info-dropdown -->
+		</div> <!-- .user-stats -->
+
 	</nav>
+
+	
+	
 	<header class="scene-page-header clearfix row">
 		
-
-		
-		<h1 class="row">Oakland Scene</h1>
+		<h1>Oakland Scene</h1>
 
 		<!--<button class="expand-option filter">Filter scene by tag</button>
 		
@@ -103,26 +121,11 @@ License: http://creativecommons.org/licenses/MIT
 			Scene stats template
 		</section> --><!-- .scene-stats -->
 
-		<section class="user-stats expanded row">
-			<div>
-				<figure class="progressbar row"></figure>
-				<figcaption class="row">
-					<span class="begin-level points">50</span>
-					<span class="end-level points">75</span>
-				</figcaption>
-				<ul>
-					<li>25 checkins in past month</li>
-					<li></li>
-					<li></li>
-				</ul>
-			</div>
-		</section> <!-- .user-stats -->
-
 	</header>
 
+<div class="row container">
 
-
-	<div class="wrap">
+	<div class="wrap clearfix">
 
 		<div class="content clearfix first">
 
@@ -212,10 +215,11 @@ License: http://creativecommons.org/licenses/MIT
 		</div>	<!-- .second -->
 
 	</div> <!-- .wrap -->
+	</div> <!-- .row -->
 
 
 
-	<footer class="clearfix row scene-page-footer">
+	<footer class="clearfix scene-page-footer">
 		<p class="credits">Created by Scenehound, sponsored by the Oakland Business District</p>
 		<img class="logo" src="img/obid-logo.jpg" />
 	</footer>
@@ -236,7 +240,7 @@ License: http://creativecommons.org/licenses/MIT
 			<li>150+: Fully Fleshed Yinzer</li>
 		</ul>
 	</article>
-
+	
 	<!-- Scripts -->
 	<!--<script src="js/libs/jquery-1.6.2.min.js"></script> commented out for development-->
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.0/jquery.js"></script> <!-- Unminified jQuery for development -->

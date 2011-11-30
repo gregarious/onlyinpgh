@@ -44,11 +44,11 @@ $(document).ready(function(){
 	});
 
 
-	$('.user-stats.expanded').hide();
-	$('#showUserStats, .user-stats.expanded').hover( function(){
-		$('.user-stats.expanded').fadeIn(350);
+	$('.additional-indo').hide();
+	$('#showUserStats').hover( function(){
+		$('.additional-info').fadeIn(350);
 	}, function(){
-		$('.user-stats.expanded').fadeOut(500);
+		$('.additional-info').fadeOut(500);
 	});
 	
 

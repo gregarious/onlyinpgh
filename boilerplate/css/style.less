@@ -253,13 +253,13 @@ h1 {
   float: left;
   letter-spacing: 1px;
   font-family: 'FrancoisOneRegular', Impact, Sans-serif;
-  font-size: 3.5em;
+  font-size: 5em;
   text-shadow: 2px 2px 2px #aaa;
 }
 
 h2 {
   margin: 0;
-  font-family: 'FrancoisOneRegular';
+  font-family: 'FrancoisOneRegular', Impact, Sans-serif;
 }
 
 h4, h5 {
@@ -267,9 +267,12 @@ h4, h5 {
   text-decoration: underline;
 }
 
+.container {
+  height: 75%;
+}
+
 .wrap {
   width: 200%;
-  height: 75%;
 }
 
 .scene-page-header {
@@ -304,12 +307,10 @@ h4, h5 {
 }
 
 .top-nav {
-  background-color: #fff000;
-  height: 2;
   padding: 0.5%;
-  float: right;
-  background-color: #ccc;
-
+  width: 100%;
+  height: 2%;
+  background-color: @yellow;
   -moz-box-shadow: 1px 1px 2px #444;
   -webkit-box-shadow: 1px 1px 2px #444;
   box-shadow: 1px 1px 2px #444;
@@ -321,36 +322,32 @@ h4, h5 {
       float: left;
       cursor: pointer;
     }
+  }
+}
 
-    .progressbar {
-        height: 1em;
+.additional-info {
+  display: none;
+  position: absolute;
+  z-index: 999;
+  background-color: #ccc;
+
+  .progressbar {
+    height: 1em;
+  }
+
+  figcaption {
+    .end-level {
+      float: right;
     }
-
-    figcaption {
-      .end-level {
-        float: right;
-      }
-      .begin-level {
-        float: left;
-      }
+    .begin-level {
+      float: left;
     }
-
-    // This could be done more efficiently
-    &.expanded {
-      position: absolute;
-      z-index: 999;
-      width: 30em;
-      div {
-        width: 20%;
-        float: right;
-        background-color: #ccc;
-      }
-
-    }
-
   }
 
 }
+
+// This could be done more efficiently?
+
 .main-panel-head {
   background-color: #E1E463;
   padding: 1%;
@@ -499,9 +496,9 @@ h4, h5 {
 }*/
 
 .chatter-tabs {
-	ul {
-		border-bottom: 1px #aaa solid;
-	}
+  ul {
+    border-bottom: 1px #aaa solid;
+  }
 }
 
 
