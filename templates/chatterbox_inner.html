@@ -1,33 +1,28 @@
 {% comment %}
 template to be included inside a #chatter-tab-* div
 {% endcomment %}
-
+<ul class="chatterbox-posts">
 {% for post in posts %}
-    <div id="{{id_prefix}}post-{{forloop.counter}}">
+    <li class="ui-corner-all" id="{{id_prefix}}post-{{forloop.counter}}">
         <h3>{{ post.title }}</h3>
-        <p><img src="{{ post.author.avatar }}" width="30px" height="30px"> <small>{{ post.author.display_name }}</small></p>
+        <p><img src="{{ post.author.avatar }}" width="30px" height="30px"> 
+        <span class="meta">{{ post.author.display_name }}</span></p>
         {% if post.image_url %}
             <img src="{{ post.image_url }}">
         {% endif %}
         <p>{{ post.content }}</p>
-        <small>{{ post.dt|timesince }} ago</small>
+        <p class="meta">{{ post.dt|timesince }} ago</p>
         {% if post.comment_set.all %}
-            <div class="comments-container" style="margin-left:20px">
+            <ul class="comments" style="margin-left:20px">
             {% for comment in post.comment_set.all %}
-                <div class="comment">
+                <li class="comment ui-corner-all">
                     <p><img src="{{ comment.commenter.avatar }}" width="30px" height="30px"> <small>{{ comment.commenter.display_name }}</small></p>
                     <p>{{ comment.content }}</p>
-                    <small>{{ comment.dt|timesince }} ago</small>
-                </div>
-                {% if not forloop.last %}
-                    <hr>
-                {% endif %}
+                    <p class="meta">{{ comment.dt|timesince }} ago</p>
+                </li>
             {% endfor %}
-            </div>
+            </ul>
         {% endif %}
-
-    </div>
-    {% if not forloop.last %}
-        <hr>
-    {% endif %}
+    </li>
 {% endfor %}
+</ul>

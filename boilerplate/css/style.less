@@ -270,12 +270,12 @@ h3 {
 }
 
 h4, h5 {
-  margin: 0;
-  text-decoration: underline;
+  margin: 0 0 5px 0;
 }
 
 p {
   margin: 0;
+  font-size: 0.9em;
 }
 
 .main {
@@ -301,11 +301,9 @@ p {
 }
  
 .scene-page-footer {
-  height: 15em;
   //background: url("/static/img/skyline.png") repeat-x top;
-  position: relative;
-  bottom: 25%;
-  z-index: 999;
+  //position: relative;
+  //z-index: 999;
 
   .credits {
     top: 70%;
@@ -550,18 +548,42 @@ p {
 
 .chatter-tabs {
   ul {
-    border-bottom: 1px #aaa solid;
+
   }
+}
+
+.chatter-posts {
+  padding: 0;
+
+  .post-teaser {
+    list-style-type: none; 
+    .gradient(#fff,#f2f2f2);
+    margin: 10px;
+    padding: 10px;
+    border: 2px #999 solid;
+  }  
+}
+
+.chatterbox-posts {
+  padding: 0;
+  
+  li {
+    list-style-type: none; 
+    .gradient(#fff,#f2f2f2);
+    margin: 10px;
+    padding: 10px;
+    border: 2px #999 solid;
+  }
+}
+
+.meta {
+  font-size: 0.7em;
+  font-family: 'NobileRegular', Arial, Sans-serif; 
 }
 
 .chatter-feed {
   width: 20%;
   float: left;
-  background: #ffff11;
-
-  .chatterbox-posts {
-    width: 95%;
-  }
 }
 
 .expand-option {
