@@ -1,0 +1,16 @@
+{% comment %}
+template to be included inside a #chatter-posts ul
+{% endcomment %}
+
+{% for post in posts %}
+    <li class="post-teaser">
+        <h4>{{ post.title }}</h4>
+        <p>
+            <img src="{{ post.author.avatar }}" width="30px" height="30px">
+            <small>by {{ post.author.display_name }} {{ post.dt|timesince }} ago</small>
+        </p>
+    </li>
+    {% if not forloop.last %}
+        <hr>
+    {% endif %}
+{% endfor %}
