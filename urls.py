@@ -8,6 +8,7 @@ from onlyinpgh.places import views as places_views
 from onlyinpgh.events import views as events_views
 from onlyinpgh.offers import views as offers_views
 from onlyinpgh.news import views as news_views
+from onlyinpgh.chatter import views as chatter_views
 
 admin.autodiscover()
 
@@ -24,4 +25,9 @@ urlpatterns = patterns('',
     url(r'^ajax/events$', events_views.demo_events),
     url(r'^ajax/offers$', offers_views.demo_offers),
     url(r'^ajax/news$', news_views.demo_news),
+    url(r'^ajax/chatter/hot$', chatter_views.demo_posts_hot),
+    url(r'^ajax/chatter/new$', chatter_views.demo_posts_new),
+    url(r'^ajax/chatter/photos$', chatter_views.demo_posts_photos),
+    url(r'^ajax/chatter/conversations$', chatter_views.demo_posts_conversations),
+    url(r'^ajax/chatter/questions$', chatter_views.demo_posts_questions),
 )
