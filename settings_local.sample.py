@@ -1,4 +1,5 @@
 # Copy this file to settings_local.py and fill out appropriately
+# REMEMBER to run 'chmod 600 settings_local.py' once it's created to protect DB credentials!
 
 DEBUG = 
 TEMPLATE_DEBUG = DEBUG

@@ -1,0 +1,33 @@
+{% comment %}
+template to be included inside a #chatter-tab-* div
+{% endcomment %}
+
+{% for post in posts %}
+    <div id="{{id_prefix}}post-{{forloop.counter}}">
+        <h3>{{ post.title }}</h3>
+        <p><img src="{{ post.author.avatar }}" width="30px" height="30px"> <small>{{ post.author.display_name }}</small></p>
+        {% if post.image_url %}
+            <img src="{{ post.image_url }}">
+        {% endif %}
+        <p>{{ post.content }}</p>
+        <small>{{ post.dt|timesince }} ago</small>
+        {% if post.comment_set.all %}
+            <div class="comments-container" style="margin-left:20px">
+            {% for comment in post.comment_set.all %}
+                <div class="comment">
+                    <p><img src="{{ comment.commenter.avatar }}" width="30px" height="30px"> <small>{{ comment.commenter.display_name }}</small></p>
+                    <p>{{ comment.content }}</p>
+                    <small>{{ comment.dt|timesince }} ago</small>
+                </div>
+                {% if not forloop.last %}
+                    <hr>
+                {% endif %}
+            {% endfor %}
+            </div>
+        {% endif %}
+
+    </div>
+    {% if not forloop.last %}
+        <hr>
+    {% endif %}
+{% endfor %}
