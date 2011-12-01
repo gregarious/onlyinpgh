@@ -18,6 +18,11 @@ $.get('/ajax/news', function(data) {
     }
 );
 
+$.get('/ajax/chatter/teaser', function(data) { 
+        $('#chatter-teasers').html(data);
+    }
+);
+
 $.get('/ajax/chatter/hot', function(data) { 
         $('#chatter-tab-1').html(data);
     }

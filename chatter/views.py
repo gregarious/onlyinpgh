@@ -1,6 +1,10 @@
 from django.shortcuts import render_to_response
 from onlyinpgh.chatter.models import Post, Comment
 
+def demo_teasers(request):
+    variables = { 'posts': Post.objects.all().order_by('-dt') }
+    return render_to_response('chatter_teaser.html',variables)
+
 def demo_posts_hot(request):
     variables = { 'posts': Post.objects.all().order_by('-dt'),
                     'id_prefix': 'hot-' }
