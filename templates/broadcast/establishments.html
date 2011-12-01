@@ -3,10 +3,16 @@ template to be included inside the #places div
 {% endcomment %}
 
 {% for e in establishments %}
-    <img src="{{ e.owner.identity.avatar }}" />
-    <h3>{{ e.name }}</h3>
-    <p>{{ e.location.address }}</p>
-    {% if not forloop.last %}
-        <hr>
+<div class="broadcast-item row">
+    
+    <section class="broadcast-info eightcol last">
+    	<h3>{{ e.name }}</h3>
+	    <p>{{ e.location.address }}</p>
+	    {% if not forloop.last %}
+	</section>
+	<div class="thumb-container fourcol last">
+		<img class="thumbnail" src="{{ e.owner.identity.avatar }}" />
+	</div>
     {% endif %}
+  </div>
 {% endfor %}

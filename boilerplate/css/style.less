@@ -234,12 +234,12 @@ td { vertical-align: top; }
 
 html {
   height: 100%;
-  overflow: hidden;
   font-weight: normal;
   font-family: 'NobileRegular', Arial, Sans-serif;
 }
 
 body {
+  overflow: hidden;
   margin: 0;
   padding: 0;
   height: 100%;
@@ -249,17 +249,24 @@ body {
 
 h1 {
   margin: 0;
-  
   letter-spacing: 1px;
   text-align: center;
-  font-family: 'PT Serif Caption', Impact, Sans-serif;
+  font-family: 'FrancoisOneRegular', Impact, Sans-serif;
   font-size: 6em;
   text-shadow: 2px 2px 2px #aaa;
 }
 
 h2 {
   margin: 0;
-  font-family: 'FrancoisOneRegular', Impact, Sans-serif;
+}
+
+h3 {
+  font-family: 'PT Serif Caption', Impact, Sans-serif;
+  font-weight: normal;
+  font-size: 1.3em;
+  text-shadow: 1px 1px 1px #FFF;
+  background-color: @yellow;
+  margin: 0;
 }
 
 h4, h5 {
@@ -316,7 +323,7 @@ h4, h5 {
 
 .content {
   width: 50%;
-  height: 100%;
+  height: 70%;
   float: left;
   position: relative;
 }
@@ -445,26 +452,37 @@ h4, h5 {
     position: relative;
     z-index: 2;
   }
+
   .nat-container {
-    width: 350px;
+    overflow: auto;
+    width: 330px;
     height: 100%;
     float: right;
+    padding: 10px;
+    background-color: green;
   }
 
 }
 
-.chatter-feed {
-  width: 20%;
-  float: left;
-  background: #ffff11;
+.sidebar-content {
+  height: 100%;
 
-  .chatterbox-posts {
-    width: 95%;
+  .broadcast-item {
+    float: left;
+    background: #ff0000;
+    margin: 2px 0;
+
+    .thumb-container {
+      height: 90px;
+      width: 90px;
+
+    }
+
+    .broadcast-info {
+      
+    }
+
   }
-}
-
-.expand-option {
-  font-size: 1em;
 }
 
 .sidebar-tabs {
@@ -484,6 +502,7 @@ h4, h5 {
     nav {
       width: 15%;
       float: right;
+      position: absolute;
 
       ul li {
         overflow: hidden;
@@ -528,6 +547,25 @@ h4, h5 {
   ul {
     border-bottom: 1px #aaa solid;
   }
+}
+
+.chatter-feed {
+  width: 20%;
+  float: left;
+  background: #ffff11;
+
+  .chatterbox-posts {
+    width: 95%;
+  }
+}
+
+.expand-option {
+  font-size: 1em;
+}
+
+/***** EVENTS *****/
+.name {
+  font-size: 1em;
 }
 
 
