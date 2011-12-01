@@ -180,3 +180,16 @@ function initializeMap() {
     });
 	
 } // initializeMap
+
+function cycleTeasers() {
+	var next = $("#chatter-teasers li:last-child");
+    $.unique(next).each( function() {
+		$(this).hide()
+        $(this).prependTo(this.parentNode);
+        $(this).slideDown(200);
+        // hack to add a more sensible time to the teaser feed
+        $(this).find('.timesince').html('1 minute')
+    });
+}
+
+window.setInterval(cycleTeasers,10000);
