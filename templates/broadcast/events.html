@@ -3,9 +3,16 @@ template to be included inside the #places div
 {% endcomment %}
 
 {% for e in events %}
-    <img class="thumbnail" src="{{ e.image_url }}" />
-    <h3 class="name">{{ e.name }}</h3>
-    <p>{{ e.place.location.address }}</p>
+<div class="broadcast-item row">
+	<section class="broadcast-info eightcol last">
+    	<h3>{{ e.name }}</h3>
+    	<p>{{ e.place.location.address }}</p>
+    </section>
+
+    <div class="thumb-container fourcol last">
+    	<img class="thumbnail" class="" src="{{ e.image_url }}" />
+    </div>
+
     {% if not forloop.last %}
     	<hr>
     {% endif %}

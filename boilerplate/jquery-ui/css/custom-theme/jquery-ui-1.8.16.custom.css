@@ -56,9 +56,9 @@
 
 /* Component containers
 ----------------------------------*/
-.ui-widget { font-family: "NobileRegular", Arial, sans-serif; font-size: 1.2em; }
+.ui-widget { font-family: 'PT Serif Caption', Impact, Sans-serif; font-size: 1.2em; }
 .ui-widget .ui-widget { font-size: 1em; }
-.ui-widget input, .ui-widget select, .ui-widget textarea, .ui-widget button { font-family: "NobileRegular", Arial, sans-serif; font-size: 1em; }
+.ui-widget input, .ui-widget select, .ui-widget textarea, .ui-widget button { font-family: 'PT Serif Caption', Impact, Sans-serif; font-size: 1em; }
 .ui-widget-content { border: 1px solid #777777; background: #ffffff url(images/ui-bg_flat_75_ffffff_40x100.png) 50% 50% repeat-x; color: #212121; }
 .ui-widget-content a { color: #212121; }
 .ui-widget-header { border: 1px solid #2c4359; background: #8a943b url(images/ui-bg_fine-grain_65_8a943b_60x60.png) 50% 50% repeat; color: #212121; font-weight: bold; }

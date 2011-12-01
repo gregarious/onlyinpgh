@@ -65,13 +65,13 @@ $(document).ready(function(){
 
 	$('.hide-show#map').toggle(function() {
 		$('.map-container').animate({ width:('4') }, 500);
-		$('.nat-container').animate({ width:('840') }, 500);
+		$('.nat-container').animate({ width:('830') }, 500);
 		$('.sidebar-tabs').addClass('expanded');
 		$('.sidebar-tabs').removeClass('collapsed');
 		$('.arrow-collapse').removeClass('left');
 		$('.arrow-collapse').addClass('right');
 	}, function() {
-		$('.nat-container').animate({width:('350')}, { duration: 500 });
+		$('.nat-container').animate({width:('330')}, { duration: 500 });
 		$('.map-container').animate({ width:('500') },500);
 		$('.sidebar-tabs').removeClass('expanded');
 		$('.sidebar-tabs').addClass('collapsed');
