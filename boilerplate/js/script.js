@@ -72,7 +72,7 @@ $(document).ready(function(){
 		$('.arrow-collapse').addClass('right');
 	}, function() {
 		$('.nat-container').animate({width:('330')}, { duration: 500 });
-		$('.map-container').animate({ width:('500') },500);
+		$('.map-container').animate({ width:('520') },500);
 		$('.sidebar-tabs').removeClass('expanded');
 		$('.sidebar-tabs').addClass('collapsed');
 		$('.arrow-collapse').removeClass('right');
@@ -104,8 +104,10 @@ $(document).ready(function(){
 	// Shouldn't need to specify selected
 	// But it was defaulting to 1, so I did
 	$('.chatter-tabs').tabs({ selected: 0 }).removeClass('ui-widget-content ui-corner-all');
-	//$('.chatter-tabs > ul').removeClass('ui-widget-header ui-corner-all');
-
+	$('.chatter-tabs > ul').removeClass('ui-widget-header ui-corner-all');
+	$('.chatter-tab-nav').removeClass('ui-widget-header ui-corner-all');
+	$('.tabs-container div').removeClass('ui-tabs-panel ui-widget-content ui-corner-bottom');
+	
 	// Button
 	$('button').button().removeClass('ui-button ui-button-text-only');
 

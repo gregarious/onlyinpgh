@@ -2,11 +2,16 @@
 template to be included inside the #places div
 {% endcomment %}
 
+<ul class="broadcast">
 {% for o in offers %}
-    <img src="{{ o.sponsor.identity.avatar }}" />
-    <p>{{ o.description }}</p>
-    <p><i>+ {{ o.point_value }}</i></p>
-    {% if not forloop.last %}
-        <hr>
-    {% endif %}
+	<li class="broadcast-item row">
+		<span class="points twocol">+ {{ o.point_value }}</span>
+		<div class="eightcol last">
+	    	<h3>{{ o.description }}</h3>
+	    </div>
+	    <div class="twocol last">
+	    	<img height="100px" width="100px" src="{{ o.sponsor.identity.avatar }}" />
+	    </div>
+    </li>
 {% endfor %}
+</ul>

@@ -16,9 +16,9 @@ template to be included inside a #chatter-tab-* div
             <ul class="comments" style="margin-left:20px">
             {% for comment in post.comment_set.all %}
                 <li class="comment ui-corner-all">
-                    <p><img src="{{ comment.commenter.avatar }}" width="30px" height="30px"> <small>{{ comment.commenter.display_name }}</small></p>
+                    <div><img src="{{ comment.commenter.avatar }}" width="30px" height="30px"><span class="meta">{{ comment.commenter.display_name }}</span></div>
                     <p>{{ comment.content }}</p>
-                    <p class="meta">{{ comment.dt|timesince }} ago</p>
+                    <span class="meta">{{ comment.dt|timesince }} ago</span>
                 </li>
             {% endfor %}
             </ul>

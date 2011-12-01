@@ -2,17 +2,19 @@
 template to be included inside the #places div
 {% endcomment %}
 
+<ul class="broadcast clearfix">
 {% for e in establishments %}
-<div class="broadcast-item row">
-    
-    <section class="broadcast-info eightcol last">
-    	<h3>{{ e.name }}</h3>
-	    <p>{{ e.location.address }}</p>
-	    {% if not forloop.last %}
-	</section>
-	<div class="thumb-container fourcol last">
-		<img class="thumbnail" src="{{ e.owner.identity.avatar }}" />
-	</div>
-    {% endif %}
-  </div>
+	<li class="broadcast-item row">
+	    <section class="broadcast-info eightcol last">
+	    	<h3>{{ e.name }}</h3>
+		    <p>{{ e.location.address }}</p>
+		</section>
+		<div class="thumb-container fourcol last">
+			<img class="thumbnail" src="{{ e.owner.identity.avatar }}" />
+		</div>
+		<!--{% if not forloop.last %}
+			<hr>
+		{% endif %}-->
+  </li>
 {% endfor %}
+</ul>

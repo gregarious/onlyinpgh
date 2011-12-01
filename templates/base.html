@@ -93,8 +93,8 @@ License: http://creativecommons.org/licenses/MIT
 					</figcaption>
 					<ul>
 						<li>25 checkins in past month</li>
-						<li></li>
-						<li></li>
+						<li>Earned 5 points from Sandwich Board</li>
+						<li>Earned 20 points from ChatterBox</li>
 					</ul>
 				</div>
 			</section> <!-- .additional-info-dropdown -->
@@ -110,7 +110,7 @@ License: http://creativecommons.org/licenses/MIT
 		<div class="row main">
 		<header class="scene-page-header clearfix row">
 			
-			<h1>Oakland <span class="secondary-head">scene</span></h1>
+			<h1>Oakland Scene</h1>
 
 			<!--<button class="expand-option filter">Filter scene by tag</button>
 			
@@ -158,13 +158,16 @@ License: http://creativecommons.org/licenses/MIT
 									</ul>
 								</nav>
 
+							
 								<article class="sidebar-content">
+								<div class="tabs-container">
 									<section class="broadcast-section" id="places">Places list template</section>
 									<section class="broadcast-section"id="events">Events list template</section>
 									<section class="broadcast-secton" id="sandwich-board">Sandwich board list template.</section>
 									<section class="broadcast-section" id="burghosphere">Burghosphere list template.</section>
+									</div>
 								</article>
-
+							
 							</div> <!-- .sidebar-tabs -->
 
 						</div> <!-- .row -->
@@ -173,7 +176,7 @@ License: http://creativecommons.org/licenses/MIT
 				</article> <!-- .mapnat -->
 				
 				<section class="chatter-feed">
-					<button id="pageSlideLeft">Show this</button>
+					<button id="pageSlideLeft">Chatter Box &rarr;</button>
 					<ul class="chatter-posts" id="chatter-teasers">
 					</ul>
 				<section>
@@ -183,23 +186,25 @@ License: http://creativecommons.org/licenses/MIT
 
 			<div class="content clearfix second ui-corner-top">
 				<article class="chatter-box">
-				<button id="pageSlideLeft">Show this</button>
 					<div class="row">
-						<h2 class="ui-widget-header ui-corner-all main-panel-head">Chatter Box</h2>
-
 						<div class="chatter-tabs row">
-							<ul>
+						<div class="row">
+							<button id="pageSlideLeft" class="fourcol last">&larr; Map n'at</button>
+							<ul class="chatter-tab-nav">
 								<li><a href="#chatter-tab-1">Hottest</a></li>
 								<li><a href="#chatter-tab-2">Newest</a></li>
 								<li><a href="#chatter-tab-3">Photos</a></li>
 								<li><a href="#chatter-tab-4">Converstion</a></li>
 								<li><a href="#chatter-tab-5">Questions</a></li>
 							</ul>
-							<div id="chatter-tab-1">Hottest chatter posts template</div>
-							<div id="chatter-tab-2">Newest chatter posts template</div>
-							<div id="chatter-tab-3">Photos chatter posts template</div>
-							<div id="chatter-tab-4">Conversations chatter posts template - call this chatter??</div>
-							<div id="chatter-tab-5">Questions chatter posts template</div>
+						</div>
+							<div class="tabs-container row">
+								<div id="chatter-tab-1">Hottest chatter posts template</div>
+								<div id="chatter-tab-2">Newest chatter posts template</div>
+								<div id="chatter-tab-3">Photos chatter posts template</div>
+								<div id="chatter-tab-4">Conversations chatter posts template - call this chatter??</div>
+								<div id="chatter-tab-5">Questions chatter posts template</div>
+							</div>
 						</div> <!-- .chatter-tabs -->
 					</div> <!-- .row -->
 				</article> <!-- .chatter-box -->
@@ -211,8 +216,8 @@ License: http://creativecommons.org/licenses/MIT
 	</div> <!-- .container -->
 
 
-	<footer class="clearfix scene-page-footer row">
-		<p class="credits">Created by Scenehound, sponsored by the Oakland Business District</p>
+	<footer class="clearfix scene-page-footer">
+		<p class="credits">Brought to you by Sceneable, sponsored by the Oakland Business District</p>
 		<img class="logo" src="{{ STATIC_URL }}img/obid-logo.jpg" />
 	</footer>
 

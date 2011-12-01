@@ -301,12 +301,14 @@ p {
 }
  
 .scene-page-footer {
-  //background: url("/static/img/skyline.png") repeat-x top;
-  //position: relative;
-  //z-index: 999;
+  background: url("/static/img/skyline.png") repeat-x top;
+  height: 15em;
+  bottom: 10em;
+  position: relative;
+  z-index: 999;
 
   .credits {
-    top: 70%;
+    top: 40%;
     color: #aaa;
     float: left;  
     position: relative;
@@ -325,15 +327,15 @@ p {
 
 .content {
   width: 50%;
-  height: 70%;
+  height: 65%;
+  overflow: hidden;
   float: left;
   position: relative;
-  overflow: auto;
 }
 
 .top-nav {
   width: 100%;
-  height: 4%;
+  height: 30px;
   background-color: @yellow;
   -moz-box-shadow: 1px 1px 2px #444;
   -webkit-box-shadow: 1px 1px 2px #444;
@@ -354,7 +356,13 @@ p {
   display: none;
   position: absolute;
   z-index: 999;
-  background-color: #ccc;
+  background-color: #f2f2f2;
+  padding: 10px;
+  width: 200px;
+  height: 100px;
+  -moz-box-shadow: 1px 1px 2px #444;
+  -webkit-box-shadow: 1px 1px 2px #444;
+  box-shadow: 1px 1px 2px #444;
 
   .progressbar {
     height: 1em;
@@ -385,6 +393,16 @@ p {
   -moz-box-shadow: 1px 1px 2px #444;
   -webkit-box-shadow: 1px 1px 2px #444;
   box-shadow: 1px 1px 2px #444;
+}
+
+#pageSlideLeft {
+  padding: 15px;
+  font-family: 'FrancoisOneRegular';
+  font-size: 2em;
+}
+
+.chatter-feed #pageSlideLeft {
+  width: 100%;
 }
 
 .arrow-collapse {
@@ -422,11 +440,10 @@ p {
     margin: auto;
     width: 20px;
     height: 40px;
-   
 }
 
 .mapnat {
-  height: 100%;
+  height: 90%;
   width: 80%;
   float: left;
 
@@ -437,8 +454,8 @@ p {
   }*/
 
   .map-container {
-    width: 500px;
-    height: 100%;
+    width: 520px;
+    height: 470px;
     float: left;
     position: relative;
     z-index: 1;
@@ -457,39 +474,59 @@ p {
   }
 
   .nat-container {
-    overflow: auto;
     width: 330px;
-    height: 100%;
     float: right;
-    padding: 10px;
-    background-color: green;
   }
 
+}
+
+.sidebar-nav {
+  ul li a {
+    font-size: 0. em;
+  }
 }
 
 .sidebar-content {
   height: 100%;
 
-  .broadcast-item {
-    float: left;
-    //background: #ff0000;
-    margin: 2px 0;
+  .broadcast {
+      padding: 0;
+    .broadcast-item {
+      list-style-type: none;
+      float: left;
+      //background: #ff0000;
+      margin: 2px 0;
+      margin: 10px 0;
+      border-bottom: 2px solid #ccc;
+      .points {
+        font-size: 1.4em;
+        text-shadow: 2px 2px 0 @yellow;
+        font-family: 'FrancoisOneRegular';
+      }
 
-    .thumb-container {
-      height: 90px;
-      width: 90px;
+      .thumb-container {
+        height: 90px;
+        width: 90px;
+        overflow: hidden;
+      }
 
-    }
+      .broadcast-info {
+          
+      }
 
-    .broadcast-info {
-      
-    }
-
+    }  
   }
+  
+}
+
+.tabs-container {
+  height: 50em;
+  overflow: auto;
+  width: 100%;
+  float: right;
 }
 
 .sidebar-tabs {
-
     background-color: #fff;
     -moz-box-shadow: 1px 1px 2px #444;
     -webkit-box-shadow: 1px 1px 2px #444;
@@ -498,14 +535,12 @@ p {
   &.expanded {
 
     article {
-      width: 85%;
       float: left;
     }
 
     nav {
-      width: 15%;
       float: right;
-      position: absolute;
+      text-align: right;
 
       ul li {
         overflow: hidden;
@@ -552,27 +587,69 @@ p {
   }
 }
 
+.chatter-box {
+  width: 800px;
+  margin: auto;
+
+  p {
+    padding: 10px 0;
+  }
+
+  h3 {
+    background-color: #f2f2f2;
+    padding: 2px;
+    font-weight: bold;
+  }
+
+  #pageSlideLeft {
+    padding: 10px;
+    font-size: 1.5em;
+  }
+
+  img {
+    padding-right: 5px;
+  }
+
+}
+
 .chatter-posts {
   padding: 0;
 
   .post-teaser {
     list-style-type: none; 
     .gradient(#fff,#f2f2f2);
-    margin: 10px;
+    margin: 10px 0;
     padding: 10px;
     border: 2px #999 solid;
+
+    .meta {
+      font-size: 1em;
+    }
   }  
 }
 
 .chatterbox-posts {
   padding: 0;
-  
+
   li {
     list-style-type: none; 
     .gradient(#fff,#f2f2f2);
-    margin: 10px;
+    width: 95%;
+    margin: 10px 0;
     padding: 10px;
     border: 2px #999 solid;
+  }
+}
+
+.chatter-tab-nav {
+  float: right;
+  width: 65%;
+  position: relative;
+  top: 20px;
+
+  li a {
+    font-size: 0.9em;
+
   }
 }
 
@@ -582,7 +659,8 @@ p {
 }
 
 .chatter-feed {
-  width: 20%;
+  width: 210px;
+  margin-left: 15px;
   float: left;
 }
 

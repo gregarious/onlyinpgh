@@ -3,7 +3,7 @@ template to be included inside the #places div
 {% endcomment %}
 
 {% for e in events %}
-<div class="broadcast-item row">
+<li class="broadcast-item row">
 	<section class="broadcast-info eightcol last">
     	<h3>{{ e.name }}</h3>
     	<p>{{ e.place.location.address }}</p>
@@ -12,7 +12,7 @@ template to be included inside the #places div
     <div class="thumb-container fourcol last">
     	<img class="thumbnail" class="" src="{{ e.image_url }}" />
     </div>
-
+</li>
     {% if not forloop.last %}
     	<hr>
     {% endif %}
