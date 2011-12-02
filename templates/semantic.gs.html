@@ -1,0 +1,135 @@
+<!doctype html>
+
+<head>
+
+	<link type="text/css" href="{{ STATIC_URL }}css/reset.css">
+	<link rel="stylesheet/less" href="{{ STATIC_URL }}css/semantic.gs.less">
+
+	<title>OIP Tile Layout</title>
+
+</head>
+
+<body>
+
+<div id="wrapper">
+	<div id="mask">
+
+
+	<!-- First Row -->
+
+		<div id="eventsTile" class="item"> <!-- top left -->
+			<h2>Events page</h2>
+			<nav>
+				<ul>
+					<li><a href="#atAGlanceTile" class="panel">Home</a></li>
+					<li> <a href="#placesTile" class="panel">Places</a></li>
+					<li> <a href="#chatterBoxTile" class="panel">Chatter Box</a></li>
+				</ul>
+			</nav>
+		</div> <!-- #eventsTile -->
+
+
+		<div id="atAGlanceTile" class="item"> <!-- top middle -->
+
+			<!-- Header -->
+			<header class="scene-header">
+				<h2>Scene at a glance</h2>
+				<nav>
+					<ul>
+						<li><a href="#eventsTile" class="panel">Events</a></li>
+						<li> <a href="#placesTile" class="panel">Places</a></li>
+						<li> <a href="#chatterBoxTile" class="panel">Chatter Box</a></li>
+					</ul>
+				</nav>
+			</header>
+
+
+			<!-- Frontpage Events -->
+			<article class="scene-events">
+				<h2>Events</h2>
+
+				<section class="events-feed">
+
+				</section>
+
+			</article>
+
+
+			<!-- Frontpage Places -->
+			<article class="scene-places">
+				<h2>Map and places</h2>
+
+				<section class="map">
+					<h3>Map</h3>
+				</section>
+
+				<section class="establishments">
+					<h3>Places</h3>
+				</section>
+			</article>
+
+			
+			<!-- Frontpage updates -->
+			<article class="scene-updates">
+				<h2>Scene updates</h2>
+
+				<section class="chatter-feed">
+					<h3>Chatter feed</h3>
+				</section>
+
+				<section class="news-item">
+					<h3>News item</h3>
+				</section>
+			</article>
+
+		</div> <!-- #atAGlanceTile -->
+
+
+
+		<div id="chatterBoxTile" class="item"> <!-- top right -->
+			<h2> CHATTER BOX </h1>
+			<nav>
+				<ul>
+					<li><a href="#eventsTile" class="panel">Events</a></li>
+					<li> <a href="#placesTile" class="panel">Places</a></li>
+					<li> <a href="#chatterBoxTile" class="panel">Chatter Box</a></li>
+				</ul>
+			</nav>
+		</div> <!-- #chatterBoxTile -->
+
+		<div class="clear"></div>
+
+
+
+	<!-- Second Row -->
+	
+		<div class="item"></div> <!-- middle left -->
+		
+		<div class="item" id="placesTile"> <!-- middle middle -->
+			<h2>Places</h2>
+			<nav>
+				<ul>
+					<li><a href="#atAGlanceTile" class="panel">Home</a></li>
+					<li> <a href="#eventsTile" class="panel">Events</a></li>
+					<li> <a href="#chatterBoxTile" class="panel">Chatter Box</a></li>
+				</ul>
+			</nav>
+		</div> <!-- #placesTile -->
+
+
+		<div class="item"></div> <!-- middle right -->
+		<div class="clearfix"></div>
+
+
+	</div> <!-- #mask -->
+</div> <!-- #wrapper -->
+
+
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.0/jquery.js"></script> <!-- Unminified jQuery for development -->
+	<script src="{{ STATIC_URL }}js/mylibs/less-1.1.5.min.js"></script>
+	<script src="{{ STATIC_URL }}js/mylibs/jquery.scrollTo.js"></script>
+	<script src="{{ STATIC_URL }}js/slide.js"></script>
+
+</body>
+
+</html>

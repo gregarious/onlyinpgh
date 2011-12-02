@@ -1,0 +1,14 @@
+body {
+  width: 100%;
+  /**zoom:1;*/
+
+  margin: 0;
+  padding: 0;
+}
+body:before, body:after {
+  content: "";
+  display: table;
+}
+body:after {
+  clear: both;
+}

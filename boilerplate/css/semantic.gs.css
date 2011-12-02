@@ -1,0 +1,136 @@
+body {
+  width: 100%;
+  /**zoom:1;*/
+
+  margin: 0;
+  padding: 0;
+}
+body:before, body:after {
+  content: "";
+  display: table;
+}
+body:after {
+  clear: both;
+}
+html, body {
+  height: 100%;
+}
+h1, h2, h3 {
+  margin: 0;
+}
+article {
+  height: 90%;
+}
+#wrapper {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: #ccc;
+  overflow: hidden;
+}
+#mask {
+  width: 500%;
+  height: 100%;
+  background-color: #eee;
+}
+.item {
+  width: 20%;
+  height: 100%;
+  float: left;
+  background-color: #ddd;
+}
+.clear {
+  clear: both;
+}
+.scene-header {
+  height: 10%;
+  background-color: grey;
+}
+.scene-events {
+  float: left;
+  width: 33.33333333333333%;
+  background-color: yellow;
+}
+.scene-events .events-feed {
+  height: 100%;
+}
+.scene-places {
+  float: left;
+  width: 41.66666666666667%;
+  background-color: green;
+}
+.scene-places .map, .scene-places .establishments {
+  display: inline-block;
+  width: 100%;
+  margin: 0 0%;
+  /**zoom:1;*/
+
+}
+.scene-places .map:before,
+.scene-places .establishments:before,
+.scene-places .map:after,
+.scene-places .establishments:after {
+  content: "";
+  display: table;
+}
+.scene-places .map:after, .scene-places .establishments:after {
+  clear: both;
+}
+.scene-places .map {
+  height: 40%;
+}
+.scene-places .establishments {
+  height: 60%;
+}
+.scene-updates {
+  float: left;
+  width: 25%;
+  background-color: blue;
+}
+.scene-updates .chatter-feed, .scene-updates .news-item {
+  display: inline-block;
+  width: 100%;
+  margin: 0 0%;
+  /**zoom:1;*/
+
+}
+.scene-updates .chatter-feed:before,
+.scene-updates .news-item:before,
+.scene-updates .chatter-feed:after,
+.scene-updates .news-item:after {
+  content: "";
+  display: table;
+}
+.scene-updates .chatter-feed:after, .scene-updates .news-item:after {
+  clear: both;
+}
+.scene-updates .chatter-feed {
+  height: 70%;
+}
+.scene-updates .news-item {
+  height: 30%;
+}
+@media screen and (max-width: 720px) {
+  .scene-events, .scene-places, .scene-updates {
+    display: inline-block;
+    width: 100%;
+    margin: 0 0%;
+    /**zoom:1;*/
+  
+    margin-bottom: 1em;
+  }
+  .scene-events:before,
+  .scene-places:before,
+  .scene-updates:before,
+  .scene-events:after,
+  .scene-places:after,
+  .scene-updates:after {
+    content: "";
+    display: table;
+  }
+  .scene-events:after, .scene-places:after, .scene-updates:after {
+    clear: both;
+  }
+}
