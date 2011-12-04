@@ -11,36 +11,92 @@
 
 <body>
 
+<header class="site-head">
+	
+	<nav class="utilities-nav">
+	
+		<h4 class="dropdown-title" id="scenesMenu">Your Scenes &darr;</h4>
+
+		<ul class="user-nav">
+			<li>Settings</li>
+			<li>Single Yoi</li>
+			<li>60 • 20</li>
+			<li>laras126</li>
+		</ul>
+	
+	</nav>
+
+	<nav class="scenes-nav"> <!-- dropdown -->
+		<ul>
+			<li>Sharing</li>
+			<li>Visual Art</li>
+			<li>Euentrenpraneurship</li>
+			<li>Oakland</li>
+			<li>Country Music</li>
+		</ul>
+	</nav>
+
+	<h1 class="scene-name"><a href="#atAGlanceTile" class="panel">Oakland scene</a></h1>
+	
+	<nav class="site-nav">
+		<ul>
+			<li class="row">
+				<ul>
+					<li></li>
+					<li><a href="#statsTile" class="panel">Profile</a></li>			
+					<li></li>
+				</ul>	
+			</li>
+
+			<li class="row">
+				<ul>
+					<li><a href="#eventsTile" class="panel">Events</a></li>
+					<li><a href="#atAGlanceTile" class="panel">Home</a></li>
+					<li><a href="#chatterBoxTile" class="panel">Chatter Box</a></li>
+				</ul>
+			</li>
+
+			<li class="row">
+				<ul>
+					<li></li>
+					<li><a href="#placesTile" class="panel">Places</a></li>			
+					<li></li>
+				</ul>
+			</li>
+		</ul>
+	</nav>
+
+</header> <!-- .site-head -->
+
 <div id="wrapper">
 	<div id="mask">
 
 
 	<!-- First Row -->
 
-		<div id="eventsTile" class="item"> <!-- top left -->
+		<div class="item"></div> <!-- top left -->
+		
+		<div id="statsTile" class="item"> <!-- top middle -->
+			<h2>Stats</h2>
+		</div> <!-- #statsTile -->
+
+
+		<div class="item"></div> <!-- top right -->
+		<div class="clear"></div>
+
+
+	<!-- Second Row -->
+
+		<div id="eventsTile" class="item"> <!-- middle left -->
 			<h2>Events page</h2>
-			<nav>
-				<ul>
-					<li><a href="#atAGlanceTile" class="panel">Home</a></li>
-					<li> <a href="#placesTile" class="panel">Places</a></li>
-					<li> <a href="#chatterBoxTile" class="panel">Chatter Box</a></li>
-				</ul>
-			</nav>
 		</div> <!-- #eventsTile -->
 
 
-		<div id="atAGlanceTile" class="item"> <!-- top middle -->
+		<div id="atAGlanceTile" class="item"> <!-- middle middle -->
 
 			<!-- Header -->
 			<header class="scene-header">
 				<h2>Scene at a glance</h2>
-				<nav>
-					<ul>
-						<li><a href="#eventsTile" class="panel">Events</a></li>
-						<li> <a href="#placesTile" class="panel">Places</a></li>
-						<li> <a href="#chatterBoxTile" class="panel">Chatter Box</a></li>
-					</ul>
-				</nav>
 			</header>
 
 
@@ -58,13 +114,13 @@
 			<!-- Frontpage Places -->
 			<article class="scene-places">
 				<h2>Map and places</h2>
-
 				<section class="map">
 					<h3>Map</h3>
 				</section>
 
 				<section class="establishments">
 					<h3>Places</h3>
+					<section class="broadcast-section" id="places">Places list template</section>
 				</section>
 			</article>
 
@@ -77,8 +133,8 @@
 					<h3>Chatter feed</h3>
 				</section>
 
-				<section class="news-item">
-					<h3>News item</h3>
+				<section class="featured-item">
+					<h3>Featured item</h3>
 				</section>
 			</article>
 
@@ -86,39 +142,25 @@
 
 
 
-		<div id="chatterBoxTile" class="item"> <!-- top right -->
-			<h2> CHATTER BOX </h1>
-			<nav>
-				<ul>
-					<li><a href="#eventsTile" class="panel">Events</a></li>
-					<li> <a href="#placesTile" class="panel">Places</a></li>
-					<li> <a href="#chatterBoxTile" class="panel">Chatter Box</a></li>
-				</ul>
-			</nav>
+		<div id="chatterBoxTile" class="item"> <!-- middle right -->
+			<h2> CHATTER BOX </h2>
 		</div> <!-- #chatterBoxTile -->
 
 		<div class="clear"></div>
 
 
 
-	<!-- Second Row -->
+	<!-- Third Row -->
 	
 		<div class="item"></div> <!-- middle left -->
 		
 		<div class="item" id="placesTile"> <!-- middle middle -->
 			<h2>Places</h2>
-			<nav>
-				<ul>
-					<li><a href="#atAGlanceTile" class="panel">Home</a></li>
-					<li> <a href="#eventsTile" class="panel">Events</a></li>
-					<li> <a href="#chatterBoxTile" class="panel">Chatter Box</a></li>
-				</ul>
-			</nav>
 		</div> <!-- #placesTile -->
 
 
 		<div class="item"></div> <!-- middle right -->
-		<div class="clearfix"></div>
+		<div class="clear"></div>
 
 
 	</div> <!-- #mask -->
@@ -129,6 +171,7 @@
 	<script src="{{ STATIC_URL }}js/mylibs/less-1.1.5.min.js"></script>
 	<script src="{{ STATIC_URL }}js/mylibs/jquery.scrollTo.js"></script>
 	<script src="{{ STATIC_URL }}js/slide.js"></script>
+	<script src="{{ STATIC_URL }}js/ajax_loaders.js"></script>
 
 </body>
 

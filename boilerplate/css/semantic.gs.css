@@ -44,6 +44,9 @@ article {
 .clear {
   clear: both;
 }
+.selected {
+  background-color: #fff;
+}
 .scene-header {
   height: 10%;
   background-color: grey;
