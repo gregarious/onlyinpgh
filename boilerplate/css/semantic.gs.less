@@ -24,9 +24,14 @@ html, body {
 	height: 100%;
 }
 
-h1, h2, h3 {
+h1, h2, h3, p {
 	margin: 0;
 }
+
+h4 {
+	margin: 1% 0;
+}
+
 
 ul {
 	margin: 0;
@@ -36,6 +41,9 @@ ul {
 
 article {
 	height: 100%;
+	section {
+		overflow: auto;
+	}
 }
 
 
@@ -51,11 +59,15 @@ article {
 	.utilities-nav {
 		background-color: orange;
 		.row();
-		height: 30%;
+		
 		.dropdown-title {
 			float: left;
 			margin: 0;
 			padding: 0.5%;
+			cursor: pointer;
+			&:hover {
+				background-color: magenta;
+			}
 		}
 
 		.user-nav {
@@ -97,6 +109,9 @@ article {
 				display: inline;
 				background-color: green;
 				
+				&:hover {
+					background-color: magenta;
+				}
 			}
 		}
 	}
@@ -160,6 +175,7 @@ article {
 
 	.map {
 		height: 40%;
+		background-color: limegreen;
 	}
 
 	.establishments {
@@ -170,7 +186,7 @@ article {
 .scene-updates {
 	.column(3);
 	background-color: blue;	
-	.chatter-feed, .featured-item {
+	.chatter-feed, .news-item {
 		.row();
 	}	
 
@@ -178,8 +194,9 @@ article {
 		height: 70%;
 	}
 
-	.featured-item {
+	.news-item {
 		height: 30%;
+		background-color: aqua;
 	}
 }
 

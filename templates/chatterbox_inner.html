@@ -1,10 +1,10 @@
 {% comment %}
 template to be included inside a #chatter-tab-* div
 {% endcomment %}
-<ul class="chatterbox-posts">
+
 {% for post in posts %}
     <li class="ui-corner-all" id="{{id_prefix}}post-{{forloop.counter}}">
-        <h3>{{ post.title }}</h3>
+        <h3>{{ post.title }}</h4>
         <p><img src="{{ post.author.avatar }}" width="30px" height="30px"> 
         <span class="meta">{{ post.author.display_name }}</span></p>
         {% if post.image_url %}
@@ -25,4 +25,3 @@ template to be included inside a #chatter-tab-* div
         {% endif %}
     </li>
 {% endfor %}
-</ul>

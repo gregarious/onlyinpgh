@@ -2,11 +2,10 @@
 template to be included inside the #places div
 {% endcomment %}
 
-<ul class="broadcast clearfix">
 {% for e in establishments %}
 	<li class="broadcast-item row">
 	    <section class="broadcast-info eightcol last">
-	    	<h3>{{ e.name }}</h3>
+	    	<h4>{{ e.name }}</h4>
 		    <p>{{ e.location.address }}</p>
 		</section>
 		<div class="thumb-container fourcol last">
@@ -17,4 +16,3 @@ template to be included inside the #places div
 		{% endif %}-->
   </li>
 {% endfor %}
-</ul>

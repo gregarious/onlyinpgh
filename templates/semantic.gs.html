@@ -43,7 +43,7 @@
 			<li class="row">
 				<ul>
 					<li></li>
-					<li><a href="#statsTile" class="panel">Profile</a></li>			
+					<li><a href="#statsTile" class="panel">Stats</a></li>			
 					<li></li>
 				</ul>	
 			</li>
@@ -89,6 +89,7 @@
 
 		<div id="eventsTile" class="item"> <!-- middle left -->
 			<h2>Events page</h2>
+
 		</div> <!-- #eventsTile -->
 
 
@@ -102,10 +103,10 @@
 
 			<!-- Frontpage Events -->
 			<article class="scene-events">
-				<h2>Events</h2>
+				<h2>Soonest Events</h2>
 
 				<section class="events-feed">
-
+					<ul id="events">Events list template</ul>
 				</section>
 
 			</article>
@@ -119,8 +120,10 @@
 				</section>
 
 				<section class="establishments">
-					<h3>Places</h3>
-					<section class="broadcast-section" id="places">Places list template</section>
+					<header>
+						<h3>Top Places</h3>
+					</header>
+					<ul id="places">Places list template</ul>
 				</section>
 			</article>
 
@@ -131,10 +134,12 @@
 
 				<section class="chatter-feed">
 					<h3>Chatter feed</h3>
+					<ul class="chatter-posts" id="chatter-teasers">
+					</ul>
 				</section>
 
-				<section class="featured-item">
-					<h3>Featured item</h3>
+				<section class="news-item">
+					<h3>News item</h3>
 				</section>
 			</article>
 
@@ -143,7 +148,8 @@
 
 
 		<div id="chatterBoxTile" class="item"> <!-- middle right -->
-			<h2> CHATTER BOX </h2>
+			<h2>Chatter Box</h2>
+			<ul id="chatter-tab-1">Hottest chatter posts template</ul>
 		</div> <!-- #chatterBoxTile -->
 
 		<div class="clear"></div>
