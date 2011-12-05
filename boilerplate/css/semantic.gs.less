@@ -22,6 +22,7 @@
 
 html, body {
 	height: 100%;
+	font-family: 'Arial', sans-serif;
 }
 
 h1, h2, h3, p {
@@ -47,13 +48,46 @@ article {
 }
 
 
+// panel utilities and containers
+
+#wrapper {
+	width: 100%;
+	height: 78%;
+	position: absolute;
+	top: 15%;
+	left: 0;
+	background-color: #ccc;
+	overflow: hidden;
+}
+
+#mask {
+	width:500%;
+	height:100%;
+	background-color:#eee;
+}
+
+.item {
+	width:20%;
+	height:100%;
+	float:left;
+	background-color:#ddd;
+}
+
+.clear {
+	clear: both;
+}
+
+.selected {
+	background-color: #fff;
+}
+
+
 // header and nav
 
 .site-head {
-	.column(12);
+	.row();
 	height: 15%;
-	position: static;
-	z-index: 100;
+	.sticky();
 	background-color: grey;
 
 	.utilities-nav {
@@ -116,43 +150,15 @@ article {
 		}
 	}
 
-	.scene-name {
-		.column(5);
+	.title-filter {
+		.column(9);
+	
+		.scene-name {
+		
+		}	
 	}
-}
 
-
-// panel utilities
-
-#wrapper {
-	width: 100%;
-	height: 85%;
-	position: absolute;
-	top: 15%;
-	left: 0;
-	background-color: #ccc;
-	overflow: hidden;
-}
-
-#mask {
-	width:500%;
-	height:100%;
-	background-color:#eee;
-}
-
-.item {
-	width:20%;
-	height:100%;
-	float:left;
-	background-color:#ddd;
-}
-
-.clear {
-	clear: both;
-}
-
-.selected {
-	background-color: #fff;
+	
 }
 
 
@@ -201,7 +207,34 @@ article {
 }
 
 
+// footer
+
+.ticker {
+	.row();
+	height: 7%;
+	position: absolute;
+	z-index: 900;
+	  -webkit-box-shadow: 0px 0px 4px #000; 
+	     -moz-box-shadow: 0px 0px 4px #000; 
+	          box-shadow: 0px 0px 4px #000; 
+	background-color: red;
+	overflow: auto;
+	.sandwich-board {
+		ul li {
+			float: left;
+			background-color: orange;
+		}
+	}
+}
+
+
+// create one column when resolution is less than 720px
+
 @media screen and (max-width: 720px) {
+	#wrapper {
+		overflow: auto;
+	}
+
 	.scene-events, .scene-places, .scene-updates {
 		.row();
 		margin-bottom: 1em;

@@ -29,13 +29,17 @@ $(document).ready(function() {
 	
 	// Expand scenes-nav on rollover
 	$('.dropdown-title#scenesMenu').toggle(function() {
-			$('.scenes-nav').fadeIn(500);
+			$('.scenes-nav').slideDown(300);
 			$(this).html('Your Scenes &uarr;');
 		}, function() {
-			$('.scenes-nav').fadeOut(500);		
+			$('.scenes-nav').slideUp(300);		
 			$(this).html('Your Scenes &darr;');
 		}
-	);	
+	);
+
+	// Chatter tabs
+	$('.chatter-category-tabs').tabs();
+
 });
 
 function resizePanel() {

@@ -4,7 +4,7 @@
 
 	<link type="text/css" href="{{ STATIC_URL }}css/reset.css">
 	<link rel="stylesheet/less" href="{{ STATIC_URL }}css/semantic.gs.less">
-
+	<link type="text/css" href="{{ STATIC_URL }}jquery-ui/css/custom-theme/jquery-ui-1.8.16.custom.css" rel="stylesheet" />
 	<title>OIP Tile Layout</title>
 
 </head>
@@ -36,8 +36,11 @@
 		</ul>
 	</nav>
 
-	<h1 class="scene-name"><a href="#atAGlanceTile" class="panel">Oakland scene</a></h1>
-	
+	<section class="title-filter">
+		<h1 class="scene-name"><a href="#atAGlanceTile" class="panel">Oakland scene</a></h1>
+		<span class="add-filter">+ Filter</span>
+	</section>
+
 	<nav class="site-nav">
 		<ul>
 			<li class="row">
@@ -89,6 +92,7 @@
 
 		<div id="eventsTile" class="item"> <!-- middle left -->
 			<h2>Events page</h2>
+			<ul id="eventsPage">Events list template</ul>
 
 		</div> <!-- #eventsTile -->
 
@@ -103,10 +107,10 @@
 
 			<!-- Frontpage Events -->
 			<article class="scene-events">
-				<h2>Soonest Events</h2>
+				<h3>Soonest Events</h3>
 
 				<section class="events-feed">
-					<ul id="events">Events list template</ul>
+					<ul id="eventsFeed">Events list template</ul>
 				</section>
 
 			</article>
@@ -114,32 +118,33 @@
 
 			<!-- Frontpage Places -->
 			<article class="scene-places">
-				<h2>Map and places</h2>
+				<h3>Map and places</h3>
 				<section class="map">
-					<h3>Map</h3>
+					<h4>Map</h4>
 				</section>
 
 				<section class="establishments">
 					<header>
-						<h3>Top Places</h3>
+						<h4>Top Places</h4>
 					</header>
-					<ul id="places">Places list template</ul>
+					<ul id="placesFeed">Places list template</ul>
 				</section>
 			</article>
 
 			
 			<!-- Frontpage updates -->
 			<article class="scene-updates">
-				<h2>Scene updates</h2>
+				<h3>Scene updates</h3>
 
 				<section class="chatter-feed">
-					<h3>Chatter feed</h3>
+					<h4>Chatter feed</h4>
 					<ul class="chatter-posts" id="chatter-teasers">
 					</ul>
 				</section>
 
 				<section class="news-item">
-					<h3>News item</h3>
+					<h4>News item</h4>
+					<div id="burghosphere">Burghosphere list template.</div>
 				</section>
 			</article>
 
@@ -149,7 +154,22 @@
 
 		<div id="chatterBoxTile" class="item"> <!-- middle right -->
 			<h2>Chatter Box</h2>
-			<ul id="chatter-tab-1">Hottest chatter posts template</ul>
+			<div class="chatter-category-tabs">
+				<ul class="category-tabs">
+					<li><a href="#chatterHottest">Hottest</a></li>
+					<li><a href="#chatterNewest">Newest</a></li>
+					<li><a href="#chatterPics">Pics</a></li>
+					<li><a href="#chatterConversation">Conversation</a></li>
+					<li><a href="#chatterQuestions">Questions</a></li>
+				</ul>
+				<div class="category-tabs-content">
+					<article id="chatterHottest">Hottest chatter posts template</article>
+					<article id="chatterNewest">Hottest chatter posts template</article>
+					<article id="chatterPics">Pics chatter posts template</article>
+					<article id="chatterConversation">Conversation chatter posts template</article>
+					<article id="chatterQuestions">Questions chatter posts template</article>
+				</div>
+			</div>
 		</div> <!-- #chatterBoxTile -->
 
 		<div class="clear"></div>
@@ -158,14 +178,14 @@
 
 	<!-- Third Row -->
 	
-		<div class="item"></div> <!-- middle left -->
+		<div class="item"></div> <!-- bottom left -->
 		
-		<div class="item" id="placesTile"> <!-- middle middle -->
+		<div class="item" id="placesTile"> <!-- bottom middle -->
 			<h2>Places</h2>
+			<ul id="placesPage">Places list template</ul>
 		</div> <!-- #placesTile -->
 
-
-		<div class="item"></div> <!-- middle right -->
+		<div class="item"></div> <!-- bottom right -->
 		<div class="clear"></div>
 
 
@@ -173,7 +193,12 @@
 </div> <!-- #wrapper -->
 
 
+<footer class="ticker clearfix">
+	<section id="sandwich-board">Sandwich board list template.</section>
+</footer>
+
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.0/jquery.js"></script> <!-- Unminified jQuery for development -->
+	<script src="{{ STATIC_URL }}jquery-ui/js/jquery-ui-1.8.16.custom.js"></script>
 	<script src="{{ STATIC_URL }}js/mylibs/less-1.1.5.min.js"></script>
 	<script src="{{ STATIC_URL }}js/mylibs/jquery.scrollTo.js"></script>
 	<script src="{{ STATIC_URL }}js/slide.js"></script>

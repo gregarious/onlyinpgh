@@ -1,10 +1,25 @@
 $.get('/ajax/places', function(data) { 
-        $('#places').html(data); 
+        $('#placesPage').html(data); 
+    }
+);
+
+$.get('/ajax/places', function(data) { 
+        $('#placesFeed').html(data); 
     }
 );
 
 $.get('/ajax/events', function(data) { 
         $('#events').html(data); 
+    }
+);
+
+$.get('/ajax/events', function(data) { 
+        $('#eventsFeed').html(data); 
+    }
+);
+
+$.get('/ajax/events', function(data) { 
+        $('#eventsPage').html(data); 
     }
 );
 
@@ -24,26 +39,26 @@ $.get('/ajax/chatter/teaser', function(data) {
 );
 
 $.get('/ajax/chatter/hot', function(data) { 
-        $('#chatter-tab-1').html(data);
+        $('#chatterHottest').html(data);
     }
 );
 
 $.get('/ajax/chatter/new', function(data) { 
-        $('#chatter-tab-2').html(data);
+        $('#chatterNewest').html(data);
     }
 );
 
 $.get('/ajax/chatter/photos', function(data) { 
-        $('#chatter-tab-3').html(data);
+        $('#chatterPics').html(data);
     }
 );
 
 $.get('/ajax/chatter/conversations', function(data) { 
-        $('#chatter-tab-4').html(data);
+        $('#chatterConversation').html(data);
     }
 );
 
 $.get('/ajax/chatter/questions', function(data) { 
-        $('#chatter-tab-5').html(data);
+        $('#chatterQuestions').html(data);
     }
 );
