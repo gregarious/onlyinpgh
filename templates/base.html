@@ -37,8 +37,8 @@ License: http://creativecommons.org/licenses/MIT
 	<link rel="stylesheet/less" href="{{ STATIC_URL }}css/style.less">
 
 	<!-- For Mobile, Tablet, and Desktop -->
-	<link rel="stylesheet/less" media="only screen and (min-width: 480px)" href="{{ STATIC_URL }}css/480.less">
-	<link rel="stylesheet/less" media="only screen and (min-width: 768px)" href="{{ STATIC_URL }}css/768.less">
+	<link rel="stylesheet/less" media="only screen and (max-width: 480px)" href="{{ STATIC_URL }}css/480.less">
+	<link rel="stylesheet/less" media="only screen and (max-width: 768px)" href="{{ STATIC_URL }}css/768.less">
 	<link rel="stylesheet/less" media="only screen and (min-width: 992px)" href="{{ STATIC_URL }}css/992.less">
 
 	<!-- For Retina displays -->
@@ -79,10 +79,36 @@ License: http://creativecommons.org/licenses/MIT
 <body class="clearfix">
 
 	<nav class="top-nav">
-		<div class="user-stats fourcol">
+		<div class="popular-scenes">
+			<span>Also see:</span>
+			<ul>
+				<li>Pittsburgh</li>
+				<li>Euentrenprensurship</li>
+				<li>Arts</li>
+				<li>Music</li>
+			</ul>
+		</div>
+		<div class="user-stats">
 			<span class="ui-icon ui-icon-triangle-1-s" id="showUserStats"></span>
 			<span class="username">&nbsp; laras126 &rarr;</span>
-			<span class="hrs available">&nbsp;20</span> • <span class="ahrs lifetime">60</span> <span class="more-info-link">(Perogie)</span>
+			<span class="hrs available">&nbsp;20</span> • <span class="ahrs lifetime">60</span>
+
+			<!--<span class="more-info-link">(Perogie)</span> Hidden dialog box -->
+			<!--<article class="more-info-dialog">
+				<header>
+					<h2>About Ahrs, Levels, and Pittsburghese</h2>
+				</header>
+				<p>Levels are calculated according to your lifetime Ahrs. The more lifetime Ahrs you accumulate, the more reputable you are in a scene. You gain Ahrs by checking in to places and events and participating in the Chatter Box. Levels and perks are as follows:</p>
+				<ul>
+					<li>0-25: City Chicken</li>
+					<li>25-50: Gumband</li>
+					<li>50-75: Perogie</li>
+					<li>75-100: Spiggit</li>
+					<li>100-125: Danny Ahris</li>
+					<li>125-150: Double Yoi</li>
+					<li>150+: Fully Fleshed Yinzer</li>
+				</ul>
+			</article>-->
 
 			<section class="additional-info drop-down threecol last" id="dropDown" style="float: right">
 				<div>
@@ -99,19 +125,18 @@ License: http://creativecommons.org/licenses/MIT
 				</div>
 			</section> <!-- .additional-info-dropdown -->
 		</div> <!-- .user-stats -->
-
 	</nav>
 
-	
+
+	<div class="container row">
 		
-
-
-	<div class="container">
-		<div class="row main">
-		<header class="scene-page-header clearfix row">
+		<header class="scene-page-header row">
 			
-			<h1>Oakland Scene</h1>
-
+			<h1 class="fourcol">Oakland Scene</h1>
+			<section class="featured ui-corner-all">
+				<h3>Featured deal or place here</h3>
+				<p>Description of said deal</p>
+			</section>
 			<!--<button class="expand-option filter">Filter scene by tag</button>
 			
 			<div class="row">
@@ -128,11 +153,11 @@ License: http://creativecommons.org/licenses/MIT
 
 		</header>
 
-		<div class="wrap clearfix">
+		<div class="wrap">
 
-			<div class="content clearfix first ui-corner-top">
+			<div class="content">
 
-				<article class="mapnat">
+				<article class="mapnat row">
 					<!--<header>
 						<h2 class="main-panel-head">Map n'at</h2>
 					</header>-->
@@ -184,7 +209,7 @@ License: http://creativecommons.org/licenses/MIT
 			</div> <!-- .first -->
 
 
-			<div class="content clearfix second ui-corner-top">
+			<div class="content">
 				<article class="chatter-box">
 					<div class="row">
 						<div class="chatter-tabs row">
@@ -212,32 +237,17 @@ License: http://creativecommons.org/licenses/MIT
 
 		</div> <!-- .wrap -->
 
-	</div> <!-- .row -->
+	
 	</div> <!-- .container -->
 
 
-	<footer class="clearfix scene-page-footer">
+	<footer class="scene-page-footer">
 		<p class="credits">Brought to you by Sceneable, sponsored by the Oakland Business District</p>
-		<img class="logo" src="{{ STATIC_URL }}img/obid-logo.jpg" />
+		
 	</footer>
-
-	<!-- Hidden dialog box -->
-	<article class="more-info">
-		<header>
-			<h2>About Ahrs, Levels, and Pittsburghese</h2>
-		</header>
-		<p>Levels are calculated according to your lifetime Ahrs. The more lifetime Ahrs you accumulate, the more reputable you are in a scene. You gain Ahrs by checking in to places and events and participating in the Chatter Box. Levels and perks are as follows:</p>
-		<ul>
-			<li>0-25: City Chicken</li>
-			<li>25-50: Gumband</li>
-			<li>50-75: Perogie</li>
-			<li>75-100: Spiggit</li>
-			<li>100-125: Danny Ahris</li>
-			<li>125-150: Double Yoi</li>
-			<li>150+: Fully Fleshed Yinzer</li>
-		</ul>
-	</article>
-	
+	<div class="logo threecol">
+			<img src="{{ STATIC_URL }}img/obid-logo.jpg" />
+		</div>
 	<!-- Scripts -->
 	<!--<script src="{{ STATIC_URL }}js/libs/jquery-1.6.2.min.js"></script> commented out for development-->
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.0/jquery.js"></script> <!-- Unminified jQuery for development -->

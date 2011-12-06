@@ -236,10 +236,10 @@ html {
   height: 100%;
   font-weight: normal;
   font-family: 'PT Serif Caption', Impact, Sans-serif;
+  overflow: hidden;
 }
 
 body {
-  overflow: hidden;
   margin: 0;
   padding: 0;
   height: 100%;
@@ -252,7 +252,7 @@ h1 {
   letter-spacing: 1px;
   text-align: center;
   font-family: 'FrancoisOneRegular', Impact, Sans-serif;
-  font-size: 6em;
+  font-size: 4.5em;
   text-shadow: 2px 2px 2px #aaa;
 }
 
@@ -278,13 +278,20 @@ p {
   font-size: 0.9em;
 }
 
-.main {
-  height: 100%;
+.scene-page-header {
+  padding: 1% 0;
+  height: 10%;
+  .featured {
+    float: left;
+    background-color: #f8e4a5;
+    border: 1px #f2c432 solid;
+    width: 65%;
+    height: 100%;
+  }
 }
 
 .container {
-  height: 100%;
-  width: 100%;
+  
 }
 
 .wrap {
@@ -292,42 +299,9 @@ p {
   height: 100%;
 }
 
-.scene-page-header {
-  padding: 1% 0;
-  .secondary-head {
-    font-family: 'FrancoisOneRegular', Impact, Sans-serif;
-    font-size: 0.7em;
-  }
-}
- 
-.scene-page-footer {
-  background: url("/static/img/skyline.png") repeat-x top;
-  height: 15em;
-  bottom: 10em;
-  position: relative;
-  z-index: 999;
-
-  .credits {
-    top: 40%;
-    color: #aaa;
-    float: left;  
-    position: relative;
-    left: 1%;
-  }
-
-  .logo {
-    float: right;
-    position: relative;
-    -moz-box-shadow: 1px 1px 2px #444;
-    -webkit-box-shadow: 1px 1px 2px #444;
-    box-shadow: 1px 1px 2px #999;
-  }
-
-}
-
 .content {
   width: 50%;
-  height: 65%;
+  height: 72%;
   overflow: hidden;
   float: left;
   position: relative;
@@ -335,21 +309,40 @@ p {
 
 .top-nav {
   width: 100%;
-  height: 30px;
+  height: 4%;
+  padding-top: 1%;
   background-color: @yellow;
   -moz-box-shadow: 1px 1px 2px #444;
   -webkit-box-shadow: 1px 1px 2px #444;
   box-shadow: 1px 1px 2px #444;
-
-  .user-stats {
-    float: right;  
-    padding-top: 0.5%;
-
-    .ui-icon {
-      float: left;
-      cursor: pointer;
-    }
+  font-family: 'NobileRegular', 'Arial', sans-serif;
+  .popular-scenes, .user-stats {
+    margin: 0 1%;
   }
+
+  .popular-scenes {
+
+      span, ul li {
+        float: left;
+      }
+
+      span {
+        font-weight: bold;  
+      }
+
+      ul li {
+        padding-left: 2%;
+      }
+    }
+
+    .user-stats {
+      float: right;  
+
+      .ui-icon {
+        float: left;
+        cursor: pointer;
+      }
+    }
 }
 
 .additional-info {
@@ -378,8 +371,6 @@ p {
   }
 
 }
-
-// This could be done more efficiently?
 
 .hide-show {
   float: left;
@@ -443,19 +434,12 @@ p {
 }
 
 .mapnat {
-  height: 90%;
   width: 80%;
   float: left;
 
-  /*
-  Set map/nat containers to 90% if using header
-  header {
-    height: 10%;
-  }*/
-
   .map-container {
     width: 520px;
-    height: 470px;
+    height: 98%;
     float: left;
     position: relative;
     z-index: 1;
@@ -475,6 +459,7 @@ p {
 
   .nat-container {
     width: 330px;
+    height: 98;
     float: right;
   }
 
@@ -498,6 +483,7 @@ p {
       margin: 2px 0;
       margin: 10px 0;
       border-bottom: 2px solid #ccc;
+
       .points {
         font-size: 1.4em;
         text-shadow: 2px 2px 0 @yellow;
@@ -510,11 +496,13 @@ p {
         overflow: hidden;
       }
 
-      .broadcast-info {
-          
+      .utility-icons  {
+        margin: 0.5em 0;
+        li {
+          float: left;
+        }
       }
-
-    }  
+    }
   }
   
 }
@@ -641,6 +629,30 @@ p {
   }
 }
 
+.voting {
+  div {
+    cursor: pointer;
+    width: 18px;
+    height: 15px;
+  }
+}
+
+.upvote {
+  background: url('/static/img/votingarrows.png') no-repeat left top;
+  &:hover {
+    background-position: right top;
+  }
+}
+
+.downvote {
+  background: url('/static/img/votingarrows.png') no-repeat left bottom;
+
+  &:hover {
+    background-position: right bottom;
+  }
+}
+
+
 .chatter-tab-nav {
   float: right;
   width: 65%;
@@ -672,6 +684,35 @@ p {
 .name {
   font-size: 1em;
 }
+
+.scene-page-footer {
+  //background: url("/static/img/skyline.png") repeat-x top;
+  height: 3%;
+  bottom: 9%;
+  position: relative;
+  z-index: 998;
+
+  .credits {
+    float: right;  
+    position: relative;
+    right: 1%;
+  }
+
+}
+
+.logo {
+    float: left;
+    position: absolute;
+    bottom: 2%;
+    z-index: 999;
+    img {
+      -moz-box-shadow: 3px 3px 2px #444;
+      -webkit-box-shadow: 3px 3px 2px #444;
+      box-shadow: 3px 3px 2px #999;  
+    }
+    
+  }
+
 
 
 /* ==|== non-semantic helper classes ========================================

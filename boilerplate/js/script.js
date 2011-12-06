@@ -33,9 +33,7 @@ $(document).ready(function(){
 		$(this).next('div').slideToggle();
 	});*/
 
-	$('.logo').hide().delay(200).show('slide', {direction: 'right'}, 500);;
-
-	//$('.logo').slideDown(500);
+	$('.logo img').hide().delay(200).show('slide', {direction: 'left'}, 500);
 
 
 	// Expand the add filter form 
@@ -78,11 +76,6 @@ $(document).ready(function(){
 		$('.arrow-collapse').removeClass('right');
 		$('.arrow-collapse').addClass('left');
 	});
-	
-	/*$('.hide-show#chatterbox').click(function() {
-		$('.first').toggle('slow', { left: '-1000px' });
-	});*/
-
 
 	// http://www.learningjquery.com/2009/02/slide-elements-in-different-directions
 	$('button#pageSlideLeft').click(function() {
@@ -111,7 +104,7 @@ $(document).ready(function(){
 	// Button
 	$('button').button().removeClass('ui-button ui-button-text-only');
 
-	// Dialog			
+// Info about levels dialog		
 	$('.more-info').dialog({
 		autoOpen: false,
 		width: 600,
@@ -126,11 +119,28 @@ $(document).ready(function(){
 		}
 	});
 	
-	// Dialog Link
-	$('.more-info-link').click(function(){
-		$('.more-info').dialog('open');
-		return false;
-	});
+
+	// http://stackoverflow.com/questions/4518889/jquery-ui-dialog-open-multiple-dialog-boxes-using-the-same-class-on-the-button-a
+	$('.more-info-link').each(function() {  
+		$.data(this, 'dialog',
+			$(this).next('.more-info-dialog').dialog({
+				autoOpen: false,
+				width: 600,
+				modal: true,
+				buttons: {
+					"Ok": function() { 
+						$(this).dialog("close"); 
+					}, 
+					"Cancel": function() { 
+						$(this).dialog("close"); 
+					} 
+				}
+			})
+		);
+	}).click(function() {  
+	  $.data(this, 'dialog').dialog('open');  
+	  return false;  
+	});    
 
 	// Datepicker 
 	/* $('#datepicker').datepicker({
