@@ -30,15 +30,46 @@ $(document).ready(function() {
 	// Expand scenes-nav on rollover
 	$('.dropdown-title#scenesMenu').toggle(function() {
 			$('.scenes-nav').slideDown(300);
-			$(this).html('Your Scenes &uarr;');
+			$(this).html('Scenes &uarr;');
 		}, function() {
 			$('.scenes-nav').slideUp(300);		
-			$(this).html('Your Scenes &darr;');
+			$(this).html('Scenes &darr;');
 		}
 	);
 
+
 	// Chatter tabs
 	$('.chatter-category-tabs').tabs();
+
+
+	// Sliding sandwich board - this no work now??
+	$('.arrow-slide.left').click( function() {
+		$('.ticker #sandwich-board li').scrollTo($('.ticker #sandwich-board li').next());
+	});
+
+
+	// Not working right now
+	// Checkin dialog
+	$('.checkin-prompt').dialog({
+		autoOpen: false,
+		width: 600,
+		modal: true,
+		buttons: {
+			"Ok": function() { 
+				$(this).dialog("close"); 
+			}, 
+			"Cancel": function() { 
+				$(this).dialog("close"); 
+			} 
+		}
+	});
+	
+	// Dialog Link
+	$('.checkin-prompt-link').click(function(){
+		$('.checkin-prompt').dialog('open');
+		return false;
+	});
+
 
 });
 

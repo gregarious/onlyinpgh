@@ -213,16 +213,72 @@ article {
 	.row();
 	height: 7%;
 	position: absolute;
+	bottom: 0;
 	z-index: 900;
-	  -webkit-box-shadow: 0px 0px 4px #000; 
-	     -moz-box-shadow: 0px 0px 4px #000; 
-	          box-shadow: 0px 0px 4px #000; 
+	-webkit-box-shadow: 0px 0px 4px #000; 
+		-moz-box-shadow: 0px 0px 4px #000; 
+			box-shadow: 0px 0px 4px #000; 
 	background-color: red;
 	overflow: auto;
-	.sandwich-board {
-		ul li {
+	
+	.arrow-slide {
+		margin: auto;
+		width: 20px;
+		height: 40px;
+		&.left {
 			float: left;
-			background-color: orange;
+			background: #fff url('/static/img/arrow-sprite.png') no-repeat 0 4px;
+	      
+			&:hover {
+				background-position: -20px 4px;
+			}
+	      
+			&:active {
+				background-position: -40px 4px;
+			}
+		}
+
+		&.right {
+			float: right;
+			background: #fff url('/static/img/arrow-sprite.png') no-repeat -60px 4px;
+
+			&:hover {
+				background-position: -80px 4px;
+			}
+
+			&:active {
+				background-position: -100px 4px;
+			}
+		}
+	}
+
+	ul {
+		margin: 0 auto;
+		.column(9);
+
+		li {
+			text-align: center;	
+			.row();
+			margin: 0 auto;
+			background-color: #ccc;
+			
+			.item-title {
+				display: inline;
+			}
+
+			.points {
+				float: left;
+				font-size: 2em;
+				text-shadow: 0.1em 0.1em 0 #fff;
+				font-weight: bold;
+				font-style: italic;
+				margin: 0.5%;
+			}		 
+
+			img {
+				float: right;
+			}
+					
 		}
 	}
 }

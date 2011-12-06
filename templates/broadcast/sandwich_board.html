@@ -2,16 +2,15 @@
 template to be included inside the #places div
 {% endcomment %}
 
-<ul>
 {% for o in offers %}
-	<li class="broadcast-item row">
-		<span class="points twocol">+ {{ o.point_value }}</span>
-		<div class="eightcol last">
-	    	<h3>{{ o.description }}</h3>
-	    </div>
-	    <div class="twocol last">
-	    	<img height="100px" width="100px" src="{{ o.sponsor.identity.avatar }}" />
-	    </div>
+	<li>
+		<span class="points">+ {{ o.point_value }}</span>
+	    <h4 class="item-title">{{ o.description }}</h4>
+	    <p class="checkin-prompt-link">Take advantage of this deal</p>
+		<img height="100px" width="100px" src="{{ o.sponsor.identity.avatar }}" />
+		<div class="checkin-prompt"> <!-- not working right now -->
+			<h3>{{ o.description }}</h3>
+			<img height="100px" width="100px" src="{{ o.sponsor.identity.avatar }}" />
+		</div>
     </li>
 {% endfor %}
-</ul>
