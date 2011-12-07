@@ -1,4 +1,4 @@
-import urllib, json
+import urllib, urllib2, json
 
 def get_basic_access_token(client_id,client_secret):
     '''
@@ -22,22 +22,78 @@ def get_basic_access_token(client_id,client_secret):
     # if we made it this far, we didn't return with a value response
     raise Exception("Unexpected response from server: '%s'" % response)
 
+class BatchCommand(object):
+    '''
+    Stores a single GET command to be used in a batch operation.
+    e.g. BatchCommand('cocacola/events', {limit: 10}) will create a command 
+            that returns details of 10 events owned by Coca Cola.
+    
+    See https://developers.facebook.com/docs/reference/api/batch/ for
+    details about using the "name" parameter for commands with dependencies
+    with other commands.
+    '''
+
+    def __init__(self,url,options={},name=None,omit_response_on_success=True):
+        self.url = url
+        self.options = options
+        self.name = name
+        # only useful if name is specified
+        self.omit_response_on_success = omit_response_on_success    
+    
+    def to_command_dict(self):
+        command = { 'method':       'GET',
+                    'relative_url': self.url }
+        if self.options:
+            command['relative_url'] += '?' + urllib.urlencode(self.options)
+        if self.name:
+            command['name'] = self.name
+            command['omit_response_on_success'] = self.omit_response_on_success
+        return command
+
+
 class GraphAPIClient(object):
     def __init__(self,access_token=None):
         self.access_token = access_token
 
-    def graph_api_object(self,obj_id):
+    def graph_api_objects(self,ids):
         '''
-        Returns a single object from the graph API.
+        Returns details about objects with known Facebook ids. Input
+        is a list of ids (numbers or strings OK), output is a parallel
+        list of response dicts.
+
+        A single string/value can be input without a list for convenience's 
+        sake. In this case, the single result will be returned in isolation 
+        (not in a list).
         '''
-        request_url = 'https://graph.facebook.com/' + str(obj_id)
+        return_list = True
+        # duck typing fun to handle single id case
+        if isinstance(ids,basestring):
+            ids = [ids]
+            return_list = False
+        try:
+            ids = [str(id) for id in ids]
+        except TypeError:   # if the input was a number
+            ids = [str(ids)]
+            return_list = False
+
+        get_opts = { 'ids': ','.join(ids) }
         if self.access_token:
-            request_url += '?' + urllib.urlencode({'access_token':self.access_token})
+            get_opts['access_token'] = self.access_token
+        
+        request_url = 'https://graph.facebook.com/?' + urllib.urlencode(get_opts)
 
         response = json.load(urllib.urlopen(request_url))
         if not response or 'error' in response:
             raise Exception('Graph API returned error. Content:\n%s' % str(response))    
-        return response
+        
+        # return sorted list based on the input id ordering
+        responses = [response[id] for id in ids]
+        if return_list:
+            return responses
+        elif len(responses) > 1:
+            raise Exception('Internal error: More than one response returned to single object query.')
+        else:
+            return responses[0]
 
     def graph_api_query(self,suburl,max_pages=10,**kw_options):
         '''
@@ -96,68 +152,32 @@ class GraphAPIClient(object):
 
         return all_data
 
-    def gather_place_pages(self,center,radius,query=None,limit=4000):
+    def run_batch_request(self,batch_commands,process_response=True):
         '''
-        Returns a list of Facebook place page 'objects' represneting all places 
-        found in the given area. Object fields can be found at 
-        https://developers.facebook.com/docs/reference/api/page/
+        Runs a batch of GET calls. Argument should be a list of BatchCommand
+        objects. All commands are run relative to https://graph.facebook.com/
 
-        center should be a tuple of (latitude,logitude) values, and radius is 
-        in meters (i think?)
-
-        If query is omitted, a "blank query" will be run by running the same 
-        center and radius query 26 separate times, once per letter of the 
-        alphabet as the actual query argument.
+        If process_response is True (default), a list of response dicts
+        parsed out from the "body" elements of the full response will be
+        returned. Otherwise, the bare full response (with status codes and 
+        headers) will be directly returned.
+        
+        See https://developers.facebook.com/docs/reference/api/batch/
+        for more details on the format of this responses.
         '''
-        # no query given, run one for each letter of the alphabet
-        if query is None:
-            ids_seen = set()    # cache the ids in the list for a quick duplicate check
-            all_pages = []
-            # cycle thru each letter
-            for letter in [chr(o) for o in range(ord('a'),ord('z')+1)]:
-                for page in self.gather_place_pages(center,radius,query=letter,limit=limit):
-                    if page['id'] not in ids_seen:
-                        ids_seen.add(page['id'])
-                        all_pages.append(page)
-            return all_pages
+        command_dicts = [cmd.to_command_dict() for cmd in batch_commands]
+        data = {'batch': json.dumps(command_dicts)}
+        if self.access_token:
+            data['access_token'] = self.access_token
+        
+        req = urllib2.Request(url='https://graph.facebook.com/',data=urllib.urlencode(data))
+        response = json.load(urllib2.urlopen(req))
 
-        return self.graph_api_query('search',q=query,
-                                                type='place',
-                                                center='%f,%f' % center,
-                                                distance=radius,
-                                                limit=limit)
-
-    def gather_event_info(self,page_id):
-        '''
-        Returns a list of event object information for all events connected
-        to the given page.
-        '''
-        event_stubs = self.graph_api_query('%s/events'%str(page_id),limit=1000,max_pages=None)
-        # this took almost 4 minutes with 400 events. do 50 at a time with batch requests 
-        # via urllib2.Request
-        # https://developers.facebook.com/docs/reference/api/batch/
-        # http://docs.python.org/library/urllib2.html#urllib2.Request
-        return [self.graph_api_object(event['id']) for event in event_stubs]
-
-
-def _get_all_places_from_cron_job():
-    '''
-    Runs a series of queries to return the same results that the old oip
-    fb5_getLocal.execute_quadrants Java code searches over.
-    '''
-    search_coords = [ (40.44181,-80.01277),
-                      (40.666667,-79.700556),
-                      (40.666667,-80.308056),
-                      (40.216944,-79.700556),
-                      (40.216944,-80.308056),
-                      (40.44181,-80.01277),
-                    ]
-
-    all_ids = set()
-    for coords in search_coords:
-        ids = [page['id'] for page in default_graph_client.gather_place_pages(coords,25000)]
-        all_ids.update(ids)
-    return list(all_ids)
+        if process_response:
+            return [json.loads(entry['body']) if entry else None
+                        for entry in response]
+        else:
+            return response
 
 # onlyinpgh.com app credentials
 OIP_APP_ID = '203898346321665'

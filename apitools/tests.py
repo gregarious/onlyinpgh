@@ -3,7 +3,8 @@ Unit tests for all API tools
 """
 
 from django.test import TestCase
-from onlyinpgh.apitools.facebook import get_basic_access_token, oip_client
+from onlyinpgh.apitools.facebook import get_basic_access_token, oip_client, BatchCommand
+import json
 
 class FacebookGraphTest(TestCase):
     def test_basic_access_token(self):
@@ -21,11 +22,14 @@ class FacebookGraphTest(TestCase):
         # Dependant on FB data. These are examples given on the Graph API
         # documentation page. If this test fails, check this site.
         # https://developers.facebook.com/docs/reference/api/
-        page = oip_client.graph_api_object(40796308305)
+        page = oip_client.graph_api_objects('40796308305')
+        self.assertEquals(page['name'],'Coca-Cola')
+        page = oip_client.graph_api_objects(40796308305)
         self.assertEquals(page['name'],'Coca-Cola')
 
-        user = oip_client.graph_api_object('btaylor')
-        self.assertEquals(user['name'],'Bret Taylor')
+        users = oip_client.graph_api_objects(['btaylor','zuck'])
+        self.assertEquals(users[0]['name'],'Bret Taylor')
+        self.assertEquals(users[1]['name'],'Mark Zuckerberg')
 
     def test_graph_query(self):
         '''
@@ -48,34 +52,68 @@ class FacebookGraphTest(TestCase):
         self.assertEquals(len(results),6)
         # just check that first result is an event because it has a 'start_time' field
         self.assertIn('start_time',results[0].keys())
-        
-    def test_place_search(self):
-        '''
-        Tests that place radius gathering code works
-        '''
-        # Dependant on FB data. Test built to search for Heinz Field and PNC Park within
-        # 500 meters of a specific point.Could fail if geocoding info, building name, etc. 
-        # changes in facebook data
-        page_names = [page['name'] for page in oip_client.gather_place_pages((40.446,-80.014),500)]
-        self.assertIn(u'PNC Park',page_names)
-        self.assertIn(u'Heinz Field',page_names)
-        
-        page_names = [page['name'] for page in oip_client.gather_place_pages((40.446,-80.014),500,'pnc')]
-        self.assertIn(u'PNC Park',page_names)
-        self.assertNotIn(u'Heinz Field',page_names)
 
-    def test_event_query(self):
+    def test_batch_request(self):
         '''
-        Tests that event gathering code works
+        Tests batch API interface
         '''
-        # can't really assert anything about some third party page's events. be content
-        # with just testing that there's a few of them and the first one has some 
-        # event-specific fields
-        events = oip_client.gather_event_info(40796308305)   #coca-cola's UID
-        self.assertGreater(len(events),4)       # should be more than 4? why not.
-        for event in events:
-            self.assertIn('start_time',event.keys())
-            self.assertIn('owner',event.keys())
+        # Dependant on FB data. These are examples ones similar to those 
+        # listed on the Graph API BatchRequest documentation:
+        # https://developers.facebook.com/docs/reference/api/batch
+
+        ### 
+        # Main test consists of querying for events associated with Coca-Cola,
+        # results are tested to be sure certain event-specific fields are 
+        # returned. The status code of the full response is also returned
+
+        # Also, we want to test the behavior of the "omit_response_on_success" 
+        # variable so we run it twice. Once where the first response is omitted 
+        # and we expect the full batch response to have a None first object, and 
+        # once where it is not omitted we expect it to have a list of event stubs.
+        for omit_first_response in (True,False):
+            batch_request = [ BatchCommand('cocacola/events',
+                                            options={'limit':5},
+                                            name='get-events',
+                                            omit_response_on_success=omit_first_response),
+                              BatchCommand('',
+                                            options={'ids':'{result=get-events:$.data.*.id}'}),
+                            ]
+        full_response = oip_client.run_batch_request(batch_request,process_response=False)
+        self.assertEquals(len(full_response),2)
+        
+        first_resp,second_resp = full_response
+        # test result of first command
+        if omit_first_response:
+            self.assertIsNone(first_resp)
+        else:
+            body = json.loads(first_resp['body'])
+            for stub in body['data']:
+                self.assertIn('start_time',stub)    # duck test for event stub
+        
+        # test response from second command
+        self.assertEquals(second_resp['code'],200)
+        body = json.loads(second_resp['body'])
+        for event in body.values():
+            # test that results are events via "duck-typing" test
+            self.assertIn('start_time',event)
+            self.assertIn('owner',event)
+
+        ### 
+        # Also test the behavior when process_response is left to be True
+        # This is a simpler command that requests Coca-Cola's user object and 
+        # its first 5 events in one go. Leaving process_response to True in the
+        # run_batch_request() call should yield responses with already-JSON parsed
+        # body content only
+        batch_request = [ BatchCommand('cocacola'),
+                          BatchCommand('cocacola/events',
+                                            options={'limit':5}),
+                        ]
+        responses = oip_client.run_batch_request(batch_request)
+        self.assertEquals(len(responses),2)
+        self.assertIn('username',responses[0])  # first response is a single user object
+        for event in responses[1]['data']:     # second response is a map of {id:event stubs}
+            self.assertIn('name',event)
+            self.assertIn('start_time',event)
 
 class FactualResolveTest(TestCase):
     def test_successful_request(self):
