@@ -4,7 +4,7 @@
 
 // Defaults which you can freely override
 @column-width: 60;
-@gutter-width: 0;
+@gutter-width: 10;
 @columns: 12;
 
 // Utility variable — you should never need to modify this
@@ -35,7 +35,7 @@ body {
 	//display: inline;
 	float: left;
 	width: @total-width*((((@gutter-width+@column-width)*@x)-@gutter-width) / @_gridsystem-width);
-	//margin: 0 @total-width*((@gutter-width*.5)/@_gridsystem-width);
+	margin: 0 @total-width*((@gutter-width*.5)/@_gridsystem-width);
 }
 .offset(@offset:1) {
 	margin-left: (@gutter-width+@column-width)*@offset + @total-width*((@gutter-width*.5)/@_gridsystem-width);
@@ -43,7 +43,7 @@ body {
 
 // The micro clearfix http://nicolasgallagher.com/micro-clearfix-hack/
 .clearfix() {
-	/**zoom:1;*/
+	zoom:1;
 	
 	&:before,
 	&:after {
@@ -59,7 +59,38 @@ body {
 // MIXINS //
 ////////////
 
-.sticky {
-	position: static;
-	z-index: 100;
+@yellow: #F2C432;
+@blue: #3A5454;
+@orange: #C24C1E;
+@brown: #572F13;
+@green: #736E1E;
+
+.gradient(@color1, @color2) {
+	background-color: @color1;
+	background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(@color1), to(@color2));
+	background-image: -webkit-linear-gradient(top, @color1, @color2);
+	background-image:    -moz-linear-gradient(top, @color1, @color2);
+	background-image:     -ms-linear-gradient(top, @color1, @color2);
+	background-image:      -o-linear-gradient(top, @color1, @color2);
 }
+
+.rounded(@tl, @tr, @br, @bl) {
+	-moz-border-radius: @tl @tr @br @bl;
+	border-radius: @tl @tr @br @bl;	
+}
+
+.rounded-all(@radius) {
+	-moz-border-radius: @radius;
+	border-radius: @radius;		
+}
+
+.box-shadow(@horiz, @vert, @blur, @color) {
+	-moz-box-shadow: @horiz @vert @blur @color;
+	-webkit-box-shadow: @horiz @vert @blur @color;
+	box-shadow: @horiz @vert @blur @color;
+}
+
+.text-shadow(@horiz, @vert, @blur, @color) {
+	text-shadow: @horiz @vert @blur @color;	
+}
+

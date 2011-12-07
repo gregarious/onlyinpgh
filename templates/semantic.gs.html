@@ -2,22 +2,61 @@
 
 <head>
 
-	<link type="text/css" href="{{ STATIC_URL }}css/reset.css">
-	<link rel="stylesheet/less" href="{{ STATIC_URL }}css/semantic.gs.less">
 	<link type="text/css" href="{{ STATIC_URL }}jquery-ui/css/custom-theme/jquery-ui-1.8.16.custom.css" rel="stylesheet" />
+	<link type="text/css" rel="stylesheet" href="{{STATIC_URL}}css/ChunkFive-fontfacekit/stylesheet.css">
+	<link type="text/css" rel="stylesheet" href="{{STATIC_URL}}css/Lilly-fontfacekit/stylesheet.css">
+	<link type="text/css" rel="stylesheet" href="{{STATIC_URL}}css/Nobile-fontfacekit/stylesheet.css">
+	<link type="text/css" rel="stylesheet" href="{{STATIC_URL}}css/Universal-fruitcake-fontfacekit/stylesheet.css">
+	<link type="text/css" rel="stylesheet" href="{{ STATIC_URL }}css/reset.css">
+	
+
+	<!-- For Mobile, Tablet, and Desktop -->
+	<link rel="stylesheet/less" href="{{ STATIC_URL }}css/basic.less">
+	<!--<link rel="stylesheet/less" media="only screen and (max-width: 1024px)" href="{{ STATIC_URL }}css/992.less">-->
+	<link rel="stylesheet/less" media="only screen and (max-width: 1360px)" href="{{ STATIC_URL }}css/768.less">
+	<link rel="stylesheet/less" media="only screen and (max-width: 480px)" href="{{ STATIC_URL }}css/480.less">
+
 	<title>OIP Tile Layout</title>
 
 </head>
 
 <body>
 
+<nav class="site-nav">
+	<ul>
+		<li>
+			<ul>
+				<li></li>
+				<li class="events active"><a href="#eventsTile" class="panel">Events</a></li>
+				<li></li>
+			</ul>	
+		</li>
+
+		<li class="row">
+			<ul>
+				<li class="stats active"><a href="#statsTile" class="panel">Stats</a></li>	
+				<li class="ataglance active"><a href="#atAGlanceTile" class="panel">Home</a></li>
+				<li class="places active"><a href="#placesTile" class="panel">Places</a></li>
+			</ul>
+		</li>
+
+		<li class="row">
+			<ul>
+				<li></li>
+				<li class="chatterbox active"><a href="#chatterBoxTile" class="panel">Chatter Box</a></li>
+				<li></li>
+			</ul>
+		</li>
+	</ul>
+</nav>
+
 <header class="site-head">
 	
 	<nav class="utilities-nav">
-	
-		<h4 class="dropdown-title" id="scenesMenu">Scenes &darr;</h4>
-		<span>+ Add to my scenes</span>
-
+		<section class="scenes-nav-utility">
+			<h4 class="dropdown-title" id="scenesMenu">Scenes &darr;</h4>
+			<span>+ Add to my scenes</span>
+		</section>
 		<ul class="user-nav">
 			<li>Settings</li>
 			<li>Single Yoi</li>
@@ -43,34 +82,6 @@
 		<span class="add-filter">Filter Scene</span>
 	</section>
 
-	<nav class="site-nav">
-		<ul>
-			<li class="row">
-				<ul>
-					<li></li>
-					<li><a href="#statsTile" class="panel">Stats</a></li>			
-					<li></li>
-				</ul>	
-			</li>
-
-			<li class="row">
-				<ul>
-					<li><a href="#eventsTile" class="panel">Events</a></li>
-					<li><a href="#atAGlanceTile" class="panel">Home</a></li>
-					<li><a href="#chatterBoxTile" class="panel">Chatter Box</a></li>
-				</ul>
-			</li>
-
-			<li class="row">
-				<ul>
-					<li></li>
-					<li><a href="#placesTile" class="panel">Places</a></li>			
-					<li></li>
-				</ul>
-			</li>
-		</ul>
-	</nav>
-
 </header> <!-- .site-head -->
 
 <div id="wrapper">
@@ -94,62 +105,66 @@
 
 		<div id="eventsTile" class="item"> <!-- middle left -->
 			<h2>Events page</h2>
-			<ul id="eventsPage">Events list template</ul>
+			<ul id="eventsPage"><!-- Events list template --></ul>
 
 		</div> <!-- #eventsTile -->
 
 
 		<div id="atAGlanceTile" class="item"> <!-- middle middle -->
+			<div class="item-content-container">
 
-			<!-- Header -->
-			<header class="scene-header">
-				<h2>Scene at a glance</h2>
-			</header>
-
-
-			<!-- Frontpage Events -->
-			<article class="scene-events">
-				<h3>Soonest Events</h3>
-
-				<section class="events-feed">
-					<ul id="eventsFeed">Events list template</ul>
-				</section>
-
-			</article>
+				<!-- Header -->
+				<!--<header class="scene-header">
+					<h2>Scene at a glance</h2>
+				</header>-->
 
 
-			<!-- Frontpage Places -->
-			<article class="scene-places">
-				<h3>Map and places</h3>
-				<section class="map">
-					<h4>Map</h4>
-				</section>
+				<!-- Frontpage Events -->
+				<article class="scene-events">
+					<section class="events-feed main">
+						<header>
+							<h3 class="section-title">Upcoming Events</h3>
+						</header>
+						<ul id="eventsFeed"><!-- Events List template --></ul>
+					</section>
+				</article>
 
-				<section class="establishments">
-					<header>
-						<h4>Top Places</h4>
-					</header>
-					<ul id="placesFeed">Places list template</ul>
-				</section>
-			</article>
 
-			
-			<!-- Frontpage updates -->
-			<article class="scene-updates">
-				<h3>Scene updates</h3>
+				<!-- Frontpage Places -->
+				<article class="scene-places">
+					<section class="sammich-board main">
+						<header class="section-title">
+							<h3 class="section-title">Sammich Board</h3>
+						</header>
+						<ul id="sandwich-board"><!--Sandwich board list template.--></ul>
+					</section>
+					<section class="establishments main">
+						<header>
+							<h3 class="section-title">Top Places</h3>
+						</header>
+						<ul id="placesFeed"><!-- Places list template --></ul>
+					</section>
+				</article>
 
-				<section class="chatter-feed">
-					<h4>Chatter feed</h4>
-					<ul class="chatter-posts" id="chatter-teasers">
-					</ul>
-				</section>
+				
+				<!-- Frontpage updates -->
+				<article class="scene-updates">
+					<section class="chatter-feed main">
+						<header>
+							<h3 class="section-title">Chatter Feed</h3>
+						</header>
+						<ul class="chatter-posts" id="chatter-teasers"></ul>
+					</section>
 
-				<section class="news-item">
-					<h4>News item</h4>
-					<div id="burghosphere">Burghosphere list template.</div>
-				</section>
-			</article>
+					<section class="news-item main">
+						<header>
+							<h3 class="section-title">Burghosphere</h3>
+						</header>
+						<ul id="burghosphere"><!-- Burgosphere/Articles list template --></ul>
+					</section>
+				</article>
 
+			</div> <!-- .item-content-container -->
 		</div> <!-- #atAGlanceTile -->
 
 
@@ -184,7 +199,7 @@
 		
 		<div class="item" id="placesTile"> <!-- bottom middle -->
 			<h2>Places</h2>
-			<ul id="placesPage">Places list template</ul>
+			<ul id="placesPage"><!--Places list template--></ul>
 		</div> <!-- #placesTile -->
 
 		<div class="item"></div> <!-- bottom right -->
@@ -195,11 +210,11 @@
 </div> <!-- #wrapper -->
 
 
-<footer class="ticker">
+<!--<footer class="ticker">
 	<div class="arrow-slide left"></div>
 	<ul id="sandwich-board">Sandwich board list template.</ul>	
 	<div class="arrow-slide right"></div>
-</footer>
+</footer>-->
 
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.0/jquery.js"></script> <!-- Unminified jQuery for development -->
 	<script src="{{ STATIC_URL }}jquery-ui/js/jquery-ui-1.8.16.custom.js"></script>

@@ -1,5 +1,6 @@
+/* 992 */
+
 @import 'lib.less';
-@import 'Nobile-fontfacekit/stylesheet.css';
 
 //////////
 // GRID //
@@ -28,15 +29,22 @@
 
 html, body {
 	height: 100%;
-	font-family: 'NobileRegular', sans-serif;
+	font: 16px 'NobileRegular', 'Verdana', sans-serif;
 }
 
 h1 a {
-	font: 1.5em 'UniversalfruitcakeRegular', sans-serif;
+	font: 2em 'ChunkFiveRegular', sans-serif;
 	letter-spacing: 1px;
 	text-decoration: none;
 	color: #000;
 	.text-shadow(2px, 2px, 2px, #fff);
+}
+
+h3 {
+	font: 1.3em 'ChunkFiveRegular', 'Verdana', sans-serif;
+	letter-spacing: 2px;
+	color: #101010;
+	.text-shadow(0, 0, 1px, #fff);
 }
 
 h4 {
@@ -50,29 +58,35 @@ ul {
 	list-style-type: none;
 }
 
-article {
-	height: 100%;
-	section {
-		overflow: auto;
+
+.item-content-container {
+	height: 95%;
+	width: 90%;
+	margin: 5% auto;
+
+
+	article {
+		height: 100%;
+		overflow: hidden;
 	}
 }
+
+
 
 
 // panel utilities and containers
 
 #wrapper {
 	width: 100%;
-	height: 78%;
+	height: 100%;
 	position: absolute;
 	left: 0;
-	background-color: #ccc;
 	overflow: hidden;
 }
 
 #mask {
 	width:500%;
 	height:100%;
-	background-color:#eee;
 }
 
 .item {
@@ -80,13 +94,33 @@ article {
 	padding: 0.2%;
 	height:99.6%;
 	float:left;
-	background-image: url('/static/img/limestone.jpg');
-	section {
-		background-image: url('/static/img/sand.jpg');		
-		.rounded-all(1em);
-		.box-shadow(1px, 1px, 1px, #fff);
-		width: 90%;
-		margin: 0.2%;
+	background-image: url('/static/img/stormy-sky.jpg');
+
+	.main {
+
+		overflow: hidden;
+		background-image: url('/static/img/limestone.jpg');
+		//background-color: #ccc;
+		//.rounded-all(1em);
+		.box-shadow(1px, 1px, 1px, #000);
+		width: 93%;
+		padding: 2%;
+		margin: 0 1.5% 3% 1.5%;
+
+		header {
+			background-image: url('/static/img/dark-yellow-diagonal.png');
+			padding: 1% 1.5%;
+			.rounded-all(0.2em);
+			.box-shadow(3px, 3px, 1px, #000);
+		}
+
+		section {
+			margin: 3% 0;
+			padding: 3%;
+			.box-shadow(1px, 1px, 1px, #000);
+			background-image: url('/static/img/eggshell.jpg');
+			.rounded-all(0.2em);
+		}
 	}
 }
 
@@ -107,7 +141,6 @@ article {
 	position: absolute;
 	right: 0;
 	z-index: 999;
-	background-image: url('/static/img/ui-bg_diagonals-medium_85_f7f7ba_40x40.png');
 	.box-shadow(3px, 3px, 3px, #000);
 	.rounded(0, 0, 0, 7em);
 	
@@ -178,13 +211,16 @@ article {
 
 .site-head {
 	.row();
-	height: 15%;
-	position: static;
+	
+	position: absolute;
 	z-index: 100;
 
 	.utilities-nav {
-		background-color: orange;
+		background-image: url('/static/img/navy-diagonal.png');
+		.box-shadow(0, 0.1em, 0.1em, #000);
 		.row();
+		color: #fff;
+		.text-shadow(0.02em, 0.02em, 0.05em, #000);
 
 		.user-nav {
 			.column(6);
@@ -198,34 +234,34 @@ article {
 		}
 
 		.scenes-nav-utility {
+			margin-left: 1%;
+			margin-top: 0.5%;
 			float: left;
 			.dropdown-title {
 				float: left;
-				margin: 0;
-				padding: 0.5%;
 				cursor: pointer;
 			
 				&:hover {
-					background-color: magenta;
+					background-color: #000;
+					.rounded-all(1em);
 				}
 			}
 		}
 	}
 
 	.scenes-nav {
-		.column(5);
 		display: none;
 		position: absolute;
 		z-index: 500;
-		background-color: purple;
+		background-image: url('/static/img/stormy-sky.jpg');
+		padding: 1%;
 		li {
-			
+			.text-shadow(1px, 1px, 1px, #fff);	
 		}
 	}
 
 	.title-filter {
 		.column(9);
-	
 		.scene-name {
 		
 		}	
@@ -236,27 +272,21 @@ article {
 
 
 // main articles and their sections
-// adding the margin/padding is a little bit hacky - 
-// could be done with one rule for article and section
-
 
 .scene-events {
 	.column(4);
-	.events-feed {	
-		height: 100%;
+	.events-feed {
+		height: 95%;	
 	}
+	
 }
 
 .scene-places {
 	.column(5);
-	background-color: green;
-	.map, .establishments {
-		.row();
-	}
-
-	.map {
-		height: 40%;
-		background-color: limegreen;
+	.sammich-board {
+		height: 33%;
+		.rounded-all(0px);
+		.box-shadow(2px, 2px, 2px, #000);
 	}
 
 	.establishments {
@@ -266,18 +296,17 @@ article {
 
 .scene-updates {
 	.column(3);
-	background-color: blue;	
+
 	.chatter-feed, .news-item {
-		.row();
+		
 	}	
 
 	.chatter-feed {
-		height: 70%;
+		height: 63%;		
 	}
 
 	.news-item {
 		height: 30%;
-		background-color: aqua;
 	}
 }
 
@@ -290,10 +319,10 @@ article {
 	position: absolute;
 	bottom: 0;
 	z-index: 900;
-	-webkit-box-shadow: 0px 0px 4px #000; 
+	.box-shadow(0px, 0px, 4px, #000); 
 		-moz-box-shadow: 0px 0px 4px #000; 
 			box-shadow: 0px 0px 4px #000; 
-	background-color: red;
+	background-image: url('/static/img/dark-yellow-diagonal.png');
 	overflow: auto;
 	
 	.arrow-slide {
@@ -335,7 +364,6 @@ article {
 			text-align: center;	
 			.row();
 			margin: 0 auto;
-			background-color: #ccc;
 			
 			.item-title {
 				display: inline;
@@ -361,7 +389,7 @@ article {
 
 // create one column when resolution is less than 720px
 
-@media screen and (max-width: 720px) {
+/*@media screen and (max-width: 720px) {
 	#wrapper {
 		overflow: auto;
 	}
@@ -370,4 +398,4 @@ article {
 		.row();
 		margin-bottom: 1em;
 	}
-}
+}*/
