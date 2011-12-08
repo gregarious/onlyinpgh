@@ -1,32 +1,46 @@
 
 $(document).ready(function() {
-	
 
 	// Sliding Navigation
 
 	// Credit: Queness, "Create a Vertical, Horizontal and Diagonal Sliding Content Website with jQuery"
 	// http://www.queness.com/post/356/create-a-vertical-horizontal-and-diagonal-sliding-content-website-with-jquery
 
-
 	$('#wrapper').scrollTo('#atAGlanceTile', 0);
 
-	$('a.panel').click(function() {
-		
+	$('a.panel').click(function(event) {
+
 		$('a.panel').removeClass('selected');
 		$(this).addClass('selected');
 
-		current = $(this);
-
 		$('#wrapper').scrollTo($(this).attr('href'), 800);
+
+		/*var target = $(event.target);
+
+		var p = $('div.item#eventsTile .item-content-container').data('posleft', 150);
+		console.log(p.left);
+
+		if( target.is('li.events.active a.panel') ) {
+			$('.item#eventsTile .item-content-container').animate({
+				left: '-=200'
+			}, 1000);
+		} else {
+			$('.item#eventsTile .item-content-container').animate({
+				left: '+=200'
+			}, 1000);
+		}*/
+
 		return false;
+
 	});
 
 	$(window).resize(function() {
 		resizePanel();
-	})
+	});
 	
 	// End slide nav
 	
+
 	// Expand scenes-nav on rollover
 	$('.dropdown-title#scenesMenu').toggle(function() {
 			$('.scenes-nav').slideDown(300);
@@ -36,6 +50,7 @@ $(document).ready(function() {
 			$(this).html('Scenes &darr;');
 		}
 	);
+
 
 
 	// Chatter tabs

@@ -77,11 +77,6 @@
 		</ul>
 	</nav>
 
-	<section class="title-filter">
-		<h1 class="scene-name"><a href="#atAGlanceTile" class="panel">Oakland scene</a></h1>
-		<span class="add-filter">Filter Scene</span>
-	</section>
-
 </header> <!-- .site-head -->
 
 <div id="wrapper">
@@ -104,9 +99,17 @@
 	<!-- Second Row -->
 
 		<div id="eventsTile" class="item"> <!-- middle left -->
-			<h2>Events page</h2>
-			<ul id="eventsPage"><!-- Events list template --></ul>
-
+			<div class="item-content-container">
+				<article class="tile-list">
+					<h2>Events</h2>
+					<ul id="eventsPage" class="page-list"><!--Places list template--></ul>
+				</article>
+				<article class="tile-map">
+					<div class="map_canvas">
+						<!-- Map generated here -->
+					</div>
+				</article>
+			</div>
 		</div> <!-- #eventsTile -->
 
 
@@ -136,31 +139,30 @@
 						<header class="section-title">
 							<h3 class="section-title">Sammich Board</h3>
 						</header>
-						<ul id="sandwich-board"><!--Sandwich board list template.--></ul>
+						<ul id="sandwich-board" class="block-list"><!--Sandwich board list template.--></ul>
 					</section>
 					<section class="establishments main">
 						<header>
 							<h3 class="section-title">Top Places</h3>
 						</header>
-						<ul id="placesFeed"><!-- Places list template --></ul>
+						<ul id="placesFeed" class="thumbnail-list"><!-- Places list template --></ul>
 					</section>
 				</article>
 
-				
 				<!-- Frontpage updates -->
 				<article class="scene-updates">
 					<section class="chatter-feed main">
 						<header>
 							<h3 class="section-title">Chatter Feed</h3>
 						</header>
-						<ul class="chatter-posts" id="chatter-teasers"></ul>
+						<ul class="chatter-posts block-list" id="chatter-teasers"></ul>
 					</section>
 
 					<section class="news-item main">
 						<header>
 							<h3 class="section-title">Burghosphere</h3>
 						</header>
-						<ul id="burghosphere"><!-- Burgosphere/Articles list template --></ul>
+						<ul id="burghosphere" class="block-list"><!-- Burgosphere/Articles list template --></ul>
 					</section>
 				</article>
 
@@ -170,21 +172,23 @@
 
 
 		<div id="chatterBoxTile" class="item"> <!-- middle right -->
-			<h2>Chatter Box</h2>
-			<div class="chatter-category-tabs">
-				<ul class="category-tabs">
-					<li><a href="#chatterHottest">Hottest</a></li>
-					<li><a href="#chatterNewest">Newest</a></li>
-					<li><a href="#chatterPics">Pics</a></li>
-					<li><a href="#chatterConversation">Conversation</a></li>
-					<li><a href="#chatterQuestions">Questions</a></li>
-				</ul>
-				<div class="category-tabs-content">
-					<article id="chatterHottest">Hottest chatter posts template</article>
-					<article id="chatterNewest">Hottest chatter posts template</article>
-					<article id="chatterPics">Pics chatter posts template</article>
-					<article id="chatterConversation">Conversation chatter posts template</article>
-					<article id="chatterQuestions">Questions chatter posts template</article>
+			<div class="item-content-container">
+				<h2>Chatter Box</h2>
+				<div class="chatter-category-tabs">
+					<ul class="category-tabs">
+						<li><a href="#chatterHottest">Hottest</a></li>
+						<li><a href="#chatterNewest">Newest</a></li>
+						<li><a href="#chatterPics">Pics</a></li>
+						<li><a href="#chatterConversation">Conversation</a></li>
+						<li><a href="#chatterQuestions">Questions</a></li>
+					</ul>
+					<div class="category-tabs-content">
+						<ul id="chatterHottest" class="block-list">Hottest chatter posts template</ul>
+						<article id="chatterNewest">Hottest chatter posts template</article>
+						<article id="chatterPics">Pics chatter posts template</article>
+						<article id="chatterConversation">Conversation chatter posts template</article>
+						<article id="chatterQuestions">Questions chatter posts template</article>
+					</div>
 				</div>
 			</div>
 		</div> <!-- #chatterBoxTile -->
@@ -198,9 +202,18 @@
 		<div class="item"></div> <!-- bottom left -->
 		
 		<div class="item" id="placesTile"> <!-- bottom middle -->
-			<h2>Places</h2>
-			<ul id="placesPage"><!--Places list template--></ul>
-		</div> <!-- #placesTile -->
+			<div class="item-content-container">
+				<article class="tile-list">
+					<h2>Places</h2>
+					<ul id="placesPage" class="page-list"><!--Places list template--></ul>
+				</article>
+				<article class="tile-map">
+					<div class="map_canvas">
+						<!-- Map generated here -->
+					</div>
+				</article>
+			</div> <!-- #placesTile -->
+		</div>
 
 		<div class="item"></div> <!-- bottom right -->
 		<div class="clear"></div>

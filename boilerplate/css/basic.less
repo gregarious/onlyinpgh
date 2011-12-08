@@ -49,6 +49,7 @@ h3 {
 
 h4 {
 	margin: 1% 0;
+	font-family: 'LillyRegular';
 }
 
 
@@ -57,7 +58,6 @@ ul {
 	padding: 0;
 	list-style-type: none;
 }
-
 
 .item-content-container {
 	height: 95%;
@@ -71,15 +71,21 @@ ul {
 	}
 }
 
-
-
-
 // panel utilities and containers
+
+.clear {
+	clear: both;
+}
+
+.selected {
+	background-color: #fff;
+}
 
 #wrapper {
 	width: 100%;
-	height: 100%;
+	height: 98%;
 	position: absolute;
+	top: 2em;
 	left: 0;
 	overflow: hidden;
 }
@@ -90,20 +96,18 @@ ul {
 }
 
 .item {
-	width:19.6%;
+	width: 20%;
 	padding: 0.2%;
-	height:99.6%;
+	height:80%;
 	float:left;
+	
 	background-image: url('/static/img/stormy-sky.jpg');
 
 	.main {
 
 		overflow: hidden;
-		background-image: url('/static/img/limestone.jpg');
-		//background-color: #ccc;
-		//.rounded-all(1em);
-		.box-shadow(1px, 1px, 1px, #000);
 		width: 93%;
+		height: 90%;
 		padding: 2%;
 		margin: 0 1.5% 3% 1.5%;
 
@@ -114,24 +118,75 @@ ul {
 			.box-shadow(3px, 3px, 1px, #000);
 		}
 
-		section {
-			margin: 3% 0;
-			padding: 3%;
-			.box-shadow(1px, 1px, 1px, #000);
-			background-image: url('/static/img/eggshell.jpg');
-			.rounded-all(0.2em);
+		.thumbnail-list {
+			li {
+				.column(3);
+				img {
+					width: 100px;
+					height: 100px;
+				}
+			}
 		}
+	}
+
+}
+
+.block-list {
+	
+	li {
+		margin: 3% 0;
+		padding: 2%;
+		.box-shadow(0, 0, 1px, #000);
+		.gradient(#f3f3f3, #aaa);
+		.rounded-all(0.2em);
 	}
 }
 
-.clear {
-	clear: both;
+.page-list {
+
+	li {
+		margin: 3% 0;
+		padding: 2%;
+		border-bottom: 2px solid #fff;
+
+		img {
+			width: 100px;
+			height: 100px;
+			float: right;
+		}
+
+		.clearfix;
+
+
+	}	
 }
 
-.selected {
-	background-color: #fff;
-}
+.item-content-container {
+	height: 90%;
+	width: 80%;
+	margin: 1.5% auto;
+	padding: 2%;
+	position: relative;
+	z-index: 100;
+	overflow: auto;
+	.rounded-all(0.5em);
+	.box-shadow(0, 0, 1em, #000);
 
+	article {
+		height: 100%;
+		overflow: hidden;
+
+		&.tile-list {
+			.column(6);
+		}
+
+		&.tile-map {
+			.column(6);
+			float: right;
+			background-color: #fff;
+		}
+	}
+}
 
 // header and nav
 
@@ -211,9 +266,8 @@ ul {
 
 .site-head {
 	.row();
-	
 	position: absolute;
-	z-index: 100;
+	z-index: 800;
 
 	.utilities-nav {
 		background-image: url('/static/img/navy-diagonal.png');
@@ -221,7 +275,7 @@ ul {
 		.row();
 		color: #fff;
 		.text-shadow(0.02em, 0.02em, 0.05em, #000);
-
+		height: 2em;
 		.user-nav {
 			.column(6);
 			float: right;
@@ -271,12 +325,33 @@ ul {
 }
 
 
-// main articles and their sections
+/*******************************/
+/****** AT A GLANCE STYLE ******/
+/*******************************/
+
+#atAGlanceTile {
+	.item-content-container {
+		background-image: url('/static/img/limestone.jpg');
+		//bottom: 4%;
+	}
+}
 
 .scene-events {
 	.column(4);
 	.events-feed {
 		height: 95%;	
+		
+		li {
+			margin: 3% 0;
+			padding: 2%;
+			.clearfix;
+
+			img {
+				height: 50px;
+				width: 50px;
+				float: right;
+			}
+		}
 	}
 	
 }
@@ -285,8 +360,13 @@ ul {
 	.column(5);
 	.sammich-board {
 		height: 33%;
-		.rounded-all(0px);
-		.box-shadow(2px, 2px, 2px, #000);
+		ul {
+
+			li {
+				.column(3);
+				margin: 1%;
+			}	
+		}
 	}
 
 	.establishments {
@@ -296,10 +376,6 @@ ul {
 
 .scene-updates {
 	.column(3);
-
-	.chatter-feed, .news-item {
-		
-	}	
 
 	.chatter-feed {
 		height: 63%;		
@@ -311,81 +387,64 @@ ul {
 }
 
 
-// footer
+/**************************/
+/****** EVENTS STYLE ******/
+/**************************/
 
-.ticker {
-	.row();
-	height: 7%;
-	position: absolute;
-	bottom: 0;
-	z-index: 900;
-	.box-shadow(0px, 0px, 4px, #000); 
-		-moz-box-shadow: 0px 0px 4px #000; 
-			box-shadow: 0px 0px 4px #000; 
-	background-image: url('/static/img/dark-yellow-diagonal.png');
-	overflow: auto;
-	
-	.arrow-slide {
-		margin: auto;
-		width: 20px;
-		height: 40px;
-		&.left {
-			float: left;
-			background: #fff url('/static/img/arrow-sprite.png') no-repeat 0 4px;
-	      
-			&:hover {
-				background-position: -20px 4px;
-			}
-	      
-			&:active {
-				background-position: -40px 4px;
-			}
-		}
-
-		&.right {
-			float: right;
-			background: #fff url('/static/img/arrow-sprite.png') no-repeat -60px 4px;
-
-			&:hover {
-				background-position: -80px 4px;
-			}
-
-			&:active {
-				background-position: -100px 4px;
-			}
-		}
-	}
-
-	ul {
-		margin: 0 auto;
-		.column(9);
-
-		li {
-			text-align: center;	
-			.row();
-			margin: 0 auto;
-			
-			.item-title {
-				display: inline;
-			}
-
-			.points {
-				float: left;
-				font-size: 2em;
-				text-shadow: 0.1em 0.1em 0 #fff;
-				font-weight: bold;
-				font-style: italic;
-				margin: 0.5%;
-			}		 
-
-			img {
-				float: right;
-			}
-					
-		}
+#eventsTile {
+	.item-content-container {
+		//left: 16%;
+		background-image: url('/static/img/sand.jpg');
 	}
 }
 
+
+
+/**************************/
+/****** PLACES STYLE ******/
+/**************************/
+
+#placesTile {
+	.item-content-container {
+		//bottom: 16%;
+		background-color: green;
+	}
+}
+
+
+/*******************************/
+/****** CHATTER BOX STYLE ******/
+/*******************************/
+
+#chatterBoxTile {
+	.item-content-container {
+		//right: 16%;
+		background-image: url('/static/img/sand.jpg');
+	}
+}
+
+.voting {
+	.column(0.5);
+	div {
+		height: 15px;
+		width: 18px;
+	}
+}
+
+.upvote {
+	background: url('/static/img/votingarrows.png') no-repeat left top;
+	&:hover {
+		background-position: right top;
+	}
+}
+
+.downvote {
+	background: url('/static/img/votingarrows.png') no-repeat left bottom;
+
+	&:hover {
+		background-position: right bottom;
+	}
+}
 
 // create one column when resolution is less than 720px
 
