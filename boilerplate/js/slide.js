@@ -1,6 +1,9 @@
 
 $(document).ready(function() {
-	
+
+
+//	initializeMap();
+
 
 	// Sliding Navigation
 
@@ -82,3 +85,26 @@ function resizePanel() {
 	$('#mask').css({width: mask_width, height: height});
 	$('#wrapper').scrollTo($('a.selected').attr('href'), 0);
 }
+
+function initializeMap() {	
+		
+	// Your location will be the center of the map	
+	var youLoc = new google.maps.LatLng(40.44201350, -79.96255210);
+
+	var mapOptions = {
+		zoom: 14,
+		mapTypeId: google.maps.MapTypeId.ROADMAP,
+		center: youLoc
+	};
+
+	// Create the map
+	map = new google.maps.Map(document.getElementById("map_canvas"),
+	   mapOptions);
+
+	// Add a dummy 'Your location' maker
+    var youMarker = new google.maps.Marker({
+        position: youLoc,
+        map: map,
+    });
+	
+} // initializeMap

@@ -4,15 +4,15 @@ template to be included inside the #places div
 
 {% for o in offers %}
 	<li>
-		<section>
-			<span class="points">+ {{ o.point_value }}</span>
+		<span class="points">+ {{ o.point_value }}</span>
+		<section>	
 		    <h4 class="item-title">{{ o.description }}</h4>
-		    <p class="checkin-prompt-link">Take advantage of this deal</p>
+		    <!--<p class="checkin-prompt-link">Take advantage of this deal</p>
 			<img height="100px" width="100px" src="{{ o.sponsor.identity.avatar }}" />
-			<div class="checkin-prompt"> <!-- not working right now -->
+			<div class="checkin-prompt">
 				<h3>{{ o.description }}</h3>
 				<img height="100px" width="100px" src="{{ o.sponsor.identity.avatar }}" />
-			</div>
+			</div>-->
 		</section>
     </li>
 {% endfor %}

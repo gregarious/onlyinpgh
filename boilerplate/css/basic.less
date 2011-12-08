@@ -48,9 +48,8 @@ h3 {
 }
 
 h4 {
-	margin: 1% 0;
+	font-style: italic;
 }
-
 
 ul {
 	margin: 0;
@@ -58,6 +57,11 @@ ul {
 	list-style-type: none;
 }
 
+/*img {
+	float: right;
+	height: 50px;
+	width: 50px;
+}*/
 
 .item-content-container {
 	height: 95%;
@@ -94,12 +98,12 @@ ul {
 	padding: 0.2%;
 	height:99.6%;
 	float:left;
-	background-image: url('/static/img/stormy-sky.jpg');
+	background-image: url('/static/img/eggshell.jpg');
 
 	.main {
 
 		overflow: hidden;
-		background-image: url('/static/img/limestone.jpg');
+		.gradient(#444, #111);
 		//background-color: #ccc;
 		//.rounded-all(1em);
 		.box-shadow(1px, 1px, 1px, #000);
@@ -110,15 +114,16 @@ ul {
 		header {
 			background-image: url('/static/img/dark-yellow-diagonal.png');
 			padding: 1% 1.5%;
+			margin-bottom: 1%;
 			.rounded-all(0.2em);
 			.box-shadow(3px, 3px, 1px, #000);
 		}
 
-		section {
+		li {
 			margin: 3% 0;
-			padding: 3%;
-			.box-shadow(1px, 1px, 1px, #000);
-			background-image: url('/static/img/eggshell.jpg');
+			padding: 2%;
+			.box-shadow(0, 0, 1px, #000);
+			.gradient(#f3f3f3, #aaa);
 			.rounded-all(0.2em);
 		}
 	}
@@ -210,17 +215,15 @@ ul {
 
 
 .site-head {
-	.row();
-	
+	.row();	
 	position: absolute;
 	z-index: 100;
 
 	.utilities-nav {
-		background-image: url('/static/img/navy-diagonal.png');
+		.gradient(#f3f3f3, #aaa);
 		.box-shadow(0, 0.1em, 0.1em, #000);
 		.row();
-		color: #fff;
-		.text-shadow(0.02em, 0.02em, 0.05em, #000);
+		.text-shadow(0.02em, 0.03em, 0.03em, #fff);
 
 		.user-nav {
 			.column(6);
@@ -281,12 +284,38 @@ ul {
 	
 }
 
-.scene-places {
+.scene-board-places {
 	.column(5);
+	height: 100%;
+
 	.sammich-board {
 		height: 33%;
-		.rounded-all(0px);
-		.box-shadow(2px, 2px, 2px, #000);
+
+		ul {
+			width: 100%;
+		
+			li {
+				float: left;
+				.column(6);
+				overflow: hidden;			
+				.points {
+					.column(3);
+					font-size: 2em;
+					font-family: 'RabioheadRegular';
+					.text-shadow(2px, 2px, 0px, @yellow);
+				}
+
+				section {
+
+					.item-title {
+						
+					} 
+					.column(9);
+					
+				}
+
+			}
+		}
 	}
 
 	.establishments {
@@ -296,11 +325,7 @@ ul {
 
 .scene-updates {
 	.column(3);
-
-	.chatter-feed, .news-item {
-		
-	}	
-
+	height: 100%;
 	.chatter-feed {
 		height: 63%;		
 	}
@@ -389,7 +414,7 @@ ul {
 
 // create one column when resolution is less than 720px
 
-/*@media screen and (max-width: 720px) {
+@media screen and (max-width: 720px) {
 	#wrapper {
 		overflow: auto;
 	}
@@ -398,4 +423,4 @@ ul {
 		.row();
 		margin-bottom: 1em;
 	}
-}*/
+}
