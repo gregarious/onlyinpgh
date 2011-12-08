@@ -40,6 +40,9 @@ class BatchCommand(object):
         # only useful if name is specified
         self.omit_response_on_success = omit_response_on_success    
     
+    def __unicode__(self):
+        return unicode(dict(url=self.url,options=self.options,name=self.name))
+
     def to_command_dict(self):
         command = { 'method':       'GET',
                     'relative_url': self.url }
