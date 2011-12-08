@@ -127,23 +127,30 @@ class Establishment(Place):
     def __unicode__(self):
         return self.name
 
-class PlaceMeta(models.Model):
+class ExternalPlaceUID(models.Model):
     '''
-    Handles meta information (external API ids, etc.) for a Place.
+    Model used to relate external API IDs to unique objects in our
+    database (e.g. Factual GUIDs an onlyinpgh.places.models.Place)
     '''
+    class Meta:
+        verbose_name = 'External Place UID'
+        unique_together = (('service','uid'),)
+
+    service_choices = [('fb',   'Facebook Object ID'),
+                       ('fact', 'Factual GUID')]
+
+    service = models.CharField(max_length=8,choices=service_choices)
+    uid = models.CharField('string representation of UID',max_length=36)
     place = models.ForeignKey(Place)
-    meta_key = models.CharField(max_length=100)
-    # blank values allowed (boolean meta attributes)
-    meta_value = models.TextField(blank=True)
 
     def __unicode__(self):
-        return u'%s: %s' % (self.meta_key,self.meta_value)
+        return '%s:%s -> %s' % (self.service,self.uid,self.place)
 
-class LocationMeta(models.Model):
+class PlaceMeta(models.Model):
     '''
-    Handles meta information (external API ids, etc.) for a Place.
+    Handles meta information for a Place.
     '''
-    location = models.ForeignKey(Location)
+    place = models.ForeignKey(Place)
     meta_key = models.CharField(max_length=100)
     # blank values allowed (boolean meta attributes)
     meta_value = models.TextField(blank=True)

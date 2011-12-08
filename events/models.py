@@ -2,7 +2,7 @@ from django.db import models
 
 from onlyinpgh.places.models import Place
 from onlyinpgh.tagging.models import Tag
-from onlyinpgh.identity.models import Identity
+from onlyinpgh.identity.models import Identity, Organization
 
 # Create your models here.
 class Event(models.Model):
@@ -85,3 +85,36 @@ class Attendee(models.Model):
 
     def __unicode__(self):
         return unicode(self.individual) + u'@' + unicode(self.event)
+
+class ICalendarFeed(models.Model):
+    timezone_choices = zip(pytz.all_timezones(),pytz.all_timezones())
+
+    url = models.URLField(max_length=300)
+    owner = models.ForeignKey(Organization,null=True,blank=True)
+    xcal_name = models.CharField(max_length=100)
+
+    default_timezone = models.CharField('fallback timezone for DATETIMEs in feed when none specified',
+                                        max_length=50,choices=timezone_choices,default='US/Eastern')
+
+class VEventRecord(models.Model):
+    feed = models.ForeignKey('source iCalendar feed',ICalendarFeed)
+    uid = models.CharField(max_length=255)
+    time_last_modified = models.DateTimeField('last modification date in entry (in UTC)')
+    event = models.ForeignKey(Event,null=True,blank=True)
+
+### Bottom two models used for caching Facebook pages/events for future lookup
+class FacebookEventRecord(models.Model):
+    fb_id = models.BigIntegerField(primary_key=True)
+    event_id = models.ForeignKey(Event,null=True,blank=True)
+
+    time_last_updated = models.DateTimeField('time Facebook record was last updated')
+    time_added = models.DateTimeField('time added in our records',auto_now_add=True)
+    time_checked = models.DateTimeField('time last checked for updated',auto_now_add=True)
+
+class FacebookPageRecord(models.Model):
+    fb_id = models.BigIntegerField(primary_key=True)
+    dt_added = models.DateTimeField(auto_now_add=True)
+    dt_checked = models.DateTimeField(null=True)
+
+    org_id = models.ForeignKey(Organization,null=True,blank=True)
+    place_id = models.ForeignKey(Place,null=True,blank=True)
