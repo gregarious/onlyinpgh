@@ -5,14 +5,14 @@ template to be included inside the #places div
 {% for e in establishments %}
 	<li>
 	    <section>
-	    	
-		    <!--<p>{{ e.location.address }}</p>-->
-		
-			<div class="thumb-container fourcol last">
-				<img class="thumbnail" src="{{ e.owner.identity.avatar }}" />
-			</div>
-			<h4>{{ e.name }}</h4>
+	    	<h4 class="feed-item-title">{{ e.name }}</h4>
+			<p class="meta">{{ e.location.address }}</p>	
 		</section>
+
+		<div class="thumb-container fourcol last">
+			<img class="thumbnail" src="{{ e.owner.identity.avatar }}" />
+		</div>
+
 		<!--{% if not forloop.last %}
 			<hr>
 		{% endif %}-->

@@ -8,6 +8,7 @@
 	<link type="text/css" rel="stylesheet" href="{{STATIC_URL}}css/Nobile-fontfacekit/stylesheet.css">
 	<link type="text/css" rel="stylesheet" href="{{STATIC_URL}}css/Universal-fruitcake-fontfacekit/stylesheet.css">
 	<link type="text/css" rel="stylesheet" href="{{STATIC_URL}}css/Rabiohead-fontfacekit/stylesheet.css">
+	<link type="text/css" rel="stylesheet" href="{{STATIC_URL}}css/francois-one-fontfacekit/stylesheet.css">
 	<link type="text/css" rel="stylesheet" href="{{ STATIC_URL }}css/reset.css">
 	
 
@@ -30,23 +31,23 @@
 		<li>
 			<ul>
 				<li></li>
-				<li class="events active"><a href="#eventsTile" class="panel">Events</a></li>
+				<li class="events active middle"><a href="#eventsTile" class="panel">&larr; Events</a></li>
 				<li></li>
 			</ul>	
 		</li>
 
 		<li class="row">
 			<ul>
-				<li class="stats active"><a href="#statsTile" class="panel">Stats</a></li>	
-				<li class="ataglance active"><a href="#atAGlanceTile" class="panel">Home</a></li>
-				<li class="places active"><a href="#placesTile" class="panel">Places</a></li>
+				<li class="stats active"><a href="#statsTile" class="panel">&uarr;<br />Stats</a></li>	
+				<li class="ataglance active middle"><a href="#atAGlanceTile" class="panel">Home</a></li>
+				<li class="places active"><a href="#placesTile" class="panel">Places<br />&darr;</a></li>
 			</ul>
 		</li>
 
 		<li class="row">
 			<ul>
 				<li></li>
-				<li class="chatterbox active"><a href="#chatterBoxTile" class="panel">Chatter Box</a></li>
+				<li class="chatterbox active middle"><a href="#chatterBoxTile" class="panel">Chatter &rarr;</a></li>
 				<li></li>
 			</ul>
 		</li>
@@ -56,10 +57,12 @@
 <header class="site-head">
 	
 	<nav class="utilities-nav">
+
 		<section class="scenes-nav-utility">
-			<h4 class="dropdown-title" id="scenesMenu">Scenes &darr;</h4>
-			<span>+ Add to my scenes</span>
+			<span class="dropdown-title" id="scenesMenu">More Scenes &darr;</span>
+			<!--<span>&nbsp;&nbsp;&nbsp;+ Add Oakland to my scenes</span>-->
 		</section>
+
 		<ul class="user-nav">
 			<li>Settings</li>
 			<li>Single Yoi</li>
@@ -79,6 +82,21 @@
 			<li>Country Music</li>
 		</ul>
 	</nav>
+
+	<section class="title-filter">
+		<h1 class="scene-name"><a href="#atAGlanceTile" class="panel">Oakland Scene</a></h1>
+
+		<!-- the result of the search will be rendered inside this div -->
+		<ul id="current-filters" class="current-filters-list">
+			<!-- filters inserted here -->
+		</ul>
+
+		<form>
+			<input type="text" id="search-box" placeholder="Filter this scene..." />
+			<input type="button" id="add-filter" value="Add Filter" />
+		</form>
+
+	</section>
 
 </header> <!-- .site-head -->
 
@@ -101,7 +119,7 @@
 
 	<!-- Second Row -->
 
-		<div id="eventsTile" class="item"> <!-- middle left -->
+		<div id="eventsTile" class="item panel"> <!-- middle left -->
 			<div class="item-content-container">
 				<article class="tile-list">
 					<h2>Events</h2>
@@ -131,7 +149,7 @@
 						<header>
 							<h3 class="section-title">Upcoming Events</h3>
 						</header>
-						<ul id="eventsFeed"><!-- Events List template --></ul>
+						<ul id="eventsFeed" class="block-list"><!-- Events List template --></ul>
 					</section>
 				</article>
 
@@ -148,7 +166,7 @@
 						<header>
 							<h3 class="section-title">Top Places</h3>
 						</header>
-						<ul id="placesFeed" class="thumbnail-list"><!-- Places list template --></ul>
+						<ul id="placesFeed" class="thumbnail-list block-list"><!-- Places list template --></ul>
 					</section>
 				</article>
 
@@ -186,11 +204,26 @@
 						<li><a href="#chatterQuestions">Questions</a></li>
 					</ul>
 					<div class="category-tabs-content">
+
+						<div class="chatter-post-form">
+							<form>
+								<input type="text" placeholder="Post to ChatterBox" />
+								
+							</form>
+							<select>
+								<option>Type of post</option>
+								<option>Pic</option>
+								<option>Conversation</option>
+								<option>Question</option>
+							</select> 
+							<input type="button" id="add-chatter-post" value="Post" />
+						</div>
+
 						<ul id="chatterHottest" class="block-list">Hottest chatter posts template</ul>
-						<article id="chatterNewest">Hottest chatter posts template</article>
-						<article id="chatterPics">Pics chatter posts template</article>
-						<article id="chatterConversation">Conversation chatter posts template</article>
-						<article id="chatterQuestions">Questions chatter posts template</article>
+						<ul id="chatterNewest" class="block-list">Hottest chatter posts template</ul>
+						<ul id="chatterPics" class="block-list">Pics chatter posts template</ul>
+						<ul id="chatterConversation" class="block-list">Conversation chatter posts template</ul>
+						<ul id="chatterQuestions" class="block-list">Questions chatter posts template</ul>
 					</div>
 				</div>
 			</div>
@@ -211,7 +244,7 @@
 					<ul id="placesPage" class="page-list"><!--Places list template--></ul>
 				</article>
 				<article class="tile-map">
-					<div class="map_canvas">
+					<div id="map_canvas">
 						<!-- Map generated here -->
 					</div>
 				</article>
@@ -233,6 +266,7 @@
 </footer>-->
 
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.0/jquery.js"></script> <!-- Unminified jQuery for development -->
+	<script src="http://maps.google.com/maps/api/js?libraries=places&amp;sensor=false" type="text/javascript"></script>
 	<script src="{{ STATIC_URL }}jquery-ui/js/jquery-ui-1.8.16.custom.js"></script>
 	<script src="{{ STATIC_URL }}js/mylibs/less-1.1.5.min.js"></script>
 	<script src="{{ STATIC_URL }}js/mylibs/jquery.scrollTo.js"></script>

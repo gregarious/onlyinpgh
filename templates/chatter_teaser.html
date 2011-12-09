@@ -5,7 +5,7 @@ template to be included inside a #chatter-posts ul
 {% for post in posts %}
     <li>
         <section>
-            <h4>{{ post.title }}</h4>
+            <h4 class="feed-item-title">{{ post.title }}</h4>
             <p>
                 <img src="{{ post.author.avatar }}" width="30px" height="30px">
                 <span class="meta">by {{ post.author.display_name }} 
