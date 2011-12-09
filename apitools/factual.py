@@ -2,6 +2,9 @@
 #   reader would use it with city fixed in Pgh)
 
 from onlyinpgh.apitools import APIError
+from onlyinpgh.apitools import build_oauth_request
+
+import urllib, urllib2, json
 
 class FactualAPIError(APIError):
     def __init__(self,request,error_type,message,*args,**kwargs):
@@ -11,6 +14,7 @@ class FactualAPIError(APIError):
         super(FactualAPIError,self).__init__('factual',*args,**kwargs)    
 
 class FactualClient(object):
+    RESOLVE_URL = "http://api.v3.factual.com/places/resolve"
     def __init__(self,oauth_key,oauth_secret):
         self.key = oauth_key
         self.secret = oauth_secret
@@ -22,7 +26,7 @@ class FactualClient(object):
         returns a ResolveResponse object. Will raise a FactualAPIError if
         response returns a non-OK status.
         '''
-        opts = dict(
+        query_opts = dict(
             name = name,
             address = address,
             locality = town,
@@ -31,9 +35,13 @@ class FactualClient(object):
             latitude = latitude,
             longitude = longitude,
         )
-        request = None
-        # TODO: get raw response via API call with given opts
-        response = ResolveResponse(raw_response)
+
+        # make a JSON version with all None valued-parameters stripped out
+        json_query = json.dumps( {key:val for key,val in query_opts.items() if val is not None} )
+
+        full_url = FactualClient.RESOLVE_URL + '?' + urllib.urlencode({'values':json_query})
+        request = build_oauth_request(full_url,self.key,self.secret)
+        response = ResolveResponse(urllib2.urlopen(request))
         if response.status != 'ok':
             raise FactualAPIError(request,response.error_type,response.message)
         return response
@@ -69,9 +77,8 @@ class ResolveResponse(object):
             # multiple results with similarity of 1 and yet mark the first result's
             # "resolved" status is True. This seems counter to the philosophy of the
             # Resolve API, so we're hacking the resolved status to False for now.
-            if len([_ for result in data if result['similarity']==1]) > 1:
-                for i in range(len(data)):
-                    data['resolved'] = False
+            if len([1 for result in data if result['similarity']==1]) > 1:
+                data[0]['resolved'] = False
             self.results = data
 
     def get_resolved_result(self):

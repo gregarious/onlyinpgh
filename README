@@ -3,3 +3,4 @@ required external package installs (might include these in source later -- we'll
 django-extensions
 pytz
 pil
+icalendar

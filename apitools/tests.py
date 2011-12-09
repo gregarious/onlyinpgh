@@ -7,6 +7,8 @@ from onlyinpgh.apitools.facebook import get_basic_access_token, BatchCommand
 from onlyinpgh.apitools.facebook import oip_client as facebook_client
 
 from onlyinpgh.apitools.factual import oip_client as factual_client
+from onlyinpgh.apitools.factual import FactualClient, FactualAPIError
+
 from onlyinpgh.apitools.google import GoogleGeocodingClient, GoogleGeocodingResponse, GoogleGeocodingResult, GoogleGeocodingAPIError
 
 import json, time, os
@@ -125,22 +127,48 @@ class FacebookGraphTest(TestCase):
 class FactualResolveTest(TestCase):
     def test_successful_request(self):
         '''
-        Tests JSON response from a few Resolve API calls known to work
+        Tests response from a few Resolve API calls known to work
         '''
-        self.fail('not yet implemented')
+        # tests almost complete entry
+        result = factual_client.resolve(name='primanti brothers',
+                                            town='pittsburgh',state='PA',
+                                            latitude=40.45,longitude=-79.98).get_resolved_result()
+        self.assertIsNotNone(result)
+        self.assertEquals(result['name'],'Primanti Brothers')
+        self.assertEquals(result['postcode'],'15222')
+
+
+        # tests simple one with incomplete name
+        result = factual_client.resolve(name='otb',town='pittsburgh',state='pa').get_resolved_result()
+        self.assertIsNotNone(result)
+        self.assertEquals(result['name'],'OTB Bicycle Cafe')
+        self.assertEquals(result['postcode'],'15203')
+
+        # tests one that requires a more specific town to work
+        result = factual_client.resolve(name='petco',town='monroeville',state='pa').get_resolved_result()
+        self.assertIsNotNone(result)
+        self.assertEquals(result['name'],'Petco')
+        self.assertEquals(result['postcode'],'15146')
 
     def test_unsuccessful_request(self):
         '''
-        Tests JSON response from a few Resolve API calls known to not work
+        Tests response from a few Resolve API calls known to not work
         '''
-        self.fail('not yet implemented')
 
-    def test_bad_request(self):
-        '''
-        Asserts exception is raised on a bad Factual request.
-        '''
-        self.fail('not yet implemented')
+        # tests a totally out there response
+        result = factual_client.resolve(name='primanti brothers',town='San Diego',state='CA').get_resolved_result()
+        self.assertIsNone(result)
 
+        # tests one too ambiguous to resolve
+        result = factual_client.resolve(name='primanti brothers',town='pittsburgh',state='PA').get_resolved_result()
+        self.assertIsNone(result)
+
+    # hard to do this cause resolve() is so fuckin' IRONCLAD HARDCORE
+    # def test_bad_request(self):
+    #     '''
+    #     Asserts exception is raised on a bad Factual request.
+    #     '''
+    
 class GoogleGeocodingTest(TestCase):
     def setUp(self):
         self.client = GoogleGeocodingClient()
