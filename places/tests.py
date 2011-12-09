@@ -100,131 +100,6 @@ class GoogleGeocodingTest(TestCase):
         with open(os.path.join(SAMPLE_JSON_DIR,fn)) as fp:
             return json.load(fp)
 
-    def test_query_options(self):
-        '''Tests all API request options behave as expected (no sensor test currently)'''
-        # test bounding box search: adapted from http://code.google.com/apis/maps/documentation/geocoding/#Viewports
-        result_nobounds = self.api.run_text_query('Winnetka',bounds=None).best_result()
-        self.assertEquals(result_nobounds.get_address_component('administrative_area_level_1'),'IL')
-        result_bounds = self.api.run_text_query('Winnetka',bounds=((34.17,-118.60),(34.23,-118.50))).best_result()
-        self.assertEquals(result_bounds.get_address_component('administrative_area_level_1'),'CA')
-
-        # test region search: adapted from http://code.google.com/apis/maps/documentation/geocoding/#RegionCodes
-        result_us = self.api.run_text_query('Toledo',region='us').best_result()
-        self.assertEquals(result_us.get_address_component('country'),'US')
-        result_es = self.api.run_text_query('Toledo',region='es').best_result()
-        self.assertEquals(result_es.get_address_component('country'),'ES')
-    
-    def test_preprocessing(self):
-        '''Tests preprocessing to avoid particular quirks of Google API'''
-        # test removal of parenthesis
-        self.assertEquals(
-            self.api.preprocess_address('(hello) 210 Atwood St. (2nd Fl)'), 
-            ' 210 Atwood St. ')
-        # test translation of pound sign to "Unit "
-        self.assertEquals(
-            self.api.preprocess_address('6351 Walnut St. #5'),
-            '6351 Walnut St. Unit 5')
-
-        # tests that a PreprocessingOccurred is generated
-        result = self._quickrun('6351 Walnut St., #5, Pittsburgh, PA')
-        self.assertTrue(result.contains_notice('PreprocessingOccurred'))
-    
-
-    def test_multiple_address_components(self):
-        '''ensures handling of results with duplicate address components works correctly'''
-        result = GGResponse(self._read_test_json('pittsburgh.json')).best_result()
-        # ensure multiple results are returned if asked for
-        self.assertEquals(len(result.get_address_component('political',allow_multiple=True)),4)
-        # ensure exception is thrown if multiple results aren't asked for
-        with self.assertRaises(KeyError):
-            result.get_address_component('political')
-        # ensure empty list is returned works for unavaible key whene allow_multiple=True
-        self.assertEquals(len(result.get_address_component('route',allow_multiple=True)),0)
-        # ensure default argument works for unavaible key
-        self.assertEquals(result.get_address_component('route'),None)
-        self.assertEquals(result.get_address_component('route',default='boo boo kitty'),'boo boo kitty')
-
-    def test_api_response_content(self):
-        '''runs a battery of API calls against the actual live service'''
-        # test abbreviation of "South" and "Street"
-        result = self._quickrun('201 South Bouquet Street')
-        self.assertEquals(result.get_address_component('street_number'),    '201')
-        self.assertEquals(result.get_address_component('route'),            'S Bouquet St')
-
-        # test abbreviation of "Street" and interpretation of "Apt." 
-        # also that Google API still returns a "partial match" for address with a subpremise 
-        result = self._quickrun('6351 Walnut Street Apt. 5, Pittsburgh, PA')
-        self.assertEquals(result.get_address_component('subpremise'),       '5')
-        self.assertEquals(result.get_address_component('street_number'),    '6351')
-        self.assertEquals(result.get_address_component('route'),            'Walnut St') 
-        self.assertTrue(result.contains_notice('PartialMatch'))
-
-        # test that all address numbers become integers and abbreviation of "Drive"
-        result = self._quickrun('One Schenley Drive, Pittsburgh, PA')
-        self.assertEquals(result.get_address_component('street_number'),    '1')
-        self.assertEquals(result.get_address_component('route'),            'Schenley Dr')
-
-        # tests named building lookup
-        result = self._quickrun('Cathedral of Learning, Pittsburgh, PA')
-        self.assertEquals(result.get_address_component('establishment'), 'Cathedral of Learning')
-
-        # tests intersection with "at"
-        result = self._quickrun('Fifth at South Craig St, Pittsburgh, PA')
-        self.assertIn('intersection',result['types'])
-        self.assertEquals(result.get_address_component('intersection'), 'Fifth Ave & S Craig St')
-        
-        # tests that "Blvd" abbreviation gets expanded if not the last word in a street address
-        result = self._quickrun('3518 Blvd of the Allies')
-        self.assertEquals(result.get_address_component('street_number'),    '3518')
-        self.assertEquals(result.get_address_component('route'),            'Boulevard of the Allies')
-
-        # tests that a partial match is given for an address that's eambiguous because of no North/South designation
-        result = self._quickrun('400 Craig St, Pittsburgh, PA, 15213')
-        self.assertIn('Craig St',result.get_address_component('route'))
-        self.assertTrue(result.contains_notice('PartialMatch'))
-    
-        ### remaining tests are to keep an eye on the Google API to see if any useful changes occur
-        ### if any of these fail, they aren't necessarily problems, it would just be useful to be
-        ### notified about it because it could change some pre/post processing assumptions
-
-        # make sure intersection results still return only one of the routes from the intersection in address_components
-        result = self._quickrun('Fifth at South Craig St, Pittsburgh, PA')
-        self.assertIn('intersection',result['types'])
-        # (if more than one route is in the result a KeyError should be thrown)
-        self.assertEquals(result.get_address_component('route'),'Fifth Ave')
-        
-        # test 'floor' results aren't returned
-        result = self._quickrun('249 N Craig St (Floor 2), Pittsburgh, PA')
-        self.assertNotIn('floor',result['types'])
-        self.assertIsNone(result.get_address_component('floor'))
-
-        # test 'room' results aren't returned
-        result = self._quickrun('Posvar Hall, Room 1501')
-        self.assertNotIn('room',result['types'])
-        self.assertIsNone(result.get_address_component('room'))
-
-        # test 'post_box' results aren't returned
-        result = self._quickrun('P.O. Box 5452, Pittsburgh, PA 15206')
-        self.assertNotIn('post_box',result['types'])
-        self.assertIsNone(result.get_address_component('post_box'))
-
-    def test_normalized_address_construction(self):
-        '''tests that addresses are correctly normalized'''
-        # read in some sample JSON and test what get_address spits out
-        json_address_pairs = (
-            ('1555-coraopolis-heights-rd-ste-4200.json','1555 Coraopolis Heights Rd #4200'),
-            ('cathedral.json',                          'Cathedral of Learning'),
-            ('pittsburgh-zoo.json',                     'Pittsburgh Zoo and PPG Aquarium, 7340 Butler St'),
-            ('forbes-halket-intersection.json',         'Forbes Ave & Halket St'),
-            ('north-oakland.json',                      '')
-        )
-
-        for fn,expected_addr in json_address_pairs:
-            response = GGResponse(self._read_test_json(fn),LocationLookupNotice())
-            address = response.best_result().get_address()
-            self.assertEquals(address,expected_addr,
-                                msg="Expected address '%s', got '%s', from sample JSON '%s'" % ( expected_addr, address, fn ) )
-
     def test_location_construction(self):
         '''tests that Location objects are correclty generated'''
         response = GGResponse(self._read_test_json('1555-coraopolis-heights-rd-ste-4200.json'),LocationLookupNotice())
@@ -269,20 +144,12 @@ class GoogleGeocodingTest(TestCase):
         result = self._quickrun('6351 Walnut St. #5')
         self.assertTrue(result.contains_notice('PreprocessingOccurred'))
 
-    def test_api_error_handling(self):
-        '''ensure geocoding wrapper raises APIFailureErrors when appropriate'''
-        json_failures = ('failure-over-query-limit.json','failure-request-denied.json','failure-invalid-request.json')
-        for fn in json_failures:
-            with self.assertRaises(APIFailureError):
-                GGResponse(self._read_test_json(fn))
+class FactualResolutionTest(TestCase):
+    def test_resolve_results(self):
+        self.fail('not yet implemented')
+        # test resolve_place and text_to_place
 
-    def test_zero_results_handling(self):
-        '''ensure geocoding wrapper gracefully handles zero results returned'''
-        response = GGResponse(self._read_test_json('zero-results.json'))
-        self.assertEquals(len(response.results),0)
-        self.assertIsNone(response.best_result(),None)
-
-class LocationValidatorTest(TestCase):
+class GoogleResolutionTest(TestCase):
     def test_normalization_results(self):
         '''tests for expected output from normalization calls'''
         # mostly just a random assortment of tests with known answers. more detailed
@@ -311,10 +178,8 @@ class LocationValidatorTest(TestCase):
             with self.assertRaises(LocationValidationError):
                 validator.normalize_address(Location(town='Pittsburgh',state='PA'))
 
-    # TODO
-    #def test_normalization_notices(self):
-
     def test_resolve_results(self):
+        # test resolve_location and text_to_location
         '''tests for expected output from resolve calls'''
         if len(LocationValidator.SUPPORTED_APIS) > 1:
             self.fail('no resolve tests provided for non-Google APIs')
@@ -355,8 +220,3 @@ class LocationValidatorTest(TestCase):
         time.sleep(.2)
         resolved = validator.resolve_full(Location(address='800 penn ave',latitude=40.442,longitude=-79.9))
         self.assertEquals(resolved.postcode,'15221')
-
-    # TODO
-    #def test_resolve_notices(self):
-
-

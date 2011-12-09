@@ -1,5 +1,7 @@
 from django.db import models
 
+import pytz
+
 from onlyinpgh.places.models import Place
 from onlyinpgh.tagging.models import Tag
 from onlyinpgh.identity.models import Identity, Organization
@@ -87,7 +89,7 @@ class Attendee(models.Model):
         return unicode(self.individual) + u'@' + unicode(self.event)
 
 class ICalendarFeed(models.Model):
-    timezone_choices = zip(pytz.all_timezones(),pytz.all_timezones())
+    timezone_choices = zip(pytz.all_timezones,pytz.all_timezones)
 
     url = models.URLField(max_length=300)
     owner = models.ForeignKey(Organization,null=True,blank=True)
@@ -97,7 +99,7 @@ class ICalendarFeed(models.Model):
                                         max_length=50,choices=timezone_choices,default='US/Eastern')
 
 class VEventRecord(models.Model):
-    feed = models.ForeignKey('source iCalendar feed',ICalendarFeed)
+    feed = models.ForeignKey(ICalendarFeed)
     uid = models.CharField(max_length=255)
     time_last_modified = models.DateTimeField('last modification date in entry (in UTC)')
     event = models.ForeignKey(Event,null=True,blank=True)

@@ -1,1 +1,1 @@
-# Create your views here.
+# dummy file needed for django

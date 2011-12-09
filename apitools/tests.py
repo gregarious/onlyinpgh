@@ -3,8 +3,13 @@ Unit tests for all API tools
 """
 
 from django.test import TestCase
-from onlyinpgh.apitools.facebook import get_basic_access_token, oip_client, BatchCommand
-import json
+from onlyinpgh.apitools.facebook import get_basic_access_token, BatchCommand
+from onlyinpgh.apitools.facebook import oip_client as facebook_client
+
+from onlyinpgh.apitools.factual import oip_client as factual_client
+from onlyinpgh.apitools.google import GoogleGeocodingClient, GoogleGeocodingResponse, GoogleGeocodingResult, GoogleGeocodingAPIError
+
+import json, time, os
 
 class FacebookGraphTest(TestCase):
     def test_basic_access_token(self):
@@ -22,12 +27,12 @@ class FacebookGraphTest(TestCase):
         # Dependant on FB data. These are examples given on the Graph API
         # documentation page. If this test fails, check this site.
         # https://developers.facebook.com/docs/reference/api/
-        page = oip_client.graph_api_objects('40796308305')
+        page = facebook_client.graph_api_objects('40796308305')
         self.assertEquals(page['name'],'Coca-Cola')
-        page = oip_client.graph_api_objects(40796308305)
+        page = facebook_client.graph_api_objects(40796308305)
         self.assertEquals(page['name'],'Coca-Cola')
 
-        users = oip_client.graph_api_objects(['btaylor','zuck'])
+        users = facebook_client.graph_api_objects(['btaylor','zuck'])
         self.assertEquals(users[0]['name'],'Bret Taylor')
         self.assertEquals(users[1]['name'],'Mark Zuckerberg')
 
@@ -40,14 +45,14 @@ class FacebookGraphTest(TestCase):
         # https://developers.facebook.com/docs/reference/api/
 
         # test a Graph API search for posts
-        results = oip_client.graph_api_query('search',type='post',q='watermelon',max_pages=1)
+        results = facebook_client.graph_api_query('search',type='post',q='watermelon',max_pages=1)
         # ensure that someone, anyone, is talking about watermelon publicly
         self.assertGreater(len(results),0)
         # just check that first result is a post because it has a 'from' key
         self.assertIn('from',results[0].keys())
         
         # test a connection query
-        results = oip_client.graph_api_query('cocacola/events',limit=2,max_pages=3)
+        results = facebook_client.graph_api_query('cocacola/events',limit=2,max_pages=3)
         # ensure paging and limit worked (contingent of course on Coke having 6 events)
         self.assertEquals(len(results),6)
         # just check that first result is an event because it has a 'start_time' field
@@ -78,7 +83,7 @@ class FacebookGraphTest(TestCase):
                               BatchCommand('',
                                             options={'ids':'{result=get-events:$.data.*.id}'}),
                             ]
-        full_response = oip_client.run_batch_request(batch_request,process_response=False)
+        full_response = facebook_client.run_batch_request(batch_request,process_response=False)
         self.assertEquals(len(full_response),2)
         
         first_resp,second_resp = full_response
@@ -108,12 +113,14 @@ class FacebookGraphTest(TestCase):
                           BatchCommand('cocacola/events',
                                             options={'limit':5}),
                         ]
-        responses = oip_client.run_batch_request(batch_request)
+        responses = facebook_client.run_batch_request(batch_request)
         self.assertEquals(len(responses),2)
         self.assertIn('username',responses[0])  # first response is a single user object
         for event in responses[1]['data']:     # second response is a map of {id:event stubs}
             self.assertIn('name',event)
             self.assertIn('start_time',event)
+
+        # TODO: assert errors are thrown when invalid responses returned
 
 class FactualResolveTest(TestCase):
     def test_successful_request(self):
@@ -127,14 +134,162 @@ class FactualResolveTest(TestCase):
         Tests JSON response from a few Resolve API calls known to not work
         '''
         self.fail('not yet implemented')
-    
-    def test_response_to_object(self):
+
+    def test_bad_request(self):
         '''
-        Ensures JSON response gets packaged successfully into places models
+        Asserts exception is raised on a bad Factual request.
         '''
         self.fail('not yet implemented')
 
 class GoogleGeocodingTest(TestCase):
+    def setUp(self):
+        self.client = GoogleGeocodingClient()
 
-    # TODO: move some places.external tests here
-    pass
+    def _quickrun(self,address):
+        '''shortcut to return the best result (wrapped) for a simple query'''
+        time.sleep(.2)      # ironically, we sleep for a bit in quickrun. don't want to go over API limit
+        return self.client.run_geocode_request(address).best_result(True)
+
+    def _open_test_json(self,fn):
+        json_dir = os.path.dirname(os.path.abspath(__file__))
+        return open(os.path.join(json_dir,'test_json','gg',fn))
+
+
+    def test_query_options(self):
+        '''Tests all API request options behave as expected (no sensor test currently)'''
+        # test bounding box search: adapted from http://code.google.com/apis/maps/documentation/geocoding/#Viewports
+        result_nobounds = self.client.run_geocode_request('Winnetka',bounds=None).best_result(wrapped=True)
+        self.assertEquals(result_nobounds.get_address_component('administrative_area_level_1'),'IL')
+        result_bounds = self.client.run_geocode_request('Winnetka',bounds=((34.17,-118.60),(34.23,-118.50))).best_result(wrapped=True)
+        self.assertEquals(result_bounds.get_address_component('administrative_area_level_1'),'CA')
+
+        # test region search: adapted from http://code.google.com/apis/maps/documentation/geocoding/#RegionCodes
+        result_us = self.client.run_geocode_request('Toledo',region='us').best_result(wrapped=True)
+        self.assertEquals(result_us.get_address_component('country'),'US')
+        result_es = self.client.run_geocode_request('Toledo',region='es').best_result(wrapped=True)
+        self.assertEquals(result_es.get_address_component('country'),'ES')
+    
+    def test_preprocessing(self):
+        '''Tests preprocessing to avoid particular quirks of Google API'''
+        # test removal of parenthesis
+        self.assertEquals(
+            self.client._preprocess_address('(hello) 210 Atwood St. (2nd Fl)'), 
+            ' 210 Atwood St. ')
+        # test translation of pound sign to "Unit "
+        self.assertEquals(
+            self.client._preprocess_address('6351 Walnut St. #5'),
+            '6351 Walnut St. Unit 5')
+
+        # tests that a PreprocessingOccurred is generated
+        result = self._quickrun('6351 Walnut St., #5, Pittsburgh, PA')
+        #self.assertTrue(result.contains_notice('PreprocessingOccurred'))
+
+    def test_multiple_address_components(self):
+        '''ensures handling of results with duplicate address components works correctly'''
+        result = GoogleGeocodingResponse(self._open_test_json('pittsburgh.json')).best_result(wrapped=True)
+        # ensure multiple results are returned if asked for
+        self.assertEquals(len(result.get_address_component('political',allow_multiple=True)),4)
+        # ensure exception is thrown if multiple results aren't asked for
+        with self.assertRaises(KeyError):
+            result.get_address_component('political')
+        # ensure empty list is returned works for unavaible key whene allow_multiple=True
+        self.assertEquals(len(result.get_address_component('route',allow_multiple=True)),0)
+        # ensure default argument works for unavaible key
+        self.assertEquals(result.get_address_component('route'),None)
+        self.assertEquals(result.get_address_component('route',default='boo boo kitty'),'boo boo kitty')
+
+    def test_api_response_content(self):
+        '''runs a battery of API calls against the actual live service'''
+        # test abbreviation of "South" and "Street"
+        result = self._quickrun('201 South Bouquet Street')
+        self.assertEquals(result.get_address_component('street_number'),    '201')
+        self.assertEquals(result.get_address_component('route'),            'S Bouquet St')
+
+        # test abbreviation of "Street" and interpretation of "Apt." 
+        # also that Google API still returns a "partial match" for address with a subpremise 
+        result = self._quickrun('6351 Walnut Street Apt. 5, Pittsburgh, PA')
+        self.assertEquals(result.get_address_component('subpremise'),       '5')
+        self.assertEquals(result.get_address_component('street_number'),    '6351')
+        self.assertEquals(result.get_address_component('route'),            'Walnut St') 
+        #self.assertTrue(result.contains_notice('PartialMatch'))
+
+        # test that all address numbers become integers and abbreviation of "Drive"
+        result = self._quickrun('One Schenley Drive, Pittsburgh, PA')
+        self.assertEquals(result.get_address_component('street_number'),    '1')
+        self.assertEquals(result.get_address_component('route'),            'Schenley Dr')
+
+        # tests named building lookup
+        result = self._quickrun('Carnegie Museum of Natural History, Pittsburgh, PA')
+        self.assertEquals(result.get_address_component('establishment'), 'Carnegie Museum of Natural History')
+
+        # tests intersection with "at"
+        result = self._quickrun('Fifth at South Craig St, Pittsburgh, PA')
+        self.assertIn('intersection',result['types'])
+        self.assertEquals(result.get_address_component('intersection'), 'Fifth Ave & S Craig St')
+        
+        # tests that "Blvd" abbreviation gets expanded if not the last word in a street address
+        result = self._quickrun('3518 Blvd of the Allies')
+        self.assertEquals(result.get_address_component('street_number'),    '3518')
+        self.assertEquals(result.get_address_component('route'),            'Boulevard of the Allies')
+
+        # tests that a partial match is given for an address that's eambiguous because of no North/South designation
+        result = self._quickrun('400 Craig St, Pittsburgh, PA, 15213')
+        self.assertIn('Craig St',result.get_address_component('route'))
+        #self.assertTrue(result.contains_notice('PartialMatch'))
+    
+        ### remaining tests are to keep an eye on the Google API to see if any useful changes occur
+        ### if any of these fail, they aren't necessarily problems, it would just be useful to be
+        ### notified about it because it could change some pre/post processing assumptions
+
+        # make sure intersection results still return only one of the routes from the intersection in address_components
+        result = self._quickrun('Fifth at South Craig St, Pittsburgh, PA')
+        self.assertIn('intersection',result['types'])
+        # (if more than one route is in the result a KeyError should be thrown)
+        self.assertEquals(result.get_address_component('route'),'Fifth Ave')
+        
+        # test 'floor' results aren't returned
+        result = self._quickrun('249 N Craig St (Floor 2), Pittsburgh, PA')
+        self.assertNotIn('floor',result['types'])
+        self.assertIsNone(result.get_address_component('floor'))
+
+        # test 'room' results aren't returned
+        result = self._quickrun('Posvar Hall, Room 1501')
+        self.assertNotIn('room',result['types'])
+        self.assertIsNone(result.get_address_component('room'))
+
+        # test 'post_box' results aren't returned
+        result = self._quickrun('P.O. Box 5452, Pittsburgh, PA 15206')
+        self.assertNotIn('post_box',result['types'])
+        self.assertIsNone(result.get_address_component('post_box'))
+
+    def test_normalized_address_construction(self):
+        '''tests that addresses are correctly normalized'''
+        # read in some sample JSON and test what get_address spits out
+        json_address_pairs = (
+            ('1555-coraopolis-heights-rd-ste-4200.json','1555 Coraopolis Heights Rd #4200'),
+            ('cathedral.json',                          'Cathedral of Learning'),
+            ('pittsburgh-zoo.json',                     'Pittsburgh Zoo and PPG Aquarium, 7340 Butler St'),
+            ('forbes-halket-intersection.json',         'Forbes Ave & Halket St'),
+            ('north-oakland.json',                      '')
+        )
+
+        for fn,expected_addr in json_address_pairs:
+            response = GoogleGeocodingResponse(self._open_test_json(fn))
+            address = response.best_result(wrapped=True).get_street_address()
+            self.assertEquals(address,expected_addr,
+                                msg="Expected address '%s', got '%s', from sample JSON '%s'" % ( expected_addr, address, fn ) )
+
+    def test_api_error_handling(self):
+        '''ensure geocoding wrapper raises GoogleGeocodingAPIError when appropriate'''
+        # a bit hacky using a private function, i admit, but since request is received in 
+        # same function error is raised from, we can't simulate an error situation anymore
+        json_failures = ('failure-over-query-limit.json','failure-request-denied.json','failure-invalid-request.json')
+        for fn in json_failures:
+           with self.assertRaises(GoogleGeocodingAPIError):
+                self.client._package_response(self._open_test_json(fn).read())
+
+    def test_zero_results_handling(self):
+        '''ensure geocoding wrapper gracefully handles zero results returned'''
+        response = GoogleGeocodingResponse(self._open_test_json('zero-results.json'))
+        self.assertEquals(len(response.results),0)
+        self.assertIsNone(response.best_result(),None)

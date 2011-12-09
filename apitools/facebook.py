@@ -1,4 +1,11 @@
 import urllib, urllib2, json
+from onlyinpgh.apitools import APIError
+
+class FacebookAPIError(APIError):
+    # TODO: decide on error contents. complicated because there's a variety of responses this API handles
+    def __init__(self,request,*args,**kwargs):
+        self.request = request
+        super(FacebookAPIError,self).__init__('facebook-graph',*args,**kwargs)    
 
 def get_basic_access_token(client_id,client_secret):
     '''
