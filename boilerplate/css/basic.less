@@ -30,6 +30,7 @@
 html, body {
 	height: 100%;
 	font: 16px 'NobileRegular', 'Verdana', sans-serif;
+	line-height: 1.2;
 	background-image: url('/static/img/stormy-sky.jpg');
 }
 
@@ -213,7 +214,7 @@ ul {
 		border-bottom: 2px solid #fff;
 
 		section {
-			.column(9);
+			.column(8.5);
 		}
 
 		.thumb-container {
@@ -338,10 +339,9 @@ ul {
 		height: 2em;
 
 		.user-nav {
-			.column(6);
-			float: right;
+			
 			height: 100%;
-			margin-right: 11em;
+			margin-right: 1em;
 			li {
 				float: right;
 				padding: 2%;
@@ -400,10 +400,17 @@ ul {
 			padding: 2%;
 			.clearfix;
 
+			section {
+				.column(9);	
+			}
+
+			.thumb-container {
+				.column(3);
+			}
+
 			img {
-				height: 50px;
-				width: 50px;
-				float: right;
+				height: 70px;
+				width: 70px;
 			}
 		}
 	}
@@ -424,7 +431,7 @@ ul {
 				float: left;
 				.column(5);
 				margin: 2%;
-				height: 50%;
+				height: 57%;
 				overflow: hidden;
 						
 				aside {
@@ -532,10 +539,10 @@ ul {
 			margin: 1%;
 			.gradient(#eee, #aaa);
 			padding: 1%;
-
+			
 			header {
 				.column(11);
-				border-bottom: 1px #999 solid;
+				border-bottom: 1px #ccc solid;
 
 				.feed-item-title {
 					margin: 0;	
@@ -554,6 +561,7 @@ ul {
 			}
 
 			.post-body {
+				.row();
 				.post-content {
 					margin: 3%;
 				}
@@ -561,13 +569,11 @@ ul {
 
 			.comments {
 				li {
-					header {
-						border: none;
-					}
-
 					margin: 0;
+					
 					header {
 						.row();
+						margin-bottom: 1%;
 					}
 
 					.gradient(#f2f2f2, #fff);

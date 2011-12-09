@@ -6,6 +6,7 @@ template to be included inside the #places div
 <li>
 	<section>
     	<h4 class="feed-item-title">{{ e.name }}</h4>
+        <p>{{ e.dtstart }} - {{ e.dtend }}</p> 
     	<p>{{ e.place.location.address }}</p> 
     </section>
     <div class="thumb-container">
