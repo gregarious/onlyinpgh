@@ -15,11 +15,24 @@ class FactualClient(object):
         self.key = oauth_key
         self.secret = oauth_secret
     
-    def resolve(self,name=None,address=None,city=None,state=None,postcode=None,
-                phone=None,latitude=None,longitude=None):
-        # form request
+    def resolve(self,name=None,address=None,town=None,state=None,postcode=None,
+                latitude=None,longitude=None):
+        '''
+        Runs a Factual Resolve API call with the given search options and 
+        returns a ResolveResponse object. Will raise a FactualAPIError if
+        response returns a non-OK status.
+        '''
+        opts = dict(
+            name = name,
+            address = address,
+            locality = town,
+            region = state,
+            postcode = postcode,
+            latitude = latitude,
+            longitude = longitude,
+        )
         request = None
-        # get raw response via API call 
+        # TODO: get raw response via API call with given opts
         response = ResolveResponse(raw_response)
         if response.status != 'ok':
             raise FactualAPIError(request,response.error_type,response.message)
@@ -41,34 +54,36 @@ class ResolveResponse(object):
             # assume it's a string
             response_text = response
 
-        self.version = None
-        self.status = None
-        self.responses = None   # list of resolve_result arrays
-        self.error_type = None
-        self.message = None
+        response = json.loads(response_text)
+        self.version = response['version']
+        self.status = response['status']
+        self.error_type = response.get('error_type',None)
+        self.message = response.get('message',None)
 
-        # TODO: insert response parsing
-        # hack the resolved status to false if more two different addresses
-        # have 1 responses
-    
-    def successful(self):
-        '''Returns True if response status was "ok"'''
-        return self.status == 'ok'
+        try:
+            data = response['response']['data']
+        except KeyError:
+            self.results = None
+        else:
+            # Not sure if it's a beta glitch or what, but Resolve will sometimes return
+            # multiple results with similarity of 1 and yet mark the first result's
+            # "resolved" status is True. This seems counter to the philosophy of the
+            # Resolve API, so we're hacking the resolved status to False for now.
+            if len([_ for result in data if result['similarity']==1]) > 1:
+                for i in range(len(data)):
+                    data['resolved'] = False
+            self.results = data
 
     def get_resolved_result(self):
         '''
-        Returns a dict containing place components as well as 
-        resolve-specific "similarity" and "resolved" fields.
+        Returns the one and only "resolved" result, if it exists. Return 
+        False if it doesnt. Return value is a dict containing place 
+        components as well as resolve-specific "similarity" and "resolved"
+        fields.
         '''
-        return {}
-
-    def get_all_results(self):
-        '''
-        Returns a list of dicts containing place components as well as 
-        resolve-specific "similarity" and "resolved" fields. List is 
-        ordered same as response JSON.
-        '''
-        return []
+        if len(self.results) == 0 or not self.results[0]['resolved']:
+            return None
+        return self.results[0]
 
 OIP_OAUTH_KEY = 'sJqNeJAzOeBwmIpdubcyguqAxG8OVqQ65Pu7lUxj'
 OIP_OAUTH_SECRET = 'QQUO9RjZOETZVjRRV8uYrmaaSMs2ulNDb7mALus8'
