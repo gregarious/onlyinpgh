@@ -14,7 +14,8 @@ class GoogleGeocodingClient(object):
     have some red flags.
     '''
     GOOGLE_BASE_URL = "http://maps.googleapis.com/maps/api/geocode/json"
-    def run_geocode_request(self,query,bounds=None,region='US',sensor=False):
+    @classmethod
+    def run_geocode_request(cls,query,bounds=None,region='US',sensor=False):
         '''
         Calls the Google Geocoding API with given text query and returns a 
         GoogleGeocodingResponse.
@@ -26,7 +27,7 @@ class GoogleGeocodingClient(object):
         Will pass on errors of urllib.urlopen if the API's URL has trouble
         connecting.
         '''
-        cleaned_address = self._preprocess_address(query)
+        cleaned_address = cls._preprocess_address(query)
         options = { 'address': cleaned_address,
                     'sensor': 'true' if sensor else 'false' }
         if bounds is not None:
@@ -35,18 +36,20 @@ class GoogleGeocodingClient(object):
         if region is not None:
             options['region'] = region
         
-        request_url = self.GOOGLE_BASE_URL + '?' + urllib.urlencode(options)
+        request_url = cls.GOOGLE_BASE_URL + '?' + urllib.urlencode(options)
         fp = urllib.urlopen(request_url)
         raw_response = fp.read()
-        return self._package_response(raw_response,request_url)
+        return cls._package_response(raw_response,request_url)
     
-    def _package_response(self,raw_response,request=None):
+    @classmethod
+    def _package_response(cls,raw_response,request=None):
         response = GoogleGeocodingResponse(raw_response)
         if response.status in ['OVER_QUERY_LIMIT','REQUEST_DENIED','INVALID_REQUEST']:
             raise GoogleGeocodingAPIError(request,raw_response)
         return response
 
-    def _preprocess_address(self,address):
+    @classmethod
+    def _preprocess_address(cls,address):
         '''
         Special preprocessing for address text based on known 'quirks' of API
 

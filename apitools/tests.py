@@ -154,7 +154,6 @@ class GoogleGeocodingTest(TestCase):
         json_dir = os.path.dirname(os.path.abspath(__file__))
         return open(os.path.join(json_dir,'test_json','gg',fn))
 
-
     def test_query_options(self):
         '''Tests all API request options behave as expected (no sensor test currently)'''
         # test bounding box search: adapted from http://code.google.com/apis/maps/documentation/geocoding/#Viewports
