@@ -93,8 +93,8 @@ License: http://creativecommons.org/licenses/MIT
 			<span class="username">&nbsp; laras126 &rarr;</span>
 			<span class="hrs available">&nbsp;20</span> • <span class="ahrs lifetime">60</span>
 
-			<!--<span class="more-info-link">(Perogie)</span> Hidden dialog box -->
-			<!--<article class="more-info-dialog">
+			<span class="more-info-link">(Perogie)</span> <!-- Hidden dialog box -->
+			<article class="more-info-dialog">
 				<header>
 					<h2>About Ahrs, Levels, and Pittsburghese</h2>
 				</header>
@@ -108,9 +108,9 @@ License: http://creativecommons.org/licenses/MIT
 					<li>125-150: Double Yoi</li>
 					<li>150+: Fully Fleshed Yinzer</li>
 				</ul>
-			</article>-->
+			</article>
 
-			<section class="additional-info drop-down threecol last" id="dropDown" style="float: right">
+			<section class="additional-info drop-down threecol last" id="dropDown">
 				<div>
 					<figure class="progressbar row"></figure>
 					<figcaption class="row">
@@ -131,9 +131,20 @@ License: http://creativecommons.org/licenses/MIT
 	<div class="container row">
 		
 		<header class="scene-page-header row">
-			
-			<h1 class="fourcol">Oakland Scene</h1>
-			<section class="featured ui-corner-all">
+			<div class="sixcol">			
+				<h1 class="sevencol">Oakland Scene</h1>
+				<form class="fivecol last">
+					<input type="text" id="search-box" placeholder="Filter this scene..." class="fourcol"/>
+					<input type="button" id="add-filter" value="Add Filter" />
+				</form>
+
+				<!-- the result of the search will be rendered inside this div -->
+				<ul id="current-filters" class="current-filters-list row">
+					<!-- filters inserted here -->
+				</ul>
+			</div>
+
+			<section class="featured ui-corner-all sixcol last">
 				<h3>Featured deal or place here</h3>
 				<p>Description of said deal</p>
 			</section>
@@ -222,6 +233,19 @@ License: http://creativecommons.org/licenses/MIT
 								<li><a href="#chatter-tab-4">Converstion</a></li>
 								<li><a href="#chatter-tab-5">Questions</a></li>
 							</ul>
+						</div>
+
+						<div class="chatter-post-form row">
+							<form class="sevencol">
+								<input type="text" placeholder="Post to ChatterBox" />
+							</form>
+							<select class="threecol">
+								<option>Type of post</option>
+								<option>Pic</option>
+								<option>Conversation</option>
+								<option>Question</option>
+							</select> 
+							<input type="button" id="add-chatter-post" value="Post" />
 						</div>
 							<div class="tabs-container row">
 								<div id="chatter-tab-1">Hottest chatter posts template</div>

@@ -164,6 +164,30 @@ $(document).ready(function(){
 		function() { $(this).removeClass('ui-state-hover'); }
 	);*/
 	
+
+	// Print filter search box value to a list
+	$("#add-filter").click(function() {
+		var value = $('#search-box').val();
+		$("#current-filters").append('<li class="ui-corner-all"><span class="remove-filter"></span>' + value + '</li>');
+		// Animation when adding tag - adds a display:block...will have to fix that, so not using now
+		/*$('<li><span class="remove-tag pointer"></span>' + value + '</li>')
+			.hide()
+			.appendTo('#list-tags');
+			.show(300);*/
+				
+		$(".remove-filter").click(function() {
+			$(this).parent('li').hide(300, function() {
+				$(this).remove();
+			});
+
+			return false;
+		});
+		
+    });
+
+
+
+
 });
 
 /////////
