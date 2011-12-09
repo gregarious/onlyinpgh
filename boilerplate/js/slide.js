@@ -1,7 +1,7 @@
 
 $(document).ready(function() {
 	
-	//initializeMap();
+	initializeMap();
 
 
 	// Sliding Navigation
@@ -52,51 +52,15 @@ $(document).ready(function() {
 	$('.chatter-category-tabs').tabs();
 
 
-	// Sliding sandwich board - this no work now??
-	$('.arrow-slide.left').click( function() {
-		$('.ticker #sandwich-board li').scrollTo($('.ticker #sandwich-board li').next());
-	});
-
-
-	// Not working right now
-	// Checkin dialog
-	$('.checkin-prompt').dialog({
-		autoOpen: false,
-		width: 600,
-		modal: true,
-		buttons: {
-			"Ok": function() { 
-				$(this).dialog("close"); 
-			}, 
-			"Cancel": function() { 
-				$(this).dialog("close"); 
-			} 
-		}
-	});
-	
-	// Dialog Link
-	$('.checkin-prompt-link').click(function(){
-		$('.checkin-prompt').dialog('open');
-		return false;
-	});
-
-
 	// Print filter search box value to a list
 	$("#add-filter").click(function() {
 		var value = $('#search-box').val();
 		$("#current-filters").append('<li><span class="remove-filter"></span>' + value + '</li>');
-		// Animation when adding tag - adds a display:block...will have to fix that, so not using now
-		/*$('<li><span class="remove-tag pointer"></span>' + value + '</li>')
-			.hide()
-			.appendTo('#list-tags');
-			.show(300);*/
 				
 		$(".remove-filter").click(function() {
 			$(this).parent('li').hide(300, function() {
 				$(this).remove();
 			});
-
-			return false;
 		});
 		
     });
@@ -114,17 +78,35 @@ function resizePanel() {
 	$('#wrapper').scrollTo($('a.selected').attr('href'), 0);
 }
 
+var map, map2;
+
 function initializeMap() {	
 
-	// Your location will be the center of the map	
+	// Your location would be the center of the map	
 	var youLoc = new google.maps.LatLng(40.44201350, -79.96255210);
 	var myOptions = {
-      zoom: 8,
+      zoom: 15,
       center: youLoc,
       mapTypeId: google.maps.MapTypeId.ROADMAP
     };
-    var map = new google.maps.Map(document.getElementById("map_canvas"),
+
+    map = new google.maps.Map(document.getElementById("map_canvas"),
         myOptions);
+
+    map2 = new google.maps.Map(document.getElementById("map_canvas2"),
+        myOptions);    
 	
 } // initializeMap
 
+function cycleTeasers() {
+	var next = $("#chatter-teasers li:last-child");
+    $.unique(next).each( function() {
+		$(this).hide()
+        $(this).prependTo(this.parentNode);
+        $(this).slideDown(200);
+        // hack to add a more sensible time to the teaser feed
+        $(this).find('.timesince').html('1 minute')
+    });
+}
+
+window.setInterval(cycleTeasers,10000);
