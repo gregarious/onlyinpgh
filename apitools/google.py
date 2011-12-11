@@ -161,6 +161,32 @@ class GoogleGeocodingResult(object):
     def __contains__(self):
         return self._result.__contains__(key)
 
+    def is_address_concrete(self,allow_numberless=True):
+        '''
+        Returns True if the result is concrete (i.e. less vague than a large
+        area like neighborhood or town)
+
+        If allow_numberless is True, results that have no pin-pointable location
+        but are more specific than neighbohoods count as concrete (e.g. a street-only
+        address or an establishment)
+        '''
+        address_components = set()
+        for component in self._result['address_components']:
+            address_components.update(component['types'])
+
+        if 'intersection' in address_components:
+            return True
+        if 'route' in address_components and \
+            ('street_number' in address_components or allow_numberless):
+            return True
+
+        # if we're not allowing numberless requests, we've gone as far as possible now
+        if not allow_numberless:
+            return False
+
+        # last chance: address is only concrete if this intersection is nonempty
+        return set(PREMISE_TYPES).intersection(address_components) != set()
+
     def get_address_component(self,component_name,default=None,allow_multiple=False):
         '''
         Shortcut to returning the named address component. Returns the 
@@ -274,4 +300,6 @@ class GoogleGeocodingResult(object):
         except KeyError:
             return None
         return (geocoding['lat'],geocoding['lng'])
-    
+
+# this is pointless since there's no API key, but keeps module interface similar to factual/facebook
+oip_client = GoogleGeocodingClient()

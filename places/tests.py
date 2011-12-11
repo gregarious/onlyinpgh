@@ -2,7 +2,7 @@ import os, json, time
 from django.test import TestCase
 from django.core.exceptions import ValidationError
 
-from onlyinpgh.places.models import Location, Place, LocationLookupNotice
+from onlyinpgh.places.models import Location, Place
 from onlyinpgh.places import outsourcing
 
 class LocationModelTest(TestCase):

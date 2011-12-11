@@ -182,6 +182,10 @@ class GoogleGeocodingTest(TestCase):
         json_dir = os.path.dirname(os.path.abspath(__file__))
         return open(os.path.join(json_dir,'test_json','gg',fn))
 
+    def _json_to_best_result(self,fn):
+        response = GoogleGeocodingResponse(self._open_test_json(fn))
+        return response.best_result(wrapped=True)
+
     def test_query_options(self):
         '''Tests all API request options behave as expected (no sensor test currently)'''
         # test bounding box search: adapted from http://code.google.com/apis/maps/documentation/geocoding/#Viewports
@@ -301,10 +305,29 @@ class GoogleGeocodingTest(TestCase):
         )
 
         for fn,expected_addr in json_address_pairs:
-            response = GoogleGeocodingResponse(self._open_test_json(fn))
-            address = response.best_result(wrapped=True).get_street_address()
+            address = self._json_to_best_result.get_street_address()
             self.assertEquals(address,expected_addr,
                                 msg="Expected address '%s', got '%s', from sample JSON '%s'" % ( expected_addr, address, fn ) )
+
+    def test_concrete_address_question(self):
+        '''ensures is_address_concrete method works'''
+        cathedral = self._json_to_best_result('cathedral.json')
+        noakland = self._json_to_best_result('north-oakland.json')
+        atwood = self._json_to_best_result('atwood.json')
+        zoo = self._json_to_best_result('pittsburgh-zoo.json')
+
+        # First test without counting numberless results as concrete: only zoo should succeed
+        self.assertTrue(zoo.is_address_concrete(allow_numberless=False))
+        self.assertFalse(cathedral.is_address_concrete(allow_numberless=False))
+        self.assertFalse(noakland.is_address_concrete(allow_numberless=False))
+        self.assertFalse(atwood.is_address_concrete(allow_numberless=False))
+
+        # Now allow numberless, all but north oakland should succeed
+        self.assertTrue(zoo.is_address_concrete())
+        self.assertTrue(cathedral.is_address_concrete())
+        self.assertFalse(noakland.is_address_concrete())
+        self.assertTrue(atwood.is_address_concrete())
+    
 
     def test_api_error_handling(self):
         '''ensure geocoding wrapper raises GoogleGeocodingAPIError when appropriate'''

@@ -4,7 +4,6 @@ from onlyinpgh.apitools.facebook import oip_client as fb_client
 from copy import copy
 import json, time
 
-
 def gather_place_pages(center,radius,query=None,limit=4000,batch_requests=True):
     '''
     Returns a list of Facebook place page 'objects' represneting all places 
