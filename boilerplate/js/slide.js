@@ -1,34 +1,43 @@
 
+// Credits: 
+
+// Queness, "Create a Vertical, Horizontal and Diagonal Sliding Content Website with jQuery"
+// http://www.queness.com/post/356/create-a-vertical-horizontal-and-diagonal-sliding-content-website-with-jquery
+
+
+
+
 $(document).ready(function() {
 	
 	initializeMap();
 
-
 	// Sliding Navigation
-
-	// Credit: Queness, "Create a Vertical, Horizontal and Diagonal Sliding Content Website with jQuery"
-	// http://www.queness.com/post/356/create-a-vertical-horizontal-and-diagonal-sliding-content-website-with-jquery
 
 	$('#wrapper').scrollTo('#atAGlanceTile', 0);
 
-	$('a.panel').click(function(event) {
+	$('.panel').click(function(event) {
 
-		$('a.panel').removeClass('selected');
+		$('.panel').removeClass('selected');
 		$(this).addClass('selected');
 
 		var target = $(event.target);
 
 		// Could be done more efficiently, but works
-		if( target.is('li.events.active a.panel') ) {
-			$('#wrapper').scrollTo($(this).attr('href'), 800, { offset:{left:$('.item').width()/6} });
-		} else if( target.is('li.chatterbox.active a.panel') ) {
-			$('#wrapper').scrollTo($(this).attr('href'), 800, { offset:{left:-$('.item').width()/6} });
+		if( target.is('.eventsLink') || target.is('.eventsLink span') ) {
+			$('#wrapper').scrollTo($(this).attr('href'), 1100, { easing: 'easeInOutExpo', offset:{left:$('.item').width()/6} });
+		} else if( target.is('.chatterBoxLink') || target.is('.chatterBoxLink span') ) {
+			$('#wrapper').scrollTo($(this).attr('href'), 1100, { easing: 'easeInOutExpo', offset:{left:-$('.item').width()/6} });
 		} else {
-			$('#wrapper').scrollTo($(this).attr('href'), 800);
+			$('#wrapper').scrollTo($(this).attr('href'), 1100, { easing: 'easeInOutExpo' });
 		}
 		return false;
 
 	});
+
+	// Call function in a template - doesn't work
+	/*$('.jqtest span').click( function() {
+		console.log('clicked inside template');
+	});*/
 
 	$(window).resize(function() {
 		resizePanel();

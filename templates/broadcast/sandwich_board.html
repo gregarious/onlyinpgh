@@ -1,8 +1,8 @@
 {% comment %}
-template to be included inside the #places div
+template to be included inside the #sammich-board div
 {% endcomment %}
 
-{% for o in offers %}
+{% for o in offers|slice:":2" %}
 	<li>
 		<aside>
 			<span class="points">+{{ o.point_value }}</span>

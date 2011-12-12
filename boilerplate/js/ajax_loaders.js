@@ -4,7 +4,7 @@ $.get('/ajax/places', function(data) {
 );
 
 $.get('/ajax/places', function(data) { 
-        $('#placesFeed').html(data); 
+        $('#placesFeed').html(data);
     }
 );
 

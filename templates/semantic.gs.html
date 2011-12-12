@@ -13,10 +13,10 @@
 	
 
 	<!-- For Mobile, Tablet, and Desktop -->
-	<link rel="stylesheet/less" href="{{ STATIC_URL }}css/basic.less">
+	<link type="text/css" rel="stylesheet" href="{{ STATIC_URL }}css/basic.css">
 	<!--<link rel="stylesheet/less" media="only screen and (max-width: 1024px)" href="{{ STATIC_URL }}css/992.less">-->
-	<link rel="stylesheet/less" media="only screen and (max-width: 1360px)" href="{{ STATIC_URL }}css/768.less">
-	<link rel="stylesheet/less" media="only screen and (max-width: 480px)" href="{{ STATIC_URL }}css/480.less">
+	<link type="text/css" rel="stylesheet" media="only screen and (max-width: 1360px)" href="{{ STATIC_URL }}css/768.css">
+	<link type="text/css" rel="stylesheet" media="only screen and (max-width: 480px)" href="{{ STATIC_URL }}css/480.css">
 
 	<title>OIP Tile Layout</title>
 
@@ -29,23 +29,31 @@
 		<li>
 			<ul>
 				<li></li>
-				<li class="events active middle"><a href="#eventsTile" class="panel">&larr; Events</a></li>
+				<li class="active middle">
+					<a href="#eventsTile" class="eventsLink panel">&larr; Events</a>
+				</li>
 				<li></li>
 			</ul>	
 		</li>
 
 		<li class="row">
 			<ul>
-				<li class="stats active"><a href="#statsTile" class="panel">&uarr;<br />Stats</a></li>	
-				<li class="ataglance active middle"><a href="#atAGlanceTile" class="panel">Home</a></li>
-				<li class="places active"><a href="#placesTile" class="panel">Places<br />&darr;</a></li>
+				<li class="stats active">
+					<a href="#statsTile" class="statsLink panel">&uarr;<br />Stats</a>
+				</li>	
+				<li class="statsLink middle">
+					<a href="#atAGlanceTile" class="atAGlanceLink panel">Home</a>
+				</li>
+				<li class="placesLink active">
+					<a href="#placesTile" class="placesLink panel">Places<br />&darr;</a>
+				</li>
 			</ul>
 		</li>
 
 		<li class="row">
 			<ul>
 				<li></li>
-				<li class="chatterbox active middle"><a href="#chatterBoxTile" class="panel">Chatter &rarr;</a></li>
+				<li class="chatterbox active middle"><a href="#chatterBoxTile" class="chatterBoxLink panel">Chatter &rarr;</a></li>
 				<li></li>
 			</ul>
 		</li>
@@ -116,9 +124,12 @@
 
 
 	<!-- Second Row -->
-
 		<div id="eventsTile" class="item panel"> <!-- middle left -->
 			<div class="item-content-container">
+
+				<!-- Make panel a link to itself, disabled when it is the current panel. Offset not working here. -->
+				<a class="panel eventsLink" href="#eventsTile"><span></span></a>
+
 				<article class="tile-list">
 					<h2>Events</h2>
 					<ul id="eventsPage" class="page-list"><!--Places list template--></ul>
@@ -134,6 +145,9 @@
 
 		<div id="atAGlanceTile" class="item"> <!-- middle middle -->
 			<div class="item-content-container">
+				<!-- Make panel a link to itself, disabled when it is the current panel. Offset not working here. -->
+				<a class="panel atAGlanceLink" href="#atAGlanceTile"><span></span></a>
+
 				<!-- Header -->
 				<!--<header class="scene-header">
 					<h2>Scene at a glance</h2>
@@ -144,9 +158,10 @@
 				<article class="scene-events">
 					<section class="events-feed main">
 						<header>
-							<h3 class="section-title">Upcoming Events</h3>
+							<h3 class="section-title jqtest2">Upcoming Events</h3>
 						</header>
 						<ul id="eventsFeed" class="block-list"><!-- Events List template --></ul>
+					
 					</section>
 				</article>
 
@@ -191,6 +206,8 @@
 
 		<div id="chatterBoxTile" class="item"> <!-- middle right -->
 			<div class="item-content-container">
+				<!-- Make panel a link to itself, disabled when it is the current panel. Offset not working here. -->
+				<a class="panel chatterBoxLink" href="#chatterBoxTile"><span></span></a>
 				<h2>Chatter Box</h2>
 				<div class="chatter-category-tabs">
 					<ul class="category-tabs">
@@ -236,6 +253,10 @@
 		
 		<div class="item" id="placesTile"> <!-- bottom middle -->
 			<div class="item-content-container">
+
+				<!-- Make panel a link to itself, disabled when it is the current panel. Offset not working here. -->
+				<a class="panel placesLink" href="#placesTile"><span></span></a>
+			
 				<article class="tile-list">
 					<h2>Places</h2>
 					<ul id="placesPage" class="page-list"><!--Places list template--></ul>
@@ -262,11 +283,15 @@
 	<div class="arrow-slide right"></div>
 </footer>-->
 
+	<!-- Libraries and Plugins -->
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.0/jquery.js"></script> <!-- Unminified jQuery for development -->
 	<script src="http://maps.google.com/maps/api/js?libraries=places&amp;sensor=false" type="text/javascript"></script>
 	<script src="{{ STATIC_URL }}jquery-ui/js/jquery-ui-1.8.16.custom.js"></script>
-	<script src="{{ STATIC_URL }}js/mylibs/less-1.1.5.min.js"></script>
+	<!--<script src="{{ STATIC_URL }}js/mylibs/less-1.1.5.min.js"></script>-->
 	<script src="{{ STATIC_URL }}js/mylibs/jquery.scrollTo.js"></script>
+	<script src="{{ STATIC_URL }}js/mylibs/jquery.easing.1.3.js"></script>
+
+	<!-- Site scripts -->
 	<script src="{{ STATIC_URL }}js/slide.js"></script>
 	<script src="{{ STATIC_URL }}js/ajax_loaders.js"></script>
 

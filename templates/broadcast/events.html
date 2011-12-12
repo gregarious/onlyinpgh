@@ -1,13 +1,15 @@
 {% comment %}
-template to be included inside the #places div
+template to be included inside the #eventsFeed ul
 {% endcomment %}
 
-{% for e in events %}
+
+{% for e in events|slice:":3" %}
 <li>
 	<section>
-    	<h4 class="feed-item-title">{{ e.name }}</h4>
+    	<h4 class="feed-item-title event-title">{{ e.name }}</h4>
         <p>{{ e.dtstart }} - {{ e.dtend }}</p> 
     	<p>{{ e.place.location.address }}</p> 
+        <p>More info...</p>
     </section>
     <div class="thumb-container">
         <img class="thumbnail" class="" src="{{ e.image_url }}" />
