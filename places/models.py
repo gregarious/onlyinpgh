@@ -102,30 +102,37 @@ class Place(models.Model):
     
     name = models.CharField(max_length=200,blank=True)
     description = models.TextField(blank=True)
-    url = models.URLField(max_length=400,blank=True)
     location = models.ForeignKey(Location,blank=True,null=True)
 
+    owner = models.ForeignKey(Organization,blank=True,null=True)
     tags = models.ManyToManyField(Tag,blank=True,null=True)
 
     def __unicode__(self):
-        return self.name
+        s = self.name
+        if self.location:
+            s += '. Loc: ' + self.location.address + ', ' + self.location.town  + ', ' + self.location.state + ', ' + self.location.postcode  
+        return unicode(s)
 
-# TODO: revisit model inheritance here. maybe do some contenttypes fun.
-#       do some performance testing if we go with this
-
-class Establishment(Place):
+class PlaceMeta(models.Model):
     '''
-    Handles information about places.
+    Handles meta information for a Place.
     '''
-    owner = models.ForeignKey(Organization)
+    key_choices = ( ('url','Website'),
+                    ('phone','Phone number'),
+                    ('hours','Hours'),
+                    ('image_url','Image URL')
+                  )
 
-    phone_number = models.CharField(max_length=20,blank=True)
-    
-    # probably beef this hours representation up. text ok for now.
-    hours = models.TextField(blank=True)
+    place = models.ForeignKey(Place)
+    meta_key = models.CharField(max_length=20,choices=key_choices)
+    meta_value = models.TextField(blank=True)   # blank values allowed (boolean meta attributes)
 
     def __unicode__(self):
-        return self.name
+        if len(self.meta_value) < 20:
+            val = self.meta_value
+        else:
+            val = self.meta_value[:16] + '...'
+        return u'%s: %s' % (self.meta_key,val)
 
 class ExternalPlaceUID(models.Model):
     '''
@@ -146,17 +153,13 @@ class ExternalPlaceUID(models.Model):
     def __unicode__(self):
         return '%s:%s -> %s' % (self.service,self.uid,self.place)
 
-class PlaceMeta(models.Model):
-    '''
-    Handles meta information for a Place.
-    '''
-    place = models.ForeignKey(Place)
-    meta_key = models.CharField(max_length=100)
-    # blank values allowed (boolean meta attributes)
-    meta_value = models.TextField(blank=True)
+class FacebookPageRecord(models.Model):
+    fb_id = models.BigIntegerField(primary_key=True)
+    dt_added = models.DateTimeField(auto_now_add=True)
+    dt_checked = models.DateTimeField(null=True)
 
-    def __unicode__(self):
-        return u'%s: %s' % (self.meta_key,self.meta_value)
+    associated_organization = models.ForeignKey(Organization,null=True,blank=True)
+    associated_place = models.ForeignKey(Place,null=True,blank=True)
 
 class LocationLookupNotice(models.Model):
     '''

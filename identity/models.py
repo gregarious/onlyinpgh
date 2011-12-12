@@ -4,27 +4,20 @@ from django.contrib.auth.models import User
 class Identity(models.Model):
     class Meta:
         verbose_name_plural = 'identities'
-        ordering = ['display_name']
-        
-    dt_created = models.DateTimeField(auto_now_add=True)
+        ordering = ['name']
 
+    dt_created = models.DateTimeField(auto_now_add=True)
+    name = models.CharField(max_length=100)
+    
     # account is not required to have an identity on the site
     account = models.ManyToManyField(User,null=True,blank=True)
     avatar = models.URLField(blank=True)
 
-    display_name = models.CharField(max_length=50)
-    
     def __unicode__(self):
-        return self.display_name
+        return self.name
 
-class Organization(models.Model):
-    identity = models.ForeignKey(Identity,unique=True)
-    
-    def __unicode__(self):
-        return unicode(self.identity)
+class Organization(Identity):
+    pass
 
-class Individual(models.Model):
-    identity = models.ForeignKey(Identity,unique=True)
-
-    def __unicode__(self):
-        return unicode(self.identity)
+class Individual(Identity):
+    pass
