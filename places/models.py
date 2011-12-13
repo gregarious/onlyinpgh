@@ -134,13 +134,12 @@ class PlaceMeta(models.Model):
             val = self.meta_value[:16] + '...'
         return u'%s: %s' % (self.meta_key,val)
 
-class ExternalPlaceUID(models.Model):
+class ExternalPlaceSource(models.Model):
     '''
     Model used to relate external API IDs to unique objects in our
     database (e.g. Factual GUIDs an onlyinpgh.places.models.Place)
     '''
     class Meta:
-        verbose_name = 'External Place UID'
         unique_together = (('service','uid'),)
 
     service_choices = [('fb',   'Facebook Object ID'),
@@ -148,18 +147,22 @@ class ExternalPlaceUID(models.Model):
 
     service = models.CharField(max_length=8,choices=service_choices)
     uid = models.CharField('string representation of UID',max_length=36)
-    place = models.ForeignKey(Place)
+    place = models.OneToOneField(Place)
+
+    last_checked = models.DateTimeField(auto_now_add=True)
 
     def __unicode__(self):
         return '%s:%s -> %s' % (self.service,self.uid,self.place)
 
 class FacebookPageRecord(models.Model):
     fb_id = models.BigIntegerField(primary_key=True)
-    dt_added = models.DateTimeField(auto_now_add=True)
-    dt_checked = models.DateTimeField(null=True)
+    time_added = models.DateTimeField(auto_now_add=True)
+    last_checked = models.DateTimeField(auto_now_add=True)
 
-    associated_organization = models.ForeignKey(Organization,null=True,blank=True)
-    associated_place = models.ForeignKey(Place,null=True,blank=True)
+    # related_name argument necessary because identifier needs to be unique for organizations vs. individuals
+    associated_organization = models.ForeignKey(Organization,null=True,blank=True,
+                                        related_name="%(app_label)s_%(class)s_related")
+    associated_place = models.ForeignKey(Place,null=True,blank=True,related_name="%(app_label)s_%(class)s_related")
 
 class LocationLookupNotice(models.Model):
     '''

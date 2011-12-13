@@ -4,54 +4,11 @@ from onlyinpgh.apitools.facebook import oip_client as fb_client
 from copy import copy
 import json, time
 
-def gather_place_pages(center,radius,query=None,limit=4000,batch_requests=True):
-    '''
-    Returns a list of Facebook place page 'objects' represneting all places 
-    found in the given area. Object fields can be found at 
-    https://developers.facebook.com/docs/reference/api/page/
+test_ids = [u'123553834405202', u'171128159571410', u'122579773164', u'183027055050241', u'102805843089592', u'134786796545', u'177483835622113', u'39206713055', u'122226730263', u'122827324412158', u'32767836552', u'238844289471725', u'114684111881007', u'289028790850', u'149036438458327', u'153469736978', u'59534298851', u'126634834049032', u'90421944415', u'161796890542622', u'157691030961161', u'200106181977', u'150811018276293', u'136518339701903', u'104712989579167', u'220570274635552', u'53487807341', u'114990195221517', u'109624895040', u'128783590515514', u'184039188275260', u'182026059984', u'123741464302648', u'165006596211', u'300958408128', u'25395127498', u'235633321605', u'88277842417', u'115011611904899', u'51395287730', u'126994725349']
 
-    center should be a tuple of (latitude,logitude) values, and radius is 
-    in meters (i think?)
+def process_event(event_info,refer_page_id):
 
-    If query is omitted, a "blank query" will be run by running the same 
-    center and radius query 26 separate times, once per letter of the 
-    alphabet as the actual query argument. 
 
-    If batch_request is True (default), these requests will be batched, 
-    otherwise they'll be run once at a time. Commands with a large number
-    of results may fail if batched.
-    '''
-    # no query given, run one for each letter of the alphabet
-    
-    search_opts = dict(type='place',
-                        center='%f,%f' % center,
-                        distance=radius,
-                        limit=limit)
-    if query is None:
-        batch_commands, pages_unfilitered = [], []
-        letters = [chr(o) for o in range(ord('a'),ord('z')+1)]
-
-        if batch_requests:
-            for letter in letters:
-                opts = copy(search_opts)
-                opts['q']=letter
-                batch_commands.append(BatchCommand('search',options=opts))
-            for response in fb_client.run_batch_request(batch_commands):
-                pages_unfilitered.extend(response['data'])
-        else:
-            for letter in letters:
-                pages_unfilitered.extend(fb_client.graph_api_query('search',q=letter,**search_opts))
-                  
-        # need to go through the 26 separate page sets to filter out dups
-        ids_seen = set()    # cache the ids in the list for a quick duplicate check
-        pages = []
-        for page in pages_unfilitered:
-            if page['id'] not in ids_seen:
-                ids_seen.add(page['id'])
-                pages.append(page)
-        return pages
-    else:
-        return fb_client.graph_api_query('search',q=query,**search_opts)
 
 def gather_event_info(page_id):
     '''

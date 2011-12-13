@@ -2,14 +2,20 @@
 Module containing utilities that use external APIs to perform 
 places-related tasks.
 '''
+
 from copy import deepcopy
 from itertools import chain
+import re, time, json, datetime
+
+from django.db.models import Q
 
 from onlyinpgh.apitools import google
 from onlyinpgh.apitools import factual
-from onlyinpgh.places.models import Location, Place
+from onlyinpgh.apitools import facebook
 
-import re, time
+from onlyinpgh.places.models import Location, Place, PlaceMeta, ExternalPlaceSource, FacebookPageRecord
+from onlyinpgh.identity.models import Organization
+
 
 def _resolve_result_to_place(result):
     resolved_loc = Location(
@@ -21,9 +27,10 @@ def _resolve_result_to_place(result):
             latitude=result.get('latitude'),
             longitude=result.get('longitude'))
     
+    # TODO: make place meta key to url here
     return Place(name=result.get('name'),
-                    location=resolved_loc,
-                    url=result.get('website'))
+                    location=resolved_loc)
+
 
 def _geocode_result_to_location(result):
     coords = result.get_geocoding()
@@ -51,7 +58,7 @@ def resolve_place(partial_place=None,partial_location=None):
         loc = partial_location
         pl_name = None
 
-    time.sleep(1)   # TODO: remove
+    time.sleep(.7)
     if loc is None:
         resp = factual.oip_client.resolve(name=pl_name)
     else:
@@ -332,4 +339,253 @@ def normalize_street_address(address_text):
         return None
     return result.get_street_address()
 
-# TODO: consider geocoding notice handling here
+def gather_fb_place_pages(center,radius,query=None,limit=4000,batch_requests=True):
+    '''
+    Returns a list of Facebook place page info stubs represneting all places 
+    found in the given area. Object fields can be found at 
+    https://developers.facebook.com/docs/reference/api/page/
+
+    center should be a tuple of (latitude,logitude) values, and radius is 
+    in meters (i think?)
+
+    If query is omitted, a "blank query" will be run by running the same 
+    center and radius query 26 separate times, once per letter of the 
+    alphabet as the actual query argument. 
+
+    If batch_request is True (default), these requests will be batched, 
+    otherwise they'll be run once at a time. Commands with a large number
+    of results may fail if batched.
+    '''
+    search_opts = dict(type='place',
+                        center='%f,%f' % center,
+                        distance=radius,
+                        limit=limit)
+    
+    # no query given, run one for each letter of the alphabet
+    if query is None:
+        batch_commands, pages_unfilitered = [], []
+        letters = [chr(o) for o in range(ord('a'),ord('z')+1)]
+
+        if batch_requests:
+            for letter in letters:
+                opts = copy(search_opts)
+                opts['q']=letter
+                batch_commands.append(BatchCommand('search',options=opts))
+            for response in fb_client.run_batch_request(batch_commands):
+                pages_unfilitered.extend(response['data'])
+        else:
+            for letter in letters:
+                pages_unfilitered.extend(fb_client.graph_api_query('search',q=letter,**search_opts))
+                  
+        # need to go through the 26 separate page sets to filter out dups
+        ids_seen = set()    # cache the ids in the list for a quick duplicate check
+        pages = []
+        for page in pages_unfilitered:
+            if page['id'] not in ids_seen:
+                ids_seen.add(page['id'])
+                pages.append(page)
+        return pages
+    else:
+        return fb_client.graph_api_query('search',q=query,**search_opts)
+
+def get_full_place_pages(pids):
+    '''
+    Returns a list of full page information dicts, one per page id.
+    '''
+    page_details = []
+    cmds = []
+    ctr = 0
+    def _add_batch(batch):
+        responses = facebook.oip_client.run_batch_request(batch)
+        # TODO: DEBUG REMOVE
+        for req,resp in zip(batch,responses):
+            if not resp:
+                print 'Batch response: %s => %s' % (str(req.url),str(resp))
+            elif 'error' in resp:
+                print 'Batch response: %s => %s:%s' % (req.url, resp['error'].get('type'), resp['error'].get('message'))
+
+        page_details.extend([resp if resp and 'error' not in resp.keys() else None 
+                                for resp in responses ])
+
+    for pid in pids:
+        cmds.append(facebook.BatchCommand(pid))
+        if len(cmds) == 50:
+            ctr = ctr + 1
+            print 'batch', ctr, 'of', len(pids)/50+1
+            _add_batch(cmds)
+            cmds = []
+    if len(cmds) > 0:
+        ctr = ctr + 1
+        print 'batch', ctr, 'of', len(pids)/50+1
+        _add_batch(cmds)
+    return page_details    
+
+def _create_place_meta(page,place,fb_key,meta_key):
+    try:
+        if fb_key in page:
+            PlaceMeta.objects.get_or_create(place=place,meta_key=meta_key,
+                                            defaults={'meta_value':str(page[fb_key]).strip()})
+    except UnicodeEncodeError as e:
+        print page['id'], e.message
+
+def _fbloc_to_loc(fbloc):
+    # TODO: temp
+    state = fbloc.get('state','').strip()
+    if len(state) != 2 and state != '':
+        print 'state found:',state
+        state = 'PA'
+    return Location(address=fbloc.get('street','').strip(),
+                    town=fbloc.get('city','').strip(),
+                    state=state,
+                    postcode=fbloc.get('postcode','').strip(),
+                    latitude=fbloc.get('latitude'),
+                    longitude=fbloc.get('longitude'))
+
+test_ids = [u'227053560643704', u'174749909203420', u'117590881637743', u'109741849052238', u'194644810576904', u'167053222464', u'181844455194230', u'100854026626640', u'175588025804975', u'95563028167']
+def process_fb_place_pages(page_ids,overwrite=False,create_owners=True):
+    '''
+    Creates Place (and optionally, Organization) objects using full page
+    information rooted in each page_stub encountered. 
+
+    If overwrite is True, any Place coupled with an encountered page id will
+    have any information overwritten that overlaps with the information
+    gathered from the page detail.
+
+    If create_owners is True, a new Organization with the given page name will
+    be created if the page id is not already linked to one. If False, places 
+    with page ids not associated with existing Organizations are left without 
+    owners.
+    '''
+    print time.asctime()
+    # figure out up front which pages to get from FB so we can batch requests
+    if not overwrite:
+        # find all pages that already have associated place/organizations locked in
+        locked_pages = FacebookPageRecord.objects.filter(
+            Q(associated_place__isnull=True) |
+            Q(associated_organization__isnull=True),
+            fb_id__in=page_ids)
+        locked_ids = [p.fb_id for p in locked_pages]
+        # forget about all these pages since we can't overwrite them
+        page_ids = list(set(page_ids).difference(locked_ids))
+    
+    # grab all relevant pages from fb
+    pages = get_full_place_pages(page_ids)
+
+    for i,page in enumerate(pages):
+        if i%100 == 1: print i
+        if not page:
+            # DEBUG: TEMP
+            print 'skipping',i
+            continue
+
+        pid = page['id']
+        try:
+            record = FacebookPageRecord.objects.get(fb_id=pid)
+        except FacebookPageRecord.DoesNotExist:
+            record = FacebookPageRecord.objects.create(fb_id=pid)
+        
+        # can't do anything if page doesn't have name -- shouldn't happen
+        pname = page.get('name').strip()
+        if not pname:
+            # DEBUG: REMOVE. MAYBE EXCEPTION HERE?
+            print 'no name for page', pid
+            continue
+        
+        owner = None
+        # if there is a need to create/update organization info
+        if create_owners and (not record.associated_organization or overwrite):
+            owner = Organization(name=pname,
+                                    avatar=page.get('picture',''))
+            # before saving, see if we're overwriting an existing org
+            if record.associated_organization:  
+                # TODO: Could be catastrophic to remove all FB-page related
+                # organization accounts blindly. should ensure the authoritative
+                # relation is removed before removing this assertion
+                assert record.associated_organization.account.count() == 0
+                # setting the pk explicitly will ensure an UPDATE rather than an INSERT
+                owner.pk = record.associated_organization.pk
+            try:
+                owner.save()
+            except Exception as e:
+                print pid, e.message
+                continue
+            
+            if not record.associated_organization:
+                record.associated_organization = owner
+                record.save()
+                
+        elif record.associated_organization:
+            owner = record.associated_organization
+        
+        # if there is a need to create/update place info
+        if not record.associated_place or overwrite:
+            fbloc = page.get('location')
+            if not fbloc:
+                # TODO: TEMP how to handle?
+                print 'no lcation for page', pid
+                continue
+            if 'id' in fbloc:
+                # TODO: TEMP
+                print 'location for page', pid, 'has id', fbloc['id']
+            location = _fbloc_to_loc(fbloc)
+
+            # really want geolocation, go to Google Geocoding for it if we need it
+            if not location.address:
+                # TODO: insert more factual logic (i.e. saving uid, setting place to this uid, etc.)
+                resolved_place = resolve_place(Place(name=pname,location=location))
+                if resolved_place:
+                    location = resolved_place.location
+                
+            if location.longitude is None or location.latitude is None:
+                location = resolve_location(location)
+
+            location.save()
+            place = Place(name=pname,
+                            description=page.get('description','').strip(),
+                            location=location,
+                            owner=owner)
+            # before saving, see if we're overwriting an existing org
+            if record.associated_place:
+                # do an update, not insert
+                place.pk = record.associated_place
+                # TODO: consider stranded Location if UPDATE occurs
+            try:
+                place.save()
+            except Exception as e:
+                print pid, e.message
+                continue
+            if not record.associated_place:
+                record.associated_place = place
+                record.save()
+
+            # Also create an external UID reference to the fb page
+            ExternalPlaceSource.objects.create(place=place,
+                service='fb',uid=pid)
+            # finally add place meta info that exists
+                    
+            _create_place_meta(page,place,'link','url')
+            _create_place_meta(page,place,'phone','phone')
+            _create_place_meta(page,place,'hours','hours')
+            _create_place_meta(page,place,'picture','image_url')
+
+    print time.asctime()
+
+
+def _get_all_places_from_cron_job():
+    '''
+    Runs a series of queries to return the same results that the old oip
+    fb5_getLocal.execute_quadrants Java code searches over.
+    '''
+    search_coords = [ (40.44181,-80.01277),
+                      (40.666667,-79.700556),
+                      (40.666667,-80.308056),
+                      (40.216944,-79.700556),
+                      (40.216944,-80.308056),
+                      (40.44181,-80.01277),
+                    ]
+
+    all_ids = set()
+    for coords in search_coords:
+        ids = [page['id'] for page in gather_place_pages(coords,25000)]
+        all_ids.update(ids)
+    return list(all_ids)

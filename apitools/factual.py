@@ -41,7 +41,13 @@ class FactualClient(object):
 
         full_url = FactualClient.RESOLVE_URL + '?' + urllib.urlencode({'values':json_query})
         request = build_oauth_request(full_url,self.key,self.secret)
-        response = ResolveResponse(urllib2.urlopen(request))
+        try:
+            response = ResolveResponse(urllib2.urlopen(request))
+        except urllib.HTTPError:
+            # wait 2 seconds and try once more
+            print 'http error: sleeping 2 secs...'
+            time.sleep(2)
+            response = ResolveResponse(urllib2.urlopen(request))
         if response.status != 'ok':
             raise FactualAPIError(request,response.error_type,response.message)
         return response

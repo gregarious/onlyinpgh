@@ -109,9 +109,10 @@ class FacebookEventRecord(models.Model):
     fb_id = models.BigIntegerField(primary_key=True)
     event_id = models.ForeignKey(Event,null=True,blank=True)
 
-    time_last_updated = models.DateTimeField('time Facebook record was last updated')
     time_added = models.DateTimeField('time added in our records',auto_now_add=True)
-    time_checked = models.DateTimeField('time last checked for updated',auto_now_add=True)
+    last_checked = models.DateTimeField('time last checked for updated',auto_now_add=True)
+    
+    last_updated = models.DateTimeField('time Facebook record was last updated')
 
 class FacebookPageRecord(models.Model):
     fb_id = models.BigIntegerField(primary_key=True)
