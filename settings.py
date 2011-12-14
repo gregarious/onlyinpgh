@@ -122,6 +122,7 @@ INSTALLED_APPS = (
     'onlyinpgh.tagging',
     'onlyinpgh.offers',
     'onlyinpgh.checkin',
+    'onlyinpgh.oldevents',
 )
 
 # A sample logging configuration. The only tangible logging

@@ -78,8 +78,6 @@ class Location(models.Model):
 
 # Organization is a direct copy of the useful parts of wp_em_events
 class Organization(models.Model):
-	MANUAL_ID_START = 100000000000000000L
-	MANUAL_ID_END =   998000000000000000L
 	# when reindexing all the ids, remove this and let django use a regular default IntegerField
 	id = models.BigIntegerField(primary_key=True)
 	name = models.CharField(max_length=200)
@@ -88,20 +86,6 @@ class Organization(models.Model):
 	image_url = models.URLField(max_length=400,blank=True)
 	fan_count = models.IntegerField(default=0)
 	type = models.CharField(max_length=200)
-
-	@classmethod
-	def generate_next_id(cls):
-		manual_entries = cls.objects.filter(id__gte=cls.MANUAL_ID_START,
-											id__lt=cls.MANUAL_ID_END) \
-											  .order_by('-id')
-		if len(manual_entries) == 0:
-			return cls.MANUAL_ID_START
-		max_id = manual_entries[0].id
-
-		if max_id+1 < cls.MANUAL_ID_END:
-			return max_id+1
-		else:
-			raise Exception('ID space for Organization.id is full!')
 
 	def __unicode__(self):
 		return self.name
@@ -127,12 +111,6 @@ class Event(models.Model):
 	# in a recurring event, dtend specifies FIRST occurrance end time, not end time of whole range
 	dtend = models.DateTimeField('end datetime (UTC)')	
 	allday = models.BooleanField('all day?',default=False)
-
-	# recurrance rules (simple text, same format as iCalendar spec)
-	rrule = models.TextField(blank=True)
-	rdate = models.TextField(blank=True)
-	exrule = models.TextField(blank=True)
-	exdate = models.TextField(blank=True)	
 
 	image_url = models.URLField(max_length=400,blank=True)
 	url =  models.URLField(blank=True)
