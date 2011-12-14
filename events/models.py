@@ -45,6 +45,9 @@ class Event(models.Model):
     place = models.ForeignKey(Place,blank=True,null=True)
     parent_event = models.ForeignKey('self',default=None,blank=True,null=True)
 
+    # make the event "invisible", meaning it won't be displayable, searchable, etc.
+    invisible = models.BooleanField(default=False)
+
     tags = models.ManyToManyField(Tag,blank=True,null=True)
 
     # TODO: change these to template filters

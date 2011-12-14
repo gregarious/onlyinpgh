@@ -136,7 +136,18 @@ LOGGING = {
         'mail_admins': {
             'level': 'ERROR',
             'class': 'django.utils.log.AdminEmailHandler'
-        }
+        },
+        'console': {
+            'level': 'DEBUG',
+            'class': 'logging.StreamHandler',
+            'formatter': 'simple'
+        },
+        'file': {
+            'level': 'DEBUG',
+            'class': 'logging.FileHandler',
+            'formatter': 'verbose',
+            'filename': '/Users/gdn/Sites/onlyinpgh/logs/debug.log'
+        },
     },
     'loggers': {
         'django.request': {
@@ -144,5 +155,18 @@ LOGGING = {
             'level': 'ERROR',
             'propagate': True,
         },
+        'onlyinpgh.debugging': {
+            'handlers': ['console','file'],
+            'level':'DEBUG',
+            'propagate': False
+        }
+    },
+    'formatters': {
+        'verbose': {
+            'format': '%(levelname)s %(asctime)s %(module)s %(message)s'
+        },
+        'simple': {
+            'format': '%(levelname)s %(message)s'
+        }
     }
 }

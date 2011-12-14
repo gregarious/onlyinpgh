@@ -14,10 +14,11 @@ from onlyinpgh.apitools import factual
 from onlyinpgh.apitools import facebook
 from onlyinpgh.places import US_STATE_MAP
 
-
 from onlyinpgh.places.models import Location, Place, PlaceMeta, ExternalPlaceSource, FacebookPageRecord
 from onlyinpgh.identity.models import Organization
 
+import logging
+dbglog = logging.getLogger('onlyinpgh.debugging')
 
 def _resolve_result_to_place(result):
     resolved_loc = Location(
@@ -52,7 +53,6 @@ def resolve_place(partial_place=None,partial_location=None):
     using the Factual Resolve API. Returns None if resolution was not 
     possible.
     '''
-
     if partial_place:
         loc = partial_place.location
         pl_name = partial_place.name
@@ -60,7 +60,6 @@ def resolve_place(partial_place=None,partial_location=None):
         loc = partial_location
         pl_name = None
 
-    time.sleep(.7)
     if loc is None:
         resp = factual.oip_client.resolve(name=pl_name)
     else:
@@ -111,7 +110,7 @@ def resolve_location(partial_location,allow_numberless=True):
         biasing_args['region'] = partial_location.country
 
     # Run the geocoding
-    time.sleep(1)   # TODO: remove
+    time.sleep(.5)   # TODO: remove
     response = google.GoogleGeocodingClient.run_geocode_request(address_text,**biasing_args)
     result = response.best_result(wrapped=True)
     # TODO: add ambiguous result handling
@@ -464,6 +463,7 @@ def page_id_to_organization(page_id,create_new=True,page_cache={}):
     '''
     try:
         organization = FacebookPageRecord.objects.get(fb_id=page_id).associated_organization
+        dbglog.info('found existing organization for fbid %s'%page_id)
     except FacebookPageRecord.DoesNotExist:
         organization = None
     
@@ -471,18 +471,30 @@ def page_id_to_organization(page_id,create_new=True,page_cache={}):
     if organization or not create_new:
         return organization
 
+    dbglog.info('gathering data for creating org with fbid %s' % page_id)
     if page_id in page_cache:
         page = page_cache[page_id]
+        dbglog.debug('retreiving page info from cache')
     else:
         try:
+            dbglog.debug('retreiving page info from facebook')
             page = facebook.oip_client.graph_api_objects(page_id)
-        except facebook.FacebookAPIError:
+
+        except facebook.FacebookAPIError as e:
+            dbglog.error('Facebook error occured!')
+            dbglog.error(str(e))
             return None
 
     pname = page['name'].strip()
     organization = Organization(name=pname,
                         avatar=page.get('picture',''))
     organization.save()
+    # TODO: wtf page 115400921824318?
+    try:
+        ostr = unicode(organization)
+    except UnicodeDecodeError:
+        ostr = '<UNICODE ERROR>'
+    dbglog.info(u'created new organization for fbid %s: "%s"' % (page_id,ostr))
 
     try:
         record = FacebookPageRecord.objects.get(fb_id=page_id)
@@ -491,7 +503,15 @@ def page_id_to_organization(page_id,create_new=True,page_cache={}):
 
     record.associated_organization = organization
     record.save()
+
     return organization
+
+def debug_loc_print(l):
+    return '%s, %s, %s %s (%.3f,%.3f)' % \
+                (l.address,l.town,l.state,l.postcode,l.latitude or 0,l.longitude or 0)
+
+def debug_place_print(place):
+    return '%s: %s' % (place.name,debug_loc_print(place.location))
 
 # TODO: revisit page cache thing
 def page_id_to_place(page_id,create_new=True,create_owner=True,page_cache={}):
@@ -508,7 +528,7 @@ def page_id_to_place(page_id,create_new=True,create_owner=True,page_cache={}):
     '''
     try:
         place = FacebookPageRecord.objects.get(fb_id=page_id).associated_place
-        print page_id, 'exists. returning.'
+        dbglog.info('found existing place for fbid %s'%page_id)
     except FacebookPageRecord.DoesNotExist:
         place = None
     
@@ -517,15 +537,17 @@ def page_id_to_place(page_id,create_new=True,create_owner=True,page_cache={}):
         return place
 
     # Create a new Place
-    print 'creating',page_id
+    dbglog.info('gathering data for creating place from fbid %s' % page_id)
     if page_id in page_cache:
         page = page_cache[page_id]
-        print 'found cached page'
+        dbglog.debug('retreiving page info from cache')
     else:
         try:
             page = facebook.oip_client.graph_api_objects(page_id)    
-            print 'retreiving page'
-        except facebook.FacebookAPIError:
+            dbglog.debug('retreiving page info from facebook')
+        except facebook.FacebookAPIError as e:
+            dbglog.error('Facebook error occured!')
+            dbglog.error(str(e))
             return None
 
     pname = page['name'].strip()
@@ -537,28 +559,31 @@ def page_id_to_place(page_id,create_new=True,create_owner=True,page_cache={}):
     # TODO: REVISIT THIS FLOW
     fbloc = page.get('location')
     if not fbloc:
-        raise Exception('no location for page' + str(page_id))
+        dbglog.warning('no location for page %s. aborting' % page_id)
+        return None
     if 'id' in fbloc:
-        # TODO: TEMP NOTICE
-        print 'NOTICE: %s has id in location (%s).' % (str(page_id),str(fbloc['id']))
+        dbglog.notice('page %s has id in location (%s)' % (page_id,fbloc['id']))
     location = fbloc_to_loc(fbloc)
 
     # if there's no address or geocoding, we'll need to talk to outside services
     if not location.address:
-        print 'attempting to resolve place'
+        dbglog.debug('attempting to resolve place with API calls')
         # TODO: insert more factual logic? (i.e. saving uid, setting place to this uid, etc.)
-        resolved_place = resolve_place(Place(name=pname,location=location))
+        seed_place = Place(name=pname,location=location)
+        resolved_place = resolve_place(seed_place)
         if resolved_place:
-            print 'successful resolve', resolved_place
+            dbglog.debug('successful Factual resolve: "%s" => "%s"' % \
+                            (debug_place_print(seed_place),debug_place_print(resolved_place)))
             location = resolved_place.location
     
     # really want geolocation, go to Google Geocoding for it if we need it
     if location.longitude is None or location.latitude is None:
-        print 'geocoding'
-        resolved_location = resolve_location(location)
+        seed_loc = deepcopy(location)
+        resolved_location = resolve_location(seed_loc)
         if resolved_location: 
             location = resolved_location
-            print 'successful geocode', resolved_location
+            dbglog.debug('successful geocoding: "%s" => "%s"' % \
+                            (debug_loc_print(seed_loc),debug_loc_print(resolved_location)))
 
     if location:
         # TODO: put this into the manager or a Location.save override
@@ -571,20 +596,27 @@ def page_id_to_place(page_id,create_new=True,create_owner=True,page_cache={}):
                         neighborhood=location.neighborhood,
                         latitude=location.latitude,
                         longitude=location.longitude)
-        if not created:
-            print 'gotten works!'
+        if created:
+            dbglog.debug('saved new location "%s"' % debug_loc_print(location))
+        else:
+            dbglog.debug('retrieved existing location "%s"' % debug_loc_print(location))
 
     place.location = location
-    place.owner = page_id_to_organization(page_id,create_new=create_owner)
+    dbglog.debug('resolving owner %s' % page_id)
+    place.owner = page_id_to_organization(page_id,create_new=create_owner,page_cache=page_cache)
     try:
-        # TODO: put this into the manager or a Place.save override
-        place, _ = Place.objects.get_or_create(
+        # TODO: put this into the manager or a Place.save override. Handle nonunique name,location combo
+        place, created = Place.objects.get_or_create(
                                 name=place.name,
                                 description=place.description,
                                 location=place.location,
                                 owner=place.owner)
+        if created:
+            dbglog.info('created new place for fbid %s: "%s"' % (page_id,debug_place_print(place)))
+        else:
+            dbglog.info('retreived existing place for fbid %s: "%s"' % (page_id,debug_place_print(place)))
     except Warning as w:
-        print 'Warning while saving place %s: %s' % (str(page_id),w.message)
+        dbglog.warning('while saving place for fbid %s: %s' % (page_id,str(w)))
         # TODO: soooo apparently the place gets saved, but then the id gets removed? wtf.
         # This means we can't save the record. hm.
         return
@@ -610,25 +642,23 @@ def page_id_to_place(page_id,create_new=True,create_owner=True,page_cache={}):
     return place
 
 import pickle
-def save_pages_pickle(page_ids,filename='places/debugrun.pickle'):
-    pages = get_full_place_pages(page_ids)
-    pid_detail_map = { pid:page for pid,page in zip(page_ids,pages) }
-
-    pf = open(filename,'w')
-    pickle.dump(pid_detail_map,pf)
-    pf.close()
-
-def load_pages_pickle(filename='places/debugrun.pickle'):    
-    pf = open(filename)
-    print 'attempting to load'
-    pid_detail_map = pickle.load(pf)
-    return pid_detail_map
+def load_master_pages(nonempty=True):
+    if nonempty:
+        fn = '/Users/gdn/Sites/onlyinpgh/places/nonempty-event-pages.pickle'
+    else:
+        fn = '/Users/gdn/Sites/onlyinpgh/places/master-pages.pickle'
+    with open(fn) as f:
+        master_page_list = pickle.load(f)
+    return {p['id']:p for p in master_page_list if p}
 
 def debug_page_processes(pids=None,pid_detail_map={}):
     if pids is None:
         pids = pid_detail_map.keys()
+    dbglog.info('PROCESSING %d pages'%len(pids))
+    dbglog.info('start: %s' % time.asctime())
     for pid in pids:
         page_id_to_place(pid,page_cache=pid_detail_map)
+    dbglog.info('finish: %s' % time.asctime())
 
 def _get_all_places_from_cron_job():
     '''

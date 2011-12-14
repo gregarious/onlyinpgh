@@ -1,5 +1,8 @@
-import json, re, urllib, os
+import json, re, urllib, os, time
 from onlyinpgh.apitools import APIError
+
+import logging
+dbglog = logging.getLogger('onlyinpgh.debugging')
 
 class GoogleGeocodingAPIError(APIError):
     def __init__(self,request,response,*args,**kwargs):
@@ -37,7 +40,16 @@ class GoogleGeocodingClient(object):
             options['region'] = region
         
         request_url = cls.GOOGLE_BASE_URL + '?' + urllib.urlencode(options)
-        fp = urllib.urlopen(request_url)
+        
+        # TODO: revisit
+        try:
+            fp = urllib.urlopen(request_url)
+        except IOError as e:
+            # wait 3 seconds and try once more
+            dbglog.warning('Google URLError "%s": sleeping 3 secs...'%str(e))
+            time.sleep(3)
+            fp = urllib.urlopen(request_url)
+                        
         raw_response = fp.read()
         return cls._package_response(raw_response,request_url)
     

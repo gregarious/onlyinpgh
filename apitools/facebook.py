@@ -1,5 +1,8 @@
-import urllib, urllib2, json
+import urllib, urllib2, json, time
 from onlyinpgh.apitools import APIError
+
+import logging
+dbglog = logging.getLogger('onlyinpgh.debugging')
 
 class FacebookAPIError(APIError):
     # TODO: decide on error contents. complicated because there's a variety of responses this API handles
@@ -89,10 +92,16 @@ class GraphAPIClient(object):
         get_opts = { 'ids': ','.join(ids) }
         if self.access_token:
             get_opts['access_token'] = self.access_token
-        
+
         request_url = 'https://graph.facebook.com/?' + urllib.urlencode(get_opts)
 
-        response = json.load(urllib.urlopen(request_url))
+        try:
+            response = json.load(urllib.urlopen(request_url))
+        except IOError as e:
+            dbglog.warning('Facebook IOError "%s": sleeping 2 secs...'%str(e))
+            time.sleep(3)
+            response = json.load(urllib.urlopen(request_url))
+
         if not response or 'error' in response:
             raise Exception('Graph API returned error. Content:\n%s' % str(response))    
         
@@ -141,7 +150,14 @@ class GraphAPIClient(object):
         pages_read = 0
         # inside loop because results might be paged
         while request_url:
-            response = json.load(urllib.urlopen(request_url))
+            # TODO: revisit
+            try:
+                response = json.load(urllib.urlopen(request_url))
+            except IOError as e:
+                dbglog.warning('Facebook IOError "%s": sleeping 2 secs...'%str(e))
+                time.sleep(3)
+                response = json.load(urllib.urlopen(request_url))
+
             if 'error' in response:
                 err = response['error']
                 raise FacebookAPIError(
@@ -186,7 +202,13 @@ class GraphAPIClient(object):
             data['access_token'] = self.access_token
         
         req = urllib2.Request(url='https://graph.facebook.com/',data=urllib.urlencode(data))
-        response = json.load(urllib2.urlopen(req))
+        # TODO: revisit
+        try:
+            response = json.load(urllib2.urlopen(req))
+        except IOError as e:
+            dbglog.warning('Facebook IOError "%s": sleeping 3 secs...'%str(e))
+            time.sleep(3)
+            response = json.load(urllib2.urlopen(req))
 
         if process_response:
             return [json.loads(entry['body']) if entry else None

@@ -4,7 +4,10 @@
 from onlyinpgh.apitools import APIError
 from onlyinpgh.apitools import build_oauth_request
 
-import urllib, urllib2, json
+import urllib, urllib2, json, time
+import logging
+
+dbglog = logging.getLogger('onlyinpgh.debugging')
 
 class FactualAPIError(APIError):
     def __init__(self,request,error_type,message,*args,**kwargs):
@@ -42,12 +45,14 @@ class FactualClient(object):
         full_url = FactualClient.RESOLVE_URL + '?' + urllib.urlencode({'values':json_query})
         request = build_oauth_request(full_url,self.key,self.secret)
         try:
+            time.sleep(.1)
             response = ResolveResponse(urllib2.urlopen(request))
-        except urllib.HTTPError:
-            # wait 2 seconds and try once more
-            print 'http error: sleeping 2 secs...'
-            time.sleep(2)
+        except IOError as e:
+            # wait 3 seconds and try once more
+            dbglog.warning('Factual IOError "%s": sleeping 5 secs...'%str(e))
+            time.sleep(5)
             response = ResolveResponse(urllib2.urlopen(request))
+
         if response.status != 'ok':
             raise FactualAPIError(request,response.error_type,response.message)
         return response
