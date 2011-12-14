@@ -143,10 +143,15 @@ class GraphAPIClient(object):
         while request_url:
             response = json.load(urllib.urlopen(request_url))
             if 'error' in response:
-                raise Exception('Graph API returned error. Content:\n%s' % str(response))
-
+                err = response['error']
+                raise FacebookAPIError(
+                            request=request_url,
+                            message='%s: %s' % (str(err['type']),str(err['message']))
+                        )
             if 'data' not in response:
-                raise Exception('Graph API returned unexpected response. Content:\n%s' % str(response))
+                raise FacebookAPIError(
+                            request=request_url,
+                            message='%s' % str(response))
             
             all_data.extend(response['data'])
 

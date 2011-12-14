@@ -441,135 +441,165 @@ def _fbloc_to_loc(fbloc):
                     latitude=fbloc.get('latitude'),
                     longitude=fbloc.get('longitude'))
 
-test_ids = [u'227053560643704', u'174749909203420', u'117590881637743', u'109741849052238', u'194644810576904', u'167053222464', u'181844455194230', u'100854026626640', u'175588025804975', u'95563028167']
-def process_fb_place_pages(page_ids,overwrite=False,create_owners=True):
+# TODO: revisit page cache thing
+def page_id_to_organization(page_id,create_new=True,page_cache={}):
     '''
-    Creates Place (and optionally, Organization) objects using full page
-    information rooted in each page_stub encountered. 
+    Takes a fb page ID and tries to resolve an Organization object 
+    from it. First queries the FacebookPageRecord table. If that fails, 
+    and create_new is True, it will try to create a new one and return 
+    that.
 
-    If overwrite is True, any Place coupled with an encountered page id will
-    have any information overwritten that overlaps with the information
-    gathered from the page detail.
+    If page information has been loaded at a prior time for a group of 
+    pages, the page_cache argument can be used (dict of ids to page 
+    details).
 
-    If create_owners is True, a new Organization with the given page name will
-    be created if the page id is not already linked to one. If False, places 
-    with page ids not associated with existing Organizations are left without 
-    owners.
+    Returns None if no Organization could be retreived.
     '''
-    print time.asctime()
-    # figure out up front which pages to get from FB so we can batch requests
-    if not overwrite:
-        # find all pages that already have associated place/organizations locked in
-        locked_pages = FacebookPageRecord.objects.filter(
-            Q(associated_place__isnull=True) |
-            Q(associated_organization__isnull=True),
-            fb_id__in=page_ids)
-        locked_ids = [p.fb_id for p in locked_pages]
-        # forget about all these pages since we can't overwrite them
-        page_ids = list(set(page_ids).difference(locked_ids))
+    try:
+        organization = FacebookPageRecord.objects.get(fb_id=page_id).associated_organization
+    except FacebookPageRecord.DoesNotExist:
+        organization = None
     
-    # grab all relevant pages from fb
-    pages = get_full_place_pages(page_ids)
+    # we return if we either found a record, or didn't but can't create
+    if organization or not create_new:
+        return organization
 
-    for i,page in enumerate(pages):
-        if i%100 == 1: print i
-        if not page:
-            # DEBUG: TEMP
-            print 'skipping',i
-            continue
-
-        pid = page['id']
+    if page_id in page_cache:
+        page = page_cache[page_id]
+    else:
         try:
-            record = FacebookPageRecord.objects.get(fb_id=pid)
-        except FacebookPageRecord.DoesNotExist:
-            record = FacebookPageRecord.objects.create(fb_id=pid)
+            page = facebook.oip_client.graph_api_objects(page_id)
+        except FacebookAPIError:
+            return None
+
+    pname = page['name'].strip()
+    organization = Organization(name=pname,
+                        avatar=page.get('picture',''))
+    organization.save()
+
+    try:
+        record = FacebookPageRecord.objects.get(fb_id=page_id)
+    except FacebookPageRecord.DoesNotExist:
+        record = FacebookPageRecord(fb_id=page_id)
+
+    record.associated_organization = organization
+    record.save()
+    return organization
+
+# TODO: revisit page cache thing
+def page_id_to_place(page_id,create_new=True,create_owner=True,page_cache={}):
+    '''
+    Takes a fb page ID and tries to resolve a Place object from it. First 
+    queries the FacebookPageRecord table. If that fails, and create_new 
+    is True, it will try to create a new one and return that.
+
+    If page information has been loaded at a prior time for a group of 
+    pages, the page_cache argument can be used (dict of ids to page 
+    details).
+
+    Returns None if no Place could be retreived.
+    '''
+    try:
+        place = FacebookPageRecord.objects.get(fb_id=page_id).associated_place
+        print page_id, 'exists. returning.'
+    except FacebookPageRecord.DoesNotExist:
+        place = None
+    
+    # we return if we either found a record, or didn't but can't create
+    if place or not create_new:
+        return place
+
+    # Create a new Place
+    print 'creating',page_id
+    if page_id in page_cache:
+        page = page_cache[page_id]
+        print 'found cached page'
+    else:
+        try:
+            page = facebook.oip_client.graph_api_objects(page_id)    
+            print 'retreiving page'
+        except FacebookAPIError:
+            return None
+
+    pname = page['name'].strip()
+
+    place = Place(name=pname,
+                    description=page.get('description','').strip())
+    
+    ### Figure out the new Place's location field
+    # TODO: REVISIT THIS FLOW
+    fbloc = page.get('location')
+    if not fbloc:
+        raise Exception('no location for page' + str(page_id))
+    if 'id' in fbloc:
+        # TODO: TEMP NOTICE
+        print 'NOTICE: %s has id in location (%s).' % (str(page_id),str(fbloc['id']))
+    location = _fbloc_to_loc(fbloc)
+
+    # really want geolocation, go to Google Geocoding for it if we need it
+    if not location.address:
+        print 'attempting to resolve place'
+        # TODO: insert more factual logic (i.e. saving uid, setting place to this uid, etc.)
+        resolved_place = resolve_place(Place(name=pname,location=location))
+        if resolved_place:
+            print 'successful resolve', resolved_place
+            location = resolved_place.location
         
-        # can't do anything if page doesn't have name -- shouldn't happen
-        pname = page.get('name').strip()
-        if not pname:
-            # DEBUG: REMOVE. MAYBE EXCEPTION HERE?
-            print 'no name for page', pid
-            continue
-        
-        owner = None
-        # if there is a need to create/update organization info
-        if create_owners and (not record.associated_organization or overwrite):
-            owner = Organization(name=pname,
-                                    avatar=page.get('picture',''))
-            # before saving, see if we're overwriting an existing org
-            if record.associated_organization:  
-                # TODO: Could be catastrophic to remove all FB-page related
-                # organization accounts blindly. should ensure the authoritative
-                # relation is removed before removing this assertion
-                assert record.associated_organization.account.count() == 0
-                # setting the pk explicitly will ensure an UPDATE rather than an INSERT
-                owner.pk = record.associated_organization.pk
-            try:
-                owner.save()
-            except Exception as e:
-                print pid, e.message
-                continue
-            
-            if not record.associated_organization:
-                record.associated_organization = owner
-                record.save()
-                
-        elif record.associated_organization:
-            owner = record.associated_organization
-        
-        # if there is a need to create/update place info
-        if not record.associated_place or overwrite:
-            fbloc = page.get('location')
-            if not fbloc:
-                # TODO: TEMP how to handle?
-                print 'no lcation for page', pid
-                continue
-            if 'id' in fbloc:
-                # TODO: TEMP
-                print 'location for page', pid, 'has id', fbloc['id']
-            location = _fbloc_to_loc(fbloc)
+    if location.longitude is None or location.latitude is None:
+        print 'geocoding'
+        location = resolve_location(location)
+        if location: print 'successful geocode', location
 
-            # really want geolocation, go to Google Geocoding for it if we need it
-            if not location.address:
-                # TODO: insert more factual logic (i.e. saving uid, setting place to this uid, etc.)
-                resolved_place = resolve_place(Place(name=pname,location=location))
-                if resolved_place:
-                    location = resolved_place.location
-                
-            if location.longitude is None or location.latitude is None:
-                location = resolve_location(location)
+    if location:
+        location.save()
 
-            location.save()
-            place = Place(name=pname,
-                            description=page.get('description','').strip(),
-                            location=location,
-                            owner=owner)
-            # before saving, see if we're overwriting an existing org
-            if record.associated_place:
-                # do an update, not insert
-                place.pk = record.associated_place
-                # TODO: consider stranded Location if UPDATE occurs
-            try:
-                place.save()
-            except Exception as e:
-                print pid, e.message
-                continue
-            if not record.associated_place:
-                record.associated_place = place
-                record.save()
+    place.location = location
+    place.owner = page_id_to_organization(page_id,create_new=create_owner)
+    try:
+        place.save()
+    except Warning as w:
+        print 'Warning while saving place %s: %s' % (str(page_id),w.message)
+        # TODO: soooo apparently the place gets saved, but then the id gets removed? wtf.
+        # This means we can't save the record. hm.
+        return
 
-            # Also create an external UID reference to the fb page
-            ExternalPlaceSource.objects.create(place=place,
-                service='fb',uid=pid)
-            # finally add place meta info that exists
-                    
-            _create_place_meta(page,place,'link','url')
-            _create_place_meta(page,place,'phone','phone')
-            _create_place_meta(page,place,'hours','hours')
-            _create_place_meta(page,place,'picture','image_url')
+    # add place meta info that exists      
+    _create_place_meta(page,place,'link','url')
+    _create_place_meta(page,place,'phone','phone')
+    _create_place_meta(page,place,'hours','hours')
+    _create_place_meta(page,place,'picture','image_url')
 
-    print time.asctime()
+    # We've got a new FB page record
+    try:
+        record = FacebookPageRecord.objects.get(fb_id=page_id)
+    except FacebookPageRecord.DoesNotExist:
+        record = FacebookPageRecord(fb_id=page_id)
+    record.associated_place = place
+    record.save()
 
+    # finally create an more generally useful external UID reference to the fb page
+    ExternalPlaceSource.objects.create(place=record.associated_place,
+        service='fb',uid=page_id)
+    return place
+
+import pickle
+def save_pages_pickle(page_ids,filename='places/debugrun.pickle'):
+    pages = get_full_place_pages(page_ids)
+    pid_detail_map = { pid:page for pid,page in zip(page_ids,pages) }
+
+    pf = open(filename,'w')
+    pickle.dump(pid_detail_map,pf)
+    pf.close()
+
+def load_pages_pickle(filename='places/debugrun.pickle'):    
+    pf = open(filename)
+    print 'attempting to load'
+    pid_detail_map = pickle.load(pf)
+    return pid_detail_map
+
+def debug_page_processes(pid_detail_map):
+    for pid in pid_detail_map:
+        page_id_to_place(pid,page_cache=pid_detail_map)
 
 def _get_all_places_from_cron_job():
     '''
