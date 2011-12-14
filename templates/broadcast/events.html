@@ -3,13 +3,13 @@ template to be included inside the #eventsFeed ul
 {% endcomment %}
 
 
-{% for e in events|slice:":3" %}
+{% for e in events %}
 <li>
 	<section>
     	<h4 class="feed-item-title event-title">{{ e.name }}</h4>
         <p>{{ e.dtstart }} - {{ e.dtend }}</p> 
     	<p>{{ e.place.location.address }}</p> 
-        <p>More info...</p>
+        <a href="#eventsTile" class="eventsLink panel">More info...</a>
     </section>
     <div class="thumb-container">
         <img class="thumbnail" class="" src="{{ e.image_url }}" />

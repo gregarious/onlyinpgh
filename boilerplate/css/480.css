@@ -1,50 +1,81 @@
-/* 480 
-
-_________________________________________________
-
-320 and Up boilerplate extension
-Andy Clarke http://about.me/malarkey
-Keith Clark http://twitter.com/keithclarkcouk
-Version: 2
-URL: http://stuffandnonsense.co.uk/projects/320andup/
-License: http://creativecommons.org/licenses/MIT/
-_____________________________________________________
-
-1 ROOT
-2 HEADINGS
-3 TYPOGRAPHY
-4 LINKS
-5 FIGURES & IMAGES
-6 TABLES
-7 FORMS
-8 BANNER
-9 NAVIGATION
-10 CONTENT
-11 MAIN
-12 COMPLEMENTARY
-13 CONTENTINFO
-14 GLOBAL OBJECTS
-15 VENDOR-SPECIFIC 
-16 MODERNIZR
-17 TEMPLATE SPECIFICS
-
-COLOURS 
-
-*/
-/* 1 ROOT 					============================================================================= */
-/* 2 HEADINGS 				============================================================================= */
-/* 3 TYPOGRAPHY 			============================================================================= */
-/* 4 LINKS 					============================================================================= */
-/* 5 FIGURES & IMAGES 		============================================================================= */
-/* 6 TABLES 				============================================================================= */
-/* 7 FORMS 					============================================================================= */
-/* 8 BANNER 				============================================================================= */
-/* 9 NAVIGATION				============================================================================= */
-/* 10 CONTENT 				============================================================================= */
-/* 11 MAIN 					============================================================================= */
-/* 12 COMPLEMENTARY 		============================================================================= */
-/* 13 CONTENTINFO 			============================================================================= */
-/* 14 GLOBAL OBJECTS 		============================================================================= */
-/* 15 VENDOR-SPECIFIC 		============================================================================= */
-/* 16 MODERNIZR 			============================================================================= */
-/* 17 TEMPLATE SPECIFICS 	============================================================================= */
+/* 480 */
+body {
+  width: 100%;
+  zoom: 1;
+  margin: 0;
+  padding: 0;
+}
+body:before, body:after {
+  content: "";
+  display: table;
+}
+body:after {
+  clear: both;
+}
+#wrapper {
+  width: 100%;
+  height: 95%;
+  top: 2em;
+  left: 0;
+  overflow: auto;
+}
+#mask {
+  width: 100%;
+}
+.item {
+  display: inline-block;
+  width: 1153.5714285714284px;
+  margin: 0 -6.785714285714286px;
+  zoom: 1;
+  padding: 0.2%;
+  height: 80%;
+  float: left;
+  background-color: transparent;
+}
+.item:before, .item:after {
+  content: "";
+  display: table;
+}
+.item:after {
+  clear: both;
+}
+.item .main {
+  overflow: hidden;
+  width: 93%;
+  height: 90%;
+  padding: 2%;
+  margin: 0;
+}
+.item .main header {
+  background-color: green;
+  padding: 0.7% 0.7%;
+  margin-bottom: 1%;
+  -moz-border-radius: 0.2em;
+  border-radius: 0.2em;
+  -moz-box-shadow: 3px 3px 1px #000000;
+  -webkit-box-shadow: 3px 3px 1px #000000;
+  box-shadow: 3px 3px 1px #000000;
+}
+.item {
+  overflow: auto;
+  width: 100%;
+}
+.scene-events, .scene-places, .scene-updates {
+  display: inline-block;
+  width: 1153.5714285714284px;
+  margin: 0 -6.785714285714286px;
+  zoom: 1;
+  margin-bottom: 1em;
+}
+.scene-events:before,
+.scene-places:before,
+.scene-updates:before,
+.scene-events:after,
+.scene-places:after,
+.scene-updates:after {
+  content: "";
+  display: table;
+}
+.scene-events:after, .scene-places:after, .scene-updates:after {
+  clear: both;
+}

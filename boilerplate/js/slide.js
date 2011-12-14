@@ -11,12 +11,16 @@ $(document).ready(function() {
 	
 	initializeMap();
 
-	// Sliding Navigation
+	////////////////////////
+	// Sliding Navigation //
+	////////////////////////
 
+	// Begin at Dashboard
 	$('#wrapper').scrollTo('#atAGlanceTile', 0);
 
-	$('.panel').click(function(event) {
-
+	// Add slider click action when 
+	$('body').on('click', '.panel', function(event) {
+		
 		$('.panel').removeClass('selected');
 		$(this).addClass('selected');
 
@@ -31,7 +35,6 @@ $(document).ready(function() {
 			$('#wrapper').scrollTo($(this).attr('href'), 1100, { easing: 'easeInOutExpo' });
 		}
 		return false;
-
 	});
 
 	// Call function in a template - doesn't work
@@ -55,10 +58,6 @@ $(document).ready(function() {
 			$(this).html('More Scenes &darr;');
 		}
 	);
-
-
-	// Chatter tabs
-	$('.chatter-category-tabs').tabs();
 
 
 	// Print filter search box value to a list

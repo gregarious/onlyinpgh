@@ -29,12 +29,6 @@ h1 a {
   color: #000;
   text-shadow: 2px 2px 0px #ffffff;
 }
-h2 {
-  font-family: 'RabioheadRegular', 'Arial', sans-serif;
-  font-size: 3em;
-  border-bottom: 1px solid #000;
-  text-shadow: 0 0 1px #ffffff;
-}
 h3 {
   font: 1.1em 'UniversalfruitcakeRegular', 'Verdana', sans-serif;
   letter-spacing: 2px;
@@ -148,6 +142,18 @@ ul li {
   position: relative;
   z-index: 2;
 }
+.thumb-container {
+  float: left;
+  width: 25%;
+  margin: 0 0%;
+  overflow: hidden;
+}
+.panel-title {
+  font-family: 'RabioheadRegular', 'Arial', sans-serif;
+  font-size: 3em;
+  border-bottom: 1px solid #000;
+  text-shadow: 0 0 1px #ffffff;
+}
 .feed-item-title {
   font-family: 'NobileRegular';
   font-weight: bold;
@@ -202,11 +208,6 @@ ul li {
 .page-list li section {
   float: left;
   width: 70.83333333333334%;
-  margin: 0 0%;
-}
-.page-list li .thumb-container {
-  float: left;
-  width: 25%;
   margin: 0 0%;
 }
 .page-list li img {
@@ -398,11 +399,6 @@ ul li {
   width: 75%;
   margin: 0 0%;
 }
-.scene-events .events-feed li .thumb-container {
-  float: left;
-  width: 25%;
-  margin: 0 0%;
-}
 .scene-events .events-feed li img {
   height: 70px;
   width: 70px;
@@ -454,6 +450,7 @@ ul li {
   width: 25%;
   margin: 0 0%;
   height: 100%;
+  overflow: auto;
 }
 .scene-updates .chatter-feed {
   height: 63%;
@@ -487,18 +484,10 @@ ul li {
   overflow: auto;
 }
 #chatterBoxTile .chatter-post-form {
-  display: inline-block;
-  width: 100%;
+  float: left;
+  width: 41.66666666666667%;
   margin: 0 0%;
-  zoom: 1;
   margin: 2% 0 0 2%;
-}
-#chatterBoxTile .chatter-post-form:before, #chatterBoxTile .chatter-post-form:after {
-  content: "";
-  display: table;
-}
-#chatterBoxTile .chatter-post-form:after {
-  clear: both;
 }
 #chatterBoxTile form {
   float: left;
@@ -508,75 +497,107 @@ ul li {
 #chatterBoxTile form input[type=text] {
   width: 90%;
 }
-#chatterBoxTile .block-list li {
-  margin: 1%;
+#chatterBoxTile header {
+  display: inline-block;
+  width: 100%;
+  margin: 0 0%;
+  zoom: 1;
+  border-bottom: 1px solid black;
+}
+#chatterBoxTile header:before, #chatterBoxTile header:after {
+  content: "";
+  display: table;
+}
+#chatterBoxTile header:after {
+  clear: both;
+}
+#chatterBoxTile .panel-title {
+  border-bottom: none;
+  float: left;
+}
+#chatterBoxTile .category-tabs {
+  display: inline-block;
+  width: 100%;
+  margin: 0 0%;
+  zoom: 1;
+}
+#chatterBoxTile .category-tabs:before, #chatterBoxTile .category-tabs:after {
+  content: "";
+  display: table;
+}
+#chatterBoxTile .category-tabs:after {
+  clear: both;
+}
+#chatterBoxTile .category-tabs li {
+  float: left;
+  margin: 0 1%;
+  padding: 1%;
   background-color: #eeeeee;
   background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#eeeeee), to(#aaaaaa));
   background-image: -webkit-linear-gradient(top, #eeeeee, #aaaaaa);
   background-image: -moz-linear-gradient(top, #eeeeee, #aaaaaa);
   background-image: -ms-linear-gradient(top, #eeeeee, #aaaaaa);
   background-image: -o-linear-gradient(top, #eeeeee, #aaaaaa);
+  -moz-border-radius: 0.5em 0.5em 0 0;
+  border-radius: 0.5em 0.5em 0 0;
+}
+#chatterBoxTile .category-tabs-content .block-list li {
+  margin: 1% 0;
   padding: 1%;
 }
-#chatterBoxTile .block-list li header {
+#chatterBoxTile .category-tabs-content .block-list li header {
   float: left;
   width: 91.66666666666666%;
   margin: 0 0%;
   border-bottom: 1px #ccc solid;
 }
-#chatterBoxTile .block-list li header .feed-item-title {
+#chatterBoxTile .category-tabs-content .block-list li header .feed-item-title {
   margin: 0;
 }
-#chatterBoxTile .block-list li header img {
+#chatterBoxTile .category-tabs-content .block-list li header img {
   width: 20px;
   height: 20px;
 }
-#chatterBoxTile .block-list li header .meta {
+#chatterBoxTile .category-tabs-content .block-list li header .meta {
   position: relative;
   bottom: 0.5em;
   left: 0.5em;
 }
-#chatterBoxTile .block-list li .post-body {
+#chatterBoxTile .category-tabs-content .block-list li .post-body {
   display: inline-block;
   width: 100%;
   margin: 0 0%;
   zoom: 1;
 }
-#chatterBoxTile .block-list li .post-body:before, #chatterBoxTile .block-list li .post-body:after {
+#chatterBoxTile .category-tabs-content .block-list li .post-body:before, #chatterBoxTile .category-tabs-content .block-list li .post-body:after {
   content: "";
   display: table;
 }
-#chatterBoxTile .block-list li .post-body:after {
+#chatterBoxTile .category-tabs-content .block-list li .post-body:after {
   clear: both;
 }
-#chatterBoxTile .block-list li .post-body .post-content {
+#chatterBoxTile .category-tabs-content .block-list li .post-body .post-content {
   margin: 3%;
 }
-#chatterBoxTile .block-list li .comments li {
-  margin: 0;
-  background-color: #f2f2f2;
-  background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#f2f2f2), to(#ffffff));
-  background-image: -webkit-linear-gradient(top, #f2f2f2, #ffffff);
-  background-image: -moz-linear-gradient(top, #f2f2f2, #ffffff);
-  background-image: -ms-linear-gradient(top, #f2f2f2, #ffffff);
-  background-image: -o-linear-gradient(top, #f2f2f2, #ffffff);
-  -moz-box-shadow: 0 0 0 #ffffff;
-  -webkit-box-shadow: 0 0 0 #ffffff;
-  box-shadow: 0 0 0 #ffffff;
-  border: 2px solid #ccc;
+#chatterBoxTile .category-tabs-content .block-list li .comments li {
+  margin: 1%;
+  background-image: url('/static/img/sand.jpg');
+  -moz-box-shadow: 0 0.3em 0.3em #ffffff;
+  -webkit-box-shadow: 0 0.3em 0.3em #ffffff;
+  box-shadow: 0 0.3em 0.3em #ffffff;
 }
-#chatterBoxTile .block-list li .comments li header {
+#chatterBoxTile .category-tabs-content .block-list li .comments li header {
   display: inline-block;
   width: 100%;
   margin: 0 0%;
   zoom: 1;
   margin-bottom: 1%;
 }
-#chatterBoxTile .block-list li .comments li header:before, #chatterBoxTile .block-list li .comments li header:after {
+#chatterBoxTile .category-tabs-content .block-list li .comments li header:before, #chatterBoxTile .category-tabs-content .block-list li .comments li header:after {
   content: "";
   display: table;
 }
-#chatterBoxTile .block-list li .comments li header:after {
+#chatterBoxTile .category-tabs-content .block-list li .comments li header:after {
   clear: both;
 }
 .voting {
@@ -600,14 +621,3 @@ ul li {
 .downvote:hover {
   background-position: right bottom;
 }
-/*@media screen and (max-width: 720px) {
-	#wrapper {
-		overflow: auto;
-	}
-
-	.scene-events, .scene-places, .scene-updates {
-		.row();
-		margin-bottom: 1em;
-	}
-
-} */

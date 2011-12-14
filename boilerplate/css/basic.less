@@ -42,13 +42,6 @@ h1 a {
 	.text-shadow(2px, 2px, 0px, #fff);
 }
 
-h2 {
-	font-family: 'RabioheadRegular', 'Arial', sans-serif;
-	font-size: 3em;
-	border-bottom: 1px solid #000;
-	.text-shadow(0, 0, 1px, #fff);
-}
-
 h3 {
 	font: 1.1em 'UniversalfruitcakeRegular', 'Verdana', sans-serif;
 	letter-spacing: 2px;
@@ -176,8 +169,21 @@ ul {
 	}
 }
 
+.thumb-container {
+	.column(3);
+	overflow: hidden;
+}
+
+
 
 // style utilities
+
+.panel-title {
+	font-family: 'RabioheadRegular', 'Arial', sans-serif;
+	font-size: 3em;
+	border-bottom: 1px solid #000;
+	.text-shadow(0, 0, 1px, #fff);
+}
 
 .feed-item-title {
 	font-family: 'NobileRegular';
@@ -233,10 +239,6 @@ ul {
 
 		section {
 			.column(8.5);
-		}
-
-		.thumb-container {
-			.column(3);
 		}
 
 		img {
@@ -422,10 +424,6 @@ ul {
 				.column(9);	
 			}
 
-			.thumb-container {
-				.column(3);
-			}
-
 			img {
 				height: 70px;
 				width: 70px;
@@ -486,7 +484,7 @@ ul {
 .scene-updates {
 	.column(3);
 	height: 100%;
-
+	overflow: auto;
 	.chatter-feed {
 		height: 63%;	
 		
@@ -533,6 +531,7 @@ ul {
 /*******************************/
 
 #chatterBoxTile {
+
 	.item-content-container {
 		right: 16%;
 		background-image: url('/static/img/sand.jpg');
@@ -540,7 +539,7 @@ ul {
 	}
 
 	.chatter-post-form {
-		.row();
+		.column(5);
 		margin: 2% 0 0 2%;
 	}
 
@@ -551,10 +550,33 @@ ul {
 		}
 	}
 
-	.block-list {
+	header {
+		.row();
+		border-bottom: 1px solid black;
+		
+	}
+
+	.panel-title {
+		border-bottom: none;
+		float: left;
+	}
+
+	.category-tabs {
+		.row();
+
 		li {
-			margin: 1%;
+			float: left;
+			margin: 0 1%;
+			padding: 1%;
 			.gradient(#eee, #aaa);
+			.rounded(0.5em, 0.5em, 0, 0);	
+		}
+	}
+
+	.category-tabs-content .block-list {
+		
+		li {
+			margin: 1% 0;
 			padding: 1%;
 			
 			header {
@@ -586,16 +608,16 @@ ul {
 
 			.comments {
 				li {
-					margin: 0;
+					margin: 1%;
 					
 					header {
 						.row();
 						margin-bottom: 1%;
 					}
-
-					.gradient(#f2f2f2, #fff);
-					.box-shadow(0, 0, 0, #fff);
-					border: 2px solid #ccc;	
+					background-image: url('/static/img/sand.jpg');
+					//.gradient(#f2f2f2, #fff);
+					.box-shadow(0, 0.3em, 0.3em, #fff);
+					//border: 2px solid #ccc;	
 				}
 			}
 		}
@@ -624,17 +646,3 @@ ul {
 		background-position: right bottom;
 	}
 }
-
-// create one column when resolution is less than 720px
-
-/*@media screen and (max-width: 720px) {
-	#wrapper {
-		overflow: auto;
-	}
-
-	.scene-events, .scene-places, .scene-updates {
-		.row();
-		margin-bottom: 1em;
-	}
-
-} */

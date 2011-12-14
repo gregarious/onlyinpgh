@@ -2,7 +2,7 @@
 
 <head>
 
-	<link type="text/css" href="{{ STATIC_URL }}jquery-ui/css/custom-theme/jquery-ui-1.8.16.custom.css" rel="stylesheet" />
+	<!--<link type="text/css" rel="stylesheet" href="{{ STATIC_URL }}jquery-ui/css/custom-theme/jquery-ui-1.8.16.custom.css" />-->
 	<link type="text/css" rel="stylesheet" href="{{STATIC_URL}}css/ChunkFive-fontfacekit/stylesheet.css">
 	<link type="text/css" rel="stylesheet" href="{{STATIC_URL}}css/Lilly-fontfacekit/stylesheet.css">
 	<link type="text/css" rel="stylesheet" href="{{STATIC_URL}}css/Nobile-fontfacekit/stylesheet.css">
@@ -12,10 +12,10 @@
 	<link type="text/css" rel="stylesheet" href="{{ STATIC_URL }}css/reset.css">
 	
 
-	<!-- For Mobile, Tablet, and Desktop -->
+	<!-- For Desktop, Tablet, Mobile -->
 	<link type="text/css" rel="stylesheet" href="{{ STATIC_URL }}css/basic.css">
-	<!--<link rel="stylesheet/less" media="only screen and (max-width: 1024px)" href="{{ STATIC_URL }}css/992.less">-->
-	<link type="text/css" rel="stylesheet" media="only screen and (max-width: 1360px)" href="{{ STATIC_URL }}css/768.css">
+	<link type="text/css" rel="stylesheet" media="only screen and (max-width: 1360px)" href="{{ STATIC_URL }}css/1360.css">
+	<link rel="stylesheet/less" media="only screen and (max-width: 768px)" href="{{ STATIC_URL }}css/992.less">
 	<link type="text/css" rel="stylesheet" media="only screen and (max-width: 480px)" href="{{ STATIC_URL }}css/480.css">
 
 	<title>OIP Tile Layout</title>
@@ -115,7 +115,7 @@
 		<div class="item"></div> <!-- top left -->
 		
 		<div id="statsTile" class="item"> <!-- top middle -->
-			<h2>Stats</h2>
+			<h2 class="panel-title">Stats</h2>
 		</div> <!-- #statsTile -->
 
 
@@ -131,7 +131,7 @@
 				<a class="panel eventsLink" href="#eventsTile"><span></span></a>
 
 				<article class="tile-list">
-					<h2>Events</h2>
+					<h2 class="panel-title">Events</h2>
 					<ul id="eventsPage" class="page-list"><!--Places list template--></ul>
 				</article>
 				<article class="tile-map">
@@ -207,22 +207,15 @@
 		<div id="chatterBoxTile" class="item"> <!-- middle right -->
 			<div class="item-content-container">
 				<!-- Make panel a link to itself, disabled when it is the current panel. Offset not working here. -->
-				<a class="panel chatterBoxLink" href="#chatterBoxTile"><span></span></a>
-				<h2>Chatter Box</h2>
+				<!--<a class="panel chatterBoxLink" href="#chatterBoxTile"><span></span></a>-->
+				
 				<div class="chatter-category-tabs">
-					<ul class="category-tabs">
-						<li><a href="#chatterHottest">Hottest</a></li>
-						<li><a href="#chatterNewest">Newest</a></li>
-						<li><a href="#chatterPics">Pics</a></li>
-						<li><a href="#chatterConversation">Conversation</a></li>
-						<li><a href="#chatterQuestions">Questions</a></li>
-					</ul>
-					<div class="category-tabs-content">
 
+					<header>
+						<h2 class="panel-title">Chatter Box</h2>
 						<div class="chatter-post-form">
 							<form>
-								<input type="text" placeholder="Post to ChatterBox" />
-								
+								<input type="text" placeholder="Post to ChatterBox" />	
 							</form>
 							<select>
 								<option>Type of post</option>
@@ -232,6 +225,19 @@
 							</select> 
 							<input type="button" id="add-chatter-post" value="Post" />
 						</div>
+					</header>
+
+					<div class="category-tabs">
+						<ul>
+							<li><a href="#chatterHottest">Hottest</a></li>
+							<li><a href="#chatterNewest">Newest</a></li>
+							<li><a href="#chatterPics">Pics</a></li>
+							<li><a href="#chatterConversation">Conversation</a></li>
+							<li><a href="#chatterQuestions">Questions</a></li>
+						</ul>
+					</div>
+
+					<div class="category-tabs-content">
 
 						<ul id="chatterHottest" class="block-list">Hottest chatter posts template</ul>
 						<ul id="chatterNewest" class="block-list">Hottest chatter posts template</ul>
@@ -258,7 +264,7 @@
 				<a class="panel placesLink" href="#placesTile"><span></span></a>
 			
 				<article class="tile-list">
-					<h2>Places</h2>
+					<h2 class="panel-title">Places</h2>
 					<ul id="placesPage" class="page-list"><!--Places list template--></ul>
 				</article>
 				<article class="tile-map">
@@ -286,7 +292,7 @@
 	<!-- Libraries and Plugins -->
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.0/jquery.js"></script> <!-- Unminified jQuery for development -->
 	<script src="http://maps.google.com/maps/api/js?libraries=places&amp;sensor=false" type="text/javascript"></script>
-	<script src="{{ STATIC_URL }}jquery-ui/js/jquery-ui-1.8.16.custom.js"></script>
+	<!--<script src="{{ STATIC_URL }}jquery-ui/js/jquery-ui-1.8.16.custom.js"></script>-->
 	<!--<script src="{{ STATIC_URL }}js/mylibs/less-1.1.5.min.js"></script>-->
 	<script src="{{ STATIC_URL }}js/mylibs/jquery.scrollTo.js"></script>
 	<script src="{{ STATIC_URL }}js/mylibs/jquery.easing.1.3.js"></script>

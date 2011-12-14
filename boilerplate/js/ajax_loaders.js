@@ -14,7 +14,7 @@ $.get('/ajax/events', function(data) {
 );
 
 $.get('/ajax/events', function(data) { 
-        $('#eventsFeed').html(data); 
+        $('#eventsFeed').html(data);
     }
 );
 
