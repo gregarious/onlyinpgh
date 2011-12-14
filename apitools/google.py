@@ -255,7 +255,7 @@ class GoogleGeocodingResult(object):
 
         return address.rstrip(', ')
 
-    def get_postalcode(self,default=None):
+    def get_postalcode(self,default=''):
         '''
         Returns the postal code component
         '''
@@ -268,21 +268,21 @@ class GoogleGeocodingResult(object):
         Note, these neighborhoods are not necessarily those defined for the
         places.models.Neighborhood model.
         '''
-        return self.get_address_component('postal_code',default)
+        return self.get_address_component('neighborhood',default)
 
-    def get_town(self,default=None):
+    def get_town(self,default=''):
         '''
         Returns the town component for a Location representation
         '''
         return self.get_address_component('locality',default)
 
-    def get_state(self,default=None):
+    def get_state(self,default=''):
         '''
         Returns the state component for a Location representation
         '''
         return self.get_address_component('administrative_area_level_1',default)
         
-    def get_country(self,default=None):
+    def get_country(self,default=''):
         '''
         Returns the country component for a Location representation
         '''

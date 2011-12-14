@@ -63,14 +63,15 @@ class Role(models.Model):
     ROLE_TYPES = (
         ('host','Host'),
         ('creator','Creator'),
+        ('referer','Referer'),
     )
 
     role_name = models.CharField(max_length=50,choices=ROLE_TYPES)
     event = models.ForeignKey(Event)
-    identity = models.ForeignKey(Identity)
+    organization = models.ForeignKey(Organization)
 
     def __unicode__(self):
-        return self.role_name + u':' + unicode(self.identity) + u'(%s)' % self.role_name
+        return self.role_name + u':' + unicode(self.organization) + u'(%s)' % self.role_name
 
 class Meta(models.Model):
     event = models.ForeignKey(Event)
@@ -107,12 +108,13 @@ class VEventRecord(models.Model):
 ### Bottom two models used for caching Facebook pages/events for future lookup
 class FacebookEventRecord(models.Model):
     fb_id = models.BigIntegerField(primary_key=True)
-    event_id = models.ForeignKey(Event,null=True,blank=True)
+    associated_event = models.ForeignKey(Event,null=True,blank=True)
 
     time_added = models.DateTimeField('time added in our records',auto_now_add=True)
     last_checked = models.DateTimeField('time last checked for updated',auto_now_add=True)
     
-    last_updated = models.DateTimeField('time Facebook record was last updated')
+    # TODO: temporary null here
+    last_updated = models.DateTimeField('time Facebook record was last updated',null=True)
 
 class FacebookPageRecord(models.Model):
     fb_id = models.BigIntegerField(primary_key=True)

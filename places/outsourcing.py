@@ -12,6 +12,8 @@ from django.db.models import Q
 from onlyinpgh.apitools import google
 from onlyinpgh.apitools import factual
 from onlyinpgh.apitools import facebook
+from onlyinpgh.places import US_STATE_MAP
+
 
 from onlyinpgh.places.models import Location, Place, PlaceMeta, ExternalPlaceSource, FacebookPageRecord
 from onlyinpgh.identity.models import Organization
@@ -20,10 +22,10 @@ from onlyinpgh.identity.models import Organization
 def _resolve_result_to_place(result):
     resolved_loc = Location(
             country='US',           
-            address=result.get('address'),
-            town=result.get('locality'),
-            state=result.get('region'),
-            postcode=result.get('postcode'),
+            address=result.get('address',''),
+            town=result.get('locality',''),
+            state=result.get('region',''),
+            postcode=result.get('postcode',''),
             latitude=result.get('latitude'),
             longitude=result.get('longitude'))
     
@@ -428,12 +430,17 @@ def _create_place_meta(page,place,fb_key,meta_key):
     except UnicodeEncodeError as e:
         print page['id'], e.message
 
-def _fbloc_to_loc(fbloc):
+def fbloc_to_loc(fbloc):
     # TODO: temp
     state = fbloc.get('state','').strip()
     if len(state) != 2 and state != '':
-        print 'state found:',state
-        state = 'PA'
+        try:
+            state = state.lower()
+            state = (ab for ab,full in US_STATE_MAP.items() if full.lower()==state).next()
+        except StopIteration:
+            print 'non-PA state found:',state
+            state = ''
+
     return Location(address=fbloc.get('street','').strip(),
                     town=fbloc.get('city','').strip(),
                     state=state,
@@ -469,7 +476,7 @@ def page_id_to_organization(page_id,create_new=True,page_cache={}):
     else:
         try:
             page = facebook.oip_client.graph_api_objects(page_id)
-        except FacebookAPIError:
+        except facebook.FacebookAPIError:
             return None
 
     pname = page['name'].strip()
@@ -518,7 +525,7 @@ def page_id_to_place(page_id,create_new=True,create_owner=True,page_cache={}):
         try:
             page = facebook.oip_client.graph_api_objects(page_id)    
             print 'retreiving page'
-        except FacebookAPIError:
+        except facebook.FacebookAPIError:
             return None
 
     pname = page['name'].strip()
@@ -534,40 +541,53 @@ def page_id_to_place(page_id,create_new=True,create_owner=True,page_cache={}):
     if 'id' in fbloc:
         # TODO: TEMP NOTICE
         print 'NOTICE: %s has id in location (%s).' % (str(page_id),str(fbloc['id']))
-    location = _fbloc_to_loc(fbloc)
+    location = fbloc_to_loc(fbloc)
 
-    # really want geolocation, go to Google Geocoding for it if we need it
+    # if there's no address or geocoding, we'll need to talk to outside services
     if not location.address:
         print 'attempting to resolve place'
-        # TODO: insert more factual logic (i.e. saving uid, setting place to this uid, etc.)
+        # TODO: insert more factual logic? (i.e. saving uid, setting place to this uid, etc.)
         resolved_place = resolve_place(Place(name=pname,location=location))
         if resolved_place:
             print 'successful resolve', resolved_place
             location = resolved_place.location
-        
+    
+    # really want geolocation, go to Google Geocoding for it if we need it
     if location.longitude is None or location.latitude is None:
         print 'geocoding'
-        location = resolve_location(location)
-        if location: print 'successful geocode', location
+        resolved_location = resolve_location(location)
+        if resolved_location: 
+            location = resolved_location
+            print 'successful geocode', resolved_location
 
     if location:
-        location.save()
+        # TODO: put this into the manager or a Location.save override
+        location, created = Location.objects.get_or_create(
+                        address=location.address,
+                        postcode=location.postcode,
+                        town=location.town,
+                        state=location.state,
+                        country=location.country,
+                        neighborhood=location.neighborhood,
+                        latitude=location.latitude,
+                        longitude=location.longitude)
+        if not created:
+            print 'gotten works!'
 
     place.location = location
     place.owner = page_id_to_organization(page_id,create_new=create_owner)
     try:
-        place.save()
+        # TODO: put this into the manager or a Place.save override
+        place, _ = Place.objects.get_or_create(
+                                name=place.name,
+                                description=place.description,
+                                location=place.location,
+                                owner=place.owner)
     except Warning as w:
         print 'Warning while saving place %s: %s' % (str(page_id),w.message)
         # TODO: soooo apparently the place gets saved, but then the id gets removed? wtf.
         # This means we can't save the record. hm.
         return
-
-    # add place meta info that exists      
-    _create_place_meta(page,place,'link','url')
-    _create_place_meta(page,place,'phone','phone')
-    _create_place_meta(page,place,'hours','hours')
-    _create_place_meta(page,place,'picture','image_url')
 
     # We've got a new FB page record
     try:
@@ -576,6 +596,13 @@ def page_id_to_place(page_id,create_new=True,create_owner=True,page_cache={}):
         record = FacebookPageRecord(fb_id=page_id)
     record.associated_place = place
     record.save()
+
+    # add place meta info that exists      
+    _create_place_meta(page,place,'link','url')
+    _create_place_meta(page,place,'phone','phone')
+    _create_place_meta(page,place,'hours','hours')
+    _create_place_meta(page,place,'picture','image_url')
+
 
     # finally create an more generally useful external UID reference to the fb page
     ExternalPlaceSource.objects.create(place=record.associated_place,
@@ -597,8 +624,10 @@ def load_pages_pickle(filename='places/debugrun.pickle'):
     pid_detail_map = pickle.load(pf)
     return pid_detail_map
 
-def debug_page_processes(pid_detail_map):
-    for pid in pid_detail_map:
+def debug_page_processes(pids=None,pid_detail_map={}):
+    if pids is None:
+        pids = pid_detail_map.keys()
+    for pid in pids:
         page_id_to_place(pid,page_cache=pid_detail_map)
 
 def _get_all_places_from_cron_job():
