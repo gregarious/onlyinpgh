@@ -36,12 +36,19 @@ template to be included inside a #chatter-tab-* div
                             <img src="{{ comment.commenter.avatar }}"><span class="meta">by {{ comment.commenter.display_name }}, {{ comment.dt|timesince }} ago</span>
                         </header>
                         <p>{{ comment.content }}</p>
-                        
                     </li>
                 {% endfor %}
 
                 </ul>
             {% endif %}
+
+            <div class="chatter-post-form">
+                <form>
+                    <input type="text" placeholder="Add a comment..." />  
+                </form>
+                
+                <input type="button" id="add-chatter-post" value="Post" />
+            </div>
 
         </article>
     </li>

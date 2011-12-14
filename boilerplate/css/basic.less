@@ -566,19 +566,20 @@ ul {
 
 		li {
 			a {
-
+				cursor: pointer;
 				float: left;
 				margin: 0 1%;
 				padding: 1%;
-				.gradient(#eee, #aaa);
-				.rounded(0.5em, 0.5em, 0, 0);	
+				background-image: url('/static/img/limestone.jpg');
+				.rounded-all(0.5em);	
+				.box-shadow(0.1em, 0.1em, 0.2em, #000);
 		
 				&:hover {
-					.gradient(#ccc, #aaa);				
+					.box-shadow(0.1em, 0.1em, 0.1em, #444);
 				}
 
 				&.selected {
-					.gradient(#000, #fff);
+					.box-shadow(0, 0, 0.2em, #fff);
 				}	
 			}
 			
@@ -597,7 +598,7 @@ ul {
 				
 				&.post-head {
 					border-bottom: none;
-
+					cursor: pointer;
 					-moz-transition: background-color 0.3s ease 0.2s;
 					-webkit-transition: background-color 0.3s ease 0.2s;
 					-o-transition: background-color 0.3s ease 0.2s;

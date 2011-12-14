@@ -529,33 +529,26 @@ ul li {
   clear: both;
 }
 #chatterBoxTile .category-tabs li a {
+  cursor: pointer;
   float: left;
   margin: 0 1%;
   padding: 1%;
-  background-color: #eeeeee;
-  background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#eeeeee), to(#aaaaaa));
-  background-image: -webkit-linear-gradient(top, #eeeeee, #aaaaaa);
-  background-image: -moz-linear-gradient(top, #eeeeee, #aaaaaa);
-  background-image: -ms-linear-gradient(top, #eeeeee, #aaaaaa);
-  background-image: -o-linear-gradient(top, #eeeeee, #aaaaaa);
-  -moz-border-radius: 0.5em 0.5em 0 0;
-  border-radius: 0.5em 0.5em 0 0;
+  background-image: url('/static/img/limestone.jpg');
+  -moz-border-radius: 0.5em;
+  border-radius: 0.5em;
+  -moz-box-shadow: 0.1em 0.1em 0.2em #000000;
+  -webkit-box-shadow: 0.1em 0.1em 0.2em #000000;
+  box-shadow: 0.1em 0.1em 0.2em #000000;
 }
 #chatterBoxTile .category-tabs li a:hover {
-  background-color: #cccccc;
-  background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#cccccc), to(#aaaaaa));
-  background-image: -webkit-linear-gradient(top, #cccccc, #aaaaaa);
-  background-image: -moz-linear-gradient(top, #cccccc, #aaaaaa);
-  background-image: -ms-linear-gradient(top, #cccccc, #aaaaaa);
-  background-image: -o-linear-gradient(top, #cccccc, #aaaaaa);
+  -moz-box-shadow: 0.1em 0.1em 0.1em #444444;
+  -webkit-box-shadow: 0.1em 0.1em 0.1em #444444;
+  box-shadow: 0.1em 0.1em 0.1em #444444;
 }
 #chatterBoxTile .category-tabs li a.selected {
-  background-color: #000000;
-  background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#000000), to(#ffffff));
-  background-image: -webkit-linear-gradient(top, #000000, #ffffff);
-  background-image: -moz-linear-gradient(top, #000000, #ffffff);
-  background-image: -ms-linear-gradient(top, #000000, #ffffff);
-  background-image: -o-linear-gradient(top, #000000, #ffffff);
+  -moz-box-shadow: 0 0 0.2em #ffffff;
+  -webkit-box-shadow: 0 0 0.2em #ffffff;
+  box-shadow: 0 0 0.2em #ffffff;
 }
 #chatterBoxTile .category-tabs-content .block-list li {
   margin: 1% 0;
@@ -576,6 +569,7 @@ ul li {
 }
 #chatterBoxTile .category-tabs-content .block-list li header.post-head {
   border-bottom: none;
+  cursor: pointer;
   -moz-transition: background-color 0.3s ease 0.2s;
   -webkit-transition: background-color 0.3s ease 0.2s;
   -o-transition: background-color 0.3s ease 0.2s;
