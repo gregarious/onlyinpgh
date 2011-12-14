@@ -3,18 +3,20 @@ template to be included inside a #chatter-tab-* div
 {% endcomment %}
 
 {% for post in posts %}
-    <li id="{{id_prefix}}post-{{forloop.counter}}">
+    <li id="{{id_prefix}}post-{{forloop.counter}}" class="post">
 
-        <aside class="voting twocol">
-            <div class="upvote"></div>
-            <p class="numvotes">20</p>
-            <div class="downvote"></div>    
-        </aside>
+        <header class="post-head"> 
 
-        <header> 
+            <aside class="voting">
+                <div class="upvote"></div>
+                <p class="numvotes">20</p>
+                <div class="downvote"></div>    
+            </aside>
+
             <h4 class="feed-item-title">{{ post.title }}</h4>
             <img src="{{ post.author.avatar }}" width="30px" height="30px"> 
             <span class="meta">by {{ post.author.display_name }}, {{ post.dt|timesince }} ago</span>
+
         </header>
          
         <article class="post-body"> 

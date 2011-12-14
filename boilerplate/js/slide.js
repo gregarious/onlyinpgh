@@ -1,9 +1,11 @@
 
-// Credits: 
+// Code Credits: 
 
 // Queness, "Create a Vertical, Horizontal and Diagonal Sliding Content Website with jQuery"
 // http://www.queness.com/post/356/create-a-vertical-horizontal-and-diagonal-sliding-content-website-with-jquery
 
+// justFREEtemplates, Ultra simple jQuery tabs
+// http://justfreetemplates.com/blog/2009/08/31/ultra-simple-jquery-tabs.html
 
 
 
@@ -18,7 +20,7 @@ $(document).ready(function() {
 	// Begin at Dashboard
 	$('#wrapper').scrollTo('#atAGlanceTile', 0);
 
-	// Add slider click action when 
+	// Add slider click action when panels are loaded
 	$('body').on('click', '.panel', function(event) {
 		
 		$('.panel').removeClass('selected');
@@ -37,17 +39,36 @@ $(document).ready(function() {
 		return false;
 	});
 
-	// Call function in a template - doesn't work
-	/*$('.jqtest span').click( function() {
-		console.log('clicked inside template');
-	});*/
-
 	$(window).resize(function() {
 		resizePanel();
 	});
 	
 	// End slide nav
 	
+
+	////////////////
+	// ChatterBox //
+	////////////////
+
+
+	// Tabbed interface
+	$('.category-tabs li a').click( function() {
+		switchTabs($(this));
+	})
+
+	switchTabs($('.default-category'));
+
+
+	// Call chatter functions after loaded
+	$('.category-tabs-content').ajaxComplete( function() {
+		$('.post-body').hide();
+		$('.post-head').toggle( function() {
+			//$('.post-body').not($(this).next('.post-body')).slideUp(500);
+			$(this).next('.post-body').slideDown(500);
+		}, function() {
+			$(this).next('.post-body').slideUp(500);
+		});
+	});
 
 	// Expand scenes-nav on rollover
 	$('.dropdown-title#scenesMenu').toggle(function() {
@@ -59,7 +80,6 @@ $(document).ready(function() {
 		}
 	);
 
-
 	// Print filter search box value to a list
 	$("#add-filter").click(function() {
 		var value = $('#search-box').val();
@@ -70,11 +90,12 @@ $(document).ready(function() {
 				$(this).remove();
 			});
 		});
-		
     });
 
 
 }); // document.ready
+
+
 
 function resizePanel() {
 	width = $(window).width;
@@ -85,6 +106,17 @@ function resizePanel() {
 	$('#mask').css({width: mask_width, height: height});
 	$('#wrapper').scrollTo($('a.selected').attr('href'), 0);
 }
+
+
+function switchTabs(obj) {
+	$('ul.category').hide();
+	$('.category-tabs li a').removeClass('selected');
+	var id = obj.attr('rel');
+	$('ul#' + id).fadeIn(800);
+	obj.addClass('selected');
+}
+
+
 
 var map, map2;
 

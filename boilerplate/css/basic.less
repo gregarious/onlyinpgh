@@ -565,23 +565,48 @@ ul {
 		.row();
 
 		li {
-			float: left;
-			margin: 0 1%;
-			padding: 1%;
-			.gradient(#eee, #aaa);
-			.rounded(0.5em, 0.5em, 0, 0);	
+			a {
+
+				float: left;
+				margin: 0 1%;
+				padding: 1%;
+				.gradient(#eee, #aaa);
+				.rounded(0.5em, 0.5em, 0, 0);	
+		
+				&:hover {
+					.gradient(#ccc, #aaa);				
+				}
+
+				&.selected {
+					.gradient(#000, #fff);
+				}	
+			}
+			
 		}
 	}
 
 	.category-tabs-content .block-list {
-		
+
 		li {
+
 			margin: 1% 0;
 			padding: 1%;
 			
 			header {
-				.column(11);
-				border-bottom: 1px #ccc solid;
+				.row();
+				
+				&.post-head {
+					border-bottom: none;
+
+					-moz-transition: background-color 0.3s ease 0.2s;
+					-webkit-transition: background-color 0.3s ease 0.2s;
+					-o-transition: background-color 0.3s ease 0.2s;
+					transition: background-color 0.3s ease 0.2s;
+
+					&:hover {
+						background-color: blue;
+					}	
+				}
 
 				.feed-item-title {
 					margin: 0;	
@@ -601,6 +626,7 @@ ul {
 
 			.post-body {
 				.row();
+				height: auto;
 				.post-content {
 					margin: 3%;
 				}
