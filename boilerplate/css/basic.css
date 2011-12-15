@@ -14,7 +14,7 @@ body:after {
 }
 html, body {
   height: 100%;
-  font: 15px 'NobileRegular', 'Verdana', sans-serif;
+  font: 90% 'NobileRegular', 'Verdana', sans-serif;
   line-height: 1.2;
   background-image: url('/static/img/stormy-sky.jpg');
   overflow: hidden;
@@ -54,7 +54,7 @@ ul li {
   width: 78%;
   height: 100%;
   position: absolute;
-  top: 3%;
+  top: 4%;
   left: 22%;
   overflow: hidden;
 }
@@ -282,15 +282,13 @@ ul li {
   display: inline-block;
   width: 100%;
   zoom: 1;
-  height: 3%;
+  height: 4%;
   position: absolute;
   z-index: 800;
   background-image: url('/static/img/limestone.jpg');
   -moz-box-shadow: 0 0.1em 0.1em #000000;
   -webkit-box-shadow: 0 0.1em 0.1em #000000;
   box-shadow: 0 0.1em 0.1em #000000;
-  color: #fff;
-  text-shadow: 0.02em 0.02em 0.05em #000000;
 }
 .utilities-nav:before, .utilities-nav:after {
   content: "";
@@ -299,54 +297,44 @@ ul li {
 .utilities-nav:after {
   clear: both;
 }
-.utilities-nav .user-nav {
-  float: left;
-  width: 50%;
-  margin-right: 1em;
-}
-.utilities-nav .user-nav li {
-  float: right;
-  padding: 2%;
-}
-.utilities-nav .scenes-nav-utility {
-  margin-left: 1%;
+.utilities-nav ul {
+  height: 100%;
   margin-top: 0.5%;
-  float: right;
 }
-.utilities-nav .scenes-nav-utility .dropdown-title {
+.utilities-nav ul li {
+  float: right;
+  padding: 0 1%;
   cursor: pointer;
 }
-.utilities-nav .scenes-nav-utility .dropdown-title:hover {
+.utilities-nav .dropdown-title:hover {
   background-color: #000;
   -webkit-border-radius: 1em;
   -moz-border-radius: 1em;
   border-radius: 1em;
 }
+.scene-info, .utilities-nav, .scenes-nav {
+  background-image: url('/static/img/eggshell.jpg');
+  -moz-box-shadow: 2em 0.5em 2em #222222;
+  -webkit-box-shadow: 2em 0.5em 2em #222222;
+  box-shadow: 2em 0.5em 2em #222222;
+}
 .scenes-nav {
   display: none;
   position: absolute;
   z-index: 1000;
-  top: 3%;
+  top: 4%;
   right: 0;
-  background-image: url('/static/img/limestone.jpg');
   padding: 1%;
-  -moz-box-shadow: 2px 2px 2px #000000;
-  -webkit-box-shadow: 2px 2px 2px #000000;
-  box-shadow: 2px 2px 2px #000000;
 }
 .scenes-nav li {
   text-shadow: 1px 1px 1px #ffffff;
 }
 .scene-info {
   position: absolute;
-  top: 3%;
+  top: 4%;
   padding: 1%;
   z-index: 799;
   height: 97%;
-  background-image: url('/static/img/eggshell.jpg');
-  -moz-box-shadow: 2em 0.5em 2em #222222;
-  -webkit-box-shadow: 2em 0.5em 2em #222222;
-  box-shadow: 2em 0.5em 2em #222222;
   width: 20%;
 }
 .scene-info .section-title {
