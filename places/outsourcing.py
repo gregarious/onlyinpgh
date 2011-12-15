@@ -423,9 +423,15 @@ def get_full_place_pages(pids):
 
 def _create_place_meta(page,place,fb_key,meta_key):
     try:
-        if fb_key in page:
+        # TODO: revisit 
+        if fb_key == 'url':
+            val = page.get('website',page.get('link','')).strip()
+        else:
+            val = str(page.get(fb_key,'')).strip()
+        
+        if val:
             PlaceMeta.objects.get_or_create(place=place,meta_key=meta_key,
-                                            defaults={'meta_value':str(page[fb_key]).strip()})
+                                            defaults={'meta_value':val})
     except UnicodeEncodeError as e:
         print page['id'], e.message
 
@@ -487,7 +493,8 @@ def page_id_to_organization(page_id,create_new=True,page_cache={}):
 
     pname = page['name'].strip()
     organization = Organization(name=pname,
-                        avatar=page.get('picture',''))
+                        avatar=page.get('picture',''),
+                        url=page.get('website',page.get('link','')))
     organization.save()
     # TODO: wtf page 115400921824318?
     try:
@@ -630,11 +637,10 @@ def page_id_to_place(page_id,create_new=True,create_owner=True,page_cache={}):
     record.save()
 
     # add place meta info that exists      
-    _create_place_meta(page,place,'link','url')
+    _create_place_meta(page,place,'url','url')
     _create_place_meta(page,place,'phone','phone')
     _create_place_meta(page,place,'hours','hours')
     _create_place_meta(page,place,'picture','image_url')
-
 
     # finally create an more generally useful external UID reference to the fb page
     ExternalPlaceSource.objects.create(place=record.associated_place,
