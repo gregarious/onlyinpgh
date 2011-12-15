@@ -1,6 +1,20 @@
-required external package installs (might include these in source later -- we'll see):
+Deployment notes:
 
-django-extensions
-pytz
-pil
-icalendar
+1. Python package dependencies (via pip):
+
+REQUIRED:
+    pytz
+    pil
+    icalendar
+RECOMMENDED:
+    django-extensions        
+
+
+2. Initial data:
+
+All events added to onlyinpgh.com prior to 12/14/2011 are frozen
+in a different set of models with the appname "oldevents".
+
+To load this initial data, run the following after syncdb:
+
+python manage.py loaddata oldsite_events
