@@ -492,9 +492,15 @@ def page_id_to_organization(page_id,create_new=True,page_cache={}):
             return None
 
     pname = page['name'].strip()
+
+    # TODO: temp because of idiotic page http://graph.facebook.com/104712989579167
+    try:
+        url = page.get('website','').split()[0].strip()
+    except IndexError:
+        url = page.get('link','http://www.facebook.com/%s'%page_id)
     organization = Organization(name=pname,
                         avatar=page.get('picture',''),
-                        url=page.get('website',page.get('link','')))
+                        url=url)
     organization.save()
     # TODO: wtf page 115400921824318?
     try:
@@ -646,25 +652,6 @@ def page_id_to_place(page_id,create_new=True,create_owner=True,page_cache={}):
     ExternalPlaceSource.objects.create(place=record.associated_place,
         service='fb',uid=page_id)
     return place
-
-import pickle
-def load_master_pages(nonempty=True):
-    if nonempty:
-        fn = '/Users/gdn/Sites/onlyinpgh/places/nonempty-event-pages.pickle'
-    else:
-        fn = '/Users/gdn/Sites/onlyinpgh/places/master-pages.pickle'
-    with open(fn) as f:
-        master_page_list = pickle.load(f)
-    return {p['id']:p for p in master_page_list if p}
-
-def debug_page_processes(pids=None,pid_detail_map={}):
-    if pids is None:
-        pids = pid_detail_map.keys()
-    dbglog.info('PROCESSING %d pages'%len(pids))
-    dbglog.info('start: %s' % time.asctime())
-    for pid in pids:
-        page_id_to_place(pid,page_cache=pid_detail_map)
-    dbglog.info('finish: %s' % time.asctime())
 
 def _get_all_places_from_cron_job():
     '''

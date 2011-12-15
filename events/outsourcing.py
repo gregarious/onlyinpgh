@@ -3,8 +3,11 @@ from onlyinpgh.apitools.facebook import oip_client as fb_client
 from onlyinpgh.places import outsourcing as place_outsourcing
 from onlyinpgh.apitools.facebook import GraphAPIClient
 
+from onlyinpgh.events import categorize
+
 from onlyinpgh.places.models import Place, Location
 from onlyinpgh.events.models import Event, FacebookEventRecord, Role
+
 
 from copy import deepcopy
 import json, time, datetime
@@ -15,27 +18,6 @@ est = timezone('US/Eastern')
 
 import logging
 dbglog = logging.getLogger('onlyinpgh.debugging')
-
-import pickle
-def debug_load_eventsmaster(nonempty=True):
-    if nonempty:
-        fn='/Users/gdn/Sites/onlyinpgh/events/nonempty-events.pickle'
-    else:
-        fn='/Users/gdn/Sites/onlyinpgh/events/master-events.pickle'
-    with open(fn) as f:
-        return pickle.load(f)
-
-def debug_process_events(id_event_map):
-    cutoff = datetime.datetime(2011,12,1)
-    for pid,events in id_event_map.items():
-        for event in events:
-            try:
-                enddt = datetime.datetime.strptime(event.get('end_time'),"%Y-%m-%dT%H:%M:%S")
-                if enddt < cutoff:
-                    continue
-            except:
-                pass
-            event_fbid_to_event(event['id'],referer_fbid=pid,fbevent_cache=id_event_map)
 
 # TODO: ALL TEMPORARY HACKS
 # map from (venue,place_name)

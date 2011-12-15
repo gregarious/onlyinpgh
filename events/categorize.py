@@ -1,3 +1,5 @@
+from onlyinpgh.events.models import Meta
+
 category_keywords_map = {   
     'Educational': [
         'g20',
@@ -157,8 +159,8 @@ def add_event_oldtypes(event):
     Adds oldtype meta entries to the given event based on keyword matching
     '''
     content = event.name + "; " + event.description
-    categories = [category for category,regex in category_regex_map.items() if regex.search(s)]
+    categories = [category for category,regex in category_regex_map.items() if regex.search(content)]
     for category in categories:
-        EventMeta.objects.get_or_create(event=event,
-                            meta_key='oldtype',
-                            meta_value=category)
+        Meta.objects.get_or_create(event=event,
+                                    meta_key='oldtype',
+                                    meta_value=category)
