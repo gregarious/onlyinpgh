@@ -92,6 +92,12 @@ $(document).ready(function() {
 		});
     });
 
+    // Select and deselect subscenes
+    $('.current-filters-list li').toggle( function() {
+    	$(this).addClass('selected');
+    }, function() {
+    	$(this).removeClass('selected');
+    });
 
 }); // document.ready
 

@@ -160,8 +160,9 @@ ul li {
   overflow: hidden;
 }
 .thumb-container img {
-  width: 100%;
+  width: 92%;
   height: auto;
+  border: 1px #999 solid;
 }
 .descriptor {
   margin-top: 10%;
@@ -245,6 +246,27 @@ ul li {
   background-image: -ms-linear-gradient(top, #cccccc, #ffffff);
   background-image: -o-linear-gradient(top, #cccccc, #ffffff);
   background-image: linear-gradient(top, #cccccc, #ffffff);
+  cursor: pointer;
+  border: 1px #999 solid;
+}
+.current-filters-list li:hover {
+  background-color: #ffffff;
+  background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#ffffff), to(#cccccc));
+  background-image: -webkit-linear-gradient(top, #ffffff, #cccccc);
+  background-image: -moz-linear-gradient(top, #ffffff, #cccccc);
+  background-image: -ms-linear-gradient(top, #ffffff, #cccccc);
+  background-image: -o-linear-gradient(top, #ffffff, #cccccc);
+  background-image: linear-gradient(top, #ffffff, #cccccc);
+}
+.current-filters-list li:active, .current-filters-list li.selected {
+  border: 1px #555 solid;
+  background-color: #aaaaaa;
+  background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#aaaaaa), to(#999999));
+  background-image: -webkit-linear-gradient(top, #aaaaaa, #999999);
+  background-image: -moz-linear-gradient(top, #aaaaaa, #999999);
+  background-image: -ms-linear-gradient(top, #aaaaaa, #999999);
+  background-image: -o-linear-gradient(top, #aaaaaa, #999999);
+  background-image: linear-gradient(top, #aaaaaa, #999999);
 }
 .current-filters-list li .remove-filter {
   color: #000;
@@ -327,9 +349,29 @@ ul li {
   box-shadow: 2em 0.5em 2em #222222;
   width: 20%;
 }
-.scene-info form {
-  margin: auto;
+.scene-info .section-title {
+  margin-top: 6%;
+  border-bottom: 1px #ccc solid;
+}
+.scene-info .section-part-title {
+  font-weight: bold;
+  margin-top: 3%;
+}
+.scene-info .subscene {
+  margin: 10% auto 3% auto;
   width: 90%;
+}
+.scene-info .subscene form {
+  display: inline-block;
+  width: 100%;
+  zoom: 1;
+}
+.scene-info .subscene form:before, .scene-info .subscene form:after {
+  content: "";
+  display: table;
+}
+.scene-info .subscene form:after {
+  clear: both;
 }
 .title-filter {
   display: inline-block;
@@ -370,14 +412,14 @@ ul li {
   color: #000;
   text-decoration: non;
 }
-.site-nav ul li a.selected {
-  background-color: #999;
-}
 .site-nav ul li a:hover {
   text-shadow: 2px 2px 1px #666666;
 }
 .site-nav ul li a:active {
   text-shadow: 1px 1px 1px #000000;
+}
+.site-nav ul li .selected {
+  background-color: #999;
 }
 /*************************/
 /****** STATS STYLE ******/
@@ -512,7 +554,6 @@ ul li {
   display: inline-block;
   width: 100%;
   zoom: 1;
-  border-bottom: 1px solid black;
 }
 #chatterBoxTile header:before, #chatterBoxTile header:after {
   content: "";
@@ -524,6 +565,9 @@ ul li {
 #chatterBoxTile .panel-title {
   border-bottom: none;
   float: left;
+}
+#chatterBoxTile .chatter-category-tabs {
+  overflow: visible;
 }
 #chatterBoxTile .category-tabs {
   display: inline-block;
@@ -555,13 +599,13 @@ ul li {
   -webkit-box-shadow: 0.1em 0.1em 0.1em #444444;
   box-shadow: 0.1em 0.1em 0.1em #444444;
 }
-#chatterBoxTile .category-tabs li a .selected {
+#chatterBoxTile .category-tabs li a.selected {
   -moz-box-shadow: 0 0 0.2em #ffffff;
   -webkit-box-shadow: 0 0 0.2em #ffffff;
   box-shadow: 0 0 0.2em #ffffff;
 }
 #chatterBoxTile .category-tabs-content .block-list li {
-  margin: 1% 0;
+  margin: 1%;
   padding: 1%;
 }
 #chatterBoxTile .category-tabs-content .block-list li header {
@@ -579,13 +623,9 @@ ul li {
 #chatterBoxTile .category-tabs-content .block-list li header.post-head {
   border-bottom: none;
   cursor: pointer;
-  -moz-transition: background-color 0.3s ease 0.2s;
-  -webkit-transition: background-color 0.3s ease 0.2s;
-  -o-transition: background-color 0.3s ease 0.2s;
-  transition: background-color 0.3s ease 0.2s;
 }
 #chatterBoxTile .category-tabs-content .block-list li header.post-head:hover {
-  background-color: blue;
+  background-color: #fff;
 }
 #chatterBoxTile .category-tabs-content .block-list li header .feed-item-title {
   margin: 0;
@@ -620,9 +660,13 @@ ul li {
   -moz-box-shadow: 0 0.3em 0.3em #ffffff;
   -webkit-box-shadow: 0 0.3em 0.3em #ffffff;
   box-shadow: 0 0.3em 0.3em #ffffff;
+  padding: 1% 0;
 }
 #chatterBoxTile .category-tabs-content .block-list li .comments li {
   margin: 1%;
+  -moz-box-shadow: 1px 1px 1px #ffffff;
+  -webkit-box-shadow: 1px 1px 1px #ffffff;
+  box-shadow: 1px 1px 1px #ffffff;
 }
 #chatterBoxTile .category-tabs-content .block-list li .comments li header {
   display: inline-block;

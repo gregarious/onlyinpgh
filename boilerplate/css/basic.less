@@ -199,8 +199,9 @@ ul {
 	overflow: hidden;
 
 	img {
-		width: 100%;
+		width: 92%;
 		height: auto;
+		border: 1px #999 solid;
 	}
 }
 
@@ -286,6 +287,18 @@ ul {
 		padding: 2px;
 		margin: 3px;
 		.gradient(#ccc, #fff);
+		cursor: pointer;
+		border: 1px #999 solid;
+
+		&:hover {
+			.gradient(#fff, #ccc);
+		}
+		
+		&:active, &.selected {
+			border: 1px #555 solid;			
+			.gradient(#aaa, #999);
+		}
+
 		.remove-filter {
 			color: #000;
 			padding: 2px;
@@ -361,10 +374,25 @@ ul {
 	.box-shadow(2em, 0.5em, 2em, #222);
 	width: 20%;
 
-	form {
-		margin: auto;
-		width: 90%;
+	.section-title {
+		margin-top: 6%;
+		border-bottom: 1px #ccc solid;
 	}
+
+	.section-part-title {
+		font-weight: bold;
+		margin-top: 3%;
+	}
+
+	.subscene {
+		margin: 10% auto 3% auto;
+		width: 90%;
+
+		form {
+			.row();
+		}
+	}
+
 }
 
 .title-filter {
@@ -399,10 +427,6 @@ ul {
 				.text-shadow(3px, 3px, 2px, #999);
 				color: #000;
 				text-decoration: non;
-				
-				&.selected {
-					background-color: #999;
-				}
 
 				&:hover {
 					.text-shadow(2px, 2px, 1px, #666);
@@ -411,6 +435,10 @@ ul {
 				&:active {
 					.text-shadow(1px, 1px, 1px, #000);
 				}
+			}
+
+			.selected {
+				background-color: #999;
 			}			
 		}
 	}
@@ -579,13 +607,16 @@ ul {
 
 	header {
 		.row();
-		border-bottom: 1px solid black;
 		
 	}
 
 	.panel-title {
 		border-bottom: none;
 		float: left;
+	}
+
+	.chatter-category-tabs {
+		overflow: visible;
 	}
 
 	.category-tabs {
@@ -603,11 +634,11 @@ ul {
 		
 				&:hover {
 					.box-shadow(0.1em, 0.1em, 0.1em, #444);
-				}
-
-				.selected {
-					.box-shadow(0, 0, 0.2em, #fff);
 				}	
+
+				&.selected {
+					.box-shadow(0, 0, 0.2em, #fff);
+				}
 			}
 			
 		}
@@ -617,7 +648,7 @@ ul {
 
 		li {
 
-			margin: 1% 0;
+			margin: 1%;
 			padding: 1%;
 			
 			header {
@@ -626,13 +657,9 @@ ul {
 				&.post-head {
 					border-bottom: none;
 					cursor: pointer;
-					-moz-transition: background-color 0.3s ease 0.2s;
-					-webkit-transition: background-color 0.3s ease 0.2s;
-					-o-transition: background-color 0.3s ease 0.2s;
-					transition: background-color 0.3s ease 0.2s;
 
 					&:hover {
-						background-color: blue;
+						background-color: #fff;
 					}	
 				}
 
@@ -664,10 +691,13 @@ ul {
 				
 				background-image: url('/static/img/sand.jpg');
 				.box-shadow(0, 0.3em, 0.3em, #fff);
-				
+				padding: 1% 0;
+
 				li {
 					margin: 1%;
-					
+
+					.box-shadow(1px, 1px, 1px, #fff);
+
 					header {
 						.row();
 						margin-bottom: 1%;

@@ -7,7 +7,7 @@ template to be included inside the #places div
 		<section>
 			<hgroup>
 		    	<h4 class="feed-item-title">{{ a.title }}</h4>
-		    	<h5><a href="{{ a.source_url }}">{{ a.source_name }}</a></h5>
+		    	<h5>via <a href="{{ a.source_url }}" target="_blank">{{ a.source_name }}</a></h5>
 		    </hgroup>
 		    
 		    <!--{% if not forloop.last %}
