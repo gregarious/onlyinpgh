@@ -12,22 +12,21 @@ body:before, body:after {
 body:after {
   clear: both;
 }
-* {
-  margin: 0;
-  padding: 0;
-}
 html, body {
   height: 100%;
   font: 15px 'NobileRegular', 'Verdana', sans-serif;
   line-height: 1.2;
   background-image: url('/static/img/stormy-sky.jpg');
+  overflow: hidden;
 }
-h1 a {
-  font: 1.5em 'ChunkFiveRegular', sans-serif;
+h1 {
+  font: 5em 'Rabiohead', sans-serif;
+  text-align: center;
+  line-height: 1;
   letter-spacing: 1px;
   text-decoration: none;
   color: #000;
-  text-shadow: 2px 2px 0px #ffffff;
+  text-shadow: 2px 2px 0 #ffffff;
 }
 h3 {
   font: 1.1em 'UniversalfruitcakeRegular', 'Verdana', sans-serif;
@@ -52,11 +51,11 @@ ul li {
   clear: both;
 }
 #wrapper {
-  width: 80%;
+  width: 78%;
   height: 100%;
   position: absolute;
   top: 3%;
-  left: 20%;
+  left: 22%;
   overflow: hidden;
 }
 #mask {
@@ -83,6 +82,7 @@ ul li {
   background-image: url('/static/img/dark-yellow-diagonal.png');
   padding: 0.7% 0.7%;
   margin-bottom: 1%;
+  -webkit-border-radius: 0.2em;
   -moz-border-radius: 0.2em;
   border-radius: 0.2em;
   -moz-box-shadow: 3px 3px 1px #000000;
@@ -90,7 +90,7 @@ ul li {
   box-shadow: 3px 3px 1px #000000;
 }
 .item-content-container {
-  opacity: 0.5;
+  background-image: url('/static/img/sand.jpg');
   height: 90%;
   width: 80%;
   margin: 1.5% auto;
@@ -98,20 +98,12 @@ ul li {
   position: relative;
   z-index: 100;
   overflow: hidden;
+  -webkit-border-radius: 0.5em;
   -moz-border-radius: 0.5em;
   border-radius: 0.5em;
   -moz-box-shadow: 0 0 0.2em #000000;
   -webkit-box-shadow: 0 0 0.2em #000000;
   box-shadow: 0 0 0.2em #000000;
-}
-.item-content-container.top, .item-content-container.middle {
-  top: 10%;
-}
-.item-content-container.middle {
-  top: 5%;
-}
-.item-content-container .bottom {
-  bottom: 10%;
 }
 .item-content-container .panel span {
   position: absolute;
@@ -130,15 +122,13 @@ ul li {
   position: relative;
   z-index: 2;
 }
-.item-content-container article.tile-list {
+.item-content-container .tile-list {
   float: left;
   width: 41.66666666666667%;
-  margin: 0 0%;
 }
-.item-content-container article.tile-map {
+.item-content-container .tile-map {
   float: left;
   width: 54.166666666666664%;
-  margin: 0 0%;
   float: right;
   height: 98%;
   z-index: 1;
@@ -148,17 +138,35 @@ ul li {
   -webkit-box-shadow: 1px 1px 2px #444444;
   box-shadow: 1px 1px 2px #444444;
 }
-.item-content-container article.tile-map .map-content {
+.item-content-container .tile-map .map-content {
   width: 100%;
   height: 100%;
   position: relative;
   z-index: 2;
 }
+.top {
+  top: 10%;
+}
+.middle {
+  top: 5%;
+}
+.left {
+  left: 16%;
+}
+.right {
+  right: 16%;
+}
 .thumb-container {
-  float: left;
-  width: 25%;
-  margin: 0 0%;
   overflow: hidden;
+}
+.thumb-container img {
+  width: 100%;
+  height: auto;
+}
+.descriptor {
+  margin-top: 10%;
+  font-size: 1.3em;
+  font-style: italic;
 }
 .panel-title {
   font-family: 'RabioheadRegular', 'Arial', sans-serif;
@@ -173,7 +181,7 @@ ul li {
 }
 .meta {
   font-size: 0.7em;
-  font-color: #888;
+  color: #888;
 }
 .block-list {
   height: 100%;
@@ -185,24 +193,20 @@ ul li {
   -webkit-box-shadow: 2px 2px 2px #111111;
   box-shadow: 2px 2px 2px #111111;
   background-image: url('/static/img/eggshell.jpg');
+  -webkit-border-radius: 0.2em;
   -moz-border-radius: 0.2em;
   border-radius: 0.2em;
 }
-.block-list.thumbnail-list li {
+.thumbnail-list li {
   float: left;
-  width: 27.166666666666668%;
-  margin: 0 0%;
-  height: 135px;
-  margin: 1%;
+  width: 41.66666666666667%;
+  height: 40%;
+  margin: 2%;
   text-align: center;
   overflow: hidden;
 }
-.block-list.thumbnail-list li .feed-item-title {
+.thumbnail-list li .feed-item-title {
   font-size: 0.8em;
-}
-.block-list.thumbnail-list li img {
-  width: 100px;
-  height: 100px;
 }
 .page-list li {
   zoom: 1;
@@ -220,7 +224,6 @@ ul li {
 .page-list li section {
   float: left;
   width: 70.83333333333334%;
-  margin: 0 0%;
 }
 .page-list li img {
   width: 100px;
@@ -230,6 +233,7 @@ ul li {
 .current-filters-list li {
   float: left;
   font-size: 0.9em;
+  -webkit-border-radius: 5px;
   -moz-border-radius: 5px;
   border-radius: 5px;
   padding: 2px;
@@ -240,6 +244,7 @@ ul li {
   background-image: -moz-linear-gradient(top, #cccccc, #ffffff);
   background-image: -ms-linear-gradient(top, #cccccc, #ffffff);
   background-image: -o-linear-gradient(top, #cccccc, #ffffff);
+  background-image: linear-gradient(top, #cccccc, #ffffff);
 }
 .current-filters-list li .remove-filter {
   color: #000;
@@ -251,96 +256,69 @@ ul li {
   content: "x";
   font-size: 0.8em;
 }
-.site-head {
+.utilities-nav {
   display: inline-block;
   width: 100%;
-  margin: 0 0%;
   zoom: 1;
   height: 3%;
   position: absolute;
   z-index: 800;
-  /*.title-filter {
-		.column(6);
-		float: left;
-		padding: 1%;
-		background-image: url('/static/img/sand.jpg');
-		.box-shadow(0, 2px, 3px, #000);
-		.rounded(0, 0, 0.2em, 0.2em);
-		.scene-name {
-			float: left;
-			margin-right: 1%;
-		}
-	}*/
-
-}
-.site-head:before, .site-head:after {
-  content: "";
-  display: table;
-}
-.site-head:after {
-  clear: both;
-}
-.site-head .utilities-nav {
   background-image: url('/static/img/limestone.jpg');
   -moz-box-shadow: 0 0.1em 0.1em #000000;
   -webkit-box-shadow: 0 0.1em 0.1em #000000;
   box-shadow: 0 0.1em 0.1em #000000;
-  display: inline-block;
-  width: 100%;
-  margin: 0 0%;
-  zoom: 1;
   color: #fff;
   text-shadow: 0.02em 0.02em 0.05em #000000;
 }
-.site-head .utilities-nav:before, .site-head .utilities-nav:after {
+.utilities-nav:before, .utilities-nav:after {
   content: "";
   display: table;
 }
-.site-head .utilities-nav:after {
+.utilities-nav:after {
   clear: both;
 }
-.site-head .utilities-nav .user-nav {
+.utilities-nav .user-nav {
   float: left;
   width: 50%;
-  margin: 0 0%;
-  float: left;
   margin-right: 1em;
 }
-.site-head .utilities-nav .user-nav li {
+.utilities-nav .user-nav li {
   float: right;
   padding: 2%;
 }
-.site-head .utilities-nav .scenes-nav-utility {
+.utilities-nav .scenes-nav-utility {
   margin-left: 1%;
   margin-top: 0.5%;
-  float: left;
+  float: right;
 }
-.site-head .utilities-nav .scenes-nav-utility .dropdown-title {
-  float: left;
+.utilities-nav .scenes-nav-utility .dropdown-title {
   cursor: pointer;
 }
-.site-head .utilities-nav .scenes-nav-utility .dropdown-title:hover {
+.utilities-nav .scenes-nav-utility .dropdown-title:hover {
   background-color: #000;
+  -webkit-border-radius: 1em;
   -moz-border-radius: 1em;
   border-radius: 1em;
 }
-.site-head .scenes-nav {
+.scenes-nav {
   display: none;
   position: absolute;
-  z-index: 500;
-  top: 2em;
+  z-index: 1000;
+  top: 3%;
+  right: 0;
   background-image: url('/static/img/limestone.jpg');
   padding: 1%;
   -moz-box-shadow: 2px 2px 2px #000000;
   -webkit-box-shadow: 2px 2px 2px #000000;
   box-shadow: 2px 2px 2px #000000;
 }
-.site-head .scenes-nav li {
+.scenes-nav li {
   text-shadow: 1px 1px 1px #ffffff;
 }
-.sidebar {
+.scene-info {
   position: absolute;
   top: 3%;
+  padding: 1%;
   z-index: 799;
   height: 97%;
   background-image: url('/static/img/eggshell.jpg');
@@ -349,8 +327,25 @@ ul li {
   box-shadow: 2em 0.5em 2em #222222;
   width: 20%;
 }
+.scene-info form {
+  margin: auto;
+  width: 90%;
+}
+.title-filter {
+  display: inline-block;
+  width: 100%;
+  zoom: 1;
+}
+.title-filter:before, .title-filter:after {
+  content: "";
+  display: table;
+}
+.title-filter:after {
+  clear: both;
+}
 .site-nav {
-  margin-top: 2%;
+  margin: auto;
+  width: 90%;
 }
 .site-nav ul {
   text-align: center;
@@ -387,91 +382,95 @@ ul li {
 /*************************/
 /****** STATS STYLE ******/
 /*************************/
-#statsTile .item-content-container {
-  position: relative;
-  background-image: url('/static/img/dark-yellow-diagonal.png');
-}
 /*******************************/
 /****** AT A GLANCE STYLE ******/
 /*******************************/
 #atAGlanceTile .item-content-container {
   background-image: url('/static/img/limestone.jpg');
 }
-.scene-events {
+.scene-sammich-events {
   float: left;
   width: 33.33333333333333%;
-  margin: 0 0%;
 }
-.scene-events .events-feed {
-  height: 95%;
-}
-.scene-events .events-feed li {
+.scene-sammich-events .events-feed li, .scene-sammich-events .sammich-board li {
   margin: 3% 0;
   padding: 2%;
   zoom: 1;
 }
-.scene-events .events-feed li:before, .scene-events .events-feed li:after {
+.scene-sammich-events .events-feed li:before,
+.scene-sammich-events .sammich-board li:before,
+.scene-sammich-events .events-feed li:after,
+.scene-sammich-events .sammich-board li:after {
   content: "";
   display: table;
 }
-.scene-events .events-feed li:after {
+.scene-sammich-events .events-feed li:after, .scene-sammich-events .sammich-board li:after {
   clear: both;
 }
-.scene-events .events-feed li section {
-  float: left;
-  width: 75%;
-  margin: 0 0%;
-}
-.scene-events .events-feed li img {
+.scene-sammich-events .events-feed li img, .scene-sammich-events .sammich-board li img {
   height: 70px;
   width: 70px;
+}
+.scene-sammich-events .sammich-board {
+  height: 21%;
+}
+.scene-sammich-events .sammich-board aside {
+  float: left;
+  width: 25%;
+}
+.scene-sammich-events .sammich-board aside .points {
+  font-size: 2.2em;
+  font-family: 'RabioheadRegular';
+  text-shadow: 2px 2px 0 #f2c432;
+}
+.scene-sammich-events .sammich-board section {
+  float: left;
+  width: 75%;
+}
+.scene-sammich-events .sammich-board .feed-item-title {
+  font-size: 0.9em;
+}
+.scene-sammich-events .events-feed {
+  height: 79%;
+}
+.scene-sammich-events .events-feed section {
+  float: left;
+  width: 70.83333333333334%;
 }
 .scene-board-places {
   float: left;
   width: 41.66666666666667%;
-  margin: 0 0%;
   height: 100%;
-}
-.scene-board-places .sammich-board {
-  height: 25%;
-}
-.scene-board-places .sammich-board ul {
-  width: 100%;
-  height: 100%;
-}
-.scene-board-places .sammich-board ul li {
-  float: left;
-  float: left;
-  width: 41.66666666666667%;
-  margin: 0 0%;
-  margin: 2%;
-  height: 57%;
-  overflow: hidden;
-}
-.scene-board-places .sammich-board ul li aside {
-  float: left;
-  width: 29.166666666666668%;
-  margin: 0 0%;
-}
-.scene-board-places .sammich-board ul li aside .points {
-  font-size: 2.2em;
-  font-family: 'RabioheadRegular';
-  text-shadow: 2px 2px 0px #f2c432;
-}
-.scene-board-places .sammich-board ul li .feed-item-title {
-  font-size: 0.9em;
 }
 .scene-board-places .establishments {
-  height: 60%;
+  height: 50%;
 }
-.scene-board-places .establishments .page-list li img {
-  height: 50px;
-  width: 50px;
+.scene-board-places .establishments .thumbnail-list li .thumb-container {
+  float: left;
+  width: 100%;
+  height: 70%;
+  margin: 1% 0;
+}
+.scene-board-places .establishments .thumbnail-list li section {
+  display: inline-block;
+  width: 100%;
+  zoom: 1;
+  margin-top: 2%;
+  height: 28%;
+}
+.scene-board-places .establishments .thumbnail-list li section:before, .scene-board-places .establishments .thumbnail-list li section:after {
+  content: "";
+  display: table;
+}
+.scene-board-places .establishments .thumbnail-list li section:after {
+  clear: both;
+}
+.scene-board-places .news-item {
+  height: 40%;
 }
 .scene-updates {
   float: left;
   width: 25%;
-  margin: 0 0%;
   height: 100%;
   overflow: auto;
 }
@@ -482,40 +481,29 @@ ul li {
   width: 20px;
   height: 20px;
 }
-.scene-updates .news-item {
-  height: 30%;
+.scene-updates .featured {
+  height: 47%;
 }
 /**************************/
 /****** EVENTS STYLE ******/
 /**************************/
-#eventsTile .item-content-container {
-  left: 16%;
-  background-image: url('/static/img/sand.jpg');
-}
 /**************************/
 /****** PLACES STYLE ******/
 /**************************/
-#placesTile .item-content-container {
-  background-image: url('/static/img/sand.jpg');
-}
 /*******************************/
 /****** CHATTER BOX STYLE ******/
 /*******************************/
 #chatterBoxTile .item-content-container {
-  right: 16%;
-  background-image: url('/static/img/sand.jpg');
   overflow: auto;
 }
 #chatterBoxTile .chatter-post-form {
   float: left;
   width: 41.66666666666667%;
-  margin: 0 0%;
   margin: 2% 0 0 2%;
 }
 #chatterBoxTile form {
   float: left;
   width: 66.66666666666666%;
-  margin: 0 0%;
 }
 #chatterBoxTile form input[type=text] {
   width: 90%;
@@ -523,7 +511,6 @@ ul li {
 #chatterBoxTile header {
   display: inline-block;
   width: 100%;
-  margin: 0 0%;
   zoom: 1;
   border-bottom: 1px solid black;
 }
@@ -541,7 +528,6 @@ ul li {
 #chatterBoxTile .category-tabs {
   display: inline-block;
   width: 100%;
-  margin: 0 0%;
   zoom: 1;
 }
 #chatterBoxTile .category-tabs:before, #chatterBoxTile .category-tabs:after {
@@ -557,6 +543,7 @@ ul li {
   margin: 0 1%;
   padding: 1%;
   background-image: url('/static/img/limestone.jpg');
+  -webkit-border-radius: 0.5em;
   -moz-border-radius: 0.5em;
   border-radius: 0.5em;
   -moz-box-shadow: 0.1em 0.1em 0.2em #000000;
@@ -568,7 +555,7 @@ ul li {
   -webkit-box-shadow: 0.1em 0.1em 0.1em #444444;
   box-shadow: 0.1em 0.1em 0.1em #444444;
 }
-#chatterBoxTile .category-tabs li a.selected {
+#chatterBoxTile .category-tabs li a .selected {
   -moz-box-shadow: 0 0 0.2em #ffffff;
   -webkit-box-shadow: 0 0 0.2em #ffffff;
   box-shadow: 0 0 0.2em #ffffff;
@@ -580,7 +567,6 @@ ul li {
 #chatterBoxTile .category-tabs-content .block-list li header {
   display: inline-block;
   width: 100%;
-  margin: 0 0%;
   zoom: 1;
 }
 #chatterBoxTile .category-tabs-content .block-list li header:before, #chatterBoxTile .category-tabs-content .block-list li header:after {
@@ -616,7 +602,6 @@ ul li {
 #chatterBoxTile .category-tabs-content .block-list li .post-body {
   display: inline-block;
   width: 100%;
-  margin: 0 0%;
   zoom: 1;
   height: auto;
 }
@@ -630,17 +615,18 @@ ul li {
 #chatterBoxTile .category-tabs-content .block-list li .post-body .post-content {
   margin: 3%;
 }
-#chatterBoxTile .category-tabs-content .block-list li .comments li {
-  margin: 1%;
+#chatterBoxTile .category-tabs-content .block-list li .comments {
   background-image: url('/static/img/sand.jpg');
   -moz-box-shadow: 0 0.3em 0.3em #ffffff;
   -webkit-box-shadow: 0 0.3em 0.3em #ffffff;
   box-shadow: 0 0.3em 0.3em #ffffff;
 }
+#chatterBoxTile .category-tabs-content .block-list li .comments li {
+  margin: 1%;
+}
 #chatterBoxTile .category-tabs-content .block-list li .comments li header {
   display: inline-block;
   width: 100%;
-  margin: 0 0%;
   zoom: 1;
   margin-bottom: 1%;
 }
@@ -654,7 +640,6 @@ ul li {
 .voting {
   float: left;
   width: 4.166666666666666%;
-  margin: 0 0%;
 }
 .voting div {
   height: 15px;

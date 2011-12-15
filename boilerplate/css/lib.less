@@ -28,17 +28,17 @@ body {
 .row(@columns:@columns) {
 	display: inline-block;
 	width: @total-width*((@gutter-width + @_gridsystem-width)/@_gridsystem-width);
-	margin: 0 @total-width*(((@gutter-width*.5)/@_gridsystem-width)*-1);
+	//margin: 0 @total-width*(((@gutter-width*.5)/@_gridsystem-width)*-1);
 	.clearfix;
 }
 .column(@x,@columns:@columns) {
 	//display: inline;
 	float: left;
 	width: @total-width*((((@gutter-width+@column-width)*@x)-@gutter-width) / @_gridsystem-width);
-	margin: 0 @total-width*((@gutter-width*.5)/@_gridsystem-width);
+	//margin: 0 @total-width*((@gutter-width*.5)/@_gridsystem-width);
 }
 .offset(@offset:1) {
-	margin-left: (@gutter-width+@column-width)*@offset + @total-width*((@gutter-width*.5)/@_gridsystem-width);
+	//margin-left: (@gutter-width+@column-width)*@offset + @total-width*((@gutter-width*.5)/@_gridsystem-width);
 }
 
 // The micro clearfix http://nicolasgallagher.com/micro-clearfix-hack/
@@ -72,14 +72,17 @@ body {
 	background-image:    -moz-linear-gradient(top, @color1, @color2);
 	background-image:     -ms-linear-gradient(top, @color1, @color2);
 	background-image:      -o-linear-gradient(top, @color1, @color2);
+	background-image:         linear-gradient(top, @color1, @color2);
 }
 
 .rounded(@tl, @tr, @br, @bl) {
+	-webkit-border-radius: @tl @tr @br @bl;
 	-moz-border-radius: @tl @tr @br @bl;
 	border-radius: @tl @tr @br @bl;	
 }
 
 .rounded-all(@radius) {
+	-webkit-border-radius: @radius;
 	-moz-border-radius: @radius;
 	border-radius: @radius;		
 }

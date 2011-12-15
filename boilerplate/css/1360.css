@@ -18,7 +18,6 @@ body {
 article {
   display: inline-block;
   width: 100%;
-  margin: 0 0%;
   zoom: 1;
 }
 article:before, article:after {

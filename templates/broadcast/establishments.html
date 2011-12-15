@@ -2,17 +2,17 @@
 template to be included inside the #places div
 {% endcomment %}
 
-{% for e in establishments %}
+{% for e in establishments|slice:":4" %}
 	<li>
+
 	    <section>
 	    	<h4 class="feed-item-title">{{ e.name }}</h4>
 			<p class="meta">{{ e.location.address }}</p>	
 		</section>
 
-		<div class="thumb-container fourcol last">
-			<img class="thumbnail" src="{{ e.owner.identity.avatar }}" />
+		<div class="thumb-container">
+			<img src="{{ e.owner.identity.avatar }}" />
 		</div>
-
 		<!--{% if not forloop.last %}
 			<hr>
 		{% endif %}-->

@@ -3,7 +3,7 @@ template to be included inside the #eventsFeed ul
 {% endcomment %}
 
 
-{% for e in events %}
+{% for e in events|slice:":4" %}
 <li>
 	<section>
     	<h4 class="feed-item-title event-title">{{ e.name }}</h4>
@@ -12,7 +12,7 @@ template to be included inside the #eventsFeed ul
         <a href="#eventsTile" class="eventsLink panel">More info...</a>
     </section>
     <div class="thumb-container">
-        <img class="thumbnail" class="" src="{{ e.image_url }}" />
+        <img src="{{ e.image_url }}" />
     </div>
 </li>
     <!--{% if not forloop.last %}

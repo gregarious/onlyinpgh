@@ -28,7 +28,7 @@ $(document).ready(function() {
 
 		var target = $(event.target);
 
-		// Will need to be done more efficiently, but works for now
+		// Will need to be done more efficiently with left/right classes
 		if( target.is('.eventsLink') || target.is('.eventsLink span') ) {
 			$('#wrapper').scrollTo($(this).attr('href'), 1100, { easing: 'easeInOutExpo', offset:{left:$('.item').width()/6} });
 		} else if( target.is('.chatterBoxLink') || target.is('.chatterBoxLink span') ) {

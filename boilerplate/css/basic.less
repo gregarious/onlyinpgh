@@ -22,24 +22,22 @@
 
 // element styles
 
-* {
-	margin: 0;
-	padding: 0;
-}
-
 html, body {
 	height: 100%;
 	font: 15px 'NobileRegular', 'Verdana', sans-serif;
 	line-height: 1.2;
 	background-image: url('/static/img/stormy-sky.jpg');
+	overflow: hidden;
 }
 
-h1 a {
-	font: 1.5em 'ChunkFiveRegular', sans-serif;
+h1 {
+	font: 5em 'Rabiohead', sans-serif;
+	text-align: center;
+	line-height: 1;
 	letter-spacing: 1px;
 	text-decoration: none;
 	color: #000;
-	.text-shadow(2px, 2px, 0px, #fff);
+	.text-shadow(2px, 2px, 0, #fff);
 }
 
 h3 {
@@ -75,11 +73,11 @@ ul {
 }
 
 #wrapper {
-	width: 80%;
+	width: 78%;
 	height: 100%;
 	position: absolute;
 	top: 3%;
-	left: 20%;
+	left: 22%;
 	overflow: hidden;
 }
 
@@ -115,11 +113,9 @@ ul {
 	}	
 }	
 
-
-
-
 .item-content-container {
-	opacity: 0.5;
+	//opacity: 0.5; - to be used eventually in place of span:hover
+	background-image: url('/static/img/sand.jpg');
 	height: 90%;
 	width: 80%;
 	margin: 1.5% auto;
@@ -129,18 +125,6 @@ ul {
 	overflow: hidden;
 	.rounded-all(0.5em);
 	.box-shadow(0, 0, 0.2em, #000);
-
-	&.top, &.middle {
-		top: 10%;
-	}
-
-	&.middle {
-		top: 5%;
-	}
-	 
-	.bottom {
-		bottom: 10%;
-	}
 
 	// http://stackoverflow.com/questions/796087/make-a-div-into-a-link
 	.panel span {
@@ -160,41 +144,75 @@ ul {
 		height: 100%;
 		overflow: hidden;
 
-		// Hack - need to remove the class with jQuery
+		// Hack - need to remove the a/span class with jQuery
 		position: relative;
 		z-index: 2;
-
-		&.tile-list {
-			.column(5);
-		}
-
-		&.tile-map {
-			.column(6.5);
-			float: right;
-		    height: 98%;
-		    z-index: 1;
-		    padding: 0.5%;
-		    background-color: #fff;
-		    .box-shadow(1px, 1px, 2px, #444);
-
-		    .map-content {
-			    width: 100%;
-			    height: 100%;
-			    position: relative;
-			    z-index: 2;
-			  }
-		}
 	}
+
+	.tile-list {
+		.column(5);
+	}
+
+	.tile-map {
+		.column(6.5);
+		float: right;
+	    height: 98%;
+	    z-index: 1;
+	    padding: 0.5%;
+	    background-color: #fff;
+	    .box-shadow(1px, 1px, 2px, #444);
+
+	    .map-content {
+		    width: 100%;
+		    height: 100%;
+		    position: relative;
+		    z-index: 2;
+		  }
+	}
+
 }
 
+// specific tile positioning 
+
+.top {
+	top: 10%;
+}
+
+.middle {
+	top: 5%;
+}
+ 
+.bottom {
+//	bottom: 10%;
+}
+
+.left {
+	left: 16%;
+}
+
+.right {
+	right: 16%;	
+}
+
+
 .thumb-container {
-	.column(3);
 	overflow: hidden;
+
+	img {
+		width: 100%;
+		height: auto;
+	}
 }
 
 
 
 // style utilities
+
+.descriptor {
+	margin-top: 10%;	
+	font-size: 1.3em;
+	font-style: italic;
+}
 
 .panel-title {
 	font-family: 'RabioheadRegular', 'Arial', sans-serif;
@@ -211,7 +229,7 @@ ul {
 
 .meta {
 	font-size: 0.7em;
-	font-color: #888;
+	color: #888;
 }
 
 .block-list {
@@ -223,26 +241,19 @@ ul {
 		background-image: url('/static/img/eggshell.jpg');
 		.rounded-all(0.2em);
 	}
+}
 
+.thumbnail-list {
 
-	&.thumbnail-list {
-
-		li {
-			// PIXELS!! BAD NEWS
-			.column(3.26);
-			height: 135px;
-			margin: 1%;
-			text-align: center;
-			overflow: hidden;
-			
-			.feed-item-title {
-				font-size: 0.8em;
-			}
-
-			img {
-				width: 100px;
-				height: 100px;
-			}
+	li {
+		.column(5);
+		height: 40%;
+		margin: 2%;
+		text-align: center;
+		overflow: hidden;
+		
+		.feed-item-title {
+			font-size: 0.8em;
 		}
 	}
 }
@@ -289,91 +300,82 @@ ul {
 	}
 }
 
-// header, sidebar, and nav
+// sidebar and utilities nav
 
-.site-head {
+.utilities-nav {
 	.row();
 	height: 3%;
 	position: absolute;
 	z-index: 800;
+	background-image: url('/static/img/limestone.jpg');
+	.box-shadow(0, 0.1em, 0.1em, #000);
+	color: #fff;
+	.text-shadow(0.02em, 0.02em, 0.05em, #000);
 
-	/*.title-filter {
+	.user-nav {
 		.column(6);
-		float: left;
-		padding: 1%;
-		background-image: url('/static/img/sand.jpg');
-		.box-shadow(0, 2px, 3px, #000);
-		.rounded(0, 0, 0.2em, 0.2em);
-		.scene-name {
-			float: left;
-			margin-right: 1%;
-		}
-	}*/
-
-	.utilities-nav {
-		background-image: url('/static/img/limestone.jpg');
-		.box-shadow(0, 0.1em, 0.1em, #000);
-		.row();
-		color: #fff;
-		.text-shadow(0.02em, 0.02em, 0.05em, #000);
-
-		.user-nav {
-			.column(6);
-			float: left;
-			margin-right: 1em;
-			li {
-				float: right;
-				padding: 2%;
-			}
-		}
-
-		.scenes-nav-utility {
-			margin-left: 1%;
-			margin-top: 0.5%;
-			float: left;
-			.dropdown-title {
-				float: left;
-				cursor: pointer;
-			
-				&:hover {
-					background-color: #000;
-					.rounded-all(1em);
-				}
-			}
-		}
-	}
-
-	.scenes-nav {
-		display: none;
-		position: absolute;
-		z-index: 500;
-		top: 2em;
-		background-image: url('/static/img/limestone.jpg');
-		padding: 1%;
-		.box-shadow(2px, 2px, 2px, #000);
+		margin-right: 1em;
 		li {
-			.text-shadow(1px, 1px, 1px, #fff);	
+			float: right;
+			padding: 2%;
 		}
 	}
-	
+
+	.scenes-nav-utility {
+		margin-left: 1%;
+		margin-top: 0.5%;
+		float: right;
+		.dropdown-title {
+			
+			cursor: pointer;
+		
+			&:hover {
+				background-color: #000;
+				.rounded-all(1em);
+			}
+		}
+	}
 }
 
+.scenes-nav {
+	display: none;
+	position: absolute;
+	z-index: 1000;
+	top: 3%;
+	right: 0;
+	background-image: url('/static/img/limestone.jpg');
+	padding: 1%;
+	.box-shadow(2px, 2px, 2px, #000);
+	li {
+		.text-shadow(1px, 1px, 1px, #fff);	
+	}
+}
 
-.sidebar {
+.scene-info {
 	position: absolute;
 	top: 3%;
+	padding: 1%;
 	z-index: 799;
 	height: 97%;
 	background-image: url('/static/img/eggshell.jpg');
 	.box-shadow(2em, 0.5em, 2em, #222);
 	width: 20%;
+
+	form {
+		margin: auto;
+		width: 90%;
+	}
+}
+
+.title-filter {
+	.row();
 }
 
 .site-nav {
-	margin-top: 2%;
+	margin: auto;
+	width: 90%;
 
 	ul {
-		
 		text-align: center;
 		
 		.row {
@@ -419,11 +421,7 @@ ul {
 /*************************/
 
 #statsTile {
-	.item-content-container {
-		position: relative;
-		//top: 16%;
-		background-image: url('/static/img/dark-yellow-diagonal.png');
-	}
+
 }
 
 
@@ -433,24 +431,19 @@ ul {
 
 #atAGlanceTile {
 	.item-content-container {
-		//top: 16%;
 		background-image: url('/static/img/limestone.jpg');
 	}
 }
 
-.scene-events {
+.scene-sammich-events {
 	.column(4);
-	.events-feed {
-		height: 95%;	
+
+	.events-feed, .sammich-board {
 		
 		li {
 			margin: 3% 0;
 			padding: 2%;
 			.clearfix;
-
-			section {
-				.column(9);	
-			}
 
 			img {
 				height: 70px;
@@ -458,6 +451,37 @@ ul {
 			}
 		}
 	}
+
+	.sammich-board {
+		height: 21%;
+
+		aside {
+			.column(3);
+			
+			.points {
+				font-size: 2.2em;
+				font-family: 'RabioheadRegular';
+				.text-shadow(2px, 2px, 0, @yellow);
+			}
+		}
+
+		section {
+			.column(9);
+		}
+
+		.feed-item-title {
+			font-size: 0.9em;
+		}
+	}
+
+	.events-feed {
+		height: 79%;
+
+		section {
+			.column(8.5);
+		}
+	}
+
 	
 }
 
@@ -465,47 +489,30 @@ ul {
 	.column(5);
 	height: 100%;
 
-	.sammich-board {
-		height: 25%;
+	.establishments {
+		height: 50%;
 
-		ul {
-			width: 100%;
-			height: 100%;
+		.thumbnail-list {
+
 			li {
-				float: left;
-				.column(5);
-				margin: 2%;
-				height: 57%;
-				overflow: hidden;
-						
-				aside {
-					.column(3.5);
-					.points {
-						font-size: 2.2em;
-						font-family: 'RabioheadRegular';
-						.text-shadow(2px, 2px, 0px, @yellow);
-					}
+			
+				.thumb-container {
+					.column(12);
+					height: 70%;
+					margin: 1% 0;
 				}
 
-				.feed-item-title {
-					font-size: 0.9em;
+				section {
+					.row();
+					margin-top: 2%;
+					height: 28%;
 				}
-
-			}
-
+			}	
 		}
 	}
 
-	.establishments {
-		height: 60%;
-		.page-list {
-			li {
-				img {
-					height: 50px;
-					width: 50px;
-				}	
-			}	
-		}
+	.news-item {
+		height: 40%;
 	}
 }
 
@@ -513,6 +520,7 @@ ul {
 	.column(3);
 	height: 100%;
 	overflow: auto;
+
 	.chatter-feed {
 		height: 63%;	
 		
@@ -522,8 +530,8 @@ ul {
 		}
 	}
 
-	.news-item {
-		height: 30%;
+	.featured {
+		height: 47%;
 	}
 }
 
@@ -533,10 +541,7 @@ ul {
 /**************************/
 
 #eventsTile {
-	.item-content-container {
-		left: 16%;
-		background-image: url('/static/img/sand.jpg');
-	}
+	
 }
 
 
@@ -546,10 +551,6 @@ ul {
 /**************************/
 
 #placesTile {
-	.item-content-container {
-		//bottom: 16%;
-		background-image: url('/static/img/sand.jpg');
-	}
 
 }
 
@@ -561,8 +562,6 @@ ul {
 #chatterBoxTile {
 
 	.item-content-container {
-		right: 16%;
-		background-image: url('/static/img/sand.jpg');
 		overflow: auto;
 	}
 
@@ -606,7 +605,7 @@ ul {
 					.box-shadow(0.1em, 0.1em, 0.1em, #444);
 				}
 
-				&.selected {
+				.selected {
 					.box-shadow(0, 0, 0.2em, #fff);
 				}	
 			}
@@ -662,6 +661,10 @@ ul {
 			}
 
 			.comments {
+				
+				background-image: url('/static/img/sand.jpg');
+				.box-shadow(0, 0.3em, 0.3em, #fff);
+				
 				li {
 					margin: 1%;
 					
@@ -669,10 +672,7 @@ ul {
 						.row();
 						margin-bottom: 1%;
 					}
-					background-image: url('/static/img/sand.jpg');
-					//.gradient(#f2f2f2, #fff);
-					.box-shadow(0, 0.3em, 0.3em, #fff);
-					//border: 2px solid #ccc;	
+					
 				}
 			}
 		}

@@ -25,7 +25,6 @@ body:after {
 .item {
   display: inline-block;
   width: 1153.5714285714284px;
-  margin: 0 -6.785714285714286px;
   zoom: 1;
   padding: 0.2%;
   height: 80%;
@@ -50,6 +49,7 @@ body:after {
   background-color: green;
   padding: 0.7% 0.7%;
   margin-bottom: 1%;
+  -webkit-border-radius: 0.2em;
   -moz-border-radius: 0.2em;
   border-radius: 0.2em;
   -moz-box-shadow: 3px 3px 1px #000000;
@@ -63,7 +63,6 @@ body:after {
 .scene-events, .scene-places, .scene-updates {
   display: inline-block;
   width: 1153.5714285714284px;
-  margin: 0 -6.785714285714286px;
   zoom: 1;
   margin-bottom: 1em;
 }

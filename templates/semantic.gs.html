@@ -24,117 +24,125 @@
 
 <body>
 
-<header class="site-head">
-	
-	<nav class="utilities-nav">
+<nav class="utilities-nav">
 
-		<section class="scenes-nav-utility">
-			<span class="dropdown-title" id="scenesMenu">More Scenes &darr;</span>
-			<span>&nbsp;&nbsp;&nbsp;+ Add Oakland to my scenes</span>
-		</section>
+	<ul class="user-nav">
+		<li>Settings</li>
+		<li>Single Yoi</li>
+		<li>60 • 20</li>
+		<li>laras126</li>
+	</ul>
 
-		<ul class="user-nav">
-			<li>Settings</li>
-			<li>Single Yoi</li>
-			<li>60 • 20</li>
-			<li>laras126</li>
-		</ul>
-	
-	</nav>
+	<section class="scenes-nav-utility">		
+		<span>&nbsp;&nbsp;&nbsp;+ Add Oakland to my scenes</span>
+		<span class="dropdown-title" id="scenesMenu">More Scenes &darr;</span>
+	</section>
 
-	<nav class="scenes-nav"> <!-- dropdown -->
-		<ul>
-			<li>Pittsburgh</li>
-			<li>Oakland</li>
-			<li>Euentrenpraneurship</li>
-			<li>Art</li>
-			<li>Music</li>
-			<li>Country Music</li>
-		</ul>
-	</nav>
+</nav>
 
-	<!--<section class="title-filter">
-		<h1 class="scene-name"><a href="#atAGlanceTile" class="panel">Oakland Scene</a></h1>
+<nav class="scenes-nav"> <!-- dropdown -->
+	<ul>
+		<li>Pittsburgh</li>
+		<li>Oakland</li>
+		<li>Euentrenpraneurship</li>
+		<li>Art</li>
+		<li>Music</li>
+		<li>Country Music</li>
+	</ul>
+</nav>
 
-		<!-- the result of the search will be rendered inside this div -->
-		<!--<ul id="current-filters" class="current-filters-list">
-			<!-- filters inserted here -->
-		<!--</ul>
+<div class="scene-info">
+	<header class="title-filter">
+		<p class="descriptor">Welcome to the...</p>
+		<h1>Oakland Scene</h1>
 
 		<form>
+			<h3 class="section-title">Subscene it:</h3>
 			<input type="text" id="search-box" placeholder="Filter this scene..." />
 			<input type="button" id="add-filter" value="Add Filter" />
 		</form>
 
-	</section>-->
+		<ul id="current-filters" class="current-filters-list">
+			<!-- current filters rendered here -->
+		</ul>
+	</header>
 
-</header> <!-- .site-head -->
-
-<div class="sidebar">
 	<nav class="site-nav">
-	<ul>
-		<li>
-			<ul>
-				<li></li>
-				<li class="active middle">
-					<a href="#eventsTile" class="eventsLink panel">&larr; Events</a>
-				</li>
-				<li></li>
-			</ul>	
-		</li>
+		<h3 class="section-title">Site Map:</h3>
+		<ul>
+			<li>
+				<ul>
+					<li></li>
+					<li class="active middle">
+						<a href="#eventsTile" class="eventsLink panel">&larr; Events</a>
+					</li>
+					<li></li>
+				</ul>	
+			</li>
 
-		<li class="row">
-			<ul>
-				<li class="stats active">
-					<a href="#statsTile" class="statsLink panel">&uarr;<br />Stats</a>
-				</li>	
-				<li class="statsLink middle">
-					<a href="#atAGlanceTile" class="atAGlanceLink panel">Home</a>
-				</li>
-				<li class="placesLink active">
-					<a href="#placesTile" class="placesLink panel">Places<br />&darr;</a>
-				</li>
-			</ul>
-		</li>
+			<li class="row">
+				<ul>
+					<li class="stats active">
+						<a href="#statsTile" class="statsLink panel">&uarr;<br />Stats</a>
+					</li>	
+					<li class="statsLink middle">
+						<a href="#atAGlanceTile" class="atAGlanceLink panel">Home</a>
+					</li>
+					<li class="placesLink active">
+						<a href="#placesTile" class="placesLink panel">Places<br />&darr;</a>
+					</li>
+				</ul>
+			</li>
 
-		<li class="row">
-			<ul>
-				<li></li>
-				<li class="chatterbox active middle"><a href="#chatterBoxTile" class="chatterBoxLink panel">Chatter &rarr;</a></li>
-				<li></li>
-			</ul>
-		</li>
-	</ul>
-</nav>
-</div>
+			<li class="row">
+				<ul>
+					<li></li>
+					<li class="chatterbox active middle"><a href="#chatterBoxTile" class="chatterBoxLink panel">Chatter &rarr;</a></li>
+					<li></li>
+				</ul>
+			</li>
+		</ul>
+	</nav>
+</div> <!-- .scene-info -->
 
 
 <div id="wrapper">
 	<div id="mask">
 
 	<!-- First Row -->
-	
-		<div class="item"></div> <!-- top left -->
-		
+			
+		<div id="sammichTile" class="item"> <!-- top left -->
+			<div class="item-content-container top left">
+				<a class="panel sammichLink" href="#sammichTile"><span></span></a>
+				<h2 class="panel-title">Sammich Board</h2>
+			</div>
+		</div> <!-- #sammichTile -->
+
 		<div id="statsTile" class="item"> <!-- top middle -->
 			<div class="item-content-container top">
+				<a class="panel statsLink" href="#statsTile"><span></span></a>
 				<h2 class="panel-title">Stats</h2>
 			</div>
 		</div> <!-- #statsTile -->
 
 
-		<div class="item"></div> <!-- top right -->
+		<div id="opportunitiesTile" class="item"> <!-- top right -->
+			<div class="item-content-container top right">
+				<a class="panel opportunitiesLink" href="#opportunitiesTile"><span></span></a>
+				<h2 class="panel-title">Opportunities</h2>
+			</div>
+		</div> <!-- #opportunitiesTile -->
+
 		<div class="clear"></div>
 
 	
 	<!-- Second Row -->
 	
 		<div id="eventsTile" class="item panel"> <!-- middle left -->
-			<div class="item-content-container middle">
+			<div class="item-content-container middle left">
 
 				<!-- Make panel a link to itself, disabled when it is the current panel. Offset not working here. -->
 				<a class="panel eventsLink" href="#eventsTile"><span></span></a>
-
 				<article class="tile-list">
 					<h2 class="panel-title">Events</h2>
 					<ul id="eventsPage" class="page-list"><!--Places list template--></ul>
@@ -153,47 +161,35 @@
 				<!-- Make panel a link to itself, disabled when it is the current panel. Offset not working here. -->
 				<a class="panel atAGlanceLink" href="#atAGlanceTile"><span></span></a>
 
-				<!-- Header -->
-				<!--<header class="scene-header">
-					<h2>Scene at a glance</h2>
-				</header>-->
-
+				<h2 class="panel-title">At a glance...</h2>
 
 				<!-- Frontpage Events -->
-				<article class="scene-events">
-					<section class="events-feed main">
-						<header>
-							<h3 class="section-title jqtest2">Upcoming Events</h3>
-						</header>
-						<ul id="eventsFeed" class="block-list"><!-- Events List template --></ul>
-					
-					</section>
-				</article>
+				<article class="scene-sammich-events">
 
-
-				<!-- Frontpage Places -->
-				<article class="scene-board-places">
 					<section class="sammich-board main">
 						<header class="section-title">
 							<h3 class="section-title">Sammich Board</h3>
 						</header>
 						<ul id="sandwich-board" class="block-list"><!--Sandwich board list template.--></ul>
 					</section>
-					<section class="establishments main">
+
+					<section class="events-feed main">
 						<header>
-							<h3 class="section-title">Top Places</h3>
+							<h3 class="section-title">Upcoming Events</h3>
 						</header>
-						<ul id="placesFeed" class="thumbnail-list block-list"><!-- Places list template --></ul>
+						<ul id="eventsFeed" class="block-list"><!-- Events List template --></ul>	
 					</section>
+
 				</article>
 
-				<!-- Frontpage updates -->
-				<article class="scene-updates">
-					<section class="chatter-feed main">
+
+				<!-- Frontpage Places -->
+				<article class="scene-board-places">
+					<section class="establishments main">
 						<header>
-							<h3 class="section-title">Chatter Feed</h3>
+							<h3 class="section-title">Hot Spots</h3>
 						</header>
-						<ul class="chatter-posts block-list" id="chatter-teasers"></ul>
+						<ul id="placesFeed" class="thumbnail-list block-list"><!-- Places list template --></ul>
 					</section>
 
 					<section class="news-item main">
@@ -204,17 +200,35 @@
 					</section>
 				</article>
 
+				<!-- Frontpage updates -->
+				<article class="scene-updates">
+					<section class="chatter-feed main">
+						<header>
+							<h3 class="section-title">Scene Chatter</h3>
+						</header>
+						<ul class="chatter-posts block-list" id="chatter-teasers"></ul>
+					</section>
+
+					<section class="featured main">
+						<header>
+							<h3 class="section-title">Featured</h3>
+						</header>
+						<p class="descriptor">Featured Sammich/Place/Event/Chatter Post goes here</p>
+					</section>
+				</article>
+
 			</div> <!-- .item-content-container -->
 		</div> <!-- #atAGlanceTile -->
 
 
 
 		<div id="chatterBoxTile" class="item"> <!-- middle right -->
-			<div class="item-content-container middle">
+			<div class="item-content-container middle right">
+				<a class="panel chatterBoxLink" href="#chatterBoxTile"><span></span></a>
 				<!-- Make panel a link to itself, disabled when it is the current panel. Offset not working here. -->
 				<!--<a class="panel chatterBoxLink" href="#chatterBoxTile"><span></span></a>-->
 				
-				<div class="chatter-category-tabs">
+				<article class="chatter-category-tabs">
 
 					<header>
 						<h2 class="panel-title">Chatter Box</h2>
@@ -249,8 +263,10 @@
 						<ul id="chatterConversation" class="category block-list"><!-- Conversation chatter posts template --></ul>
 						<ul id="chatterQuestions" class="category block-list"><!-- Questions chatter posts template --></ul>
 					</div>
-				</div>
-			</div>
+					
+				</article> <!-- .chatter-category-tabs -->
+
+			</div> <!-- .item-content-container -->
 		</div> <!-- #chatterBoxTile -->
 
 		<div class="clear"></div>
