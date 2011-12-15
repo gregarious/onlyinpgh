@@ -98,7 +98,7 @@ $(document).ready(function() {
 
 
 function resizePanel() {
-	width = $(window).width;
+	width = $(window).width();
 	height = $(window).height();
 	mask_width = width + $('.item').length;
 

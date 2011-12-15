@@ -24,7 +24,54 @@
 
 <body>
 
-<nav class="site-nav">
+<header class="site-head">
+	
+	<nav class="utilities-nav">
+
+		<section class="scenes-nav-utility">
+			<span class="dropdown-title" id="scenesMenu">More Scenes &darr;</span>
+			<span>&nbsp;&nbsp;&nbsp;+ Add Oakland to my scenes</span>
+		</section>
+
+		<ul class="user-nav">
+			<li>Settings</li>
+			<li>Single Yoi</li>
+			<li>60 • 20</li>
+			<li>laras126</li>
+		</ul>
+	
+	</nav>
+
+	<nav class="scenes-nav"> <!-- dropdown -->
+		<ul>
+			<li>Pittsburgh</li>
+			<li>Oakland</li>
+			<li>Euentrenpraneurship</li>
+			<li>Art</li>
+			<li>Music</li>
+			<li>Country Music</li>
+		</ul>
+	</nav>
+
+	<!--<section class="title-filter">
+		<h1 class="scene-name"><a href="#atAGlanceTile" class="panel">Oakland Scene</a></h1>
+
+		<!-- the result of the search will be rendered inside this div -->
+		<!--<ul id="current-filters" class="current-filters-list">
+			<!-- filters inserted here -->
+		<!--</ul>
+
+		<form>
+			<input type="text" id="search-box" placeholder="Filter this scene..." />
+			<input type="button" id="add-filter" value="Add Filter" />
+		</form>
+
+	</section>-->
+
+</header> <!-- .site-head -->
+
+<div class="sidebar">
+	<nav class="site-nav">
 	<ul>
 		<li>
 			<ul>
@@ -59,73 +106,31 @@
 		</li>
 	</ul>
 </nav>
+</div>
 
-<header class="site-head">
-	
-	<nav class="utilities-nav">
-
-		<section class="scenes-nav-utility">
-			<span class="dropdown-title" id="scenesMenu">More Scenes &darr;</span>
-			<!--<span>&nbsp;&nbsp;&nbsp;+ Add Oakland to my scenes</span>-->
-		</section>
-
-		<ul class="user-nav">
-			<li>Settings</li>
-			<li>Single Yoi</li>
-			<li>60 • 20</li>
-			<li>laras126</li>
-		</ul>
-	
-	</nav>
-
-	<nav class="scenes-nav"> <!-- dropdown -->
-		<ul>
-			<li>Pittsburgh</li>
-			<li>Oakland</li>
-			<li>Euentrenpraneurship</li>
-			<li>Art</li>
-			<li>Music</li>
-			<li>Country Music</li>
-		</ul>
-	</nav>
-
-	<section class="title-filter">
-		<h1 class="scene-name"><a href="#atAGlanceTile" class="panel">Oakland Scene</a></h1>
-
-		<!-- the result of the search will be rendered inside this div -->
-		<ul id="current-filters" class="current-filters-list">
-			<!-- filters inserted here -->
-		</ul>
-
-		<form>
-			<input type="text" id="search-box" placeholder="Filter this scene..." />
-			<input type="button" id="add-filter" value="Add Filter" />
-		</form>
-
-	</section>
-
-</header> <!-- .site-head -->
 
 <div id="wrapper">
 	<div id="mask">
 
-
 	<!-- First Row -->
-
+	
 		<div class="item"></div> <!-- top left -->
 		
 		<div id="statsTile" class="item"> <!-- top middle -->
-			<h2 class="panel-title">Stats</h2>
+			<div class="item-content-container top">
+				<h2 class="panel-title">Stats</h2>
+			</div>
 		</div> <!-- #statsTile -->
 
 
 		<div class="item"></div> <!-- top right -->
 		<div class="clear"></div>
 
-
+	
 	<!-- Second Row -->
+	
 		<div id="eventsTile" class="item panel"> <!-- middle left -->
-			<div class="item-content-container">
+			<div class="item-content-container middle">
 
 				<!-- Make panel a link to itself, disabled when it is the current panel. Offset not working here. -->
 				<a class="panel eventsLink" href="#eventsTile"><span></span></a>
@@ -144,7 +149,7 @@
 
 
 		<div id="atAGlanceTile" class="item"> <!-- middle middle -->
-			<div class="item-content-container">
+			<div class="item-content-container middle">
 				<!-- Make panel a link to itself, disabled when it is the current panel. Offset not working here. -->
 				<a class="panel atAGlanceLink" href="#atAGlanceTile"><span></span></a>
 
@@ -205,7 +210,7 @@
 
 
 		<div id="chatterBoxTile" class="item"> <!-- middle right -->
-			<div class="item-content-container">
+			<div class="item-content-container middle">
 				<!-- Make panel a link to itself, disabled when it is the current panel. Offset not working here. -->
 				<!--<a class="panel chatterBoxLink" href="#chatterBoxTile"><span></span></a>-->
 				
@@ -257,7 +262,7 @@
 		<div class="item"></div> <!-- bottom left -->
 		
 		<div class="item" id="placesTile"> <!-- bottom middle -->
-			<div class="item-content-container">
+			<div class="item-content-container bottom">
 
 				<!-- Make panel a link to itself, disabled when it is the current panel. Offset not working here. -->
 				<a class="panel placesLink" href="#placesTile"><span></span></a>
