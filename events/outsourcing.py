@@ -211,6 +211,9 @@ def event_fbid_to_event(event_fbid,referer_fbid=None,create_new=True,fbevent_cac
     # and save the event!
     event.save()
 
+    # add event categories
+    categorize.add_event_oldtypes(event)
+
     # TODO: revisit
     try:
         estr = unicode(event)
