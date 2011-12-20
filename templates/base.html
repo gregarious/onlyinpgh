@@ -1,310 +1,208 @@
 <!doctype html>
-
-<!-- 
-320 and Up boilerplate extension
-Andy Clarke http://about.me/malarkey
-Keith Clark http://twitter.com/keithclarkcouk
-Version: 2
-URL: http://stuffandnonsense.co.uk/projects/320andup/
-License: http://creativecommons.org/licenses/MIT
--->
-
-<!--[if IEMobile 7]><html class="no-js iem7 oldie"><![endif]-->
-<!--[if lt IE 7]><html class="no-js ie6 oldie" lang="en"><![endif]-->
-<!--[if (IE 7)&!(IEMobile)]><html class="no-js ie7 oldie" lang="en"><![endif]-->
-<!--[if (IE 8)&!(IEMobile)]><html class="no-js ie8 oldie" lang="en"><![endif]-->
-<!--[if gt IE 8]><!--><html class="no-js" lang="en"><!--<![endif]-->
-<!--[if (gte IE 9)|(gt IEMobile 7)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<!-- Conditional comment for mobile ie7 http://blogs.msdn.com/b/iemobile/ -->
+<!--[if IEMobile 7 ]>    <html class="no-js iem7"> <![endif]-->
+<!--[if (gt IEMobile 7)|!(IEMobile)]><!--> <html class="no-js"> <!--<![endif]-->
 
 <head>
-	<meta charset="utf-8">
+  <meta charset="utf-8">
 
-	<title>Oakland Scene</title>
-	<meta name="description" content="Scene description">
-	<meta name="author" content="Sceneable">
+  <title></title>
+  <meta name="description" content="">
+  <meta name="author" content="">
 
-	<!-- http://t.co/dKP3o1e -->
-	<meta name="HandheldFriendly" content="True">
-	<meta name="MobileOptimized" content="320">
-	<meta name="viewport" content="width=device-width, target-densitydpi=160dpi, initial-scale=1.0">
+  <!-- Mobile viewport optimization http://goo.gl/b9SaQ -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-	<!-- For all browsers -->
-	<link href='http://fonts.googleapis.com/css?family=PT+Serif+Caption' rel='stylesheet' type='text/css'>
-	<link type="text/css" href="{{ STATIC_URL }}jquery-ui/css/custom-theme/jquery-ui-1.8.16.custom.css" rel="stylesheet" />
-	<link rel="stylesheet/less" href="{{ STATIC_URL }}css/grid.less">	
-	<link type="text/css" href="{{ STATIC_URL }}css/francois-one-fontfacekit/stylesheet.css" rel="stylesheet">
-	<link type="text/css" href="{{ STATIC_URL }}css/Nobile-fontfacekit/stylesheet.css" rel="stylesheet">
-	<link rel="stylesheet/less" href="{{ STATIC_URL }}css/style.less">
+  <!-- Home screen icon  Mathias Bynens http://goo.gl/6nVq0 -->
+  <!-- For iPhone 4 with high-resolution Retina display: -->
+  <link rel="apple-touch-icon-precomposed" sizes="114x114" href="{{ STATIC_URL }}img/h/apple-touch-icon.png">
+  <!-- For first-generation iPad: -->
+  <link rel="apple-touch-icon-precomposed" sizes="72x72" href="{{ STATIC_URL }}img/m/apple-touch-icon.png">
+  <!-- For non-Retina iPhone, iPod Touch, and Android 2.1+ devices: -->
+  <link rel="apple-touch-icon-precomposed" href="{{ STATIC_URL }}img/l/apple-touch-icon-precomposed.png">
+  <!-- For nokia devices: -->
+  <link rel="shortcut icon" href="{{ STATIC_URL }}img/l/apple-touch-icon.png">
 
-	<!-- For Mobile, Tablet, and Desktop -->
-	<link rel="stylesheet/less" media="only screen and (max-width: 480px)" href="{{ STATIC_URL }}css/480.less">
-	<link rel="stylesheet/less" media="only screen and (max-width: 768px)" href="{{ STATIC_URL }}css/768.less">
-	<link rel="stylesheet/less" media="only screen and (min-width: 992px)" href="{{ STATIC_URL }}css/992.less">
+  <!--iOS web app, deletable if not needed -->
+  <!--the script prevents links from opening in mobile safari. https://gist.github.com/1042026
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <script>(function(a,b,c){if(c in b&&b[c]){var d,e=a.location,f=/^(a|html)$/i;a.addEventListener("click",function(a){d=a.target;while(!f.test(d.nodeName))d=d.parentNode;"href"in d&&(d.href.indexOf("http")||~d.href.indexOf(e.host))&&(a.preventDefault(),e.href=d.href)},!1)}})(document,window.navigator,"standalone")</script>
+  <link rel="apple-touch-startup-image" href="img/l/splash.png">-->
 
-	<!-- For Retina displays -->
-	<link rel="stylesheet/less" media="only screen and (-webkit-min-device-pixel-ratio: 1.5), only screen and (-o-min-device-pixel-ratio: 3/2), only screen and (min-device-pixel-ratio: 1.5)" href="{{ STATIC_URL }}css/2x.less">
+  <!-- Mobile IE allows us to activate ClearType technology for smoothing fonts for easy reading -->
+  <meta http-equiv="cleartype" content="on">
 
-	<!--[if (lt IE 9) & (!IEMobile)]>
-	<script src="{{ STATIC_URL }}js/libs/selectivizr-min.js"></script>
-	<![endif]-->
+  <!-- more tags for your 'head' to consider https://gist.github.com/849231 -->
 
-	<!-- JavaScript -->
-	<script src="{{ STATIC_URL }}js/libs/modernizr-2.0.6.min.js"></script>
+  <!-- Main Stylesheet -->
+  <link rel="stylesheet" href="{{ STATIC_URL }}css/style.css?v=1">
 
-	<!-- For iPhone 4 -->
-	<link rel="apple-touch-icon-precomposed" sizes="114x114" href="{{ STATIC_URL }}img/h/apple-touch-icon.png">
-	<!-- For iPad 1-->
-	<link rel="apple-touch-icon-precomposed" sizes="72x72" href="{{ STATIC_URL }}img/m/apple-touch-icon.png">
-	<!-- For iPhone 3G, iPod Touch and Android -->
-	<link rel="apple-touch-icon-precomposed" href="{{ STATIC_URL }}img/l/apple-touch-icon-precomposed.png">
-	<!-- For Nokia -->
-	<link rel="shortcut icon" href="{{ STATIC_URL }}img/l/apple-touch-icon.png">
-	<!-- For everything else -->
-	<link rel="shortcut icon" href="{{ STATIC_URL }}favicon.ico">
-
-	<!--iOS. Delete if not required -->
-	<meta name="apple-mobile-web-app-capable" content="yes">
-	<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-	<link rel="apple-touch-startup-image" href="{{ STATIC_URL }}img/splash.png">
-
-	<!--Microsoft. Delete if not required -->
-	<meta http-equiv="cleartype" content="on">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-	<!--[if lt IE 7 ]><script src="//ajax.googleapis.com/ajax/libs/chrome-frame/1.0.2/CFInstall.min.js"></script><script>window.attachEvent("onload",function(){CFInstall.check({mode:"overlay"})})</script><![endif]-->
-
-	<!-- http://t.co/y1jPVnT -->
-	<link rel="canonical" href="/">
+  <!-- All JavaScript at the bottom, except for Modernizr which enables HTML5 elements & feature detects -->
+  <script src="{{ STATIC_URL }}js/libs/modernizr-custom.js"></script>
+  <!-- Media Queries Polyfill https://github.com/shichuan/mobile-html5-boilerplate/wiki/Media-Queries-Polyfill -->
+  <script>Modernizr.mq('(min-width:0)') || document.write('<script src="{{ STATIC_URL }}js/libs/respond.min.js">\x3C/script>')</script>
 </head>
 
-<body class="clearfix">
+<body>
 
-	<nav class="top-nav">
-		<div class="popular-scenes">
-			<span>Also see:</span>
-			<ul>
-				<li>Pittsburgh</li>
-				<li>Euentrenprensurship</li>
-				<li>Arts</li>
-				<li>Music</li>
-			</ul>
-		</div>
-		<div class="user-stats">
-			<span class="ui-icon ui-icon-triangle-1-s" id="showUserStats"></span>
-			<span class="username">&nbsp; laras126 &rarr;</span>
-			<span class="hrs available">&nbsp;20</span> • <span class="ahrs lifetime">60</span>
+  <header>
 
-			<span class="more-info-link">(Perogie)</span> <!-- Hidden dialog box -->
-			<article class="more-info-dialog">
-				<header>
-					<h2>About Ahrs, Levels, and Pittsburghese</h2>
-				</header>
-				<p>Levels are calculated according to your lifetime Ahrs. The more lifetime Ahrs you accumulate, the more reputable you are in a scene. You gain Ahrs by checking in to places and events and participating in the Chatter Box. Levels and perks are as follows:</p>
-				<ul>
-					<li>0-25: City Chicken</li>
-					<li>25-50: Gumband</li>
-					<li>50-75: Perogie</li>
-					<li>75-100: Spiggit</li>
-					<li>100-125: Danny Ahris</li>
-					<li>125-150: Double Yoi</li>
-					<li>150+: Fully Fleshed Yinzer</li>
-				</ul>
-			</article>
+    <hgroup>
+      <h1>Oakland Scene</h1>
+      <h2>Where the cool kids are at</h2>
+    </hgroup>
 
-			<section class="additional-info drop-down threecol last" id="dropDown">
-				<div>
-					<figure class="progressbar row"></figure>
-					<figcaption class="row">
-						<span class="begin-level points">50</span>
-						<span class="end-level points">75</span>
-					</figcaption>
-					<ul>
-						<li>25 checkins in past month</li>
-						<li>Earned 5 points from Sandwich Board</li>
-						<li>Earned 20 points from ChatterBox</li>
-					</ul>
-				</div>
-			</section> <!-- .additional-info-dropdown -->
-		</div> <!-- .user-stats -->
-	</nav>
+    <nav>
+      <ul>
+        <li>At a Glance</li>
+        <li>Places</li>
+        <li>Events</li>
+        <li>News</li>
+        <li>Sammich Board</li>
+      </ul>
+    </nav>
 
+  </header>
 
-	<div class="container row">
-		
-		<header class="scene-page-header row">
-			<div class="sixcol">			
-				<h1 class="sevencol">Oakland Scene</h1>
-				<form class="fivecol last">
-					<input type="text" id="search-box" placeholder="Filter this scene..." class="fourcol"/>
-					<input type="button" id="add-filter" value="Add Filter" />
-				</form>
+  <div class="main">
+  
+  <!-- "At A Glance" template -->
 
-				<!-- the result of the search will be rendered inside this div -->
-				<ul id="current-filters" class="current-filters-list row">
-					<!-- filters inserted here -->
-				</ul>
-			</div>
+    <section class="feed" id="eventsFeed">
 
-			<section class="featured ui-corner-all sixcol last">
-				<h3>Featured deal or place here</h3>
-				<p>Description of said deal</p>
-			</section>
-			<!--<button class="expand-option filter">Filter scene by tag</button>
-			
-			<div class="row">
-				<form class="filter-form">
-					<input type="text">
-					<button class="submit-filter">+</button>
-				</form>
-			</div>-->
-			
-			<!--<section class="scene-stats">
-				<h3>[Scene Name] Stats</h3>
-				Scene stats template
-			</section> --><!-- .scene-stats -->
+      <header>
+        <h1 class="feed-title">Soonest Events</h1>
+      </header>
+      <!-- Loop through feed items -->
+      <article class="feed-item">
+        <h1 class="feed-item-title">Event Name</h1>
+        <div class="feed-item-content">
+          <ul>
+            <li><time datetime="">Date of Event</time></li>
+            <li>Hosted By: <a href="">Organization</a></li>
+            <li>Address</li>
+            <li>Shortened Description</li>
+            <li><a href="">Details...</a></li>
+          </ul>
+        </div>
+        <div class="feed-item-thumb">
+          <img src="" alt="" />
+        </div>
+      </article>
+      <!-- end loop -->
+      <p class="see-more"><a>See more...</a></p>
 
-		</header>
+    </section>
 
-		<div class="wrap">
+   
+   
+    <section class="feed" id="placesFeed">
+      
+      <header>
+        <h1 class="feed-title">Smattering of Places</h1>
+      </header>
+      <!-- Loop through feed items -->
+      <article class="feed-item">
+        <h1 class="feed-item-title">Place Name</h1>
+        <div class="feed-item-content">
+          <ul>
+            <li>Address</li>
+            <li>Description</li>
+            <li><a href="">Details...</a></li>
+          </ul>
+        </div>
+        <div class="feed-item-thumb">
+          <img src="" alt="" />
+        </div>
+      </article>
+      <!-- end loop -->
+      <p class="see-more"><a>See more...</a></p>
 
-			<div class="content">
+    </section>
 
-				<article class="mapnat row">
-					<!--<header>
-						<h2 class="main-panel-head">Map n'at</h2>
-					</header>-->
-					<section class="map-container">
-						<div id="map_canvas">
-							<!--<img src="{{ STATIC_URL }}img/oakland-map-filtered.png">-->
-						</div>
-					</section>
-					
-					<div class="hide-show ui-corner-right" id="map"><div class="arrow-collapse left"></div></div>
+   
+   
+    <section class="feed" id="sammichBoardFeed">
 
-					<section class="nat-container">
-						<div class="row">
-					
-							<div class="sidebar-tabs clearfix collapsed">
+      <header>
+        <h1 class="feed-title">Sammich Board</h1>
+      </header>
+      <!-- Loop through feed items -->
+      <article class="feed-item">
+        <h1 class="feed-item-title">Sammich Name</h1>
+        <!-- if Sammich is time sensitive, include: -->
+        <div class="feed-item-content">
+          <ul>
+            <li>Place/organization offering</li>
+            <li><time datetime="">Date deal ends</time></li>
+            <li><a href="">Details...</a></li>
+          </ul>
+        </div>
+        <div class="feed-item-thumb">
+          <img src="" alt="" />
+        </div>
+      </article>
+      <!-- end loop -->
+      <p class="see-more"><a>See more...</a></p>
 
-								<nav class="sidebar-nav last">
-									<ul>
-										<li><a href="#places">Places</a></li>
-										<li><a href="#events">Events</a></li>
-										<li><a href="#sandwich-board">Sandwich Board</a></li>
-										<li><a href="#burghosphere">The Burghosphere</a></li>
-									</ul>
-								</nav>
+    </section>
 
-							
-								<article class="sidebar-content">
-								<div class="tabs-container">
-									<section class="broadcast-section" id="places">Places list template</section>
-									<section class="broadcast-section"id="events">Events list template</section>
-									<section class="broadcast-secton" id="sandwich-board">Sandwich board list template.</section>
-									<section class="broadcast-section" id="burghosphere">Burghosphere list template.</section>
-									</div>
-								</article>
-							
-							</div> <!-- .sidebar-tabs -->
+ 
+ 
+    <section class="feed" id="newsFeed">
 
-						</div> <!-- .row -->
-					</section> <!-- .nat-container -->
+      <header>
+        <h1 class="feed-title">Scene News</h1>
+      </header>
+      <!-- Loop through feed items -->
+      <article class="feed-item">
+        <h1 class="feed-item-title">Article title</h1>
+        <ul>
+          <li><address><a href="">Source Publication</a></address></li>
+          <li><time datetime="" pubdate>Date published</time></li>
+          <li><a>See full article...</a></li>
+        </ul>
+      </article>
+      <!-- end loop -->
+      <p class="see-more"><a>See more...</a></p>
 
-				</article> <!-- .mapnat -->
-				
-				<section class="chatter-feed">
-					<button id="pageSlideLeft">Chatter Box &rarr;</button>
-					<ul class="chatter-posts" id="chatter-teasers">
-					</ul>
-				<section>
+    </section>
 
-			</div> <!-- .first -->
+  <!-- end "At a Glance" template-->
 
+  </div>
 
-			<div class="content">
-				<article class="chatter-box">
-					<div class="row">
-						<div class="chatter-tabs row">
-						<div class="row">
-							<button id="pageSlideLeft" class="fourcol last">&larr; Map n'at</button>
-							<ul class="chatter-tab-nav">
-								<li><a href="#chatter-tab-1">Hottest</a></li>
-								<li><a href="#chatter-tab-2">Newest</a></li>
-								<li><a href="#chatter-tab-3">Photos</a></li>
-								<li><a href="#chatter-tab-4">Converstion</a></li>
-								<li><a href="#chatter-tab-5">Questions</a></li>
-							</ul>
-						</div>
+  <footer class="scene-footer">
+  </footer>
 
-						<div class="chatter-post-form row">
-							<form class="sevencol">
-								<input type="text" placeholder="Post to ChatterBox" />
-							</form>
-							<select class="threecol">
-								<option>Type of post</option>
-								<option>Pic</option>
-								<option>Conversation</option>
-								<option>Question</option>
-							</select> 
-							<input type="button" id="add-chatter-post" value="Post" />
-						</div>
-							<div class="tabs-container row">
-								<div id="chatter-tab-1">Hottest chatter posts template</div>
-								<div id="chatter-tab-2">Newest chatter posts template</div>
-								<div id="chatter-tab-3">Photos chatter posts template</div>
-								<div id="chatter-tab-4">Conversations chatter posts template - call this chatter??</div>
-								<div id="chatter-tab-5">Questions chatter posts template</div>
-							</div>
-						</div> <!-- .chatter-tabs -->
-					</div> <!-- .row -->
-				</article> <!-- .chatter-box -->
-			</div>	<!-- .second -->
+  <!-- JavaScript at the bottom for fast page loading -->
 
-		</div> <!-- .wrap -->
+  <!-- Grab Google CDN's jQuery, with a protocol relative URL; fall back to local if necessary -->
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
+  <script>window.jQuery || document.write('<script src="{{ STATIC_URL }}js/libs/jquery-1.6.2.min.js"><\/script>')</script>
 
-	
-	</div> <!-- .container -->
+  <!-- scripts concatenated and minified via ant build script -->
+  <script src="{{ STATIC_URL }}js/mylibs/helper.js"></script>
+  <!-- end concatenated and minified scripts-->
 
+  <script>
+    // iPhone Scale Bug Fix, read this when using http://www.blog.highub.com/mobile-2/a-fix-for-iphone-viewport-scale-bug/
+    MBP.scaleFix();
+  </script>
 
-	<footer class="scene-page-footer">
-		<p class="credits">Brought to you by Sceneable, sponsored by the Oakland Business District</p>
-		
-	</footer>
-	<div class="logo threecol">
-			<img src="{{ STATIC_URL }}img/obid-logo.jpg" />
-		</div>
-	<!-- Scripts -->
-	<!--<script src="{{ STATIC_URL }}js/libs/jquery-1.6.2.min.js"></script> commented out for development-->
-	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.0/jquery.js"></script> <!-- Unminified jQuery for development -->
-	<script src="http://maps.google.com/maps/api/js?libraries=places&amp;sensor=false" type="text/javascript"></script>
+  <!-- Debugger - remove for production -->
+  <!-- <script src="https://getfirebug.com/firebug-lite.js"></script> -->
 
-	<script src="{{ STATIC_URL }}jquery-ui/js/jquery-ui-1.8.16.custom.js"></script>
-	<script src="{{ STATIC_URL }}js/plugins.js"></script>
-	<script src="{{ STATIC_URL }}js/script.js"></script>
-	<script src="{{ STATIC_URL }}js/mylibs/helper.js"></script>
-	<script src="{{ STATIC_URL }}js/mylibs/less-1.1.5.min.js"></script>
+  <!-- mathiasbynens.be/notes/async-analytics-snippet Change UA-XXXXX-X to be your site's ID -->
+  <script>
+    var _gaq=[["_setAccount","UA-XXXXX-X"],["_trackPageview"]];
+    (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];g.async=1;
+    g.src=("https:"==location.protocol?"//ssl":"//www")+".google-analytics.com/ga.js";
+    s.parentNode.insertBefore(g,s)}(document,"script"));
+  </script>
 
-
-	<!--[if (lt IE 9) & (!IEMobile)]>
-	<script src="{{ STATIC_URL }}js/libs/imgsizer.js"></script>
-	<![endif]-->
-
-	<script>
-	// iOS scale bug fix
-	MBP.scaleFix();
-
-	// Respond.js
-	yepnope({
-		test : Modernizr.mq('(min-width)'),
-		nope : ['js/libs/respond.min.js']
-	});
-	</script>
-
-	<!-- http://mths.be/aab -->
-	<script>
-	var _gaq=[['_setAccount','UA-XXXXX-X'],['_trackPageview']]; // Change UA-XXXXX-X to be your site's ID
-	(function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';s.parentNode.insertBefore(g,s)}(document,'script'));
-	</script>
-
-	<script src="{{ STATIC_URL }}js/ajax_loaders.js"></script>
 </body>
 </html>
