@@ -503,6 +503,7 @@ def page_id_to_organization(page_id,create_new=True,page_cache={}):
                         url=url)
     organization.save()
     # TODO: wtf page 115400921824318?
+    # TODO: ensure page isn't just a user
     try:
         ostr = unicode(organization)
     except UnicodeDecodeError:

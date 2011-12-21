@@ -164,3 +164,43 @@ class GoogleResolutionTest(TestCase):
                 outsourcing.normalize_street_address(unnormal),
                 expected,
                 msg=msg)
+
+class FBBaseInterfaceTest(TestCase):
+    def test_fb_place_search(self):
+        '''
+        Tests that place radius gathering code works
+        '''
+        # Dependant on FB data. Test built to search for Heinz Field and PNC Park within
+        # 500 meters of a specific point.Could fail if geocoding info, building name, etc. 
+        # changes in facebook data
+        for batch in [True,False]:  # try both batched and unbatched requests
+            page_names = [page['name'] for page in outsourcing.gather_place_pages((40.446,-80.014),500,batch_requests=batch)]
+            self.assertIn(u'PNC Park',page_names)
+            self.assertIn(u'Heinz Field',page_names)
+        
+        page_names = [page['name'] for page in outsourcing.gather_place_pages((40.446,-80.014),500,'pnc')]
+        self.assertIn(u'PNC Park',page_names)
+        self.assertNotIn(u'Heinz Field',page_names)
+
+        # test that [] is returned if no pages exist
+        no_pages = outsourcing.gather_place_pages((40.446,-80.014),500,'fiuierb2bkd7y')
+        self.assertEquals(no_pages,[])
+
+class FBPlaceInsertion(TestCase):
+    def test_fb_new_place(self):
+        '''
+        Tests that a truly new place is inserted correctly.
+        '''
+        self.fail('not yet implemented')
+
+    def test_fb_existing_place(self):
+        '''
+        Tests that an place is not created if an existing place already exists.
+        '''
+        self.fail('not yet implemented')
+
+    def test_fb_bad_place(self):
+        '''
+        Tests that a nonexistant FB place insertion attempt fails gracefully.
+        '''
+        self.fail('not yet implemented')      

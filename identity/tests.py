@@ -1,10 +1,21 @@
-"""
-This file demonstrates writing tests using the unittest module. These will pass
-when you run "manage.py test".
-
-Replace this with more appropriate tests for your application.
-"""
-
 from django.test import TestCase
 
-# ensure an identity cannot be both and individual and organization
+class FBOrganizationInsertion(TestCase):
+    def test_fb_new_org(self):
+        '''
+        Tests that a truly new org is inserted correctly.
+        '''
+        self.fail('not yet implemented')
+
+    def test_fb_existing_org(self):
+        '''
+        Tests that an org is not created if an existing org already exists.
+        '''
+        self.fail('not yet implemented')
+
+    def test_fb_bad_org(self):
+        '''
+        Tests that a nonexistant or user FB page insertion attempt fails gracefully.
+        '''
+        # TODO: ensure user pages don't get inserted
+        self.fail('not yet implemented')

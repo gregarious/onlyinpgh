@@ -4,45 +4,62 @@ when you run "manage.py test".
 
 Replace this with more appropriate tests for your application.
 """
+import random
 
 from django.test import TestCase
 from onlyinpgh.events import outsourcing
 
-class OutsourcingTest(TestCase):
-    def test_place_search(self):
+class FBBaseInterfaceTest(TestCase):
+    def test_fb_event_pull(self):
         '''
-        Tests that place radius gathering code works
+        Tests that single event pulling code works
         '''
-        # Dependant on FB data. Test built to search for Heinz Field and PNC Park within
-        # 500 meters of a specific point.Could fail if geocoding info, building name, etc. 
-        # changes in facebook data
-        for batch in [True,False]:  # try both batched and unbatched requests
-            page_names = [page['name'] for page in outsourcing.gather_place_pages((40.446,-80.014),500,batch_requests=batch)]
-            self.assertIn(u'PNC Park',page_names)
-            self.assertIn(u'Heinz Field',page_names)
-        
-        page_names = [page['name'] for page in outsourcing.gather_place_pages((40.446,-80.014),500,'pnc')]
-        self.assertIn(u'PNC Park',page_names)
-        self.assertNotIn(u'Heinz Field',page_names)
+        outsourcing.event = '291107654260858'
+    
+    def test_fb_page_event_pull(self):
+        '''
+        Tests code that pulls all events info from a page.
+        '''
+        page_ids = ['40796308305',      # coca-cola's UID
+                    '121994841144517',  # place that will probably never have any events
+                    '828371892334123']) # invalid fbid
+        # add 100 random ids to the list to ensure batch code is working well
+        page_ids.extend([str(random.randint(1e13,1e14)) for i in range(100)])
+        random.shuffle(page_ids)
 
-        # test that [] is returned if no pages exist
-        no_pages = outsourcing.gather_place_pages((40.446,-80.014),500,'fiuierb2bkd7y')
-        self.assertEquals(no_pages,[])
+        pid_events_map = outsourcing.gather_event_info(page_ids)
+        self.assertEquals(set(pid_events_map.keys()),set(page_ids))
 
-    def test_event_query(self):
-        '''
-        Tests that event gathering code works
-        '''
         # can't really assert anything about some third party page's events. be content
         # with just testing that there's a few of them and the first one has some 
         # event-specific fields
-        events = outsourcing.gather_event_info('40796308305')   #coca-cola's UID
-        self.assertGreater(len(events),4)       # should be more than 4? why not.
-        for event in events:
+        valid_events = pid_events_map['40796308305']
+        self.assertGreater(len(valid_events),4)       # should be more than 4? why not.
+        for event in valid_events:
             self.assertIn('start_time',event.keys())
             self.assertIn('owner',event.keys())
-        
-        events = outsourcing.gather_event_info('121994841144517')   # Sarverville Cemetary -- should have no events
-        self.assertEquals(events,[])
 
-        # TODO: add assertRaises for gather_event_info with invalid page id
+        # these two should return empty lists        
+        self.assertEquals(events['121994841144517'],[])
+        self.assertEquals(events['828371892334123'],[])
+
+        # ignore the rest of the requests -- they were just to test batch
+
+class FBEventInsertion(TestCase):
+    def test_fb_new_event(self):
+        '''
+        Tests that a truly new event is inserted correctly.
+        '''
+        self.fail('not yet implemented')
+
+    def test_fb_existing_event(self):
+        '''
+        Tests that an event is not created if an existing event already exists.
+        '''
+        self.fail('not yet implemented')
+
+    def test_fb_bad_event(self):
+        '''
+        Tests that a nonexistant FB event insertion attempt fails gracefully.
+        '''
+        self.fail('not yet implemented')      
