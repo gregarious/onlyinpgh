@@ -5,6 +5,9 @@ from django.core.exceptions import ValidationError
 from onlyinpgh.places.models import Location, Place
 from onlyinpgh.places import outsourcing
 
+import logging
+logging.disable(logging.CRITICAL)
+
 class LocationModelTest(TestCase):
     @property
     def valid_location_base(self):

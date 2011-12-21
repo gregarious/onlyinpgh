@@ -1,11 +1,12 @@
 # Django settings for onlyinpgh project.
 
+import os
 # import settings that differ based on deployment
 import settings_local
 
 def to_abspath(path):
     '''prepends ROOT_DIR setting from settings_local to the given path'''
-    return settings_local.ROOT_DIR + '/' + path
+    return os.path.join(settings_local.ROOT_DIR, path)
 
 DEBUG = settings_local.DEBUG
 TEMPLATE_DEBUG = settings_local.TEMPLATE_DEBUG

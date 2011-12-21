@@ -9,6 +9,9 @@ import random
 from django.test import TestCase
 from onlyinpgh.events import outsourcing
 
+import logging
+logging.disable(logging.CRITICAL)
+
 class FBBaseInterfaceTest(TestCase):
     def test_fb_event_pull(self):
         '''

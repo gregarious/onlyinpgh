@@ -5,6 +5,7 @@ Unit tests for all API tools
 from django.test import TestCase
 from onlyinpgh.apitools.facebook import get_basic_access_token, BatchCommand
 from onlyinpgh.apitools.facebook import oip_client as facebook_client
+from onlyinpgh.utils.testing import open_test_json
 
 from onlyinpgh.apitools.factual import oip_client as factual_client
 from onlyinpgh.apitools.factual import FactualClient, FactualAPIError
@@ -179,8 +180,7 @@ class GoogleGeocodingTest(TestCase):
         return self.client.run_geocode_request(address).best_result(True)
 
     def _open_test_json(self,fn):
-        json_dir = os.path.dirname(os.path.abspath(__file__))
-        return open(os.path.join(json_dir,'test_json','gg',fn))
+        return open_test_json('apitools',os.path.join('gg',fn))
 
     def _json_to_best_result(self,fn):
         response = GoogleGeocodingResponse(self._open_test_json(fn))
@@ -305,7 +305,7 @@ class GoogleGeocodingTest(TestCase):
         )
 
         for fn,expected_addr in json_address_pairs:
-            address = self._json_to_best_result.get_street_address()
+            address = self._json_to_best_result(fn).get_street_address()
             self.assertEquals(address,expected_addr,
                                 msg="Expected address '%s', got '%s', from sample JSON '%s'" % ( expected_addr, address, fn ) )
 
@@ -328,7 +328,6 @@ class GoogleGeocodingTest(TestCase):
         self.assertFalse(noakland.is_address_concrete())
         self.assertTrue(atwood.is_address_concrete())
     
-
     def test_api_error_handling(self):
         '''ensure geocoding wrapper raises GoogleGeocodingAPIError when appropriate'''
         # a bit hacky using a private function, i admit, but since request is received in 
