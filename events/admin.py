@@ -1,5 +1,5 @@
 from django.contrib import admin
-from onlyinpgh.events.models import Event, Role, Attendee, Meta
+from onlyinpgh.events.models import *
 
 class RoleInline(admin.TabularInline):
     model = Role
@@ -19,3 +19,4 @@ class EventAdmin(admin.ModelAdmin):
     ordering = ['dtstart']
 
 admin.site.register(Event,EventAdmin)
+admin.site.register(FacebookEventRecord)

@@ -1,5 +1,5 @@
 from django.contrib import admin
-from onlyinpgh.places.models import Place,Location,PlaceMeta
+from onlyinpgh.places.models import *
 
 class PlaceMetaInline(admin.TabularInline):
     model = PlaceMeta
@@ -14,3 +14,5 @@ class LocationAdmin(admin.ModelAdmin):
 
 admin.site.register(Place,PlaceAdmin)
 admin.site.register(Location,LocationAdmin)
+admin.site.register(FacebookPageRecord)
+admin.site.register(ExternalPlaceSource)
