@@ -3,4 +3,4 @@ from onlyinpgh.offers.models import Offer
 
 def demo_offers(request):
     variables = { 'offers': Offer.objects.all() }
-    return render_to_response('broadcast/sandwich_board.html',variables)
+    return render_to_response('feeds/sammichboard_feed.html',variables)

@@ -1,0 +1,25 @@
+{% comment %}
+template to be included inside the #eventsFeed div
+{% endcomment %}
+
+{% for e in events %}
+
+  <li>
+    <article class="feed-item">
+      <h1 class="feed-item-title">{{ e.name }}</h1>
+      <div class="feed-item-content">
+        <ul>
+          <li><time datetime="">Date of Event</time></li>
+          <li>Hosted By: <a href="">Organization</a></li>
+          <li>{{ e.place.location.address }}</li>
+          <li>Shortened Description</li>
+          <li><a href="">Details...</a></li>
+        </ul>
+      </div>
+      <div class="feed-item-thumb">
+        <img class="thumbnail" alt="{{ e.name }}" src="{{ e.image_url }}" />
+      </div>
+    </article>
+  </li>
+
+{% endfor %}

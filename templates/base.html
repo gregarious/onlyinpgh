@@ -71,39 +71,23 @@
   
   <!-- "At A Glance" template -->
 
-    <section class="feed" id="eventsFeed">
+    <section class="feed">
 
       <header>
         <h1 class="feed-title">Soonest Events</h1>
       </header>
-      <!-- Loop through feed items -->
-      <article class="feed-item">
-        <h1 class="feed-item-title">Event Name</h1>
-        <div class="feed-item-content">
-          <ul>
-            <li><time datetime="">Date of Event</time></li>
-            <li>Hosted By: <a href="">Organization</a></li>
-            <li>Address</li>
-            <li>Shortened Description</li>
-            <li><a href="">Details...</a></li>
-          </ul>
-        </div>
-        <div class="feed-item-thumb">
-          <img src="" alt="" />
-        </div>
-      </article>
-      <!-- end loop -->
+      <ul id="eventsFeed"><!-- events_feed template --></ul>
       <p class="see-more"><a>See more...</a></p>
 
     </section>
-
-   
-   
+ 
+    <!-- No decision on how this will function yet -->
     <section class="feed" id="placesFeed">
       
       <header>
         <h1 class="feed-title">Smattering of Places</h1>
       </header>
+
       <!-- Loop through feed items -->
       <article class="feed-item">
         <h1 class="feed-item-title">Place Name</h1>
@@ -125,48 +109,24 @@
 
    
    
-    <section class="feed" id="sammichBoardFeed">
+    <section class="feed">
 
       <header>
         <h1 class="feed-title">Sammich Board</h1>
       </header>
-      <!-- Loop through feed items -->
-      <article class="feed-item">
-        <h1 class="feed-item-title">Sammich Name</h1>
-        <!-- if Sammich is time sensitive, include: -->
-        <div class="feed-item-content">
-          <ul>
-            <li>Place/organization offering</li>
-            <li><time datetime="">Date deal ends</time></li>
-            <li><a href="">Details...</a></li>
-          </ul>
-        </div>
-        <div class="feed-item-thumb">
-          <img src="" alt="" />
-        </div>
-      </article>
-      <!-- end loop -->
+      <ul id="sammichBoardFeed"><!-- sammichboard_feed template --></ul>
       <p class="see-more"><a>See more...</a></p>
 
     </section>
 
  
  
-    <section class="feed" id="newsFeed">
+    <section class="feed">
 
       <header>
         <h1 class="feed-title">Scene News</h1>
       </header>
-      <!-- Loop through feed items -->
-      <article class="feed-item">
-        <h1 class="feed-item-title">Article title</h1>
-        <ul>
-          <li><address><a href="">Source Publication</a></address></li>
-          <li><time datetime="" pubdate>Date published</time></li>
-          <li><a>See full article...</a></li>
-        </ul>
-      </article>
-      <!-- end loop -->
+      <ul id="newsFeed"><!-- news_feed template --></ul>
       <p class="see-more"><a>See more...</a></p>
 
     </section>

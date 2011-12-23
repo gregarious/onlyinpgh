@@ -1,0 +1,24 @@
+{% comment %}
+template to be included inside the #sammichboardFeed div
+{% endcomment %}
+
+{% for o in offers %}
+
+  <li>  
+    <article class="feed-item">
+      <h1 class="feed-item-title">{{ o.description }}</h1>
+      <div class="feed-item-content">
+        <ul>
+          <li>{{ o.sponsor.name }}</li>
+          <li><time datetime="">Date deal ends</time></li>
+          <li><a href="">Details...</a></li>
+        </ul>
+        <button>Grabbit!</button>
+      </div>
+      <div class="feed-item-thumb">
+        <img src="{{ o.sponsor.identity.avatar }}" alt="{{ o.name }}" />
+      </div>
+    </article>
+  </li>
+
+{% endfor %}
