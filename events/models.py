@@ -6,6 +6,9 @@ from onlyinpgh.places.models import Place
 from onlyinpgh.tagging.models import Tag
 from onlyinpgh.identity.models import Identity, Organization
 
+from utils.time import utctolocal
+from settings import TIME_ZONE
+
 # Create your models here.
 class Event(models.Model):
     class Meta:
@@ -18,13 +21,6 @@ class Event(models.Model):
     dtmodified = models.DateTimeField('modified datetime (UTC)',auto_now=True)
     
     # all times are assumed to be UTC within models unless explicitly converted. 
-    # cliff's notes on converting a Model's UTC dt:
-    # >>> from pytz import timezone
-    # >>> utc = timezone('utc'); est = timezone('US/Eastern')
-    # >>> utc_dt = utc.localize(dt)                         % change the tz-agnostic datetime into a utc datetime
-    # >>> est_dt = est.normalize(utc_dt.astimezone(est))    % convert into the EST timezone
-    # Note that just setting tzinfo to localize and using datetime.astimezone to convert isn't enough. the pytz 
-    #   normalize/localize methods are needed to ensure Daylight savings special cases are handled
     dtstart = models.DateTimeField('start datetime (UTC)')
     # dtend is the non-inclusive end date/time, meaning an event with dtend at 11pm actually only takes up time till 10:59pm
     # for all day events, this should be set to the next date (time irrelevant)
@@ -53,11 +49,11 @@ class Event(models.Model):
     # TODO: change these to template filters
     @property
     def dtstart_local(self):
-        return utctolocal(self.dtstart).replace(tzinfo=None)
+        return utctolocal(self.dtstart,TIME_ZONE,return_naive=True)
 
     @property
     def dtend_local(self):
-        return utctolocal(self.dtend).replace(tzinfo=None)
+        return utctolocal(self.dtend,TIME_ZONE,return_naive=True)
 
     def __unicode__(self):
         return self.name
