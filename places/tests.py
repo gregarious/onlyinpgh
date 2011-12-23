@@ -1,8 +1,9 @@
-import os, json, time
+import os, json, time, random
 from django.test import TestCase
 from django.core.exceptions import ValidationError
 
-from onlyinpgh.places.models import Location, Place
+from onlyinpgh.utils.testing import load_test_json
+from onlyinpgh.places.models import *
 from onlyinpgh.places import outsourcing
 
 import logging
@@ -154,7 +155,7 @@ class GoogleResolutionTest(TestCase):
         
     def test_address_normalization(self):
         in_out_pairs = (
-            ('400 south bouquet st','400 S Bouquet St'),
+            ('400 north craig st','400 N Craig St'),
             ('6351 walnut street apt. 5','6351 Walnut St #5'),
             ('one schenley drive','1 Schenley Dr'),
             ('fakey fake double false address',None),
@@ -168,7 +169,7 @@ class GoogleResolutionTest(TestCase):
                 expected,
                 msg=msg)
 
-class FBBaseInterfaceTest(TestCase):
+class FBPlacePullingTest(TestCase):
     def test_fb_place_search(self):
         '''
         Tests that place radius gathering code works
@@ -177,33 +178,164 @@ class FBBaseInterfaceTest(TestCase):
         # 500 meters of a specific point.Could fail if geocoding info, building name, etc. 
         # changes in facebook data
         for batch in [True,False]:  # try both batched and unbatched requests
-            page_names = [page['name'] for page in outsourcing.gather_place_pages((40.446,-80.014),500,batch_requests=batch)]
+            page_names = [page['name'] for page in outsourcing.gather_fb_place_pages((40.446,-80.014),500,batch_requests=batch)]
             self.assertIn(u'PNC Park',page_names)
             self.assertIn(u'Heinz Field',page_names)
         
-        page_names = [page['name'] for page in outsourcing.gather_place_pages((40.446,-80.014),500,'pnc')]
+        page_names = [page['name'] for page in outsourcing.gather_fb_place_pages((40.446,-80.014),500,'pnc')]
         self.assertIn(u'PNC Park',page_names)
         self.assertNotIn(u'Heinz Field',page_names)
 
         # test that [] is returned if no pages exist
-        no_pages = outsourcing.gather_place_pages((40.446,-80.014),500,'fiuierb2bkd7y')
+        no_pages = outsourcing.gather_fb_place_pages((40.446,-80.014),500,'fiuierb2bkd7y')
         self.assertEquals(no_pages,[])
 
+    def test_fb_page_place_pull(self):
+        '''
+        Tests code that batch pulls all page info.
+        '''
+        page_ids = ['50141015898']        # voluto coffee page
+        # add 120 random ids to the list to ensure batch code is working well
+        page_ids.extend([str(random.randint(1e13,1e14)) for i in range(120)])
+        random.shuffle(page_ids)
+
+        page_details = outsourcing.get_full_place_pages(page_ids)
+
+        self.assertEquals(len(page_ids),len(page_details))
+        # can't really assert anything about some third party page's events. be content
+        # with just testing that there's a few of them and the first one has some 
+        # event-specific fields
+        page = page_details[page_ids.index('50141015898')]
+        self.assertIn('location',page.keys())
+        self.assertIn('name',page.keys())
+        
+        # don't bother checking out details -- rest should be junk
+
+
 class FBPlaceInsertion(TestCase):
+    fixtures = ['events/testfb.json']
+
+    def test_fb_new_place_live(self):
+        '''
+        Tests that the live-download Facebook page to place process 
+        works.
+        '''
+        page_id = '50141015898'        # voluto coffee page
+        page_count_before = Place.objects.count()
+        # ensure no FBPageRecord already exists for the given id
+        with self.assertRaises(FacebookPageRecord.DoesNotExist):
+            FacebookPageRecord.objects.get(fb_id=page_id)
+        
+        outsourcing.page_id_to_place(page_id)
+        
+        self.assertEquals(Place.objects.count(),page_count_before+1)
+        # now the FBPageRecord should exist
+        try:
+            FacebookPageRecord.objects.get(fb_id=page_id)
+        except FacebookPageRecord.DoesNotExist:
+            self.fail('FacebookPageRecord not found')
+
     def test_fb_new_place(self):
         '''
-        Tests that a truly new place is inserted correctly.
+        Tests that all fields from a Facebook page to place are inserted 
+        correctly.
+        
+        (uses predefined page both to test cache functionality and to ensure
+        data is as expected)
         '''
+        voluto_page_id = '50141015898'  # voluto coffee page
+        bigdog_page_id = '53379078585'  # big dog coffee page
+        page_cache = {  voluto_page_id: load_test_json('places','voluto_page.json'),
+                        bigdog_page_id: load_test_json('places','big_dog_page.json'),
+                      }
+        
+        page_count_before = Place.objects.count()
+        # ensure no FBPageRecord already exists for the given id
+        with self.assertRaises(FacebookPageRecord.DoesNotExist):
+            FacebookPageRecord.objects.get(fb_id=voluto_page_id)
+        with self.assertRaises(Place.DoesNotExist):
+            Place.objects.get(name=u'Voluto Coffee')
+        with self.assertRaises(Organization.DoesNotExist):
+            Organization.objects.get(name=u'Voluto Coffee')
+        
+        # add voluto's place page
+        outsourcing.page_id_to_place(voluto_page_id,page_cache=page_cache)
+        
+        # ensure the place got added as well as the FB record linking it
+        self.assertEquals(Place.objects.count(),page_count_before+1)
+        try:
+            place = Place.objects.get(name=u'Voluto Coffee')
+        except Place.DoesNotExist:
+            self.fail('Place not inserted')
+        try:
+            # make sure the stored FBPageRecord has the correct place set
+            record = FacebookPageRecord.objects.get(fb_id=voluto_page_id)
+            self.assertEquals(record.associated_place,place)
+        except FacebookPageRecord.DoesNotExist:
+            self.fail('FacebookPageRecord not found!')      
+            
+        # ensure the Voluto org entry also got created and linked up with FB
+        try:
+            org = Organization.objects.get(name=u'Voluto Coffee')
+            self.assertEquals(place.owner,org)
+            self.assertEquals(org,record.associated_organization)
+        except Organization.DoesNotExist:
+            self.fail('Organization not crated with new Place.')
+
+        # test various place meta properties are set correctly
+        self.assertEquals('volutocoffee.com',
+                            PlaceMeta.objects.get(place=place,meta_key='url').meta_value)
+        self.assertEquals('412-661-3000',
+                            PlaceMeta.objects.get(place=place,meta_key='phone').meta_value)
+        self.assertEquals('http://profile.ak.fbcdn.net/hprofile-ak-snc4/50514_50141015898_6026239_s.jpg',
+                            PlaceMeta.objects.get(place=place,meta_key='image_url').meta_value)
+
+        # TODO: test location equality
+        self.fail('not yet implemented')
+
+        # TODO: add big dog's place page, but don't allow an org to be created
         self.fail('not yet implemented')
 
     def test_fb_existing_place(self):
         '''
         Tests that an place is not created if an existing place already exists.
         '''
+        page_id = '30273572778'         # mr. smalls page (already exists via fixture)
+        page_cache = {page_id: load_test_json('places','mr_smalls_page.json')}
+        page_count_before = Place.objects.count()
+        record_count_before = FacebookPageRecord.objects.count()
+
+        outsourcing.page_id_to_place(page_id,page_cache=page_cache)
+        # assert some 'already exists' error is raised
         self.fail('not yet implemented')
+        self.assertEquals(page_count_before,Place.objects.count())
+
+        # ensure the Facebook record didn't get saved
+        self.assertEquals(record_count_before,FacebookPageRecord.objects.count())
 
     def test_fb_bad_place(self):
         '''
-        Tests that a nonexistant FB place insertion attempt fails gracefully.
+        Tests that a nonexistant or user FB page insertion attempt fails gracefully.
         '''
-        self.fail('not yet implemented')      
+        bogus_id = '139288502700092394'     # should be bogus
+        page_count_before = Place.objects.count()
+        record_count_before = FacebookPageRecord.objects.count()
+
+        outsourcing.page_id_to_place(bogus_id)
+        self.fail('not yet implemented')
+        # assert some facebook error is raised
+        self.assertEquals(page_count_before,Place.objects.count())
+        # ensure the Facebook record didn't get saved
+        self.assertEquals(record_count_before,FacebookPageRecord.objects.count())
+        with self.assertRaises(FacebookPageRecord.DoesNotExist):
+            FacebookPageRecord.objects.get(fb_id=bogus_id)
+
+        page_id = '139288502700'    # pgh marathon page id
+        # TODO: ensure non-place pages don't get inserted
+        outsourcing.page_id_to_place(page_id)
+        # assert some 'non place page' error is raised
+        self.fail('not yet implemented')
+        # ensure the Facebook record didn't get saved
+        self.assertEquals(record_count_before,FacebookPageRecord.objects.count())
+        with self.assertRaises(FacebookPageRecord.DoesNotExist):
+            FacebookPageRecord.objects.get(fb_id=page_id)

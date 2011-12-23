@@ -3,9 +3,8 @@ Module containing utilities that use external APIs to perform
 places-related tasks.
 '''
 
-from copy import deepcopy
 from itertools import chain
-import re, time, json, datetime
+import re, time, json, datetime, copy
 
 from django.db.models import Q
 
@@ -140,7 +139,7 @@ def text_to_location(address_text,seed_location=None,allow_numberless=True):
     # seed location and inserting the given raw text into the Location's 
     # field
     if seed_location:
-        location = deepcopy(seed_location)
+        location = copy.deepcopy(seed_location)
     else:
         location = Location()
     location.address = address_text
@@ -234,7 +233,7 @@ def text_to_place(address_text,fallback_place_name='',seed_location=None,fout=sy
     ### Resolve API battery
     def _seeded_resolve(name=None,address=None,postcode=None,town=None,state=None):
         if seed_location:
-            l = deepcopy(seed_location)
+            l = copy.deepcopy(seed_location)
         else:
             l = Location()
         if name:        l.name = name
@@ -370,14 +369,14 @@ def gather_fb_place_pages(center,radius,query=None,limit=4000,batch_requests=Tru
 
         if batch_requests:
             for letter in letters:
-                opts = copy(search_opts)
+                opts = copy.copy(search_opts)
                 opts['q']=letter
-                batch_commands.append(BatchCommand('search',options=opts))
-            for response in fb_client.run_batch_request(batch_commands):
+                batch_commands.append(facebook.BatchCommand('search',options=opts))
+            for response in facebook.oip_client.run_batch_request(batch_commands):
                 pages_unfilitered.extend(response['data'])
         else:
             for letter in letters:
-                pages_unfilitered.extend(fb_client.graph_api_query('search',q=letter,**search_opts))
+                pages_unfilitered.extend(facebook.oip_client.graph_api_query('search',q=letter,**search_opts))
                   
         # need to go through the 26 separate page sets to filter out dups
         ids_seen = set()    # cache the ids in the list for a quick duplicate check
@@ -388,7 +387,7 @@ def gather_fb_place_pages(center,radius,query=None,limit=4000,batch_requests=Tru
                 pages.append(page)
         return pages
     else:
-        return fb_client.graph_api_query('search',q=query,**search_opts)
+        return facebook.oip_client.graph_api_query('search',q=query,**search_opts)
 
 def get_full_place_pages(pids):
     '''
@@ -396,29 +395,17 @@ def get_full_place_pages(pids):
     '''
     page_details = []
     cmds = []
-    ctr = 0
     def _add_batch(batch):
         responses = facebook.oip_client.run_batch_request(batch)
-        # TODO: DEBUG REMOVE
-        for req,resp in zip(batch,responses):
-            if not resp:
-                print 'Batch response: %s => %s' % (str(req.url),str(resp))
-            elif 'error' in resp:
-                print 'Batch response: %s => %s:%s' % (req.url, resp['error'].get('type'), resp['error'].get('message'))
-
         page_details.extend([resp if resp and 'error' not in resp.keys() else None 
                                 for resp in responses ])
 
     for pid in pids:
         cmds.append(facebook.BatchCommand(pid))
         if len(cmds) == 50:
-            ctr = ctr + 1
-            print 'batch', ctr, 'of', len(pids)/50+1
             _add_batch(cmds)
             cmds = []
     if len(cmds) > 0:
-        ctr = ctr + 1
-        print 'batch', ctr, 'of', len(pids)/50+1
         _add_batch(cmds)
     return page_details    
 
@@ -526,7 +513,7 @@ def page_id_to_place(page_id,create_new=True,create_owner=True,page_cache={}):
     
     # really want geolocation, go to Google Geocoding for it if we need it
     if location.longitude is None or location.latitude is None:
-        seed_loc = deepcopy(location)
+        seed_loc = copy.deepcopy(location)
         resolved_location = resolve_location(seed_loc)
         if resolved_location: 
             location = resolved_location
@@ -603,6 +590,6 @@ def _get_all_places_from_cron_job():
 
     all_ids = set()
     for coords in search_coords:
-        ids = [page['id'] for page in gather_place_pages(coords,25000)]
+        ids = [page['id'] for page in gather_fb_place_pages(coords,25000)]
         all_ids.update(ids)
     return list(all_ids)

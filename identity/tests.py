@@ -41,11 +41,13 @@ class FBOrganizationInsertion(TestCase):
         data is as expected)
         '''
         page_id = '139288502700'        # pgh marathon page
-        page_cache = {page_id: load_test_json('places','pgh_marathon_page.json')}
+        page_cache = {page_id: load_test_json('identity','pgh_marathon_page.json')}
         org_count_before = Organization.objects.count()
         # ensure no FBPageRecord already exists for the given id
         with self.assertRaises(FacebookPageRecord.DoesNotExist):
             FacebookPageRecord.objects.get(fb_id=page_id)
+        with self.assertRaises(Organization.DoesNotExist):
+            Organization.objects.get(name=u'Dick\'s Sporting Goods Pittsburgh Marathon')
 
         page_id_to_organization(page_id,page_cache=page_cache)
         
@@ -59,7 +61,7 @@ class FBOrganizationInsertion(TestCase):
             # make sure the stored FBPageRecord has the correct organization set
             org_on_record = FacebookPageRecord.objects.get(fb_id=page_id).associated_organization
             self.assertEquals(org_on_record,org)
-        except Organization.DoesNotExist:
+        except FacebookPageRecord.DoesNotExist:
             self.fail('FacebookPageRecord not found!')            
         self.assertEquals(org.avatar,'http://profile.ak.fbcdn.net/hprofile-ak-snc4/41606_139288502700_4851430_s.jpg')
 
@@ -68,7 +70,7 @@ class FBOrganizationInsertion(TestCase):
         Tests that an org is not created if an existing org already exists.
         '''
         page_id = '30273572778'         # mr. smalls page (already exists via fixture)
-        page_cache = {page_id: load_test_json('places','mr_smalls_page.json')}
+        page_cache = {page_id: load_test_json('identity','mr_smalls_page.json')}
         org_count_before = Organization.objects.count()
         record_count_before = FacebookPageRecord.objects.count()
 
@@ -80,22 +82,23 @@ class FBOrganizationInsertion(TestCase):
         # ensure the Facebook record didn't get saved
         self.assertEquals(record_count_before,FacebookPageRecord.objects.count())
 
-
     def test_fb_bad_org(self):
         '''
         Tests that a nonexistant or user FB page insertion attempt fails gracefully.
         '''
-        page_id = '139288502700092394'     # should be bogus
+        bogus_id = '139288502700092394'     # should be bogus
         org_count_before = Organization.objects.count()
         record_count_before = FacebookPageRecord.objects.count()
 
-        page_id_to_organization(page_id)
+        page_id_to_organization(bogus_id)
         self.fail('not yet implemented')
         # assert some facebook error is raised
         self.assertEquals(org_count_before,Organization.objects.count())
         # ensure the Facebook record didn't get saved
         self.assertEquals(record_count_before,FacebookPageRecord.objects.count())
-
+        with self.assertRaises(FacebookPageRecord.DoesNotExist):
+            FacebookPageRecord.objects.get(fb_id=bogus_id)
+            
         user_id = '14205248'    # my facebook id
         # TODO: ensure user pages don't get inserted
         page_id_to_organization(user_id)

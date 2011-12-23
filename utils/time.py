@@ -22,7 +22,7 @@ def utctolocal(dt,local_tz_name,return_naive=False):
     if not dt.tzinfo:
         dt = dt.replace(tzinfo=utc)   # change the tz-agnostic datetime into a utc datetime
     elif dt.tzinfo != utc:
-        raise ValueError('Given datetime has non-UTC tzinfo: %s',str(dt.tzinfo))
+        raise ValueError('Given datetime has non-UTC tzinfo: %s'%str(dt.tzinfo))
 
     dt = tz_local.normalize(dt.astimezone(tz_local))    # convert into the local timezone
     

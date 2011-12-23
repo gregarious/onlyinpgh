@@ -244,44 +244,10 @@ def event_fbid_to_event(event_fbid,referer_fbid=None,create_new=True,fbevent_cac
                                     event=event)
     return event
 
-def gather_event_info(page_id):
-    '''
-    Returns a list of event object information for all events connected
-    to the given page.
-    '''
-    # make this a batch request to get detailed event info for each
-    # id returned from the first events call
-    batch_requests = [ BatchCommand('%s/events'%str(page_id),
-                                    options={'limit':1000},
-                                    name='get-events',
-                                    omit_response_on_success=False),
-                       BatchCommand('',
-                                    options={'ids':'{result=get-events:$.data.*.id}'}),
-                     ]
-    full_response = fb_client.run_batch_request(batch_requests,process_response=False)
-    first_response = json.loads(full_response[0]['body'])
-    # if the first response has no data, there are no events. return
-    if 'data' not in first_response or len(first_response['data']) == 0:
-        # TODO: return exception if error happened here?
-        return []
-    else:
-        # body of second request is JSON array of ids mapped to events
-        id_event_map = json.loads(full_response[1]['body'])
-        return id_event_map.values() 
-
-class BatchErrContext:
-    def __init__(self,ex,all_batch_commands,all_responses,bad_response1,bad_response2,page_id):
-        self.exception = ex
-        self.all_batch_commands = all_batch_commands
-        self.all_responses = all_responses
-        self.bad_response1 = bad_response1
-        self.bad_response2 = bad_response2
-        self.error_page_id = page_id
-
-def gather_event_info_batch(page_ids):
+def gather_event_info(page_ids):
     '''
     Returns a mapping of page_ids to a list of all events connected to
-    the given page.
+    each respective page.
     '''
     #import pickle
     #err_f = open('/Users/gdn/Sites/onlyinpgh/events/event_batch.pickle','w')
@@ -323,7 +289,7 @@ def gather_event_info_batch(page_ids):
 
     # cycle through 
     id_requests_map = {}
-    print 'running about', len(page_ids)/25, 'batches'
+    dbglog.info('running about %d batches' % (len(page_ids)/25+1))
     ctr = 0
     for page_id in page_ids:
         id_requests_map[page_id] = (
@@ -338,7 +304,7 @@ def gather_event_info_batch(page_ids):
         # 50 is Facebook's batch request limit. send this batch off at 25 (2 per page)
         if len(id_requests_map) == 25:
             ctr += 1
-            print 'running batch',ctr
+            dbglog.info('running batch %d'%ctr)
             time.sleep(.2)
             _run_batch(id_requests_map)
             id_requests_map = {}    # reset and start over
@@ -346,29 +312,10 @@ def gather_event_info_batch(page_ids):
     # if there's still some requests not run, do it now
     if len(id_requests_map) > 0:
         ctr += 1
-        print 'running batch',ctr
+        dbglog.info('running batch %d'%ctr)
         time.sleep(.2)
         _run_batch(id_requests_map)
 
     #err_f.close()
 
     return results
-
-def _get_all_places_from_cron_job():
-    '''
-    Runs a series of queries to return the same results that the old oip
-    fb5_getLocal.execute_quadrants Java code searches over.
-    '''
-    search_coords = [ (40.44181,-80.01277),
-                      (40.666667,-79.700556),
-                      (40.666667,-80.308056),
-                      (40.216944,-79.700556),
-                      (40.216944,-80.308056),
-                      (40.44181,-80.01277),
-                    ]
-
-    all_ids = set()
-    for coords in search_coords:
-        ids = [page['id'] for page in default_graph_client.gather_place_pages(coords,25000)]
-        all_ids.update(ids)
-    return list(all_ids)
