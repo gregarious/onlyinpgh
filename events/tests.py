@@ -4,10 +4,11 @@ when you run "manage.py test".
 
 Replace this with more appropriate tests for your application.
 """
-import random
+import random, datetime
 
 from django.test import TestCase
 from onlyinpgh.events import outsourcing
+from onlyinpgh.events.models import Event, FacebookEventRecord
 
 import logging
 logging.disable(logging.CRITICAL)
@@ -49,20 +50,94 @@ class FBBaseInterfaceTest(TestCase):
         # ignore the rest of the requests -- they were just to test batch
 
 class FBEventInsertion(TestCase):
+    def test_fb_new_event_live(self):
+        '''
+        Tests that the live-download Facebook event process works.
+        '''
+        event_fbid = '143239769119840'        # pgh marathon event
+        event_count_before = Event.objects.count()
+        # ensure no FBPageRecord already exists for the given id
+        with self.assertRaises(FacebookEventRecord.DoesNotExist):
+            FacebookEventRecord.objects.get(fb_id=event_fbid)
+        
+        event_fbid_to_event(event_fbid)
+        
+        self.assertEquals(Event.objects.count(),event_count_before+1)
+        # now the FBPageRecord should exist
+        try:
+            FacebookEventRecord.objects.get(fb_id=event_fbid)
+        except FacebookEventRecord.DoesNotExist:
+            self.fail('FacebookEventRecord not found')
+
     def test_fb_new_event(self):
         '''
-        Tests that a truly new event is inserted correctly.
+        Tests that all fields from a Facebook page to event are inserted 
+        correctly.
+        
+        (uses predefined page both to test cache functionality and to ensure
+        data is as expected)
         '''
-        self.fail('not yet implemented')
+        event_fbid = '286153888063194'        # Oxford 5k
+        event_cache = {event_fbid: load_test_json('events','oxford_5k.json')}
+        event_count_before = Event.objects.count()
+        # ensure no FBPageRecord already exists for the given id
+        with self.assertRaises(FacebookEventRecord.DoesNotExist):
+            FacebookEventRecord.objects.get(fb_id=event_fbid)
+
+        # TODO: after refactoring, also provide the cached fb page for mr. smalls. that way we can test 
+        #       for organization/place properties (see below TODO)
+        event_fbid_to_event(page_id,fbevent_cache=event_cache)
+        
+        self.assertEquals(Event.objects.count(),event_count_before+1)
+        try:
+            event = Event.objects.get(name=u'Oxford Athletic Club Freaky 5K')
+        except Event.DoesNotExist:
+            self.fail('Event not inserted')
+
+        try:
+            # make sure the stored FBEventRecord has the correct Event set
+            event_on_record = FacebookPageRecord.objects.get(fb_id=event_fbid).associated_event
+            self.assertEquals(event_on_record,event)
+        except Event.DoesNotExist:
+            self.fail('FacebookEventRecord not found!')            
+
+        # check properties of event were stored correctly (see http://graph.facebook.com/291107654260858)
+        # event goes from 10/29/11 14:30 17:00 (UTC time)
+        self.assertEquals(event.dtstart,datetime.datetime(2011,10,29,14,30))
+        self.assertEquals(event.dtstart,datetime.datetime(2012,10,29,17,30))
+        self.assertTrue(event.description.startswith(u'Join the Steel City Road Runners Club'))
+
+        # TODO: test place and organization settings after refactoring and allowing cached pages
 
     def test_fb_existing_event(self):
         '''
         Tests that an event is not created if an existing event already exists.
         '''
+        event_fbid = '291107654260858'         # mr. smalls event (already exists via fixture)
+        event_cache = {page_id: load_test_json('places','mr_smalls_event.json')}
+        event_count_before = Event.objects.count()
+        record_count_before = FacebookPageRecord.objects.count()
+
+        event_fbid_to_event(page_id,fbevent_cache=event_cache)
+        # assert some 'already exists' error is raised
         self.fail('not yet implemented')
+        self.assertEquals(event_count_before,Organization.objects.count())
+
+        # ensure the Facebook record didn't get saved
+        self.assertEquals(record_count_before,FacebookEventRecord.objects.count())
 
     def test_fb_bad_event(self):
         '''
         Tests that a nonexistant FB event insertion attempt fails gracefully.
         '''
-        self.fail('not yet implemented')      
+        page_id = '139288502700092394'     # should be bogus
+        event_count_before = Event.objects.count()
+        record_count_before = FacebookPageRecord.objects.count()
+
+        event_fbid_to_event(page_id)
+        # assert some facebook error is raised
+        self.fail('not yet implemented')
+        self.assertEquals(event_count_before,Organization.objects.count())
+
+        # ensure the Facebook record didn't get saved
+        self.assertEquals(record_count_before,FacebookEventRecord.objects.count())

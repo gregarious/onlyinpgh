@@ -36,6 +36,7 @@ def debug_loc_print(l):
 def debug_place_print(place):
     return '%s: %s' % (place.name,debug_loc_print(place.location))
 
+# TODO: add condition that doesn't create new place/orgs. also add test for it
 def event_fbid_to_event(event_fbid,referer_fbid=None,create_new=True,fbevent_cache={}):
     try:
         record = FacebookEventRecord.objects.get(fb_id=event_fbid)
