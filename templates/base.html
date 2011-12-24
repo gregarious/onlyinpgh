@@ -6,7 +6,7 @@
 <head>
   <meta charset="utf-8">
 
-  <title></title>
+  <title>Oakland Scene</title>
   <meta name="description" content="">
   <meta name="author" content="">
 
@@ -42,6 +42,7 @@
 
   <!-- All JavaScript at the bottom, except for Modernizr which enables HTML5 elements & feature detects -->
   <script src="{{ STATIC_URL }}js/libs/modernizr-custom.js"></script>
+
   <!-- Media Queries Polyfill https://github.com/shichuan/mobile-html5-boilerplate/wiki/Media-Queries-Polyfill -->
   <script>Modernizr.mq('(min-width:0)') || document.write('<script src="{{ STATIC_URL }}js/libs/respond.min.js">\x3C/script>')</script>
 </head>
@@ -49,19 +50,18 @@
 <body>
 
   <header>
-
+  
     <hgroup>
       <h1>Oakland Scene</h1>
-      <h2>Where the cool kids are at</h2>
     </hgroup>
 
     <nav>
-      <ul>
-        <li>At a Glance</li>
-        <li>Places</li>
-        <li>Events</li>
-        <li>News</li>
-        <li>Sammich Board</li>
+      <ul class="global-nav">
+        <li id="homeMenuItem">At a Glance</li>
+        <li id="placesMenuItem">Places</li>
+        <li id="eventsMenuItem">Events</li>
+        <li id="newsMenuItem">News</li>
+        <li id="offersMenuItem">Sammich Board</li>
       </ul>
     </nav>
 
@@ -69,7 +69,11 @@
 
   <div class="main">
   
-  <!-- "At A Glance" template -->
+  <!-- To be consolidated into "At A Glance" template -->
+
+    <header>
+      <h2>At a Glance...</h2>
+    </header>
 
     <section class="feed">
 
@@ -81,14 +85,13 @@
 
     </section>
  
-    <!-- No decision on how this will function yet -->
+    <!-- No decision on how this will function yet ***
     <section class="feed" id="placesFeed">
       
       <header>
         <h1 class="feed-title">Smattering of Places</h1>
       </header>
 
-      <!-- Loop through feed items -->
       <article class="feed-item">
         <h1 class="feed-item-title">Place Name</h1>
         <div class="feed-item-content">
@@ -102,11 +105,11 @@
           <img src="" alt="" />
         </div>
       </article>
-      <!-- end loop -->
+      
       <p class="see-more"><a>See more...</a></p>
 
     </section>
-
+    *** end places -->
    
    
     <section class="feed">
@@ -114,7 +117,7 @@
       <header>
         <h1 class="feed-title">Sammich Board</h1>
       </header>
-      <ul id="sammichBoardFeed"><!-- sammichboard_feed template --></ul>
+      <ul id="offersFeed"><!-- sammichboard_feed template --></ul>
       <p class="see-more"><a>See more...</a></p>
 
     </section>
@@ -148,6 +151,9 @@
   <script src="{{ STATIC_URL }}js/mylibs/helper.js"></script>
   <!-- end concatenated and minified scripts-->
 
+  <!-- Sceneable Scripts -->
+  <script src="{{ STATIC_URL }}js/script.js"></script>
+
   <script>
     // iPhone Scale Bug Fix, read this when using http://www.blog.highub.com/mobile-2/a-fix-for-iphone-viewport-scale-bug/
     MBP.scaleFix();
@@ -163,6 +169,6 @@
     g.src=("https:"==location.protocol?"//ssl":"//www")+".google-analytics.com/ga.js";
     s.parentNode.insertBefore(g,s)}(document,"script"));
   </script>
-
+  
 </body>
 </html>

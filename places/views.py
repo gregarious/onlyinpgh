@@ -24,4 +24,4 @@ def demo_establishments(request):
     variables = { 'establishments': Establishment.objects.filter(name__in=subset_names),
                 }
             
-    return render_to_response('broadcast/establishments.html',variables)
+    return render_to_response('pages/places_page.html',variables)

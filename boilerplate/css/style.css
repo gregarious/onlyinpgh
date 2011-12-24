@@ -333,6 +333,58 @@ body:before, body:after {
 body:after {
   clear: both;
 }
+/* GRID ---------- */
+/* COLORS ---------- */
+/* 1 ROOT ---------- */
+body {
+  margin: 3%;
+}
+/* 2 HEADINGS ---------- */
+/* 3 TYPOGRAPHY ---------- */
+/* 4 LINKS ---------- */
+/* 5 FIGURES & IMAGES ---------- */
+/* 6 TABLES ---------- */
+/* 7 FORMS ---------- */
+/* 8 BANNER ---------- */
+/* 9 NAVIGATION ---------- */
+.global-nav, .feed-item-tags {
+  display: inline-block;
+  width: 102.08333333333333%;
+  margin: 0 -1.0416666666666665%;
+  *zoom: 1;
+  *zoom: 1;
+}
+.global-nav:before,
+.feed-item-tags:before,
+.global-nav:after,
+.feed-item-tags:after {
+  content: "";
+  display: table;
+}
+.global-nav:after, .feed-item-tags:after {
+  clear: both;
+}
+.global-nav li, .feed-item-tags li {
+  cursor: pointer;
+  float: left;
+  padding: 0.5em;
+  text-decoration: underline;
+}
+.global-nav li:hover, .feed-item-tags li:hover {
+  background-color: #999;
+}
+.global-nav li:active, .feed-item-tags li:active {
+  background-color: #aaa;
+}
+/* 10 CONTENT ---------- */
+/* 11 MAIN ---------- */
+/* 12 COMPLEMENTARY ---------- */
+/* 13 CONTENTINFO ---------- */
+/* 14 GLOBAL OBJECTS ---------- */
+/* 15 VENDOR-SPECIFIC ---------- */
+/* 16 MODERNIZR ---------- */
+/* 17 TEMPLATE SPECIFICS ---------- */
+/* 18 MEDIA QUERIES ---------- */
 /*
  * Media queries for responsive design https://github.com/shichuan/mobile-html5-boilerplate/wiki/The-Style
  */
