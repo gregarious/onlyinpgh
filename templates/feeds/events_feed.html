@@ -1,23 +1,51 @@
 {% comment %}
-template to be included inside the #eventsFeed div
+template for the Places page
 {% endcomment %}
 
-{% for e in events %}
+<header>
+  <h2>Upcoming Events</h2>
+  <nav class="page-utility-nav">
+    <p>Switch View</p>
+    <ul>
+      <li>Daily</li>
+      <li>Weekly</li>
+      <li>Monthly</li>
+    </ul>
+  </nav>
+</header>
+
+
+<ul>
+  
+  {% for e in events %}
 
   <li>
-    <article class="feed-item">
 
-      <h1 class="feed-item-title">{{ e.name }}</h1>
+    <article class="page-item">
 
-      <div class="feed-item-content">
+      <h1 class="page-item-title">{{ e.name }}</h1>
+
+      <div class="page-item-content">
         <ul>
+          <h1>It is {% now "jS F Y H:i" %}</h1>
           <li><time datetime="">{{ e.dtstart }}</time> - <time datetime="">{{ e.dtend }}</time></li>
-          <li>Hosted By: <a href="">Organization</a></li>
+          
+          <li>Hosted By: <a href="">{{ e.place }}</a></li>
+          
           <li>{{ e.place.location.address }}</li>
-          <li>Shortened Description</li>
-          <li><a href="">Details...</a></li>
+          
+          <li>{{ e.description|truncatewords:10|urlizetrunc:15 }}</li>
+          
+          <li>
+            <p class="expand-details">Details...</p>
+            <ul class="page-item-details">
+              <li>{{ e.description|urlizetrunc:25 }}</li>
+              <li>{{ e.attendees }} plan to attend</li>
+            </ul>
+          </li>
+
         </ul>
-      </div>
+      </div> <!-- .page-item-content -->
 
       <div class="feed-item-thumb">
         <img class="thumbnail" width="100" height="100" alt="{{ e.name }}" src="{{ e.image_url }}" />
@@ -31,7 +59,49 @@ template to be included inside the #eventsFeed div
         </ul>
       </div>
 
-    </article>
+    </article> <!-- .page-item -->
+
   </li>
 
 {% endfor %}
+
+</ul>
+
+{% comment %}
+Here is the calendar.
+We'll need daily, bi-weekly, and monthly views.
+To be revealed when the "Calendar view" option is chosen.
+{% endcomment %}
+
+<!-- Daily -->
+
+<h3>Daily events calendar</h3>
+<ul>
+  {% for e in events|slice:":2" %}
+    <li class="daily-event">
+      <p>Daily events list</p>
+    </li>
+  {% endfor %}
+</ul>
+
+<!-- Weekly -->
+<h3>Weekly events calendar</h3>
+<ul>
+  {% for e in events|slice:":7" %}
+    <li class="weekly-day">
+      <p></p>
+    </li>
+  {% endfor %}
+</ul>
+
+<!-- Monthly -->
+<h3>Monthly events calendar</h3>
+<ul>
+  {% for e in events|slice:":7" %}
+    <li class="monthly-day">
+      <p></p>
+    </li>
+  {% endfor %}
+</ul> 
+
+

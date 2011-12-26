@@ -347,7 +347,7 @@ body {
 /* 7 FORMS ---------- */
 /* 8 BANNER ---------- */
 /* 9 NAVIGATION ---------- */
-.global-nav, .feed-item-tags {
+.global-nav, .feed-item-tags, .page-utility-nav {
   display: inline-block;
   width: 102.08333333333333%;
   margin: 0 -1.0416666666666665%;
@@ -356,24 +356,26 @@ body {
 }
 .global-nav:before,
 .feed-item-tags:before,
+.page-utility-nav:before,
 .global-nav:after,
-.feed-item-tags:after {
+.feed-item-tags:after,
+.page-utility-nav:after {
   content: "";
   display: table;
 }
-.global-nav:after, .feed-item-tags:after {
+.global-nav:after, .feed-item-tags:after, .page-utility-nav:after {
   clear: both;
 }
-.global-nav li, .feed-item-tags li {
+.global-nav li, .feed-item-tags li, .page-utility-nav li {
   cursor: pointer;
   float: left;
   padding: 0.5em;
   text-decoration: underline;
 }
-.global-nav li:hover, .feed-item-tags li:hover {
+.global-nav li:hover, .feed-item-tags li:hover, .page-utility-nav li:hover {
   background-color: #999;
 }
-.global-nav li:active, .feed-item-tags li:active {
+.global-nav li:active, .feed-item-tags li:active, .page-utility-nav li:active {
   background-color: #aaa;
 }
 /* 10 CONTENT ---------- */

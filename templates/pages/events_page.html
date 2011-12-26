@@ -4,8 +4,17 @@ template for the Places page
 
 <header>
   <h2>Upcoming Events</h2>
+  <nav class="page-utility-nav">
+    <p>Switch View</p>
+    <ul>
+      <li>Daily</li>
+      <li>Weekly</li>
+      <li>Monthly</li>
+    </ul>
+  </nav>
 </header>
 
+<!-- Default events Feed -->
 <ul>
 
   {% for e in events %}
@@ -17,16 +26,22 @@ template for the Places page
 
       <div class="page-item-content">
         <ul>
-			<li><time datetime="">{{ e.dtstart }}</time> - <time datetime="">{{ e.dtend }}</time></li>
-	    	<li>Hosted By: <a href="">{{ e.place }}</a></li>
-	        <li>{{ e.place.location.address }}</li>
-	        <li>Shortened Description</li>
-	        <li><a href="">Details...</a></li>
+      <li><time datetime="">{{ e.dtstart }}</time> - <time datetime="">{{ e.dtend }}</time></li>
+        <li>Hosted By: <a href="">{{ e.place }}</a></li>
+          <li>{{ e.place.location.address }}</li>
+          <li>Shortened Description</li>
+          <li>
+            <p class="expand-details">Details...</p>
+            <ul class="page-item-details">
+              <li>{{ e.description }}</li>
+              <li><!--{{ e.attendees }}-->12 plan to attend</li>
+            </ul>
+          </li>
         </ul>
       </div>
 
       <div class="feed-item-thumb">
-        <img class="thumbnail" width="100" height="100" alt="{{ e.name }}" src="{{ e.owner.identity.avatar }}" />
+        <img class="thumbnail" width="100" height="100" alt="{{ e.name }}" src="{{ e.image_url }}" />
       </div>
 
       <div class="feed-item-tags">
@@ -43,3 +58,145 @@ template for the Places page
 {% endfor %}
 
 </ul>
+
+{% comment %}
+Here is the calendar.
+We'll need daily, bi-weekly, and monthly views.
+It will be revealed when the option is chosen.
+{% endcomment %}
+
+<!-- Monthly calendar -->
+
+<ul class="monthly">
+  <li class="monthly-day">
+    <p>1</p>
+    <ul class="monthly-day-events">
+      <li>Event1</li>
+      <li>Event2</li>
+      <li>Event3</li>
+    </ul>
+  </li>
+  <li class="monthly-day">
+    <p></p>
+  </li>
+  <li class="monthly-day">
+    <p></p>
+  </li>
+  <li class="monthly-day">
+    <p></p>
+  </li>
+  <li class="monthly-day">
+    <p></p>
+  </li>
+  <li class="monthly-day">
+    <p></p>
+  </li>
+  <li class="monthly-day">
+    <p></p>
+  </li>
+  <li class="monthly-day">
+    <p></p>
+  </li>
+  <li class="monthly-day">
+    <p></p>
+  </li>
+  <li class="monthly-day">
+    <p></p>
+  </li>
+  <li class="monthly-day">
+    <p></p>
+  </li>
+  <li class="monthly-day">
+    <p></p>
+  </li>
+  <li class="monthly-day">
+    <p></p>
+  </li>
+  <li class="monthly-day">
+    <p></p>
+  </li>
+  <li class="monthly-day">
+    <p></p>
+  </li>
+  <li class="monthly-day">
+    <p></p>
+  </li>
+  <li class="monthly-day">
+    <p></p>
+  </li>
+  <li class="monthly-day">
+    <p></p>
+  </li>
+  <li class="monthly-day">
+    <p></p>
+  </li>
+  <li class="monthly-day">
+    <p></p>
+  </li>
+  <li class="monthly-day">
+    <p></p>
+  </li>
+  <li class="monthly-day">
+    <p></p>
+  </li>
+  <li class="monthly-day">
+    <p></p>
+  </li>
+  <li class="monthly-day">
+    <p></p>
+  </li>
+  <li class="monthly-day">
+    <p></p>
+  </li>
+  <li class="monthly-day">
+    <p></p>
+  </li>
+  <li class="monthly-day">
+    <p></p>
+  </li>
+  <li class="monthly-day">
+    <p></p>
+  </li>
+  <li class="monthly-day">
+    <p></p>
+  </li>
+  <li class="monthly-day">
+    <p></p>
+  </li>
+</ul> 
+
+<!-- Weekly calendar -->
+
+<ul class="weekly">
+  <li class="weekly-day">
+    <p></p>
+  </li>
+  <li class="weekly-day">
+    <p></p>
+  </li>
+  <li class="weekly-day">
+    <p></p>
+  </li>
+  <li class="weekly-day">
+    <p></p>
+  </li>
+  <li class="weekly-day">
+    <p></p>
+  </li>
+  <li class="weekly-day">
+    <p></p>
+  </li>
+  <li class="weekly-day">
+    <p></p>
+  </li>
+</ul>
+
+<!-- Daily Calendar -->
+  <header>
+    
+  </header>
+  <ul class="daily-day">
+    <li class="daily-event">Event 1</li>
+    <li class="daily-event"></li>
+    <li class="daily-event"></li>
+  </ul>
