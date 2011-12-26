@@ -11,14 +11,16 @@ from django.db.models import Q
 from onlyinpgh.apitools import google
 from onlyinpgh.apitools import factual
 from onlyinpgh.apitools import facebook
-from onlyinpgh.places import US_STATE_MAP
 
 from onlyinpgh.identity.outsourcing import page_id_to_organization
 from onlyinpgh.places.models import Location, Place, PlaceMeta, ExternalPlaceSource, FacebookPageRecord
-from onlyinpgh.identity.models import Organization
 
 import logging
 dbglog = logging.getLogger('onlyinpgh.debugging')
+
+# reverse the US_STATE_MAP for eaach lookup of full names to abbreviations
+from onlyinpgh.places import US_STATE_MAP
+state_name_to_abbrev = {name:code for code,name in US_STATE_MAP}
 
 def _resolve_result_to_place(result):
     resolved_loc = Location(
@@ -424,15 +426,13 @@ def _create_place_meta(page,place,fb_key,meta_key):
         print page['id'], e.message
 
 def fbloc_to_loc(fbloc):
-    # TODO: temp
+    '''
+    Converts a dict of fields composing a Facebook location to a Location.
+    '''
     state = fbloc.get('state','').strip()
+    # State entry is often full state name
     if len(state) != 2 and state != '':
-        try:
-            state = state.lower()
-            state = (ab for ab,full in US_STATE_MAP.items() if full.lower()==state).next()
-        except StopIteration:
-            print 'non-PA state found:',state
-            state = ''
+        state = state_name_to_abbrev.get(state,'')
 
     return Location(address=fbloc.get('street','').strip(),
                     town=fbloc.get('city','').strip(),
@@ -462,7 +462,7 @@ def page_id_to_place(page_id,create_new=True,create_owner=True,page_cache={}):
     Returns None if no Place could be retreived.
     '''
     try:
-        place = FacebookPageRecord.objects.get(fb_id=page_id).associated_place
+        place = FacebookPageRecord.objects.get(fb_id=page_id).place
         dbglog.info('found existing place for fbid %s'%page_id)
     except FacebookPageRecord.DoesNotExist:
         place = None
@@ -561,7 +561,7 @@ def page_id_to_place(page_id,create_new=True,create_owner=True,page_cache={}):
         record = FacebookPageRecord.objects.get(fb_id=page_id)
     except FacebookPageRecord.DoesNotExist:
         record = FacebookPageRecord(fb_id=page_id)
-    record.associated_place = place
+    record.place = place
     record.save()
 
     # add place meta info that exists      
@@ -571,7 +571,7 @@ def page_id_to_place(page_id,create_new=True,create_owner=True,page_cache={}):
     _create_place_meta(page,place,'picture','image_url')
 
     # finally create an more generally useful external UID reference to the fb page
-    ExternalPlaceSource.objects.create(place=record.associated_place,
+    ExternalPlaceSource.objects.create(place=record.place,
         service='fb',uid=page_id)
     return place
 

@@ -1,7 +1,7 @@
 from onlyinpgh.apitools import facebook
 
-from onlyinpgh.places.models import FacebookPageRecord
-from onlyinpgh.identity.models import Organization
+from onlyinpgh.identity.models import Organization, FacebookPageRecord
+
 
 import logging
 dbglog = logging.getLogger('onlyinpgh.debugging')
@@ -21,7 +21,7 @@ def page_id_to_organization(page_id,create_new=True,page_cache={}):
     Returns None if no Organization could be retreived.
     '''
     try:
-        organization = FacebookPageRecord.objects.get(fb_id=page_id).associated_organization
+        organization = FacebookPageRecord.objects.get(fb_id=page_id).organization
         dbglog.info('found existing organization for fbid %s'%page_id)
     except FacebookPageRecord.DoesNotExist:
         organization = None
@@ -68,7 +68,7 @@ def page_id_to_organization(page_id,create_new=True,page_cache={}):
     except FacebookPageRecord.DoesNotExist:
         record = FacebookPageRecord(fb_id=page_id)
 
-    record.associated_organization = organization
+    record.organization = organization
     record.save()
 
     return organization

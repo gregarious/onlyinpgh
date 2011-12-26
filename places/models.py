@@ -158,11 +158,7 @@ class FacebookPageRecord(models.Model):
     fb_id = models.BigIntegerField(primary_key=True)
     time_added = models.DateTimeField(auto_now_add=True)
     last_checked = models.DateTimeField(auto_now_add=True)
-
-    # related_name argument necessary because identifier needs to be unique for organizations vs. individuals
-    associated_organization = models.ForeignKey(Organization,null=True,blank=True,
-                                        related_name="%(app_label)s_%(class)s_related")
-    associated_place = models.ForeignKey(Place,null=True,blank=True,related_name="%(app_label)s_%(class)s_related")
+    place = models.ForeignKey(Place,null=True,blank=True,related_name="%(app_label)s_%(class)s_related")
 
 class LocationLookupNotice(models.Model):
     '''
