@@ -26,4 +26,6 @@ class FacebookPageRecord(models.Model):
     fb_id = models.BigIntegerField(primary_key=True)
     time_added = models.DateTimeField(auto_now_add=True)
     last_checked = models.DateTimeField(auto_now_add=True)
-    organization = models.ForeignKey(Organization,null=True,blank=True,related_name="%(app_label)s_%(class)s_related")
+
+    organization = models.ForeignKey(Organization,related_name="%(app_label)s_%(class)s_related")
+    ignore = models.BooleanField('always ignore this page',default=False)

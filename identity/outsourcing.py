@@ -1,74 +1,57 @@
 from onlyinpgh.apitools import facebook
-
 from onlyinpgh.identity.models import Organization, FacebookPageRecord
-
 
 import logging
 dbglog = logging.getLogger('onlyinpgh.debugging')
 
-# TODO: revisit page cache thing
-def page_id_to_organization(page_id,create_new=True,page_cache={}):
+def store_fbpage_organization(page_info):
     '''
-    Takes a fb page ID and tries to resolve an Organization object 
-    from it. First queries the FacebookPageRecord table. If that fails, 
-    and create_new is True, it will try to create a new one and return 
-    that.
+    Takes a dict of properties retreived from a Facebook Graph API call for
+    a page and stores an Organization from the information. This dict can
+    have the following keys:
+    - id
+    - type (value must be 'page' or a TypeError will be thrown)
+    - name
+    - website (optional)
+    - picture (optional)
 
-    If page information has been loaded at a prior time for a group of 
-    pages, the page_cache argument can be used (dict of ids to page 
-    details).
-
-    Returns None if no Organization could be retreived.
+    If a FacebookPageRecord already exists for the given Facebook id, the already 
+    linked organization is returned.
     '''
+    pid = page_info['id']
+
+    if page_info.get('type') != 'page':
+        raise TypeError("Cannot store fbpage with a 'type' value that is not 'page'.")
+
     try:
-        organization = FacebookPageRecord.objects.get(fb_id=page_id).organization
-        dbglog.info('found existing organization for fbid %s'%page_id)
-    except FacebookPageRecord.DoesNotExist:
-        organization = None
-    
-    # we return if we either found a record, or didn't but can't create
-    if organization or not create_new:
+        organization = FacebookPageRecord.objects.get(fb_id=pid).organization
+        dbglog.info('Existing fb page organization found for fbid %s' % str(pid))
         return organization
-
-    dbglog.info('gathering data for creating org with fbid %s' % page_id)
-    if page_id in page_cache:
-        page = page_cache[page_id]
-        dbglog.debug('retreiving page info from cache')
-    else:
-        try:
-            dbglog.debug('retreiving page info from facebook')
-            page = facebook.oip_client.graph_api_objects(page_id)
-
-        except facebook.FacebookAPIError as e:
-            dbglog.error('Facebook error occured!')
-            dbglog.error(str(e))
-            return None
-
-    pname = page['name'].strip()
-
-    # TODO: temp because of idiotic page http://graph.facebook.com/104712989579167
-    try:
-        url = page.get('website','').split()[0].strip()
-    except IndexError:
-        url = page.get('link','http://www.facebook.com/%s'%page_id)
-    organization = Organization(name=pname,
-                        avatar=page.get('picture',''),
-                        url=url)
-    organization.save()
-    # TODO: wtf page 115400921824318?
-    # TODO: ensure page isn't just a user
-    try:
-        ostr = unicode(organization)
-    except UnicodeDecodeError:
-        ostr = '<UNICODE ERROR>'
-    dbglog.info(u'created new organization for fbid %s: "%s"' % (page_id,ostr))
-
-    try:
-        record = FacebookPageRecord.objects.get(fb_id=page_id)
     except FacebookPageRecord.DoesNotExist:
-        record = FacebookPageRecord(fb_id=page_id)
+        pass
 
-    record.organization = organization
-    record.save()
+    pname = page_info['name'].strip()
+
+    try:
+        # url field can be pretty free-formed and list multiple urls. 
+        # we take the first one (identified by whitespace parsing)
+        url = page_info.get('website','').split()[0].strip()[:400]
+    except IndexError:
+        # otherwise, go with the fb link (and manually create it if even that fails)
+        url = page_info.get('link','http://www.facebook.com/%s'%pid)
+    organization = Organization.objects.get_or_create(name=pname,
+                                                        avatar=page_info.get('picture',''),
+                                                        url=url)
+    organization.save()
+    
+    record = FacebookPageRecord.objects.create(fb_id=pid,organization=organization)
+    dbglog.info(u'Stored new Organization for fbid %s: "%s"' % (pid,unicode(organization)))
+
+    if len(pname) == 0:
+        logging.warning('Facebook page with no name was stored as Organization')
 
     return organization
+
+def create_org_from_fbpage(page_id):
+    page_info = facebook.oip_client.graph_api_page_request(page_id)
+    store_fbpage_organization(page_info)

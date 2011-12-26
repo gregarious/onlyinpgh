@@ -30,14 +30,26 @@ class FacebookGraphTest(TestCase):
         # Dependant on FB data. These are examples given on the Graph API
         # documentation page. If this test fails, check this site.
         # https://developers.facebook.com/docs/reference/api/
-        page = facebook_client.graph_api_objects('40796308305')
+        page = facebook_client.graph_api_objects_request('40796308305')
         self.assertEquals(page['name'],'Coca-Cola')
-        page = facebook_client.graph_api_objects(40796308305)
+        page = facebook_client.graph_api_objects_request(40796308305)
         self.assertEquals(page['name'],'Coca-Cola')
 
-        users = facebook_client.graph_api_objects(['btaylor','zuck'])
+        users = facebook_client.graph_api_objects_request(['btaylor','zuck'])
         self.assertEquals(users[0]['name'],'Bret Taylor')
         self.assertEquals(users[1]['name'],'Mark Zuckerberg')
+
+    def test_page_lookup(self):
+        '''
+        Tests lookup of Facebook pages specifically.
+        '''
+        # also try the page-specific helper function
+        page = facebook_client.graph_api_page_request('40796308305')
+        self.assertEquals(page['name'],'Coca-Cola')
+
+        # should fail on user page lookup
+        with self.assertRaises(TypeError):
+            page = facebook_client.graph_api_page_request('btaylor')
 
     def test_graph_query(self):
         '''
@@ -48,14 +60,14 @@ class FacebookGraphTest(TestCase):
         # https://developers.facebook.com/docs/reference/api/
 
         # test a Graph API search for posts
-        results = facebook_client.graph_api_query('search',type='post',q='watermelon',max_pages=1)
+        results = facebook_client.graph_api_collection_request('search',type='post',q='watermelon',max_pages=1)
         # ensure that someone, anyone, is talking about watermelon publicly
         self.assertGreater(len(results),0)
         # just check that first result is a post because it has a 'from' key
         self.assertIn('from',results[0].keys())
         
         # test a connection query
-        results = facebook_client.graph_api_query('cocacola/events',limit=2,max_pages=3)
+        results = facebook_client.graph_api_collection_request('cocacola/events',limit=2,max_pages=3)
         # ensure paging and limit worked (contingent of course on Coke having 6 events)
         self.assertEquals(len(results),6)
         # just check that first result is an event because it has a 'start_time' field

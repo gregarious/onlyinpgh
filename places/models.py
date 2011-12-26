@@ -158,7 +158,8 @@ class FacebookPageRecord(models.Model):
     fb_id = models.BigIntegerField(primary_key=True)
     time_added = models.DateTimeField(auto_now_add=True)
     last_checked = models.DateTimeField(auto_now_add=True)
-    place = models.ForeignKey(Place,null=True,blank=True,related_name="%(app_label)s_%(class)s_related")
+    place = models.ForeignKey(Place,related_name="%(app_label)s_%(class)s_related")
+    ignore = models.BooleanField('always ignore this page',default=False)
 
 class LocationLookupNotice(models.Model):
     '''

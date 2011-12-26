@@ -59,7 +59,7 @@ def event_fbid_to_event(event_fbid,referer_fbid=None,create_new=True,fbevent_cac
     else:
         try:
             dbglog.debug('retreiving event info from facebook')
-            fbevent = fb_client.graph_api_objects(event_fbid)
+            fbevent = fb_client.graph_api_objects_request(event_fbid)
         except FacebookAPIError as e:
             dbglog.error('Facebook error occured!')
             dbglog.error(str(e))

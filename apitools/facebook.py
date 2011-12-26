@@ -1,5 +1,5 @@
 import urllib, urllib2, json, time
-from onlyinpgh.apitools import APIError
+from onlyinpgh.apitools import APIError, delayed_retry_on_ioerror
 
 import logging
 dbglog = logging.getLogger('onlyinpgh.debugging')
@@ -30,7 +30,8 @@ def get_basic_access_token(client_id,client_secret):
         pass
 
     # if we made it this far, we didn't return with a value response
-    raise Exception("Unexpected response from server: '%s'" % response)
+    logging.error("Unexpected response to access token request: '%s'" % response)
+    raise FacebookAPIError('Access token retreival error. See log for details.')
 
 class BatchCommand(object):
     '''
@@ -68,7 +69,50 @@ class GraphAPIClient(object):
     def __init__(self,access_token=None):
         self.access_token = access_token
 
-    def graph_api_objects(self,ids):
+    def _make_request(self,request,urllib_module=urllib):
+        '''
+        Helper function to make Graph API request and handle possible
+        error conditions. 
+
+        Request will be executed by calling <urllib_module>.urlopen on
+        request object. In the default case, this is callign urllib.urlopen
+        on a url string, but the urllib_module argument allows for 
+        flexibility (i.e. calling urllib2.urlopen on a urllib2.Request)
+        '''
+        response = delayed_retry_on_ioerror(lambda:json.load(urllib_module.urlopen(request)),
+                                            delay_seconds=5,
+                                            retry_limit=1,
+                                            logger=dbglog)
+
+        if response == False:
+            raise FacebookAPIError(request=unicode(request),
+                                    message=u"'false' response returned")
+        elif response is None:
+            raise FacebookAPIError(request=unicode(request),
+                                    message=u"null response returned")
+        elif 'error' in response:
+            raise FacebookAPIError(request=unicode(request),
+                                    message=u'%s: "%s"' % \
+                                        (response['error'].get('type','Unknown'),
+                                         response['error'].get('message','')))
+
+        return response
+
+    def graph_api_page_request(self,fbid):
+        '''
+        Convenience method to query the Graph API for a page object.
+
+        Will always return metadata. To customize this, use 
+        graph_api_objects_request.
+
+        Will fail with a TypeError if the returned object isn't a page.
+        '''
+        page_info = self.graph_api_objects_request(fbid,metadata=True)
+        if page_info.get('type') != 'page':
+            raise TypeError("Expected 'page' object from Graph API. Received '%s'." % page_info.get('type') )
+        return page_info
+
+    def graph_api_objects_request(self,ids,metadata=False):
         '''
         Returns details about objects with known Facebook ids. Input
         is a list of ids (numbers or strings OK), output is a parallel
@@ -77,6 +121,15 @@ class GraphAPIClient(object):
         A single string/value can be input without a list for convenience's 
         sake. In this case, the single result will be returned in isolation 
         (not in a list).
+
+        If metadata is True, the metadata argument will be enabled on the 
+        call, returning supplemental introspective fields for the object 
+        under the 'metadata' key (a root-level "type" key will also be 
+        part of the results).
+
+        Will raise IOError if response could not be received from the API
+        service. Any problem with response content will raise a 
+        FacebookAPIError.
         '''
         return_list = True
         # duck typing fun to handle single id case
@@ -92,19 +145,14 @@ class GraphAPIClient(object):
         get_opts = { 'ids': ','.join(ids) }
         if self.access_token:
             get_opts['access_token'] = self.access_token
+        if metadata:
+            get_opts['metadata'] = 1
 
         request_url = 'https://graph.facebook.com/?' + urllib.urlencode(get_opts)
 
-        try:
-            response = json.load(urllib.urlopen(request_url))
-        except IOError as e:
-            dbglog.warning('Facebook IOError "%s": sleeping 2 secs...'%str(e))
-            time.sleep(3)
-            response = json.load(urllib.urlopen(request_url))
+        # handles retries and exception handling
+        response = self._make_request(request_url)
 
-        if not response or 'error' in response:
-            raise Exception('Graph API returned error. Content:\n%s' % str(response))    
-        
         # return sorted list based on the input id ordering
         responses = [response[id] for id in ids]
         if return_list:
@@ -114,14 +162,14 @@ class GraphAPIClient(object):
         else:
             return responses[0]
 
-    def graph_api_query(self,suburl,max_pages=10,**kw_options):
+    def graph_api_collection_request(self,suburl,max_pages=10,**kw_options):
         '''
         Thin wrapper around Graph API query that returns pages of 'data' arrays. 
         kw_options can take any option that the graph query could take. 
 
-        e.g. - graph_api_query('cocacola/events') 
+        e.g. - graph_api_collection_request('cocacola/events') 
                 for all events connected to Coca-Cola
-             - graph_api_query('search',q=coffee,
+             - graph_api_collection_request('search',q=coffee,
                                         type=place,
                                         center=37.76,-122.427,
                                         distance=1000)
@@ -150,24 +198,12 @@ class GraphAPIClient(object):
         pages_read = 0
         # inside loop because results might be paged
         while request_url:
-            # TODO: revisit
-            try:
-                response = json.load(urllib.urlopen(request_url))
-            except IOError as e:
-                dbglog.warning('Facebook IOError "%s": sleeping 2 secs...'%str(e))
-                time.sleep(3)
-                response = json.load(urllib.urlopen(request_url))
+            # handles retries and exception handling
+            response = self._make_request(request_url)
 
-            if 'error' in response:
-                err = response['error']
-                raise FacebookAPIError(
-                            request=request_url,
-                            message='%s: %s' % (str(err['type']),str(err['message']))
-                        )
             if 'data' not in response:
-                raise FacebookAPIError(
-                            request=request_url,
-                            message='%s' % str(response))
+                raise FacebookAPIError(request=request_url,
+                                        message="Expected response: no 'data' field")
             
             all_data.extend(response['data'])
 
@@ -202,13 +238,8 @@ class GraphAPIClient(object):
             data['access_token'] = self.access_token
         
         req = urllib2.Request(url='https://graph.facebook.com/',data=urllib.urlencode(data))
-        # TODO: revisit
-        try:
-            response = json.load(urllib2.urlopen(req))
-        except IOError as e:
-            dbglog.warning('Facebook IOError "%s": sleeping 3 secs...'%str(e))
-            time.sleep(3)
-            response = json.load(urllib2.urlopen(req))
+        # handles retries and exception handling
+        response = self._make_request(req,urllib2)
 
         if process_response:
             return [json.loads(entry['body']) if entry else None

@@ -378,7 +378,7 @@ def gather_fb_place_pages(center,radius,query=None,limit=4000,batch_requests=Tru
                 pages_unfilitered.extend(response['data'])
         else:
             for letter in letters:
-                pages_unfilitered.extend(facebook.oip_client.graph_api_query('search',q=letter,**search_opts))
+                pages_unfilitered.extend(facebook.oip_client.graph_api_collection_request('search',q=letter,**search_opts))
                   
         # need to go through the 26 separate page sets to filter out dups
         ids_seen = set()    # cache the ids in the list for a quick duplicate check
@@ -389,7 +389,7 @@ def gather_fb_place_pages(center,radius,query=None,limit=4000,batch_requests=Tru
                 pages.append(page)
         return pages
     else:
-        return facebook.oip_client.graph_api_query('search',q=query,**search_opts)
+        return facebook.oip_client.graph_api_collection_request('search',q=query,**search_opts)
 
 def get_full_place_pages(pids):
     '''
@@ -478,7 +478,7 @@ def page_id_to_place(page_id,create_new=True,create_owner=True,page_cache={}):
         dbglog.debug('retreiving page info from cache')
     else:
         try:
-            page = facebook.oip_client.graph_api_objects(page_id)    
+            page = facebook.oip_client.graph_api_objects_request(page_id)    
             dbglog.debug('retreiving page info from facebook')
         except facebook.FacebookAPIError as e:
             dbglog.error('Facebook error occured!')
