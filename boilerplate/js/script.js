@@ -1,93 +1,131 @@
 
-( function($) {  
 
-	$(document).ready( function() {
+/* Credits:
+*** Andi Smith, Using jQuery .on() and .off()
+*** http://www.andismith.com/blog/2011/11/on-and-off/
+*/
+
+// Reminder for how .on() works:
+// $([loaded container selector (probably '.main')])
+// .on([action], [ajaxed selector to act on], [handler function]);
+// example:
+// $('.main').on('click', '.expand-details', handleClick);
 
 
-		/********************/
-		/*** AJAX LOADERS ***/
-		/********************/
+jQuery(document).ready( function($) {
 
-		// Load single page templates when 
-		// associated menu item is clicked
 
-		var menuItems = {
-				'#placesMenuItem': '/ajax/places', 
-				'#eventsMenuItem': '/ajax/events',
-				'#newsMenuItem': '/ajax/news', 
-				'#offersMenuItem': '/ajax/offers'
-			};
+	/********************/
+	/*** AJAX LOADERS ***/
+	/********************/
 
-		$.each(menuItems, function(key, value) {
-				
-			$(key).click(function(){
+	// Load single page templates when 
+	// associated menu item is clicked
 
-				// Load the new #content; key = the menu item, value = the associated URL
-				$.ajax({
-					type: 'GET',
-					url: value,
-					success: function(data, textStatus) {
-						$('.main').html(data);
-					},
-					error: function(xhr, textStatus, errorThrown) {
-						alert('an error occurred! ' + errorThrown);
-					}
-				}); // ajax
-				
-				// Remove map and current #content children before loading new #content children
-				//$('#map').hide(500); // Will be incorporated into #content actions below, not working right now
-				//$('#content').children().hide();
+	var menuItems = {
+		'#placesMenuItem': '/ajax/places-page', 
+		'#eventsMenuItem': '/ajax/events-page',
+		'#newsMenuItem': '/ajax/news-page', 
+		'#offersMenuItem': '/ajax/offers-page'
+	};
 
-			}); // key.click
-		}); // .each
-		
+	$.each(menuItems, function(key, value) {
+			
+		$(key).click( function() {
 
-		// This is a hack. 
-		// Will need to create a separate template for 
-		// home page so it loads in base.html '.main'
-
-		$('#homeMenuItem').click(function () {
+			// Load the new #content; key = the menu item, value = the associated URL
 			$.ajax({
 				type: 'GET',
-				url: '/',
+				url: value,
 				success: function(data, textStatus) {
-					$('body').html(data);
+					$('.main').html(data);
 				},
 				error: function(xhr, textStatus, errorThrown) {
 					alert('an error occurred! ' + errorThrown);
-				}	
-			});
-		
+				}
+			}); // ajax menu items
+			
+		}); // key.click
+	}); // .each
+	
+
+	// This is hacky. 
+	// Will need to create a separate template for 
+	// home page so it loads in base.html '.main'
+
+	$('#homeMenuItem').click(function () {
+		$.ajax({
+			type: 'GET',
+			url: '/',
+			success: function(data, textStatus) {
+				$('body').html(data);
+			},
+			error: function(xhr, textStatus, errorThrown) {
+				alert('an error occurred! ' + errorThrown);
+			}	
 		});
-		
-		// Load home page feed templates
-		// Also a hack, 
-		// will change to loading home page template
-		// once it exists
-
-		$.get('/ajax/events', function(data) { 
-		        $('#eventsFeed').html(data); 
-		    }
-		);
-
-		$.get('/ajax/offers', function(data) { 
-		        $('#offersFeed').html(data); 
-		    }
-		);
-
-		$.get('/ajax/news', function(data) { 
-		        $('#newsFeed').html(data); 
-		    }
-		);
-
-
-		/******************/
-		/*** ANIMATIONS ***/
-		/******************/
-		
+	
 	});
+	
+	// Load home page feed templates
+	// Also a hack, 
+	// will change to loading home page template
+	// once it exists
 
-}) ( jQuery );
+	$.get('/ajax/events', function(data) { 
+	        $('#eventsFeed').html(data); 
+	    }
+	);
+
+	$.get('/ajax/offers', function(data) { 
+	        $('#offersFeed').html(data); 
+	    }
+	);
+
+	$.get('/ajax/news', function(data) { 
+	        $('#newsFeed').html(data); 
+	    }
+	);
+
+
+	/**********************/
+	/*** CALENDAR VIEWS ***/
+	/**********************/	
+
+	function showCalendar() {
+		$('.feed-items').fadeOut(300);
+		$('.calendar-toggled').delay(300).fadeIn(300);
+	}
+
+	
+	function swapCalendarViews() {
+		var calendarViews = {
+			'#dailyView' : 'daily-event',
+			'#weeklyView' : 'weekly-day',
+			'#monthlyView' : 'monthly-day'
+		};
+
+		$.each(calendarViews, function(key, value) {	
+			$(key).click( function() {
+				$('.calendar li').removeClass()
+				.addClass(value);
+				$('.calendar-view-title').text('text');
+			});
+		});		
+	}
+	
+	$('.main').on('click', '#showCalendar', showCalendar);
+	$('.main').on('click', '#calendarViews li', swapCalendarViews);
+	
+
+	/******************/
+	/*** ANIMATIONS ***/
+	/******************/
+
+	
+		
+}); // document.ready
+
 	/*function expandDetails() {
 		$('.page-item-details').hide();
 		$('.expand-details').toggle(function () {

@@ -19,12 +19,23 @@ urlpatterns = patterns('',
 
     # Uncomment the admin/doc line below to enable admin documentation:
     # url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
-    url(r'^$',      direct_to_template,     {'template':'base.html'}),
+    url(r'^$', direct_to_template, {'template':'base.html'}),
     url(r'^admin/', include(admin.site.urls)),
-    url(r'^ajax/places$', places_views.demo_establishments),
-    url(r'^ajax/events$', events_views.demo_events),
+    # For "A a Glance"
     url(r'^ajax/offers$', offers_views.demo_offers),
     url(r'^ajax/news$', news_views.demo_news),
+    url(r'^ajax/events$', events_views.demo_events),
+    
+    # For single/all
+    url(r'^ajax/events-page$', events_views.demo_events_page),
+    url(r'^ajax/places-page$', places_views.demo_establishments_page),
+    url(r'^ajax/offers-page$', offers_views.demo_offers),
+    url(r'^ajax/news-page$', news_views.demo_news),
+
+    url(r'^ajax/place-single$', places_views.demo_establishments_single),
+    url(r'^ajax/event-single$', events_views.demo_events_single),
+    
+    # Chatter - not in use for OBID
     url(r'^ajax/chatter/teaser$', chatter_views.demo_teasers),
     url(r'^ajax/chatter/hot$', chatter_views.demo_posts_hot),
     url(r'^ajax/chatter/new$', chatter_views.demo_posts_new),

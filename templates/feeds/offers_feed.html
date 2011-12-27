@@ -2,7 +2,7 @@
 template to be included inside ul#offersFeed
 {% endcomment %}
 
-{% for o in offers %}
+{% for o in offers|slice:":4" %}
 
   <li>  
     <article class="feed-item">

@@ -1,44 +1,49 @@
 {% comment %}
-template for the Places page
+	
+ ** Template for the events page
+	Rendered when menu item is clicked
+	
+ ** This is inefficient - should
+	{% include "/feeds/events_feed.html " %}
+	or block it out rather than copying the 
+	events_feed template
+
 {% endcomment %}
 
 <header>
-  <h2>Upcoming Events</h2>
-  <nav class="page-utility-nav">
-    <p>Switch View</p>
-    <ul>
-      <li>Daily</li>
-      <li>Weekly</li>
-      <li>Monthly</li>
-    </ul>
-  </nav>
+  <h2>Events Page</h2>
 </header>
 
-<!-- Default events Feed -->
-<ul>
 
+<nav class="page-utility-nav">
+  <p id="showCalendar">Switch to Calendar View</p>
+  <ul class="calendar-toggled"id="calendarViews">
+    <li id="dailyView">Daily</li>
+    <li id="weeklyView">Weekly</li>
+    <li id="monthlyView">Monthly</li>
+  </ul>
+</nav>
+
+<ul class="feed-items">
+  
   {% for e in events %}
 
   <li>
-    <article class="page-item">
 
-      <h1 class="page-item-title">{{ e.name }}</h1>
+    <article class="feed-item-single">
 
-      <div class="page-item-content">
+      <h1 class="feed-item-title">{{ e.name }}</h1>
+
+      <div class="feed-item-content">
         <ul>
-      <li><time datetime="">{{ e.dtstart }}</time> - <time datetime="">{{ e.dtend }}</time></li>
-        <li>Hosted By: <a href="">{{ e.place }}</a></li>
+          <li><time datetime="">{{ e.dtstart }}</time> - <time datetime="">{{ e.dtend }}</time></li>
+          <li>Hosted By: <a href="">{{ e.place }}</a></li>
           <li>{{ e.place.location.address }}</li>
-          <li>Shortened Description</li>
-          <li>
-            <p class="expand-details">Details...</p>
-            <ul class="page-item-details">
-              <li>{{ e.description }}</li>
-              <li><!--{{ e.attendees }}-->12 plan to attend</li>
-            </ul>
-          </li>
+          <li>12{{ e.attendees }} plan to attend</li>
+          <li>{{ e.description|truncatewords:10|urlizetrunc:15 }}</li>
+          <li><a href="">Go to Event Page</a></li>
         </ul>
-      </div>
+      </div> <!-- .page-item-content -->
 
       <div class="feed-item-thumb">
         <img class="thumbnail" width="100" height="100" alt="{{ e.name }}" src="{{ e.image_url }}" />
@@ -52,7 +57,8 @@ template for the Places page
         </ul>
       </div>
 
-    </article>
+    </article> <!-- .page-item -->
+
   </li>
 
 {% endfor %}
@@ -60,143 +66,38 @@ template for the Places page
 </ul>
 
 {% comment %}
-Here is the calendar.
-We'll need daily, bi-weekly, and monthly views.
-It will be revealed when the option is chosen.
+  Here is the calendar.
+  We'll need daily, weekly (or bi-weekly), and monthly views.
+  To be revealed when the "Calendar view" option is chosen.
 {% endcomment %}
 
-<!-- Monthly calendar -->
 
-<ul class="monthly">
-  <li class="monthly-day">
-    <p>1</p>
-    <ul class="monthly-day-events">
-      <li>Event1</li>
-      <li>Event2</li>
-      <li>Event3</li>
-    </ul>
-  </li>
-  <li class="monthly-day">
-    <p></p>
-  </li>
-  <li class="monthly-day">
-    <p></p>
-  </li>
-  <li class="monthly-day">
-    <p></p>
-  </li>
-  <li class="monthly-day">
-    <p></p>
-  </li>
-  <li class="monthly-day">
-    <p></p>
-  </li>
-  <li class="monthly-day">
-    <p></p>
-  </li>
-  <li class="monthly-day">
-    <p></p>
-  </li>
-  <li class="monthly-day">
-    <p></p>
-  </li>
-  <li class="monthly-day">
-    <p></p>
-  </li>
-  <li class="monthly-day">
-    <p></p>
-  </li>
-  <li class="monthly-day">
-    <p></p>
-  </li>
-  <li class="monthly-day">
-    <p></p>
-  </li>
-  <li class="monthly-day">
-    <p></p>
-  </li>
-  <li class="monthly-day">
-    <p></p>
-  </li>
-  <li class="monthly-day">
-    <p></p>
-  </li>
-  <li class="monthly-day">
-    <p></p>
-  </li>
-  <li class="monthly-day">
-    <p></p>
-  </li>
-  <li class="monthly-day">
-    <p></p>
-  </li>
-  <li class="monthly-day">
-    <p></p>
-  </li>
-  <li class="monthly-day">
-    <p></p>
-  </li>
-  <li class="monthly-day">
-    <p></p>
-  </li>
-  <li class="monthly-day">
-    <p></p>
-  </li>
-  <li class="monthly-day">
-    <p></p>
-  </li>
-  <li class="monthly-day">
-    <p></p>
-  </li>
-  <li class="monthly-day">
-    <p></p>
-  </li>
-  <li class="monthly-day">
-    <p></p>
-  </li>
-  <li class="monthly-day">
-    <p></p>
-  </li>
-  <li class="monthly-day">
-    <p></p>
-  </li>
-  <li class="monthly-day">
-    <p></p>
-  </li>
-</ul> 
+<!-- Calendar View -->
 
-<!-- Weekly calendar -->
+<section class="calendar-view calendar-toggled">
 
-<ul class="weekly">
-  <li class="weekly-day">
-    <p></p>
-  </li>
-  <li class="weekly-day">
-    <p></p>
-  </li>
-  <li class="weekly-day">
-    <p></p>
-  </li>
-  <li class="weekly-day">
-    <p></p>
-  </li>
-  <li class="weekly-day">
-    <p></p>
-  </li>
-  <li class="weekly-day">
-    <p></p>
-  </li>
-  <li class="weekly-day">
-    <p></p>
-  </li>
-</ul>
-
-<!-- Daily Calendar -->
   <header>
-    
+    <h3 class=".calendar-view-title">Calendar View: Monthly</h3>
   </header>
-  <ul class="daily-day">
-    <li class="daily-event">Event 1</li>
-    <li class="daily-event"></li>
-    <li class="daily-event"></li>
+
+  <ul class="calendar">
+    {% for e in events %}
+      <li class="monthly-day">
+        <p>{{ e.name }}</p>
+      </li>
+    {% endfor %}
   </ul>
+
+</section>
+
+<!-- if it is "Events page" -->
+<div>
+  Map Goes here
+</div>
+
+<!-- if it is in "At a glance.." .. -->
+<footer>
+  <a href="" class="see-more"><a>More events...</a>
+</footer>
+
+

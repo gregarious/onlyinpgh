@@ -75,14 +75,8 @@
       <h2>At a Glance...</h2>
     </header>
 
-    <section class="feed">
-
-      <header>
-        <h1 class="feed-title">Soonest Events</h1>
-      </header>
-      <ul id="eventsFeed"><!-- events_feed template --></ul>
-      <p class="see-more"><a>More events...</a></p>
-
+    <section class="feed" id="eventsFeed">
+      <!-- events_feed template -->
     </section>
  
     <!-- No decision on how this will function yet ***
@@ -139,14 +133,15 @@
   </div>
 
   <footer class="scene-footer">
-  
+
   </footer>
 
   <!-- JavaScript at the bottom for fast page loading -->
 
   <!-- Grab Google CDN's jQuery, with a protocol relative URL; fall back to local if necessary -->
-  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
-  <script>window.jQuery || document.write('<script src="{{ STATIC_URL }}js/libs/jquery-1.6.2.min.js"><\/script>')</script>
+  <!-- Unminified for development -->
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.js"></script>
+  <script>window.jQuery || document.write('<script src="{{ STATIC_URL }}js/libs/jquery-1.7.1.js"><\/script>')</script>
 
   <!-- scripts concatenated and minified via ant build script -->
   <script src="{{ STATIC_URL }}js/mylibs/helper.js"></script>
