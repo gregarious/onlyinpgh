@@ -1,5 +1,5 @@
 import json, re, urllib, os, time
-from onlyinpgh.apitools import APIError
+from onlyinpgh.outsourcing.apitools import APIError
 
 import logging
 dbglog = logging.getLogger('onlyinpgh.debugging')

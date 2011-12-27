@@ -104,7 +104,6 @@ class VEventRecord(models.Model):
     time_last_modified = models.DateTimeField('last modification date in entry (in UTC)')
     event = models.ForeignKey(Event,null=True,blank=True)
 
-### Bottom two models used for caching Facebook pages/events for future lookup
 class FacebookEventRecord(models.Model):
     fb_id = models.BigIntegerField(primary_key=True)
     associated_event = models.ForeignKey(Event,null=True,blank=True)
@@ -114,11 +113,4 @@ class FacebookEventRecord(models.Model):
     
     # TODO: temporary null here
     last_updated = models.DateTimeField('time Facebook record was last updated',null=True)
-
-class FacebookPageRecord(models.Model):
-    fb_id = models.BigIntegerField(primary_key=True)
-    dt_added = models.DateTimeField(auto_now_add=True)
-    dt_checked = models.DateTimeField(null=True)
-
-    org_id = models.ForeignKey(Organization,null=True,blank=True)
-    place_id = models.ForeignKey(Place,null=True,blank=True)
+    ignore = models.BooleanField('always ignore this page',default=False)    

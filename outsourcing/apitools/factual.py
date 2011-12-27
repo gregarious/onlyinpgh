@@ -1,8 +1,8 @@
 # create Resolver class that has ability to create hints for fields (e.g. feed 
 #   reader would use it with city fixed in Pgh)
 
-from onlyinpgh.apitools import APIError
-from onlyinpgh.apitools import build_oauth_request
+from onlyinpgh.outsourcing.apitools import APIError
+from onlyinpgh.outsourcing.apitools import build_oauth_request
 
 import urllib, urllib2, json, time
 import logging

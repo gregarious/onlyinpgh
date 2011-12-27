@@ -59,7 +59,7 @@ class FBOrganizationInsertion(TestCase):
 
         try:
             # make sure the stored FBPageRecord has the correct organization set
-            org_on_record = FacebookPageRecord.objects.get(fb_id=page_id).associated_organization
+            org_on_record = FacebookPageRecord.objects.get(fb_id=page_id).organization
             self.assertEquals(org_on_record,org)
         except FacebookPageRecord.DoesNotExist:
             self.fail('FacebookPageRecord not found!')            
@@ -90,8 +90,9 @@ class FBOrganizationInsertion(TestCase):
         org_count_before = Organization.objects.count()
         record_count_before = FacebookPageRecord.objects.count()
 
-        page_id_to_organization(bogus_id)
-        self.fail('not yet implemented')
+        with self.assertRaises(FacebookAPIError):
+            page_id_to_organization(bogus_id)
+    
         # assert some facebook error is raised
         self.assertEquals(org_count_before,Organization.objects.count())
         # ensure the Facebook record didn't get saved
@@ -101,7 +102,8 @@ class FBOrganizationInsertion(TestCase):
             
         user_id = '14205248'    # my facebook id
         # TODO: ensure user pages don't get inserted
-        page_id_to_organization(user_id)
+        with self.assertRaises(FacebookAPIError):
+            page_id_to_organization(user_id)
         # assert some 'non org page' error is raised
         self.fail('not yet implemented')
         # ensure the Facebook record didn't get saved

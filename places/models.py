@@ -134,33 +134,6 @@ class PlaceMeta(models.Model):
             val = self.meta_value[:16] + '...'
         return u'%s: %s' % (self.meta_key,val)
 
-class ExternalPlaceSource(models.Model):
-    '''
-    Model used to relate external API IDs to unique objects in our
-    database (e.g. Factual GUIDs an onlyinpgh.places.models.Place)
-    '''
-    class Meta:
-        unique_together = (('service','uid'),)
-
-    service_choices = [('fb',   'Facebook Object ID'),
-                       ('fact', 'Factual GUID')]
-
-    service = models.CharField(max_length=8,choices=service_choices)
-    uid = models.CharField('string representation of UID',max_length=36)
-    place = models.OneToOneField(Place)
-
-    last_checked = models.DateTimeField(auto_now_add=True)
-
-    def __unicode__(self):
-        return '%s:%s -> %s' % (self.service,self.uid,self.place)
-
-class FacebookPageRecord(models.Model):
-    fb_id = models.BigIntegerField(primary_key=True)
-    time_added = models.DateTimeField(auto_now_add=True)
-    last_checked = models.DateTimeField(auto_now_add=True)
-    place = models.ForeignKey(Place,related_name="%(app_label)s_%(class)s_related")
-    ignore = models.BooleanField('always ignore this page',default=False)
-
 class LocationLookupNotice(models.Model):
     '''
     Records information about a questionable lookup result from an external API

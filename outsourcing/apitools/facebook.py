@@ -1,14 +1,14 @@
 import urllib, urllib2, json, time
-from onlyinpgh.apitools import APIError, delayed_retry_on_ioerror
+from onlyinpgh.outsourcing.apitools import APIError, delayed_retry_on_ioerror
 
 import logging
 dbglog = logging.getLogger('onlyinpgh.debugging')
 
 class FacebookAPIError(APIError):
     # TODO: decide on error contents. complicated because there's a variety of responses this API handles
-    def __init__(self,request,*args,**kwargs):
+    def __init__(self,request,*args):
         self.request = request
-        super(FacebookAPIError,self).__init__('facebook-graph',*args,**kwargs)    
+        super(FacebookAPIError,self).__init__('facebook',*args)
 
 def get_basic_access_token(client_id,client_secret):
     '''
@@ -85,16 +85,15 @@ class GraphAPIClient(object):
                                             logger=dbglog)
 
         if response == False:
-            raise FacebookAPIError(request=unicode(request),
-                                    message=u"'false' response returned")
+            raise FacebookAPIError(unicode(request),
+                                   "'false' response returned")
         elif response is None:
-            raise FacebookAPIError(request=unicode(request),
-                                    message=u"null response returned")
+            raise FacebookAPIError(unicode(request),
+                                    u"null response returned")
         elif 'error' in response:
-            raise FacebookAPIError(request=unicode(request),
-                                    message=u'%s: "%s"' % \
-                                        (response['error'].get('type','Unknown'),
-                                         response['error'].get('message','')))
+            raise FacebookAPIError(unicode(request),
+                                    u'%s: "%s"' %  (response['error'].get('type','Unknown'),
+                                                    response['error'].get('message','')))
 
         return response
 
@@ -202,8 +201,8 @@ class GraphAPIClient(object):
             response = self._make_request(request_url)
 
             if 'data' not in response:
-                raise FacebookAPIError(request=request_url,
-                                        message="Expected response: no 'data' field")
+                raise FacebookAPIError(request_url,
+                                        "Expected response: no 'data' field")
             
             all_data.extend(response['data'])
 

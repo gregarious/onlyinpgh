@@ -14,5 +14,3 @@ class LocationAdmin(admin.ModelAdmin):
 
 admin.site.register(Place,PlaceAdmin)
 admin.site.register(Location,LocationAdmin)
-admin.site.register(FacebookPageRecord)
-admin.site.register(ExternalPlaceSource)

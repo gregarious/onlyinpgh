@@ -1,11 +1,12 @@
 import urllib2
 from urlparse import urlparse, parse_qsl
 
-from onlyinpgh.apitools import oauth
+from onlyinpgh.outsourcing.apitools import oauth
 
 class APIError(Exception):
-    def __init__(self,api_name,*args,**kwargs):
-        super(APIError,self).__init__(*args,**kwargs)
+    def __init__(self,api_name,*args):
+        self.api = api_name
+        super(APIError,self).__init__(*args)
 
 def build_oauth_request(url,key,secret):
     '''

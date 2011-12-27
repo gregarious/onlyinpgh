@@ -1,8 +1,13 @@
-from onlyinpgh.apitools import facebook
-from onlyinpgh.identity.models import Organization, FacebookOrgRecord
+'''
+Module containing code to manage "outsourcing" tasks related to identity 
+models. i.e. Organization pulling from Facebook.
+'''
+from onlyinpgh.outsourcing.apitools import facebook
+from onlyinpgh.identity.models import Organization
+from onlyinpgh.outsourcing.models import FacebookOrgRecord
 
 import logging
-dbglog = logging.getLogger('onlyinpgh.debugging')
+dbglog = logging.getLogger('onlyinpgh.debugging')\
 
 def store_fbpage_organization(page_info):
     '''
@@ -15,8 +20,9 @@ def store_fbpage_organization(page_info):
     - website (optional)
     - picture (optional)
 
-    If a FacebookOrgRecord already exists for the given Facebook id, the already 
-    linked organization is returned.
+    If a FacebookOrgRecord already exists for the given Facebook id, the 
+    already linked organization is returned. An INFO message is logged to 
+    note the attempt to store an existing page.
     '''
     pid = page_info['id']
 
@@ -24,7 +30,7 @@ def store_fbpage_organization(page_info):
         raise TypeError("Cannot store fbpage with a 'type' value that is not 'page'.")
 
     try:
-        organization = FacebookOrgRecord.objects.get(fb_id=pid).organization
+        organization = FacebookOrgRecord.objects.get(page_fbid=pid).organization
         dbglog.info('Existing fb page organization found for fbid %s' % str(pid))
         return organization
     except FacebookOrgRecord.DoesNotExist:
@@ -39,12 +45,15 @@ def store_fbpage_organization(page_info):
     except IndexError:
         # otherwise, go with the fb link (and manually create it if even that fails)
         url = page_info.get('link','http://www.facebook.com/%s'%pid)
-    organization = Organization.objects.get_or_create(name=pname,
-                                                        avatar=page_info.get('picture',''),
-                                                        url=url)
-    organization.save()
+    organization, created = Organization.objects.get_or_create(name=pname,
+                                                                avatar=page_info.get('picture',''),
+                                                                url=url)
+
+    if not created:
+        dbglog.notice('An organization matching fbid %s already existed with '\
+                        'no FacebookOrgRecord. The record was created.' % str(pid))
     
-    record = FacebookOrgRecord.objects.create(fb_id=pid,organization=organization)
+    record = FacebookOrgRecord.objects.create(page_fbid=pid,organization=organization)
     dbglog.info(u'Stored new Organization for fbid %s: "%s"' % (pid,unicode(organization)))
 
     if len(pname) == 0:

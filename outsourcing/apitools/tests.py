@@ -3,23 +3,23 @@ Unit tests for all API tools
 """
 
 from django.test import TestCase
-from onlyinpgh.apitools.facebook import get_basic_access_token, BatchCommand
-from onlyinpgh.apitools.facebook import oip_client as facebook_client
-from onlyinpgh.utils.testing import open_test_json
+from onlyinpgh.outsourcing.apitools.facebook import get_basic_access_token, BatchCommand
+from onlyinpgh.outsourcing.apitools.facebook import oip_client as facebook_client
 
-from onlyinpgh.apitools.factual import oip_client as factual_client
-from onlyinpgh.apitools.factual import FactualClient, FactualAPIError
+from onlyinpgh.outsourcing.apitools.factual import oip_client as factual_client
+from onlyinpgh.outsourcing.apitools.factual import FactualClient, FactualAPIError
 
-from onlyinpgh.apitools.google import GoogleGeocodingClient, GoogleGeocodingResponse, GoogleGeocodingResult, GoogleGeocodingAPIError
+from onlyinpgh.outsourcing.apitools.google import GoogleGeocodingClient, GoogleGeocodingResponse, GoogleGeocodingResult, GoogleGeocodingAPIError
 
-import json, time, os
+import json, time, os, logging
+logging.disable(logging.CRITICAL)
 
 class FacebookGraphTest(TestCase):
     def test_basic_access_token(self):
         '''
         Tests basic access token retrieval
         '''
-        from onlyinpgh.apitools.facebook import OIP_APP_ID, OIP_APP_SECRET, OIP_ACCESS_TOKEN
+        from onlyinpgh.outsourcing.apitools.facebook import OIP_APP_ID, OIP_APP_SECRET, OIP_ACCESS_TOKEN
         token = get_basic_access_token(OIP_APP_ID,OIP_APP_SECRET)
         self.assertEquals(token,OIP_ACCESS_TOKEN)
 
@@ -192,7 +192,7 @@ class GoogleGeocodingTest(TestCase):
         return self.client.run_geocode_request(address).best_result(True)
 
     def _open_test_json(self,fn):
-        return open_test_json('apitools',os.path.join('gg',fn))
+        return open(os.path.join(os.path.dirname(__file__),'test_json','gg',fn))
 
     def _json_to_best_result(self,fn):
         response = GoogleGeocodingResponse(self._open_test_json(fn))
