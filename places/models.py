@@ -12,6 +12,10 @@ class Neighborhood(models.Model):
     def __unicode__(self):
         return self.name
 
+# TODO: create model manage for Location that allows a fudgable "get" on geocoding
+# TODO: be sure to create test cases that try get_or_create, get_or_404, etc.
+#       since it's an unorthodox thing to do
+
 class Location(models.Model):
     '''
     Handles specific information about where a physical place is located. Should

@@ -143,12 +143,19 @@ LOGGING = {
             'class': 'logging.StreamHandler',
             'formatter': 'simple'
         },
-        'file': {
+        'debug_file': {
             'level': 'DEBUG',
             'class': 'logging.FileHandler',
             'formatter': 'verbose',
             'filename': '/Users/gdn/Sites/onlyinpgh/logs/debug.log'
         },
+        'resolve_file': {
+            'level': 'DEBUG',
+            'class': 'logging.FileHandler',
+            'formatter': 'verbose',
+            'filename': '/Users/gdn/Sites/onlyinpgh/logs/resolve.log'
+        },
+
     },
     'loggers': {
         'django.request': {
@@ -157,10 +164,15 @@ LOGGING = {
             'propagate': True,
         },
         'onlyinpgh.debugging': {
-            'handlers': ['console','file'],
+            'handlers': ['console','debug_file'],
             'level':'DEBUG',
             'propagate': False
-        }
+        },
+        'onlyinpgh.resolve': {
+            'handlers': ['console','resolve_file'],
+            'level':'DEBUG',
+            'propagate': False
+        },
     },
     'formatters': {
         'verbose': {

@@ -8,7 +8,6 @@ from onlyinpgh.events import categorize
 from onlyinpgh.places.models import Place, Location
 from onlyinpgh.events.models import Event, FacebookEventRecord, Role
 
-
 from copy import deepcopy
 import json, time, datetime
 
