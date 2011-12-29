@@ -7,10 +7,15 @@ from django.db import transaction
 
 from onlyinpgh.outsourcing.apitools import facebook, google, factual
 from onlyinpgh.identity.models import Organization
-from onlyinpgh.outsourcing.models import FacebookOrgRecord
+from onlyinpgh.places.models import Location, Place, PlaceMeta
+from onlyinpgh.outsourcing.models import FacebookOrgRecord, ExternalPlaceSource
 
 import logging
 dbglog = logging.getLogger('onlyinpgh.debugging')
+
+# reverse the US_STATE_MAP for eaach lookup of full names to abbreviations
+from onlyinpgh.places import US_STATE_MAP
+state_name_to_abbrev = {name:code for code,name in US_STATE_MAP}
 
 def get_full_place_pages(pids):
     '''
@@ -38,6 +43,55 @@ def get_full_place_pages(pids):
         _add_batch(cmds)
 
     return page_details 
+
+def gather_fb_place_pages(center,radius,query=None,limit=4000,batch_requests=True):
+    '''
+    Returns a list of Facebook place page info stubs represneting all places 
+    found in the given area. Object fields can be found at 
+    https://developers.facebook.com/docs/reference/api/page/
+
+    center should be a tuple of (latitude,logitude) values, and radius is 
+    in meters (i think?)
+
+    If query is omitted, a "blank query" will be run by running the same 
+    center and radius query 26 separate times, once per letter of the 
+    alphabet as the actual query argument. 
+
+    If batch_request is True (default), these requests will be batched, 
+    otherwise they'll be run once at a time. Commands with a large number
+    of results may fail if batched.
+    '''
+    search_opts = dict(type='place',
+                        center='%f,%f' % center,
+                        distance=radius,
+                        limit=limit)
+    
+    # no query given, run one for each letter of the alphabet
+    if query is None:
+        batch_commands, pages_unfilitered = [], []
+        letters = [chr(o) for o in range(ord('a'),ord('z')+1)]
+
+        if batch_requests:
+            for letter in letters:
+                opts = copy.copy(search_opts)
+                opts['q']=letter
+                batch_commands.append(facebook.BatchCommand('search',options=opts))
+            for response in facebook.oip_client.run_batch_request(batch_commands):
+                pages_unfilitered.extend(response['data'])
+        else:
+            for letter in letters:
+                pages_unfilitered.extend(facebook.oip_client.graph_api_collection_request('search',q=letter,**search_opts))
+                  
+        # need to go through the 26 separate page sets to filter out dups
+        ids_seen = set()    # cache the ids in the list for a quick duplicate check
+        pages = []
+        for page in pages_unfilitered:
+            if page['id'] not in ids_seen:
+                ids_seen.add(page['id'])
+                pages.append(page)
+        return pages
+    else:
+        return facebook.oip_client.graph_api_collection_request('search',q=query,**search_opts)
 
 @transaction.commit_on_success
 def store_fbpage_organization(page_info):
@@ -91,6 +145,145 @@ def store_fbpage_organization(page_info):
         logging.warning('Facebook page with no name was stored as Organization')
 
     return organization
+
+
+def fbloc_to_loc(fbloc):
+    '''
+    Converts a dict of fields composing a Facebook location to a Location.
+    '''
+    state = fbloc.get('state','').strip()
+    # State entry is often full state name
+    if len(state) != 2 and state != '':
+        state = state_name_to_abbrev.get(state,'')
+
+    return Location(address=fbloc.get('street','').strip(),
+                    town=fbloc.get('city','').strip(),
+                    state=state,
+                    postcode=fbloc.get('postcode','').strip(),
+                    latitude=fbloc.get('latitude'),
+                    longitude=fbloc.get('longitude'))
+
+def _store_fbpage_placemeta(page_info,place):
+    '''
+    Helper function to be used in conjuction with store_fbpage_place.
+    '''
+    # first the easy ones: phone, hours, picture
+    image_url = page_info.get('picture')
+    if image_url:
+        PlaceMeta.objects.get_or_create(place=place,meta_key='image_url',meta_value=image_url)
+    phone = page_info.get('phone')
+    if phone:
+        PlaceMeta.objects.get_or_create(place=place,meta_key='phone',meta_value=phone)
+    hours = page_info.get('hours')
+    if hours:
+        PlaceMeta.objects.get_or_create(place=place,meta_key='hours',meta_value=hours)
+
+    try:
+        # url field can be pretty free-formed and list multiple urls. 
+        # we take the first one (identified by whitespace parsing)
+        url = page_info.get('website','').split()[0].strip()[:400]
+    except IndexError:
+        # otherwise, go with the fb link (and manually create it if even that fails)
+        url = page_info.get('link','http://www.facebook.com/%s'%pid)
+    if url:
+        PlaceMeta.objects.get_or_create(place=place,meta_key='url',meta_value=url)
+
+# TODO: need to test what happens when _store_fbpage_placemeta returns -- does it commit its part? it shouldn't.
+@transaction.commit_on_success
+def store_fbpage_place(page_info,create_owner=True):
+    '''
+    Takes a dict of properties retreived from a Facebook Graph API call for
+    a page and stores a Place from the information. The following 
+    fields in the dict are used:
+    - id          (required)
+    - type        (required with value 'page' or a TypeError will be thrown)
+    - location    (required or TypeError will be thrown)
+    - description
+    - url
+    - phone
+    - hours
+    - picture
+
+    No new Place will be returned if either an identical one already
+    exists in the db, or an ExternalPlaceSource already exists for 
+    the given Facebook id. An INFO message is logged to note the attempt 
+    to store an existing page as a Place.
+
+    If create_owner is True a new Organization will be created from the same
+    page information if one does not already exist.
+    '''
+    pid = page_info['id']
+    
+    try:
+        place = ExternalPlaceSource.objects.get(service='fb',uid=pid).place
+        dbglog.info('Existing fb page Place found for fbid %s' % str(pid))
+        return place
+    except ExternalPlaceSource.DoesNotExist:
+        pass
+
+    if page_info.get('type') != 'page':
+        raise TypeError("Cannot store object without 'page' type as a Place.")
+    elif 'location' not in page_info:
+        raise TypeError("Cannot store object without location key as a Place.")
+    
+    pname = page_info['name'].strip()
+
+    ### Figure out the new Place's location field
+    fbloc = page_info['location']
+    if 'id' in fbloc:
+        # TODO: need to ensure fbloc_to_loc can handle ids in location if this ever happens
+        dbglog.notice('Facebook page %s has id in location (%s)' % (pid,fbloc['id']))
+    location = fbloc_to_loc(fbloc)
+
+    # if there's no address or geocoding, we'll need to talk to outside services
+    if not location.address:
+        seed_place = Place(name=pname,location=location)
+        resolved_place = resolve_place(seed_place)
+        if resolved_place:
+            location = resolved_place.location
+    
+    # really want geolocation, go to Google Geocoding for it if we need it
+    if location.longitude is None or location.latitude is None:
+        seed_loc = copy.deepcopy(location)
+        resolved_location = resolve_location(seed_loc)
+        if resolved_location: 
+            location = resolved_location
+
+    location, created = Location.objects.get_or_create(
+                    address=location.address,
+                    postcode=location.postcode,
+                    town=location.town,
+                    state=location.state,
+                    country=location.country,
+                    neighborhood=location.neighborhood,
+                    latitude=location.latitude,
+                    longitude=location.longitude)
+    if created:
+        dbglog.debug('Saved new location "%s"' % location.full_string)
+    else:
+        dbglog.debug('Retrieved existing location "%s"' % location.full_string)
+
+    try:
+        owner = FacebookOrgRecord.objects.get(fb_id=pid).organization
+    except FacebookOrgRecord.DoesNotExist:
+        if create_owner:
+            dbglog.info('Creating new Organization as byproduct of creating Place from Facebook page %s' % str(pid))
+            owner = store_fbpage_organization(page_info)
+        else:
+            owner = None
+
+    place, created = Place.objects.get_or_create(name=pname[:200],
+                        description=page_info.get('description','').strip(),
+                        location=location,
+                        owner=owner)
+
+    # add place meta info that exists      
+    _store_fbpage_placemeta(page_info,place)
+
+    # create a new link to an external id
+    ExternalPlaceSource.objects.create(service='fb',uid=pid,
+                                        place=place)
+    return place
 
 class PageImportReport(object):
     # notices can be expected to be among the following:
@@ -173,7 +366,7 @@ class FBPageManager(object):
 
     def _store_org(self,info):
         '''
-        Does actual storage of a new page-bacekd organization. Does the 
+        Does actual storage of a new page-backed organization. Does the 
         packaging into PageImportReports.
         '''
         pid = info['id']
@@ -213,6 +406,27 @@ class FBPageManager(object):
                                         else PageImportReport(pid,None,[info])
                                         for pid,info in zip(page_ids,page_infos)]
 
+    def _store_place(self,info,import_owners=True):
+        '''
+        Does actual storage of a new page-backed Place. Does the packaging
+        into PageImportReports
+        '''
+        pid = info['id']
+        # first off -- if place is already stored, we're done -- no overwriting as of now
+        try:
+            ExternalPlaceSource.facebook.get(uid=pid)
+            return PageImportReport(pid,None,
+                        notices=[PageImportReport.ModelInstanceExists(pid,'Place')])
+        except ExternalPlaceSource.DoesNotExist:
+            pass
+
+        # try to store, and catch TypeErrors from info not being a 'page' or not having a location
+        try:
+            place = store_fbpage_place(info,import_owners)
+            return PageImportReport(pid,place)
+        except TypeError as e:
+            return PageImportReport(pid,None,notices=[e])
+
     def import_places(self,page_ids,use_cache=True,import_owners=True):
         '''
         Inserts Places for a batch of page_ids from Facebook.
@@ -229,5 +443,29 @@ class FBPageManager(object):
 
         Returns a parallel list of PageImportReport objects.
         '''
-        # TODO: filter out pages already linked to places
-        return []
+        # TODO: could do something here to filter out page ids that we 
+        #       already have info for before we pull them
+        page_infos = self.pull_page_info(page_ids,use_cache)
+        
+        return [self._store_place(info,import_owners) if not isinstance(info,Exception)
+                                        else PageImportReport(pid,None,[info])
+                                        for pid,info in zip(page_ids,page_infos)]
+
+def _get_all_places_from_cron_job():
+    '''
+    Runs a series of queries to return the same results that the old oip
+    fb5_getLocal.execute_quadrants Java code searches over.
+    '''
+    search_coords = [ (40.44181,-80.01277),
+                      (40.666667,-79.700556),
+                      (40.666667,-80.308056),
+                      (40.216944,-79.700556),
+                      (40.216944,-80.308056),
+                      (40.44181,-80.01277),
+                    ]
+
+    all_ids = set()
+    for coords in search_coords:
+        ids = [page['id'] for page in gather_fb_place_pages(coords,25000)]
+        all_ids.update(ids)
+    return list(all_ids)

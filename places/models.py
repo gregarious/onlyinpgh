@@ -62,16 +62,6 @@ class Location(models.Model):
         # TODO: revisit address normalization api
         pass
     
-    def _complete_missing_fields(self):
-        '''
-        Refers to an authoritative source to complete missing fields. 
-        
-        Currently uses Google Geocoding API, but will hopefully move to 
-        Factual Resolve API.
-        '''
-        # TODO: revisit missing location info api
-        pass
-
     def save(self,*args,**kwargs):
         self.full_clean()        # run field validators
         # ensure country and state are saved in db in uppercase
@@ -79,6 +69,7 @@ class Location(models.Model):
             self.country = self.country.upper()
         if self.state:
             self.state = self.state.upper()
+        # TODO: normalize?
         return super(Location,self).save(*args,**kwargs)
 
     def clean(self,*args,**kwargs):
@@ -93,6 +84,28 @@ class Location(models.Model):
         lat_s = '%.3f' % self.latitude if self.latitude is not None else '-'
         lon_s = '%.3f' % self.longitude if self.longitude is not None else '-'
         return u'%s (%s,%s)' % (addr_s,lat_s,lon_s)
+    
+    @property
+    def full_string(self):
+        s = ''
+        if self.address:
+            s += '%s, ' % self.address
+        if self.town:
+            s += '%s, ' % self.town
+        
+        if self.state and self.postcode:
+            s += '%s %s, ' % (self.state, self.postcode)
+        elif self.state:
+            s += '%s, ' % self.state
+        elif self.postcode:
+            s += '%s, ' % self.postcode
+        
+        if self.latitude or self.longitude:
+            s += '(%s,%s)' % ('%.3f'%self.latitude if self.latitude else '-',
+                              '%.3f'%self.longitude if self.latitude else '-')
+
+        return s.rstrip(', ')
+
 
 class Place(models.Model):
     '''

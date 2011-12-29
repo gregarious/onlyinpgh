@@ -79,7 +79,7 @@ class PlaceImportingTest(TestCase):
         # grab original FB records from any pages that already exist
         original_fb_records = {}
         for pid,notice in pid_notice_pairs:
-            if isinstance(notice,PageImportReport.ModelInstanceExists):
+            if notice is PageImportReport.ModelInstanceExists:
                 original_fb_records[pid] = ExternalPlaceSource.facebook.get(uid=pid)
 
         # run insertion code
@@ -108,7 +108,7 @@ class PlaceImportingTest(TestCase):
                                 'Expecting notice %s from importing fb page %s' % (str(expected_notice),pid))
                 
                 # if notice was a ModelInstanceExists, be sure the original record wasn't touched
-                if isinstance(expected_notice,PageImportReport.ModelInstanceExists):
+                if expected_notice is PageImportReport.ModelInstanceExists:
                     self.assertEquals(original_fb_records[pid],
                                         ExternalPlaceSource.facebook.get(uid=pid))
                 # otherwise, make sure no record was created at all
@@ -118,8 +118,8 @@ class PlaceImportingTest(TestCase):
         
     def test_import_no_owner(self):
         '''Tests the importing of a batch of FB pages as Places without owner importing disabled.'''
-        no_owner_stored = '30273572778'   # mr. smalls (org not in fixture)
-        owner_stored = '53379078585'      # big dog coffee (org in fixture)
+        no_owner_stored = '30273572778'   # mr. smalls (org and place not in fixture)
+        owner_stored = '50141015898'      # voluto coffee (org in fixture but not place)
 
         before_orgs = list(Organization.objects.all())
         before_records = list(FacebookOrgRecord.objects.all())
@@ -130,8 +130,9 @@ class PlaceImportingTest(TestCase):
         # ensure no org was created for the first page
         self.assertIsNone(results[0].model_instance.owner)
         # ensure the existing org was found for the second page, even without import
+        self.assertIsNotNone(results[1].model_instance)
         self.assertEquals(results[1].model_instance.owner,
-                            FacebookOrgRecord.objects.get(fb_id=owner_stored))
+                            FacebookOrgRecord.objects.get(fb_id=owner_stored).organization)
 
         # double check that the Organization and FacebookOrgRecord tables weren't touched
         self.assertEquals(before_orgs,list(Organization.objects.all()))
