@@ -147,7 +147,7 @@ class FBPlaceInsertion(TestCase):
         with self.assertRaises(ExternalPlaceSource.DoesNotExist):
             ExternalPlaceSource.objects.get(service='fb',uid=page_id)
         
-        pl_outsourcing.create_place_from_fbpage(page_id)
+        pl_outsourcing.place_from_fb(page_id)
         
         self.assertEquals(Place.objects.count(),page_count_before+1)
         # now the FBPageRecord should exist
@@ -242,7 +242,7 @@ class FBPlaceInsertion(TestCase):
         record_count_before = ExternalPlaceSource.objects.count()
 
         with self.assertRaises(FacebookAPIError):
-            pl_outsourcing.create_place_from_fbpage(bogus_id)
+            pl_outsourcing.place_from_fb(bogus_id)
 
         self.assertEquals(page_count_before,Place.objects.count())
         # ensure the Facebook record didn't get saved
@@ -252,7 +252,7 @@ class FBPlaceInsertion(TestCase):
 
         placeless_page_id = '139288502700'    # pgh marathon page id (has no location)
         with self.assertRaises(TypeError):
-            pl_outsourcing.create_place_from_fbpage(placeless_page_id)
+            pl_outsourcing.place_from_fb(placeless_page_id)
         # ensure the Facebook record didn't get saved
         self.assertEquals(record_count_before,ExternalPlaceSource.objects.count())
         with self.assertRaises(ExternalPlaceSource.DoesNotExist):

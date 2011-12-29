@@ -111,6 +111,18 @@ class GraphAPIClient(object):
             raise TypeError("Expected 'page' object from Graph API. Received '%s'." % page_info.get('type') )
         return page_info
 
+    def graph_api_picture_request(self,fbid,size='normal'):
+        '''
+        Returns the url to the picture connected to the given object. 
+
+        size can be among 'small','normal','large'
+        '''
+        url = 'http://graph.facebook.com/%s/picture?type=%s' % (fbid,size)
+        return delayed_retry_on_ioerror(lambda:urllib.urlopen(url),
+                                            delay_seconds=3,
+                                            retry_limit=2,
+                                            logger=dbglog)
+
     def graph_api_objects_request(self,ids,metadata=False):
         '''
         Returns details about objects with known Facebook ids. Input

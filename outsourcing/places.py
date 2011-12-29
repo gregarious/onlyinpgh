@@ -591,7 +591,7 @@ def store_fbpage_place(page_info,create_owner=True):
                                         place=place)
     return place
 
-def create_place_from_fbpage(page_id):
+def place_from_fb(page_id):
     '''
     Polls given Facebook page id and creates a Place instance from it.
     '''

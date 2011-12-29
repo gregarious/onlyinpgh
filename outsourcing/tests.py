@@ -6,6 +6,6 @@ logging.disable(logging.CRITICAL)
 from onlyinpgh.outsourcing.apitools.tests import *
 
 # import test cases from various subclasses
-from onlyinpgh.outsourcing.subtests.identity import *
 from onlyinpgh.outsourcing.subtests.places import *
-from onlyinpgh.outsourcing.subtests.events import *
+from onlyinpgh.outsourcing.subtests.fbpages import *
+from onlyinpgh.outsourcing.subtests.fbevents import *

@@ -24,7 +24,7 @@ class FBOrganizationInsertion(TestCase):
         with self.assertRaises(FacebookOrgRecord.DoesNotExist):
             FacebookOrgRecord.objects.get(page_fbid=page_id)
         
-        id_outsourcing.create_org_from_fbpage(page_id)
+        id_outsourcing.org_from_fb(page_id)
         
         self.assertEquals(Organization.objects.count(),org_count_before+1)
         # now the FBPageRecord should exist
@@ -93,7 +93,7 @@ class FBOrganizationInsertion(TestCase):
 
         # assert nonexistant page raises error
         with self.assertRaises(FacebookAPIError):
-            id_outsourcing.create_org_from_fbpage(bogus_id)
+            id_outsourcing.org_from_fb(bogus_id)
     
         self.assertEquals(org_count_before,Organization.objects.count())
         # ensure the Facebook record didn't get saved
@@ -106,7 +106,7 @@ class FBOrganizationInsertion(TestCase):
         
         # assert TypeError is raised 
         with self.assertRaises(TypeError):
-            id_outsourcing.create_org_from_fbpage(user_id)
+            id_outsourcing.org_from_fb(user_id)
         
         # ensure the Facebook record didn't get saved
         self.assertEquals(record_count_before,FacebookOrgRecord.objects.count())

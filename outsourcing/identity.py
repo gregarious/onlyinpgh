@@ -2,6 +2,8 @@
 Module containing code to manage "outsourcing" tasks related to identity 
 models. i.e. Organization pulling from Facebook.
 '''
+from django.db import transaction
+
 from onlyinpgh.outsourcing.apitools import facebook
 from onlyinpgh.identity.models import Organization
 from onlyinpgh.outsourcing.models import FacebookOrgRecord
@@ -9,6 +11,7 @@ from onlyinpgh.outsourcing.models import FacebookOrgRecord
 import logging
 dbglog = logging.getLogger('onlyinpgh.debugging')\
 
+@transaction.commit_on_success
 def store_fbpage_organization(page_info):
     '''
     Takes a dict of properties retreived from a Facebook Graph API call for
@@ -61,7 +64,7 @@ def store_fbpage_organization(page_info):
 
     return organization
 
-def create_org_from_fbpage(page_id):
+def org_from_fb(page_id):
     '''
     Polls given Facebook page id and creates an Organization instance from it.
     '''
