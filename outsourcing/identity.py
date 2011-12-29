@@ -9,7 +9,7 @@ from onlyinpgh.identity.models import Organization
 from onlyinpgh.outsourcing.models import FacebookOrgRecord
 
 import logging
-dbglog = logging.getLogger('onlyinpgh.debugging')\
+dbglog = logging.getLogger('onlyinpgh.debugging')
 
 @transaction.commit_on_success
 def store_fbpage_organization(page_info):

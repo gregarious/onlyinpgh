@@ -19,4 +19,3 @@ class EventAdmin(admin.ModelAdmin):
     ordering = ['dtstart']
 
 admin.site.register(Event,EventAdmin)
-admin.site.register(FacebookEventRecord)

@@ -54,6 +54,12 @@ class BatchCommand(object):
     def __unicode__(self):
         return unicode(dict(url=self.url,options=self.options,name=self.name))
 
+    # TODO: revisit this BS
+    def to_GET_format(self):
+        if self.options:
+            return self.url + '?' + urllib.urlencode(self.options)
+        return self.url
+
     def to_command_dict(self):
         command = { 'method':       'GET',
                     'relative_url': self.url }
@@ -83,7 +89,13 @@ class GraphAPIClient(object):
                                             delay_seconds=5,
                                             retry_limit=1,
                                             logger=dbglog)
+        return self.postprocess_response(request,response)
 
+    # TODO: revisit this -- don't like it being dependant on request
+    def postprocess_response(self,request,response):
+        '''
+        Does some post-processing -- mostly error handling.
+        '''
         if response == False:
             raise FacebookAPIError(unicode(request),
                                    "'false' response returned")

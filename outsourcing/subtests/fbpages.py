@@ -26,7 +26,7 @@ class OrgImportingTest(TestCase):
         # grab original FB records from any pages that already exist
         original_fb_records = {}
         for pid,notice in pid_notice_pairs:
-            if isinstance(notice,PageImportReport.ModelInstanceExists):
+            if notice is PageImportReport.ModelInstanceExists:
                 original_fb_records[pid] = FacebookOrgRecord.objects.get(fb_id=pid)
         # run insertion code
         results = mgr.import_orgs([pair[0] for pair in pid_notice_pairs])
@@ -54,7 +54,7 @@ class OrgImportingTest(TestCase):
                                 'Expecting notice %s from importing fb page %s' % (str(expected_notice),pid))
                 
                 # if notice was a ModelInstanceExists, be sure the original record wasn't touched
-                if isinstance(expected_notice,PageImportReport.ModelInstanceExists):
+                if expected_notice is PageImportReport.ModelInstanceExists:
                     self.assertEquals(original_fb_records[pid],
                                         FacebookOrgRecord.objects.get(fb_id=pid))
                 # otherwise, make sure no record was created at all
