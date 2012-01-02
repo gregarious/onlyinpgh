@@ -29,8 +29,8 @@ urlpatterns = patterns('',
     # For single/all
     url(r'^ajax/events-page$', events_views.demo_events_page),
     url(r'^ajax/places-page$', places_views.demo_establishments_page),
-    url(r'^ajax/offers-page$', offers_views.demo_offers),
-    url(r'^ajax/news-page$', news_views.demo_news),
+    url(r'^ajax/offers-page$', offers_views.demo_offers_page),
+    url(r'^ajax/news-page$', news_views.demo_news_page),
 
     url(r'^ajax/place-single$', places_views.demo_establishments_single),
     url(r'^ajax/event-single$', events_views.demo_events_single),

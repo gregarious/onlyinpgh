@@ -20,11 +20,11 @@
       <div class="feed-item-content">
         <ul>
           <li><time datetime="">{{ e.dtstart }}</time> - <time datetime="">{{ e.dtend }}</time></li>
-          <li>Hosted By: <a href="">{{ e.place }}</a></li>
+          <li>Hosted By: <a href="" class=".load-single-place">{{ e.place }}</a></li>
           <li>{{ e.place.location.address }}</li>
           <li>12{{ e.attendees }} plan to attend</li>
           <li>{{ e.description|truncatewords:10|urlizetrunc:15 }}</li>
-          <li><a href="">Go to Event Page</a></li>
+          <li><a href="" class="load-single-event">Go to Event Page</a></li>
         </ul>
       </div> <!-- .page-item-content -->
 
@@ -48,7 +48,6 @@
 
 </ul>
 
-<!-- if it is in "At a glance.." .. -->
 <footer>
   <a href="" class="see-more"><a>More events...</a>
 </footer>

@@ -369,14 +369,24 @@ body {
 .global-nav li, .feed-item-tags li, .page-utility-nav li {
   cursor: pointer;
   float: left;
+  list-style-type: none;
   padding: 0.5em;
   text-decoration: underline;
 }
 .global-nav li:hover, .feed-item-tags li:hover, .page-utility-nav li:hover {
-  background-color: #999;
+  background-color: #ccc;
 }
 .global-nav li:active, .feed-item-tags li:active, .page-utility-nav li:active {
   background-color: #aaa;
+}
+.global-nav .selected-menu-item, .feed-item-tags .selected-menu-item, .page-utility-nav .selected-menu-item {
+  background-color: #999;
+}
+.global-nav .selected-menu-item:hover, .feed-item-tags .selected-menu-item:hover, .page-utility-nav .selected-menu-item:hover {
+  background-color: #999;
+}
+.selected-menu-item {
+  background-color: #999;
 }
 /* 10 CONTENT ---------- */
 /* 11 MAIN ---------- */

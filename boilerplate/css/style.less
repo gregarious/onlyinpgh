@@ -253,11 +253,12 @@ body {
 
     cursor: pointer;
     float: left;
+    list-style-type: none;
     padding: 0.5em;
     text-decoration: underline;
 
     &:hover {
-      background-color: #999;
+      background-color: #ccc;
     }
 
     &:active {
@@ -265,7 +266,21 @@ body {
     } 
        
   }
+  
+  .selected-menu-item {
 
+    background-color: #999;
+
+    &:hover {
+      background-color: #999;
+    }
+
+  }
+
+}
+
+.selected-menu-item {
+  background-color: #999;
 }
 
 /* 10 CONTENT ---------- */

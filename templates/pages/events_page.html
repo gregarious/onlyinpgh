@@ -1,29 +1,22 @@
 {% comment %}
 	
  ** Template for the events page
-	Rendered when menu item is clicked
+	Rendered when menu item 'Events' is clicked
 	
- ** This is inefficient - should
+ ** Should
 	{% include "/feeds/events_feed.html " %}
-	or block it out rather than copying the 
-	events_feed template
+	or {% block %} - copied events_feed.html for 
+  development 
 
 {% endcomment %}
 
+
 <header>
   <h2>Events Page</h2>
+  <a id="showCalendar" href="">Switch to Calendar View</a>
 </header>
 
-
-<nav class="page-utility-nav">
-  <p id="showCalendar">Switch to Calendar View</p>
-  <ul class="calendar-toggled"id="calendarViews">
-    <li id="dailyView">Daily</li>
-    <li id="weeklyView">Weekly</li>
-    <li id="monthlyView">Monthly</li>
-  </ul>
-</nav>
-
+{% comment %} Commented out for now
 <ul class="feed-items">
   
   {% for e in events %}
@@ -31,7 +24,7 @@
   <li>
 
     <article class="feed-item-single">
-
+	    
       <h1 class="feed-item-title">{{ e.name }}</h1>
 
       <div class="feed-item-content">
@@ -61,9 +54,10 @@
 
   </li>
 
-{% endfor %}
+  {% endfor %}
 
 </ul>
+{% endcomment %}
 
 {% comment %}
   Here is the calendar.
@@ -77,7 +71,14 @@
 <section class="calendar-view calendar-toggled">
 
   <header>
-    <h3 class=".calendar-view-title">Calendar View: Monthly</h3>
+    <h3 class=".calendar-view-title">Calendar View</h3>
+    <nav class="page-utility-nav">
+	  <ul id="calendarViews">
+	    <li id="dailyView">Daily</li>
+	    <li id="weeklyView">Weekly</li>
+	    <li class="selected-menu-item" id="monthlyView">Monthly</li>
+	  </ul>
+	</nav>
   </header>
 
   <ul class="calendar">
@@ -90,14 +91,7 @@
 
 </section>
 
-<!-- if it is "Events page" -->
 <div>
   Map Goes here
 </div>
-
-<!-- if it is in "At a glance.." .. -->
-<footer>
-  <a href="" class="see-more"><a>More events...</a>
-</footer>
-
 
