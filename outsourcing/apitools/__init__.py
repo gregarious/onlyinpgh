@@ -3,7 +3,7 @@ from urlparse import urlparse, parse_qsl
 
 from onlyinpgh.outsourcing.apitools import oauth
 
-class APIError(Exception):
+class APIError(IOError):
     def __init__(self,api_name,*args):
         self.api = api_name
         super(APIError,self).__init__(*args)

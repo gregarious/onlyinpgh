@@ -38,7 +38,7 @@ def _resolve_result_to_place(result):
             latitude=result.get('latitude'),
             longitude=result.get('longitude'))
     
-    return Place(name=result.get('name'),location=resolved_loc), result.get('factual_id')
+    return Place(name=result.get('name'),location=resolved_loc)
 
 def _geocode_result_to_location(result):
     coords = result.get_geocoding()

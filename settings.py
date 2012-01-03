@@ -17,6 +17,7 @@ MANAGERS = settings_local.ADMINS
 DATABASES = {
     'default': settings_local.DB_DEFAULT
 }
+DATABASES['default']['TEST_CHARSET'] = 'utf8'
 
 # Local time zone for this installation. Choices can be found here:
 # http://en.wikipedia.org/wiki/List_of_tz_zones_by_name

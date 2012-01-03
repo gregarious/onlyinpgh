@@ -8,13 +8,14 @@ from onlyinpgh.outsourcing.fbpages import *
 import random, logging
 logging.disable(logging.CRITICAL)
 
+# TODO: need tests for the page info pulling code?
 class OrgImportingTest(TestCase):
     fixtures = ['fbimport_test.json']
 
     def test_import(self):
         '''Tests the importing of a batch of FB pages as Orgs'''
         mgr = FBPageManager()
-        pid_notice_pairs = [('30273572778',None),   # Mr. Smalls
+        pid_notice_pairs = [('84714961156',None),   # Square Cafe
                             ('139288502700',None),  # Pgh Marathon
                             ('220439',TypeError),   # user page
                             ('291107654260858',TypeError),  # event page
@@ -68,7 +69,7 @@ class PlaceImportingTest(TestCase):
     def test_import(self):
         '''Tests the importing of a batch of FB pages as Places'''
         mgr = FBPageManager()
-        pid_notice_pairs = [('30273572778',None),   # Mr. Smalls
+        pid_notice_pairs = [('84714961156',None),   # Square Cafe
                              ('139288502700',TypeError),  # Pgh Marathon (no location)
                              ('291107654260858',TypeError),  # event page
                              ('9423481220941280',FacebookAPIError),  # bogus id
@@ -118,7 +119,7 @@ class PlaceImportingTest(TestCase):
         
     def test_import_no_owner(self):
         '''Tests the importing of a batch of FB pages as Places without owner importing disabled.'''
-        no_owner_stored = '30273572778'   # mr. smalls (org and place not in fixture)
+        no_owner_stored = '84714961156'   # sqaure cafe (org and place not in fixture)
         owner_stored = '50141015898'      # voluto coffee (org in fixture but not place)
 
         before_orgs = list(Organization.objects.all())

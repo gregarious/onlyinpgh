@@ -341,13 +341,14 @@ class FBPageManager(object):
         '''
         # if we can use the cache, pull any cached ids from the API request
         if use_cache:
-            ids_to_pull = list(set(page_ids).difference(self._cached_page_infos.keys()))
+            ids_to_pull = set(page_ids) - set(self._cached_page_infos.keys())
         else:
             ids_to_pull = page_ids
         
         try:
             page_infos = get_full_place_pages(ids_to_pull)
         except IOError as e:
+            dbglog.error('IOError on batch page info pull: %s' % str(e))
             # spread the IOError to all requests
             page_infos = [e]*len(ids_to_pull)
 
@@ -450,6 +451,21 @@ class FBPageManager(object):
         return [self._store_place(info,import_owners) if not isinstance(info,Exception)
                                         else PageImportReport(pid,None,[info])
                                         for pid,info in zip(page_ids,page_infos)]
+
+def import_org(page_id):
+    '''
+    Quick import of an Organization given an fb page id. Returns a 
+    PageImportReport.
+    '''
+    mgr = FBPageManager()
+    return mgr.import_orgs([page_id])[0]
+
+def import_place(page_id,import_owner=True):
+    '''
+    Quick import of a Place given an fb page id. Returns a PageImportReport.
+    '''
+    mgr = FBPageManager()
+    return mgr.import_places([page_id],import_owners=import_owner)[0]
 
 def _get_all_places_from_cron_job():
     '''
