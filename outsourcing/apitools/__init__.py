@@ -40,7 +40,7 @@ def delayed_retry_on_ioerror(apicall,delay_seconds,retry_limit=1,logger=None):
                 raise
             retry_count += 1
             if logger:
-                logger.warning('IOError "%s": Will attempt retry %d (of %d max) in %d secs...' %\
+                logger.notice('IOError "%s": Will attempt retry %d (of %d max) in %d secs...' %\
                     (str(e),
                     retry_count,
                     retry_limit,

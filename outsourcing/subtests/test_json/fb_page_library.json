@@ -1,0 +1,135 @@
+{
+   "id": "154297644932",
+   "name": "The Library",
+   "picture": "http://profile.ak.fbcdn.net/hprofile-ak-snc4/50514_154297644932_7492776_s.jpg",
+   "link": "https://www.facebook.com/pages/The-Library/154297644932",
+   "likes": 222,
+   "category": "Bar",
+   "website": "http://www.thelibrary-pgh.com/",
+   "location": {
+      "street": "2302 East Carson St.",
+      "city": "Pittsburgh",
+      "state": "PA",
+      "country": "United States",
+      "zip": "15203",
+      "latitude": 40.428305872234,
+      "longitude": -79.972746573391
+   },
+   "parking": {
+      "street": 1,
+      "lot": 0,
+      "valet": 0
+   },
+   "hours": {
+      "mon_1_open": "16:00",
+      "mon_1_close": "02:00",
+      "tue_1_open": "16:00",
+      "tue_1_close": "02:00",
+      "wed_1_open": "16:00",
+      "wed_1_close": "02:00",
+      "thu_1_open": "16:00",
+      "thu_1_close": "02:00",
+      "fri_1_open": "16:00",
+      "fri_1_close": "02:00",
+      "sat_1_open": "11:00",
+      "sat_1_close": "02:00",
+      "sun_1_open": "11:00",
+      "sun_1_close": "02:00"
+   },
+   "payment_options": {
+      "cash_only": 0,
+      "visa": 1,
+      "amex": 1,
+      "mastercard": 1,
+      "discover": 1
+   },
+   "general_manager": "Robb Olsen",
+   "restaurant_services": {
+      "reserve": 1,
+      "walkins": 1,
+      "groups": 1,
+      "kids": 0,
+      "takeout": 0,
+      "delivery": 0,
+      "catering": 1,
+      "waiter": 0,
+      "outdoor": 1
+   },
+   "restaurant_specialties": {
+      "breakfast": 1,
+      "lunch": 1,
+      "dinner": 1,
+      "coffee": 0,
+      "drinks": 1
+   },
+   "phone": "412-715-9344",
+   "can_post": true,
+   "checkins": 1059,
+   "talking_about_count": 41,
+   "metadata": {
+      "connections": {
+         "feed": "http://graph.facebook.com/154297644932/feed",
+         "posts": "http://graph.facebook.com/154297644932/posts",
+         "tagged": "http://graph.facebook.com/154297644932/tagged",
+         "statuses": "http://graph.facebook.com/154297644932/statuses",
+         "links": "http://graph.facebook.com/154297644932/links",
+         "notes": "http://graph.facebook.com/154297644932/notes",
+         "photos": "http://graph.facebook.com/154297644932/photos",
+         "albums": "http://graph.facebook.com/154297644932/albums",
+         "events": "http://graph.facebook.com/154297644932/events",
+         "videos": "http://graph.facebook.com/154297644932/videos",
+         "questions": "http://graph.facebook.com/154297644932/questions"
+      },
+      "fields": [
+         {
+            "name": "id",
+            "description": "The Page's ID. No access token or user `access_token`. `string`."
+         },
+         {
+            "name": "name",
+            "description": "The Page's name. No access token or user `access_token`. `string`."
+         },
+         {
+            "name": "link",
+            "description": "Link to the page on Facebook. No access token or user `access_token`. `string` containing a valid URL."
+         },
+         {
+            "name": "category",
+            "description": "The Page's category. No access token or user `access_token`. `string`."
+         },
+         {
+            "name": "likes",
+            "description": "The number of users who like the Page. No access token or user `access_token`. `number`."
+         },
+         {
+            "name": "location",
+            "description": "The Page's street address, latitude, and longitude (when available). No access token or user `access_token`. `dictionary`."
+         },
+         {
+            "name": "phone",
+            "description": "The phone number (not always normalized for country code) for the Page. No access token or user `access_token`. `string`."
+         },
+         {
+            "name": "checkins",
+            "description": "The total number of users who have checked in to the Page. No access token or user `access_token`. `number`."
+         },
+         {
+            "name": "picture",
+            "description": "Link to the Page's profile picture. No access token or user `access_token`. `string`."
+         },
+         {
+            "name": "website",
+            "description": "Link to the external website for the page. No access token or user `access_token`. `string`."
+         },
+         {
+            "name": "talking_about_count",
+            "description": "The number of people that are talking about this page (last seven days). No access token or user `access_token`. `number`"
+         },
+         {
+            "name": "access_token",
+            "description": "A Page admin `access_token` for this page; The current user must be an administrator of this page; only returned if specifically requested via the `fields` URL parameter. `manage_pages`. `string`"
+         }
+      ]
+   },
+   "type": "page"
+}

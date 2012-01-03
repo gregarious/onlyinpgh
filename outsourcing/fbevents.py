@@ -20,7 +20,7 @@ from datetime import datetime
 
 import json, copy, logging, pytz
 
-dbglog = logging.getLogger('onlyinpgh.debugging')
+outsourcing_log = logging.getLogger('onlyinpgh.outsourcing')
 
 EST = pytz.timezone('US/Eastern')
 
@@ -101,7 +101,7 @@ def _get_owner(page_id,create_new=False):
             import_report = fbpages.import_org(page_id)
             # log any notices
             for notice in import_report.notices:
-                dbglog.notices('Notice during creation of owner: %s' % str(notice))
+                outsourcing_log.info('Notice during creation of owner: %s' % str(notice))
             return import_report.model_instance
     return None
 
@@ -221,12 +221,14 @@ def store_fbevent(event_info,event_image=None,
     The resolve_cache is an optional instance of a VenueResolveCache
     objects. See docs for it for details.
     '''
-    fbid = event_info['id']
+    fbid = event_info.get('id')
+    if fbid is None:
+        raise TypeError("Cannot store object without 'event' type.")
 
     # look to see if event already exists. return with it if so.
     try:
         event = FacebookEventRecord.objects.get(fb_id=fbid).event
-        dbglog.info('Existing fb event found for fbid %s'%str(fbid))
+        outsourcing_log.info('Existing fb event found for fbid %s'%str(fbid))
         return event
     except FacebookEventRecord.DoesNotExist:
         pass
@@ -238,7 +240,7 @@ def store_fbevent(event_info,event_image=None,
     ename = event_info.get('name').strip()
     # need to log events that don't have names
     if not ename:
-        dbglog.warning('No name for event with fbid %s' % fbid)
+        outsourcing_log.warning('No name for event with fbid %s' % fbid)
 
     event = Event(name=event_info['name'],
                     description=unicode(event_info.get('description','')),
@@ -259,7 +261,7 @@ def store_fbevent(event_info,event_image=None,
         try:
             event.image_url = facebook.oip_client.graph_api_picture_request(fbid)
         except IOError as e:
-            dbglog.error('Error retreiving picture for event %s: %s' % (str(eid),str(e)))
+            outsourcing_log.error('Error retreiving picture for event %s: %s' % (str(eid),str(e)))
         
     # process place
     if resolve_cache:
@@ -346,8 +348,7 @@ class EventImportManager(object):
     Class to manage the building and storage of Event model instances from 
     Facebook events.
     '''
-    def __init__(self,logger=None):
-        self.logger = logger
+    def __init__(self):
         # each page ids requested will ultimately be put in one (and only one) of these buckets:
         self._cached_event_infos = {}       # fbevent_id:{event_info}
         self._unavailable_events = {}       # fbevent_id:error
@@ -370,7 +371,7 @@ class EventImportManager(object):
         try:
             page_infos = get_full_event_infos(ids_to_pull)
         except IOError as e:
-            dbglog.error('IOError on batch event info pull: %s' % str(e))
+            outsourcing_log.error('IOError on batch event info pull: %s' % str(e))
             # spread the IOError to all requests
             page_infos = [e]*len(ids_to_pull)
 
@@ -407,7 +408,7 @@ class EventImportManager(object):
             self._cached_page_estub_lists.update(page_estubs_map)
             # everything should be in the cache now: use only it below
         except IOError as e:
-            dbglog.error('IOError on batch event stub pull: %s' % str(e))
+            outsourcing_log.error('IOError on batch event stub pull: %s' % str(e))
             # if we're using the cache, there's still a chance to recover some events from cache
             # if not, just return now
             if not use_cache:
@@ -480,7 +481,7 @@ class EventImportManager(object):
             try:
                 fbevent_pics.append(facebook.oip_client.graph_api_picture_request(eid))
             except IOError as e:
-                dbglog.error('Error retreiving picture for event %s: %s' % (str(eid),str(e)))
+                outsourcing_log.error('Error retreiving picture for event %s: %s' % (str(eid),str(e)))
                 fbevent_pics.append('')
         
         reports = []
@@ -518,15 +519,15 @@ class EventImportManager(object):
                                                 # series of events at the same location
             reports = []
             for fbevent in fbevents:
-                eid = fbevent['id']
                 # TODO: don't like fbevent being a possible exception. revisit.
                 if isinstance(fbevent,Exception):
-                    reports.append( EventImportReport(eid,None,[fbevent]) )
+                    reports.append( EventImportReport(None,None,[fbevent]) )
                 else:
+                    eid = fbevent['id']
                     try:
                         pic = facebook.oip_client.graph_api_picture_request(eid)
                     except IOError as e:
-                        dbglog.error('Error retreiving picture for event %s: %s' % (str(eid),str(e)))
+                        outsourcing_log.error('Error retreiving picture for event %s: %s' % (str(eid),str(e)))
                         pic = ''
                     reports.append( self._store_event( fbevent,
                                                         pic,

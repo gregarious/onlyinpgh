@@ -11,7 +11,7 @@ from onlyinpgh.places.models import Location, Place, PlaceMeta
 from onlyinpgh.outsourcing.models import FacebookOrgRecord, ExternalPlaceSource
 
 import logging
-dbglog = logging.getLogger('onlyinpgh.debugging')
+outsourcing_log = logging.getLogger('onlyinpgh.outsourcing')
 
 # reverse the US_STATE_MAP for eaach lookup of full names to abbreviations
 from onlyinpgh.places import US_STATE_MAP
@@ -109,11 +109,13 @@ def store_fbpage_organization(page_info):
     already linked organization is returned. An INFO message is logged to 
     note the attempt to store an existing page as an Organization.
     '''
-    pid = page_info['id']
+    pid = page_info.get('id')
+    if pid is None:
+        raise TypeError("Cannot store object without 'event' type.")
 
     try:
         organization = FacebookOrgRecord.objects.get(fb_id=pid).organization
-        dbglog.info('Existing fb page Organization found for fbid %s' % str(pid))
+        outsourcing_log.info('Existing fb page Organization found for fbid %s' % str(pid))
         return organization
     except FacebookOrgRecord.DoesNotExist:
         pass
@@ -135,11 +137,11 @@ def store_fbpage_organization(page_info):
                                                                 url=url)
 
     if not created:
-        dbglog.notice('An organization matching fbid %s already existed with '\
-                        'no FacebookOrgRecord. The record was created.' % str(pid))
+        outsourcing_log.info('An organization matching fbid %s already existed with '\
+                             'no FacebookOrgRecord. The record was created.' % str(pid))
     
     record = FacebookOrgRecord.objects.create(fb_id=pid,organization=organization)
-    dbglog.info(u'Stored new Organization for fbid %s: "%s"' % (pid,unicode(organization)))
+    outsourcing_log.info(u'Stored new Organization for fbid %s: "%s"' % (pid,unicode(organization)))
 
     if len(pname) == 0:
         logging.warning('Facebook page with no name was stored as Organization')
@@ -216,7 +218,7 @@ def store_fbpage_place(page_info,create_owner=True):
     
     try:
         place = ExternalPlaceSource.objects.get(service='fb',uid=pid).place
-        dbglog.info('Existing fb page Place found for fbid %s' % str(pid))
+        outsourcing_log.info('Existing fb page Place found for fbid %s' % str(pid))
         return place
     except ExternalPlaceSource.DoesNotExist:
         pass
@@ -232,7 +234,7 @@ def store_fbpage_place(page_info,create_owner=True):
     fbloc = page_info['location']
     if 'id' in fbloc:
         # TODO: need to ensure fbloc_to_loc can handle ids in location if this ever happens
-        dbglog.notice('Facebook page %s has id in location (%s)' % (pid,fbloc['id']))
+        outsourcing_log.info('Facebook page %s has id in location (%s)' % (pid,fbloc['id']))
     location = fbloc_to_loc(fbloc)
 
     # if there's no address or geocoding, we'll need to talk to outside services
@@ -259,15 +261,15 @@ def store_fbpage_place(page_info,create_owner=True):
                     latitude=location.latitude,
                     longitude=location.longitude)
     if created:
-        dbglog.debug('Saved new location "%s"' % location.full_string)
+        outsourcing_log.debug('Saved new location "%s"' % location.full_string)
     else:
-        dbglog.debug('Retrieved existing location "%s"' % location.full_string)
+        outsourcing_log.debug('Retrieved existing location "%s"' % location.full_string)
 
     try:
         owner = FacebookOrgRecord.objects.get(fb_id=pid).organization
     except FacebookOrgRecord.DoesNotExist:
         if create_owner:
-            dbglog.info('Creating new Organization as byproduct of creating Place from Facebook page %s' % str(pid))
+            outsourcing_log.info('Creating new Organization as byproduct of creating Place from Facebook page %s' % str(pid))
             owner = store_fbpage_organization(page_info)
         else:
             owner = None
@@ -291,7 +293,7 @@ class PageImportReport(object):
     #   - FacebookAPIError (for successful responses with unexpected content)
     #   - IOError (if problem getting response from server)
     #   - PageImportReport.RelatedObjectCreationError (e.g. if Org couldn't be created inside Place creation)
-    #   - PageImportReport.ModelInstanceExists (if FBPageManager attempts to create an object already being managed)
+    #   - PageImportReport.ModelInstanceExists (if PageImportManager attempts to create an object already being managed)
     def __init__(self,page_id,model_instance,notices=[]):
         self.page_id = page_id
         self.model_instance = model_instance
@@ -321,16 +323,15 @@ class PageImportReport(object):
             return 'ModelInstanceExists: %s for Facebook page id %s' % \
                     (str(self.model_type),str(self.fbid))
 
-class FBPageManager(object):
+class PageImportManager(object):
     '''
     Class to manage the building and storage of Place and Organization
     model instances from Facebook pages.
     '''
-    def __init__(self,logger=None):
-        self.logger = logger
+    def __init__(self):
         # each page ids requested will ultimately be put in one (and only one) of these buckets:
         self._cached_page_infos = {}    # page_id:{page_info}
-        self._unavailble_pages = {}     # page_id:error
+        self._unavailable_pages = {}     # page_id:error
 
     def pull_page_info(self,page_ids,use_cache=True):
         '''
@@ -348,7 +349,7 @@ class FBPageManager(object):
         try:
             page_infos = get_full_place_pages(ids_to_pull)
         except IOError as e:
-            dbglog.error('IOError on batch page info pull: %s' % str(e))
+            outsourcing_log.error('IOError on batch page info pull: %s' % str(e))
             # spread the IOError to all requests
             page_infos = [e]*len(ids_to_pull)
 
@@ -357,12 +358,12 @@ class FBPageManager(object):
             # each "info" is either a successful page info response, or 
             #  an Exception. put them into the correct bnuckets
             if isinstance(info,Exception):
-                self._unavailble_pages[pid] = info
+                self._unavailable_pages[pid] = info
             else:
                 self._cached_page_infos[pid] = info
 
         # return the responses in the same order as the requests
-        return [self._cached_page_infos.get(pid,self._unavailble_pages.get(pid))
+        return [self._cached_page_infos.get(pid,self._unavailable_pages.get(pid))
                     for pid in page_ids]
 
     def _store_org(self,info):
@@ -457,14 +458,14 @@ def import_org(page_id):
     Quick import of an Organization given an fb page id. Returns a 
     PageImportReport.
     '''
-    mgr = FBPageManager()
+    mgr = PageImportManager()
     return mgr.import_orgs([page_id])[0]
 
 def import_place(page_id,import_owner=True):
     '''
     Quick import of a Place given an fb page id. Returns a PageImportReport.
     '''
-    mgr = FBPageManager()
+    mgr = PageImportManager()
     return mgr.import_places([page_id],import_owners=import_owner)[0]
 
 def _get_all_places_from_cron_job():

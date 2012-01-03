@@ -3,16 +3,126 @@ from django.test import TestCase
 from onlyinpgh.identity.models import Organization
 from onlyinpgh.places.models import Place
 from onlyinpgh.outsourcing.models import FacebookOrgRecord, ExternalPlaceSource, FacebookEventRecord
+
 from onlyinpgh.outsourcing.apitools.facebook import FacebookAPIError
 from onlyinpgh.outsourcing.fbevents import *
+
+from onlyinpgh.outsourcing.subtests import load_test_json
 
 import random, logging
 logging.disable(logging.CRITICAL)
 
-# TODO: need tests for the event info pulling code?
-class EventImportingTest(TestCase):
+class EventStorageTest(TestCase):
+    '''
+    Collection of tests for outsoucing.fbevents.store_fbevent using fixed json data.
+    '''
     fixtures = ['fbimport_test.json']
+
+    def test_new_event(self):
+        '''
+        Tests that all fields from a Facebook page to event are inserted 
+        correctly.
+        '''
+        event_fbid = '286153888063194'        # Oxford 5k
+        event_info = load_test_json('fb_event_oxford_5k.json')
+        event_count_before = Event.objects.count()
+
+        # ensure no FBPageRecord already exists for the given id
+        with self.assertRaises(FacebookEventRecord.DoesNotExist):
+            FacebookEventRecord.objects.get(fb_id=event_fbid)
+
+        store_fbevent(event_info,create_owners=False)
         
+        self.assertEquals(Event.objects.count(),event_count_before+1)
+        try:
+            event = Event.objects.get(name=u'Oxford Athletic Club Freaky 5K')
+        except Event.DoesNotExist:
+            self.fail('Event not inserted')
+
+        try:
+            # make sure the stored FBEventRecord has the correct Event set
+            event_on_record = FacebookEventRecord.objects.get(fb_id=event_fbid).event
+            self.assertEquals(event_on_record,event)
+        except Event.DoesNotExist:
+            self.fail('FacebookEventRecord not found!')            
+
+        # check properties of event were stored correctly (see http://graph.facebook.com/291107654260858)
+        # event goes from 10/29/11 13:30 16:30 (UTC time)
+        self.assertEquals(event.dtstart,datetime(2011,10,29,13,30))
+        self.assertEquals(event.dtend,datetime(2011,10,29,16,30))
+        self.assertTrue(event.description.startswith(u'Join the Steel City Road Runners Club'))
+
+    def test_existing_event(self):
+        '''
+        Tests that an event is not created if an existing event already exists.
+        '''
+        event_fbid = '291107654260858'         # mr. smalls event (already exists via fixture)
+        event_info = load_test_json('fb_event_mr_smalls.json')
+        event_count_before = Event.objects.count()
+        record_count_before = FacebookEventRecord.objects.count()
+
+        store_fbevent(event_info,create_owners=False)
+        self.assertEquals(event_count_before,Event.objects.count())
+
+        # ensure the Facebook record didn't get saved
+        self.assertEquals(record_count_before,FacebookEventRecord.objects.count())
+
+class EventImportingTest(TestCase):
+    '''
+    Collection of tests for outsourcing.fbevents.EventImportReport
+    '''
+    fixtures = ['fbimport_test.json']
+
+    def test_pulling(self):
+        '''
+        Tests pulling of a batch of FB events -- not Event model saving
+        '''
+        event_ids = ['159484480801269',  # valid event page
+                     '828371892334123']  # invalid fbid
+        # add 100 random ids to the list to ensure batch code is working well
+        event_ids.extend([str(random.randint(1,1e13)) for i in range(100)])
+
+        mgr = EventImportManager()
+        fbevents = mgr.pull_event_info(event_ids)
+        self.assertEquals(len(fbevents),len(event_ids))
+
+        valid_event = fbevents[0]
+        self.assertIn('start_time',valid_event.keys())
+        self.assertIn('owner',valid_event.keys())
+
+        invalid_event = fbevents[1]
+        self.assertTrue(isinstance(invalid_event,FacebookAPIError))
+
+    def test_pulling_from_pages(self):
+        '''
+        Tests pulling of a batch of FB events by pages -- not Event model saving
+        '''
+        page_ids = ['40796308305',      # coca-cola's UID
+                    '121994841144517',  # place that will probably never have any events
+                    '828371892334123']  # invalid fbid
+        # add 100 random ids to the list to ensure batch code is working well
+        page_ids.extend([str(random.randint(1e13,1e14)) for i in range(100)])
+        random.shuffle(page_ids)
+
+        mgr = EventImportManager()
+        pid_infos_map = mgr.pull_event_info_from_pages(page_ids)
+        self.assertEquals(set(pid_infos_map.keys()),set(page_ids))
+
+        # can't really assert anything about some third party page's events. be content
+        # with just testing that there's a few of them and the first one has some 
+        # event-specific fields
+        valid_events = pid_infos_map['40796308305']
+        self.assertGreater(len(valid_events),4)       # should be more than 4? why not.
+        for valid_event in valid_events:
+            self.assertIn('start_time',valid_event.keys())
+            self.assertIn('owner',valid_event.keys())
+
+        # this one should return an empty list
+        self.assertEquals(pid_infos_map['121994841144517'],[])
+        self.assertEquals(pid_infos_map['828371892334123'],[])
+
+        # ignore the rest of the requests -- they were just to test batch
+    
     def test_import(self):
         '''Tests the pulling and insertion of a batch of FB events'''
         eid_notice_pairs = [('110580932351209',None),   # 

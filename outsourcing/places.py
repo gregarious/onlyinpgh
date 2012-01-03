@@ -4,21 +4,13 @@ places-related tasks.
 '''
 
 from itertools import chain
-import re, time, json, datetime, copy
+import re, copy
 
-from django.db.models import Q
-from django.db import transaction
+from onlyinpgh.outsourcing.apitools import google, factual
 
-from onlyinpgh.outsourcing.apitools import google
-from onlyinpgh.outsourcing.apitools import factual
-from onlyinpgh.outsourcing.apitools import facebook
+from onlyinpgh.places.models import Place, Location
 
-from onlyinpgh.outsourcing.identity import store_fbpage_organization
-from onlyinpgh.outsourcing.models import *
-from onlyinpgh.places.models import *
-
-import logging
-dbglog = logging.getLogger('onlyinpgh.debugging')
+import logging  
 resolvelog = logging.getLogger('onlyinpgh.resolve')
 
 # reverse the US_STATE_MAP for eaach lookup of full names to abbreviations

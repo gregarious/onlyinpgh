@@ -156,7 +156,12 @@ LOGGING = {
             'formatter': 'verbose',
             'filename': '/Users/gdn/Sites/onlyinpgh/logs/resolve.log'
         },
-
+        'outsourcing_file': {
+            'level': 'DEBUG',
+            'class': 'logging.FileHandler',
+            'formatter': 'verbose',
+            'filename': '/Users/gdn/Sites/onlyinpgh/logs/outsourcing.log'
+        },
     },
     'loggers': {
         'django.request': {
@@ -171,6 +176,11 @@ LOGGING = {
         },
         'onlyinpgh.resolve': {
             'handlers': ['console','resolve_file'],
+            'level':'DEBUG',
+            'propagate': False
+        },
+        'onlyinpgh.outsourcing': {
+            'handlers': ['console','outsourcing_file'],
             'level':'DEBUG',
             'propagate': False
         },

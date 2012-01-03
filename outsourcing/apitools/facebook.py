@@ -2,7 +2,7 @@ import urllib, urllib2, json, time
 from onlyinpgh.outsourcing.apitools import APIError, delayed_retry_on_ioerror
 
 import logging
-dbglog = logging.getLogger('onlyinpgh.debugging')
+outsourcing_log = logging.getLogger('onlyinpgh.outsourcing')
 
 class FacebookAPIError(APIError):
     # TODO: decide on error contents. complicated because there's a variety of responses this API handles
@@ -30,7 +30,7 @@ def get_basic_access_token(client_id,client_secret):
         pass
 
     # if we made it this far, we didn't return with a value response
-    logging.error("Unexpected response to access token request: '%s'" % response)
+    outsourcing_log.error("Unexpected response to access token request: '%s'" % response)
     raise FacebookAPIError('Access token retreival error. See log for details.')
 
 class BatchCommand(object):
@@ -88,7 +88,7 @@ class GraphAPIClient(object):
         response = delayed_retry_on_ioerror(lambda:json.load(urllib_module.urlopen(request)),
                                             delay_seconds=5,
                                             retry_limit=1,
-                                            logger=dbglog)
+                                            logger=outsourcing_log)
         return self.postprocess_response(request,response)
 
     # TODO: revisit this -- don't like it being dependant on request
@@ -133,7 +133,7 @@ class GraphAPIClient(object):
         return delayed_retry_on_ioerror(lambda:urllib.urlopen(url),
                                             delay_seconds=3,
                                             retry_limit=2,
-                                            logger=dbglog)
+                                            logger=outsourcing_log)
 
     def graph_api_objects_request(self,ids,metadata=False):
         '''
@@ -171,7 +171,8 @@ class GraphAPIClient(object):
         if metadata:
             get_opts['metadata'] = 1
 
-        request_url = 'https://graph.facebook.com/?' + urllib.urlencode(get_opts)
+        query_string = urllib.urlencode(get_opts)
+        request_url = 'https://graph.facebook.com/?' + query_string
 
         # handles retries and exception handling
         response = self._make_request(request_url)
@@ -181,7 +182,7 @@ class GraphAPIClient(object):
         if return_list:
             return responses
         elif len(responses) > 1:
-            raise Exception('Internal error: More than one response returned to single object query.')
+            raise FacebookAPIError(request_url,'Internal error: More than one response returned to single object query.')
         else:
             return responses[0]
 

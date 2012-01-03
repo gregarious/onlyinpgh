@@ -2,7 +2,7 @@ import json, re, urllib, os, time
 from onlyinpgh.outsourcing.apitools import APIError, delayed_retry_on_ioerror
 
 import logging
-dbglog = logging.getLogger('onlyinpgh.debugging')
+outsourcing_log = logging.getLogger('onlyinpgh.outsourcing')
 
 class GoogleGeocodingAPIError(APIError):
     def __init__(self,request,response,*args,**kwargs):
@@ -44,7 +44,7 @@ class GoogleGeocodingClient(object):
         fp = delayed_retry_on_ioerror(lambda:urllib.urlopen(request_url),
                                         delay_seconds=5,
                                         retry_limit=1,
-                                        logger=dbglog)                        
+                                        logger=outsourcing_log)                        
         raw_response = fp.read()
         return cls._package_response(raw_response,request_url)
     
@@ -107,13 +107,11 @@ class GoogleGeocodingResponse(object):
             try:
                 route = [comp['short_name'] for comp in result['address_components'] if 'route' in comp['types']][0]
             except IndexError:
-                # TODO: more specific error
-                raise Exception("Unexpected Google Geocoding API Response. No 'route' for 'intersection' result")
+                raise ValueError("Unexpected Google Geocoding API Response. No 'route' for 'intersection' result")
             pattern = r'(%s.+?)\,' % route
             match = re.search(pattern,result['formatted_address'])
             if not match:
-                # TODO: more specific error
-                raise Exception("Unexpected Google Geocoding API Response. 'route' not contained in 'formatted_address'")
+                raise ValueError("Unexpected Google Geocoding API Response. 'route' not contained in 'formatted_address'")
             
             # add the full intersection name to the result's address components 
             result['address_components'].insert(0,

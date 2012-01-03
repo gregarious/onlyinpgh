@@ -2,12 +2,12 @@
 #   reader would use it with city fixed in Pgh)
 
 from onlyinpgh.outsourcing.apitools import APIError
-from onlyinpgh.outsourcing.apitools import build_oauth_request
+from onlyinpgh.outsourcing.apitools import build_oauth_request, delayed_retry_on_ioerror
 
 import urllib, urllib2, json, time
 import logging
 
-dbglog = logging.getLogger('onlyinpgh.debugging')
+outsourcing_log = logging.getLogger('onlyinpgh.outsourcing')
 
 class FactualAPIError(APIError):
     def __init__(self,request,error_type,message,*args,**kwargs):
@@ -44,14 +44,9 @@ class FactualClient(object):
 
         full_url = FactualClient.RESOLVE_URL + '?' + urllib.urlencode({'values':json_query})
         request = build_oauth_request(full_url,self.key,self.secret)
-        try:
-            time.sleep(.1)
-            response = ResolveResponse(urllib2.urlopen(request))
-        except IOError as e:
-            # wait 3 seconds and try once more
-            dbglog.warning('Factual IOError "%s": sleeping 5 secs...'%str(e))
-            time.sleep(5)
-            response = ResolveResponse(urllib2.urlopen(request))
+
+        response = delayed_retry_on_ioerror(lambda:ResolveResponse(urllib2.urlopen(request)),
+                                            5,2,outsourcing_log)
 
         if response.status != 'ok':
             raise FactualAPIError(request,response.error_type,response.message)
