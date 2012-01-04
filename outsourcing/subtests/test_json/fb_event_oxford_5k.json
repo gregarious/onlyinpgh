@@ -1,0 +1,69 @@
+{
+   "id": "286153888063194",
+   "owner": {
+      "name": "Dick's Sporting Goods Pittsburgh Marathon",
+      "category": "Non-profit organization",
+      "id": "139288502700"
+   },
+   "name": "Oxford Athletic Club Freaky 5K",
+   "description": "Join the Steel City Road Runners Club and run the 3rd Annual Oxford Athletic Club Freaky 5K Halloween Costume Fun Run/Walk or the NEW Wyndham Grand Pittsburgh Downtown Terrifying 10K at North Park.  Afterwards stay for a Freaky Family-Friendly Halloween Party at the North Park Ice Rink.  Awards will be given for the overall male and female winners as well as the fastest male and female runners by age category for each race. Best costume awards will also be presented! \n\nRunners of all ages are welcome with special rates for families!  Prizes for the top 3 group costumes and top 3 individual costumes will be awarded.  ALL family members must register at the same time.\n\nRegister today: http://www.active.com/running/allison-park-pa/oxford-athletic-club-freaky-5k-and-wyndham-grand-pittsburgh-downtown-terrifying-10k-costume-run-2011",
+   "start_time": "2011-10-29T09:30:00",
+   "end_time": "2011-10-29T12:30:00",
+   "location": "North Park Ice Rink",
+   "privacy": "OPEN",
+   "updated_time": "2011-09-23T18:27:48+0000",
+   "metadata": {
+      "connections": {
+         "feed": "https://graph.facebook.com/286153888063194/feed?access_token=203898346321665\u00257Ce_aVTLcJCsV3c9tiQJn0tZjWcZg",
+         "invited": "https://graph.facebook.com/286153888063194/invited?access_token=203898346321665\u00257Ce_aVTLcJCsV3c9tiQJn0tZjWcZg",
+         "attending": "https://graph.facebook.com/286153888063194/attending?access_token=203898346321665\u00257Ce_aVTLcJCsV3c9tiQJn0tZjWcZg",
+         "maybe": "https://graph.facebook.com/286153888063194/maybe?access_token=203898346321665\u00257Ce_aVTLcJCsV3c9tiQJn0tZjWcZg",
+         "noreply": "https://graph.facebook.com/286153888063194/noreply?access_token=203898346321665\u00257Ce_aVTLcJCsV3c9tiQJn0tZjWcZg",
+         "declined": "https://graph.facebook.com/286153888063194/declined?access_token=203898346321665\u00257Ce_aVTLcJCsV3c9tiQJn0tZjWcZg",
+         "picture": "https://graph.facebook.com/286153888063194/picture?access_token=203898346321665\u00257Ce_aVTLcJCsV3c9tiQJn0tZjWcZg"
+      },
+      "fields": [
+         {
+            "name": "id",
+            "description": "The event ID.  generic `access_token`, `user_events` or `friends_events`.  `string`."
+         },
+         {
+            "name": "owner",
+            "description": "The profile that created the event. generic `access_token`, `user_events` or `friends_events`. object containing `id` and `name` fields."
+         },
+         {
+            "name": "name",
+            "description": "The event title.  generic `access_token`, `user_events` or `friends_events`.  `string`."
+         },
+         {
+            "name": "description",
+            "description": "The long-form description of the event. generic `access_token`, `user_events` or `friends_events`.  `string`."
+         },
+         {
+            "name": "start_time",
+            "description": "The start time of the event, as you want it to be displayed on facebook. generic `access_token`, `user_events` or `friends_events`. `string` containing an ISO-8601 formatted date/time or a UNIX timestamp; if it contains a time zone (not recommended), it will be converted to Pacific time before being stored and displayed."
+         },
+         {
+            "name": "end_time",
+            "description": "The end time of the event, as you want it to be displayed on facebook. generic `access_token`, `user_events` or `friends_events`. `string` containing an ISO-8601 formatted date/time or a UNIX timestamp; if it contains a time zone (not recommended), it will be converted to Pacific time before being stored and displayed."
+         },
+         {
+            "name": "location",
+            "description": "The location for this event.  generic `access_token`, `user_events` or `friends_events`. `string`."
+         },
+         {
+            "name": "venue",
+            "description": "The location of this event.  generic `access_token`, `user_events` or `friends_events`.  object containing one or more of the following fields: `street`, `city`, `state`, `zip`, `country`, `latitude`, and `longitude` fields."
+         },
+         {
+            "name": "privacy",
+            "description": "The visibility of this event.  generic `access_token`, `user_events` or `friends_events`.  `string` containing 'OPEN', 'CLOSED', or 'SECRET'"
+         },
+         {
+            "name": "updated_time",
+            "description": "The last time the event was updated. generic `access_token`, `user_events` or `friends_events`. `string` containing ISO-8601 date-time."
+         }
+      ]
+   },
+   "type": "event"
+}

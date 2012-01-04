@@ -8,3 +8,5 @@ pil
 ## PROBLEMS ENCOUNTERED DURING DEMO PREP ##
 
 - all constraints have ON DELETE RESTRICT -- django docs suggest default should be CASCADE?
+
+icalendar

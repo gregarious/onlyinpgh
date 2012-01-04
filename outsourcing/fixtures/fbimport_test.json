@@ -1,0 +1,287 @@
+[
+    {
+        "pk": 17000, 
+        "model": "events.event", 
+        "fields": {
+            "dtcreated": "2011-12-30 02:09:00", 
+            "allday": false, 
+            "name": "Mr. Smalls 10th Anniversary NEW YEARS EVE CELEBRATION", 
+            "parent_event": null, 
+            "url": "http://www.facebook.com/291107654260858", 
+            "exrule": "", 
+            "exdate": "", 
+            "rdate": "", 
+            "image_url": "", 
+            "rrule": "", 
+            "dtmodified": "2011-12-30 02:09:00", 
+            "invisible": false, 
+            "place": 2, 
+            "dtend": "2012-01-01 07:00:00", 
+            "dtstart": "2011-12-31 23:00:00", 
+            "tags": [], 
+            "description": "Mr. Smalls 10th Anniversary New Years Eve celebration coming to ya live Dec 31st at 6pm to 2 am Jan 1st! Featuring DJs: Sunset Till Sunrise, Buku, Kevin James, Agent Smith, Kinetik, and Akuma! Special performances from Phat Man Dee, The Hoopla Girls dancing with hoops all night long...and can you say Burlesque girls, Bridge City Bombshells to be exact! tickets on sale tomorrow at mrsmalls.com. $8 advance & $10 at the door! \n\nWe also have 30 VIP balcony tickets available for $100 which includes open bar, all you can eat buffet, party favors and a Mr. Smalls 10th Anniversary Commemorative Verdi champagne 8oz bottle! \n\nCome dance the year away with us! Let's bring in the next decade of live music in Pittsburgh together! Thank you for all your support over the last decade, we wouldn't be here with out you...our city ROCKS!"
+        }
+    }, 
+    {
+        "pk": 16999, 
+        "model": "events.event", 
+        "fields": {
+            "dtcreated": "1970-01-01 00:00:00", 
+            "allday": false, 
+            "name": "The Beginning of Time", 
+            "parent_event": null, 
+            "url": "", 
+            "exrule": "", 
+            "exdate": "", 
+            "rdate": "", 
+            "image_url": "", 
+            "rrule": "", 
+            "dtmodified": "1970-01-01 00:00:00", 
+            "invisible": true, 
+            "place": null, 
+            "dtend": "1970-01-01 00:00:00", 
+            "dtstart": "1970-01-01 00:00:00", 
+            "tags": [], 
+            "description": ""
+        }
+    }, 
+    {
+        "pk": 1, 
+        "model": "events.role", 
+        "fields": {
+            "organization": 3, 
+            "role_name": "host", 
+            "event": 17000
+        }
+    }, 
+    {
+        "pk": 1, 
+        "model": "events.meta", 
+        "fields": {
+            "meta_value": "Shopping", 
+            "event": 17000, 
+            "meta_key": "oldtype"
+        }
+    }, 
+    {
+        "pk": 2, 
+        "model": "events.meta", 
+        "fields": {
+            "meta_value": "Food & Drink", 
+            "event": 17000, 
+            "meta_key": "oldtype"
+        }
+    }, 
+    {
+        "pk": 3, 
+        "model": "events.meta", 
+        "fields": {
+            "meta_value": "Music", 
+            "event": 17000, 
+            "meta_key": "oldtype"
+        }
+    }, 
+    {
+        "pk": 4, 
+        "model": "events.meta", 
+        "fields": {
+            "meta_value": "Theater", 
+            "event": 17000, 
+            "meta_key": "oldtype"
+        }
+    }, 
+    {
+        "pk": 1, 
+        "model": "places.location", 
+        "fields": {
+            "town": "Pittsburgh", 
+            "neighborhood": null, 
+            "country": "US", 
+            "longitude": null, 
+            "state": "PA", 
+            "postcode": "15203", 
+            "address": "2717 Sarah St", 
+            "latitude": null
+        }
+    }, 
+    {
+        "pk": 2, 
+        "model": "places.location", 
+        "fields": {
+            "town": "Millvale", 
+            "neighborhood": null, 
+            "country": "US", 
+            "longitude": "-80.042126", 
+            "state": "PA", 
+            "postcode": "", 
+            "address": "400 Lincoln Ave.", 
+            "latitude": "40.553137"
+        }
+    }, 
+    {
+        "pk": 1, 
+        "model": "places.place", 
+        "fields": {
+            "dtcreated": "2011-12-29 11:15:41", 
+            "name": "Big Dog Coffee", 
+            "tags": [], 
+            "location": 1, 
+            "owner": 1, 
+            "description": ""
+        }
+    }, 
+    {
+        "pk": 2, 
+        "model": "places.place", 
+        "fields": {
+            "dtcreated": "2011-12-30 02:07:50", 
+            "name": "Mr. Smalls", 
+            "tags": [], 
+            "location": 2, 
+            "owner": 3, 
+            "description": ""
+        }
+    }, 
+    {
+        "pk": 1, 
+        "model": "places.meta", 
+        "fields": {
+            "meta_value": "http://profile.ak.fbcdn.net/hprofile-ak-snc4/50266_30273572778_5912500_s.jpg", 
+            "place": 2, 
+            "meta_key": "image_url"
+        }
+    }, 
+    {
+        "pk": 2, 
+        "model": "places.meta", 
+        "fields": {
+            "meta_value": "412-821-4447", 
+            "place": 2, 
+            "meta_key": "phone"
+        }
+    }, 
+    {
+        "pk": 3, 
+        "model": "places.meta", 
+        "fields": {
+            "meta_value": "www.mrsmalls.com", 
+            "place": 2, 
+            "meta_key": "url"
+        }
+    }, 
+    {
+        "pk": 1, 
+        "model": "identity.identity", 
+        "fields": {
+            "account": [], 
+            "dt_created": "2011-12-28 23:54:41", 
+            "name": "Big Dog Coffee", 
+            "avatar": ""
+        }
+    }, 
+    {
+        "pk": 3, 
+        "model": "identity.identity", 
+        "fields": {
+            "account": [], 
+            "dt_created": "2011-12-30 02:07:50", 
+            "name": "Mr. Smalls", 
+            "avatar": "http://profile.ak.fbcdn.net/hprofile-ak-snc4/50266_30273572778_5912500_s.jpg"
+        }
+    }, 
+    {
+        "pk": 2, 
+        "model": "identity.identity", 
+        "fields": {
+            "account": [], 
+            "dt_created": "2011-12-29 12:15:09", 
+            "name": "Voluto Coffee", 
+            "avatar": ""
+        }
+    }, 
+    {
+        "pk": 1, 
+        "model": "identity.organization", 
+        "fields": {
+            "url": "", 
+            "account": []
+        }
+    }, 
+    {
+        "pk": 3, 
+        "model": "identity.organization", 
+        "fields": {
+            "url": "www.mrsmalls.com", 
+            "account": []
+        }
+    }, 
+    {
+        "pk": 2, 
+        "model": "identity.organization", 
+        "fields": {
+            "url": "", 
+            "account": []
+        }
+    }, 
+    {
+        "pk": 1, 
+        "model": "outsourcing.externalplacesource", 
+        "fields": {
+            "last_checked": "2011-12-29 11:15:43", 
+            "place": 1, 
+            "uid": "53379078585", 
+            "service": "fb"
+        }
+    }, 
+    {
+        "pk": 2, 
+        "model": "outsourcing.externalplacesource", 
+        "fields": {
+            "last_checked": "2011-12-30 02:07:50", 
+            "place": 2, 
+            "uid": "30273572778", 
+            "service": "fb"
+        }
+    }, 
+    {
+        "pk": 291107654260858, 
+        "model": "outsourcing.facebookeventrecord", 
+        "fields": {
+            "ignore": false, 
+            "time_added": "2011-12-30 02:09:00", 
+            "last_updated": null, 
+            "event": 17000, 
+            "last_checked": "2011-12-30 02:09:00"
+        }
+    }, 
+    {
+        "pk": 53379078585, 
+        "model": "outsourcing.facebookorgrecord", 
+        "fields": {
+            "ignore": false, 
+            "organization": 1, 
+            "time_added": "2011-12-28 23:54:43", 
+            "last_checked": "2011-12-28 23:54:43"
+        }
+    }, 
+    {
+        "pk": 50141015898, 
+        "model": "outsourcing.facebookorgrecord", 
+        "fields": {
+            "ignore": false, 
+            "organization": 2, 
+            "time_added": "2011-12-29 12:16:10", 
+            "last_checked": "2011-12-29 12:16:10"
+        }
+    }, 
+    {
+        "pk": 30273572778, 
+        "model": "outsourcing.facebookorgrecord", 
+        "fields": {
+            "ignore": false, 
+            "organization": 3, 
+            "time_added": "2011-12-30 02:07:50", 
+            "last_checked": "2011-12-30 02:07:50"
+        }
+    }
+]

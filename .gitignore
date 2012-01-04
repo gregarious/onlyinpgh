@@ -1,5 +1,6 @@
 settings_local.py
 *.pyc
+*.pickle
 *~
 *#
 .DS_Store*
