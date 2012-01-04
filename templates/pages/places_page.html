@@ -31,22 +31,21 @@ template for the Places page
   {% for e in establishments %}
 
   <li>
-    <article class="page-item">
+    <article class="feed-item-single">
+      <h4 class="feed-item-title">{{ e.name }}</h4>
 
-      <h1 class="page-item-title">{{ e.name }}</h1>
-
-      <div class="page-item-content">
+      <div class="feed-item-content">
         <ul>
           <li>{{ e.location.address }}</li>
           <li>
             <p class="expand-details">Details...</p>
-            <ul class="page-item-details">
+            <ul class="feed-item-details">
               <li>{{ e.hours }}</li>
               <li>{{ e.phone_number }}</li>
               <li>{{ e.description }}</li>
             </ul>
           </li>
-          <li><a href="" class="load-single-place">Go to Place Page</a></li>
+          <li><a href="" class="load-single-place">Go to Event Page</a></li>
         </ul>
       </div>
 

@@ -30,7 +30,7 @@ def demo_establishments_page(request):
 
 
 # Note to Greg: Lara is muddling! 
-# Duplicating functions and shit for the sake of speed
+# Duplicating functions for the sake of speed
 
 def demo_establishments_single(request):
         

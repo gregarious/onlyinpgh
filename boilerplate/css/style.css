@@ -420,7 +420,29 @@ body {
 .weekly-day {
   height: 300px;
 }
-/* 12 COMPLEMENTARY ---------- */
+/* 12 UTILITY ---------- */
+#modalMask {
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: 9000;
+  background-color: #000;
+  display: none;
+}
+.window {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 30%;
+  height: 30%;
+  display: none;
+  z-index: 9999;
+  padding: 20px;
+}
+#grabbitModal {
+  padding: 10px;
+  background-color: #ffffff;
+}
 /* 13 CONTENTINFO ---------- */
 /* 14 GLOBAL OBJECTS ---------- */
 /* 15 VENDOR-SPECIFIC ---------- */
@@ -439,13 +461,17 @@ body {
   /* Styles */
 }
 /*/mediaquery*/
-/* iPhone 4, Opera Mobile 11 and other high pixel ratio devices ----------- */
-@media only screen and (-webkit-min-device-pixel-ratio: 1.5),
+/* iPhone 4, Opera Mobile 11 and other high pixel ratio devices ----------- 
+---- >> causing a bug - figure this out later 
+@media
+only screen and (-webkit-min-device-pixel-ratio: 1.5),
 only screen and (-o-min-device-pixel-ratio: 3/2),
 only screen and (min--moz-device-pixel-ratio: 1.5),
 only screen and (min-device-pixel-ratio: 1.5) {
-  /* Styles */
-}
+  
+  Styles 
+
+}*/
 /* ==|== non-semantic helper classes ========================================
    Please define your styles before this section.
    ========================================================================== */

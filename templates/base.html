@@ -67,7 +67,7 @@
 
   </header>
 
-  <div class="main">
+  <article class="main">
   
   <!-- To be consolidated into "At A Glance" template -->
 
@@ -75,8 +75,17 @@
       <h2>At a Glance...</h2>
     </header>
 
-    <section class="feed" id="eventsFeed">
-      <!-- events_feed template -->
+    <section class="feed">
+
+      <header>
+        <h3>Upcoming Events</h3>
+      </header>
+      <ul id="eventsFeed" class="feed-items"><!-- events_feed template --></ul>
+
+      <footer>
+        <a href="" class="see-more"><a>More events...</a>
+      </footer>
+
     </section>
  
     <!-- No decision on how this will function yet ***
@@ -104,33 +113,33 @@
 
     </section>
     *** end places -->
-   
+
    
     <section class="feed">
 
       <header>
-        <h1 class="feed-title">Sammich Board</h1>
+        <h3 class="feed-title">Coupon Book</h3>
       </header>
-      <ul id="offersFeed"><!-- sammichboard_feed template --></ul>
-      <p class="see-more"><a>More Sammiches...</a></p>
+      <ul id="offersFeed" class="feed-items"><!-- sammichboard_feed template --></ul>
+      <footerC
+        <p class="see-more"><a>More coupons...</a></p>
+      </footer>
 
     </section>
 
- 
- 
     <section class="feed">
 
       <header>
-        <h1 class="feed-title">Scene News</h1>
+        <h3 class="feed-title">Scene News</h3>
       </header>
-      <ul id="newsFeed"><!-- news_feed template --></ul>
+      <ul id="newsFeed" class="feed-items"><!-- news_feed template --></ul>
       <p class="see-more"><a>More news...</a></p>
 
     </section>
 
   <!-- end "At a Glance" template-->
 
-  </div>
+  </article> <!-- .main -->
 
   <footer class="scene-footer">
 
@@ -142,6 +151,10 @@
   <!-- Unminified for development -->
   <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.js"></script>
   <script>window.jQuery || document.write('<script src="{{ STATIC_URL }}js/libs/jquery-1.7.1.js"><\/script>')</script>
+
+  <!-- Google Maps API v3 -->
+  <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=false"></script>
+
 
   <!-- scripts concatenated and minified via ant build script -->
   <script src="{{ STATIC_URL }}js/mylibs/helper.js"></script>

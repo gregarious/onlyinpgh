@@ -7,7 +7,7 @@ def demo_events(request):
 
 
 # Note to Greg: Lara is muddling! 
-# Duplicating functions and shit for the sake of speed
+# Duplicating functions for the sake of speed
 
 def demo_events_page(request):
     variables = { 'events': Event.objects.all() }
