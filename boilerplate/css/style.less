@@ -215,16 +215,6 @@ td { vertical-align: top; }
 
 @import 'grid';
 
-/* GRID ---------- */
-
-// Specify the number of columns and set column and gutter widths
-@columns: 12;
-@column-width: 60;
-@gutter-width: 20;
-
-// Set max width to 100% for responsive design
-@total-width: 100%;
-
 /* COLORS ---------- */
 
 
@@ -232,9 +222,6 @@ td { vertical-align: top; }
 
 /* 1 ROOT ---------- */
 
-body {
-  margin: 3%;
-}
 
 /* 2 HEADINGS ---------- */
 /* 3 TYPOGRAPHY ---------- */
@@ -247,7 +234,7 @@ body {
 
 .global-nav, .feed-item-tags, .page-utility-nav {
 
-  .row();
+  .column(12);
 
   li {
 
@@ -284,7 +271,23 @@ body {
 }
 
 /* 10 CONTENT ---------- */
-/* 11 MAIN ---------- */
+
+.main {
+  .column(9);
+}
+
+.sidebar {
+  .column(3);
+  background-color: #ccc;
+}
+
+.feed {
+  .column(6);
+  background-color: #aaa;
+  .rounded(0.5em);
+}
+
+/* 11 CALENDAR ---------- */
 
 .calendar-toggled {
   display: none;
@@ -356,9 +359,11 @@ body {
 /* Styles for mobile ----------- */
 
 @media screen and (max-width: 720px) {
-
+  .feed{
+    .column(12);
+    margin-bottom: 1em;
+  }
 }
-
 
 /* Styles for desktop and large screen ----------- */
 

@@ -11,7 +11,7 @@
 @_gridsystem-width: (@column-width*@columns) + (@gutter-width*@columns) * 1px;
 
 // Set @total-width to 100% for a fluid layout
-@total-width: @_gridsystem-width;
+@total-width: 100%;
 
 
 //////////
@@ -29,12 +29,14 @@ body {
 	margin: 0 @total-width*(((@gutter-width*.5)/@_gridsystem-width)*-1);
 	.clearfix;
 }
+
 .column(@x,@columns:@columns) {
 	display: inline;
 	float: left;
 	width: @total-width*((((@gutter-width+@column-width)*@x)-@gutter-width) / @_gridsystem-width);
 	margin: 0 @total-width*((@gutter-width*.5)/@_gridsystem-width);
 }
+
 .offset(@offset:1) {
 	margin-left: (@gutter-width+@column-width)*@offset + @total-width*((@gutter-width*.5)/@_gridsystem-width);
 }
@@ -51,4 +53,20 @@ body {
 	&:after {
 	    clear:both;
 	}
+}
+
+
+////////////
+// MIXINS //
+////////////
+
+.rounded(@val) {
+	
+  -webkit-border-radius: @val; 
+     -moz-border-radius: @val; 
+          border-radius: @val; 
+  -moz-background-clip: padding; 
+  	-webkit-background-clip: 
+  		padding-box; background-clip: padding-box;
+
 }
