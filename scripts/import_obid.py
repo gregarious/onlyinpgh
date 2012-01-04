@@ -1,8 +1,8 @@
 import csv, time, os
 
-from places.models import Establishment, Location
-from places.external import LocationValidator, LocationValidationError
-from identity.models import Organization, Identity
+from onlyinpgh.places.models import Location, Place, Meta as PlaceMeta
+from onlyinpgh.outsourcing.places import resolve_location
+from onlyinpgh.identity.models import Organization
 
 def run():
     in_filename = os.path.join(os.path.dirname(__file__),'obid.csv')
@@ -10,11 +10,10 @@ def run():
 
     #clear all tables
     Location.objects.all().delete()
-    Establishment.objects.all().delete()
-    Identity.objects.all().delete()
+    PlaceMeta.objects.all().delete()
+    Place.objects.all().delete()
     Organization.objects.all().delete()
 
-    validator = LocationValidator('GG')
     with open(err_filename,'w') as err_f:
         writer = csv.writer(err_f)
         with open(in_filename) as f:
@@ -25,7 +24,12 @@ def run():
             for i,row in enumerate(reader):
                 if i % 50 == 1:
                     print 'row %d of %d completed' % (i,num_rows)
-                org_str, estab_str, loc_str = row[1:4]
+                try:
+                    org_str, place_str, loc_str = map(unicode,row[1:4])
+                except UnicodeDecodeError:
+                    writer.writerow(row)
+                    continue
+
                 if len(row) > 4:
                     phone = row[4]
                 else:
@@ -36,30 +40,36 @@ def run():
                     url = ''
 
                 if org_str == '':
-                    if estab_str == '':
+                    if place_str == '':
                         writer.writerow(row)
                         continue
                     else:
-                        org_str = estab_str
+                        org_str = place_str
 
-                try:
-                    time.sleep(.2)
-                    location = validator.resolve_full(Location(address=loc_str,postcode='15213'))
-                except LocationValidationError:
+                time.sleep(.1)
+                location = resolve_location(Location(address=loc_str,postcode='15213'))
+                if not location:
                     writer.writerow(row)
                     continue
-                
+                elif ( location.address.startswith('University') and not loc_str.lower().startswith('univ') ) or \
+                     ( location.address.startswith('Carnegie Mellon') and loc_str.lower().startswith('carnegie mellon') ):
+                    location.address = ','.join(location.address.split(',')[1:])
+
                 try:
                     # if exact match exists, use it instead of the newly found one
                     location = Location.objects.get(address=location.address,postcode=location.postcode)
                 except Location.DoesNotExist:
                     location.save()
 
-                identity,_ = Identity.objects.get_or_create(display_name=org_str)
-                org,_ = Organization.objects.get_or_create(identity=identity)
+                org,created = Organization.objects.get_or_create(name=org_str)
+                if not created:
+                    print '%s already exists' % org
                 
-                try:
-                    estab = Establishment.objects.get(owner=org,name=estab_str,location=location)
-                except Establishment.DoesNotExist:
-                    estab = Establishment.objects.create(owner=org,name=estab_str,location=location,phone_number=phone,url=url)
+                place,created = Place.objects.get_or_create(name=place_str,location=location,owner=org)
+                if not created:
+                    raise Exception('%s already exists?' % str(place))
+                print 'inserted',unicode(place)
 
+                if url:
+                    PlaceMeta.objects.create(place=place,meta_key='url',meta_value=url)
+                    PlaceMeta.objects.create(place=place,meta_key='phone',meta_value=phone)

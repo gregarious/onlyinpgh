@@ -225,8 +225,29 @@ class GoogleGeocodingResult(object):
         '''
         named_address_types = list(PREMISE_TYPES)
         named_address_types.remove('premise')   # we want to consider premises seperately from the rest of the named types
+
+        ############
+        # TODO: problem here with more than one establishment
+        # 
+        # CRAAAAAZY HACK REMOVE REMOVE REMOVE ALL OF THIS
+        # HACK ON
+        named_address_types.remove('establishment')   # we want to consider premises seperately from the rest of the named types        
+        # HACK OFF
         named_components = [ comp for comp in [ self.get_address_component(t) for t in named_address_types ] 
                                 if comp is not None ]
+        # HACK ON
+        # manually get the establishments
+        establishments = self.get_address_component(t,allow_multiple=True)
+        # if there's more than one, grab the first one that isn't the university name
+        if len(establishments) > 1:
+            for estab in establishments:
+                if 'university' not in estab.lower():
+                    named_components.insert(0,establishments[0])
+                    break
+        elif len(establishments) == 1:
+            named_components.insert(0,establishments[0])
+        # HACK OFF
+        ############
         named_component = named_components[0] if len(named_components) > 0 else None
         premise = self.get_address_component('premise',None)
         subpremise = self.get_address_component('subpremise',None)
