@@ -1,0 +1,137 @@
+{
+   "id": "84714961156",
+   "name": "Square Cafe",
+   "picture": "http://profile.ak.fbcdn.net/hprofile-ak-snc4/261082_84714961156_1722971382_s.jpg",
+   "link": "https://www.facebook.com/SquareCafe",
+   "likes": 2010,
+   "category": "Restaurant/cafe",
+   "website": "http://www.square-cafe.com",
+   "username": "SquareCafe",
+   "location": {
+      "street": "1137 S. Braddock Ave.",
+      "city": "Pittsburgh",
+      "state": "PA",
+      "country": "United States",
+      "zip": "15218",
+      "latitude": 40.431983684789,
+      "longitude": -79.893639257173
+   },
+   "parking": {
+      "street": 1,
+      "lot": 0,
+      "valet": 0
+   },
+   "public_transit": "61B",
+   "hours": {
+      "mon_1_open": "07:00",
+      "mon_1_close": "15:00",
+      "tue_1_open": "07:00",
+      "tue_1_close": "15:00",
+      "wed_1_open": "07:00",
+      "wed_1_close": "15:00",
+      "thu_1_open": "07:00",
+      "thu_1_close": "15:00",
+      "fri_1_open": "07:00",
+      "fri_1_close": "15:00",
+      "sat_1_open": "07:00",
+      "sat_1_close": "15:00",
+      "sun_1_open": "08:00",
+      "sun_1_close": "15:00"
+   },
+   "payment_options": {
+      "cash_only": 0,
+      "visa": 1,
+      "amex": 0,
+      "mastercard": 1,
+      "discover": 0
+   },
+   "culinary_team": "Kevin Kelley, Leslie Addis, Lisa Fabrizio",
+   "restaurant_services": {
+      "reserve": 0,
+      "walkins": 1,
+      "groups": 1,
+      "kids": 1,
+      "takeout": 1,
+      "delivery": 0,
+      "catering": 1,
+      "waiter": 1,
+      "outdoor": 1
+   },
+   "restaurant_specialties": {
+      "breakfast": 1,
+      "lunch": 1,
+      "dinner": 0,
+      "coffee": 1,
+      "drinks": 0
+   },
+   "phone": "412.244.8002",
+   "can_post": true,
+   "checkins": 671,
+   "talking_about_count": 68,
+   "metadata": {
+      "connections": {
+         "feed": "https://graph.facebook.com/84714961156/feed",
+         "posts": "https://graph.facebook.com/84714961156/posts",
+         "tagged": "https://graph.facebook.com/84714961156/tagged",
+         "statuses": "https://graph.facebook.com/84714961156/statuses",
+         "links": "https://graph.facebook.com/84714961156/links",
+         "notes": "https://graph.facebook.com/84714961156/notes",
+         "photos": "https://graph.facebook.com/84714961156/photos",
+         "albums": "https://graph.facebook.com/84714961156/albums",
+         "events": "https://graph.facebook.com/84714961156/events",
+         "videos": "https://graph.facebook.com/84714961156/videos",
+         "questions": "https://graph.facebook.com/84714961156/questions"
+      },
+      "fields": [
+         {
+            "name": "id",
+            "description": "The Page's ID. No access token or user `access_token`. `string`."
+         },
+         {
+            "name": "name",
+            "description": "The Page's name. No access token or user `access_token`. `string`."
+         },
+         {
+            "name": "link",
+            "description": "Link to the page on Facebook. No access token or user `access_token`. `string` containing a valid URL."
+         },
+         {
+            "name": "category",
+            "description": "The Page's category. No access token or user `access_token`. `string`."
+         },
+         {
+            "name": "likes",
+            "description": "The number of users who like the Page. No access token or user `access_token`. `number`."
+         },
+         {
+            "name": "location",
+            "description": "The Page's street address, latitude, and longitude (when available). No access token or user `access_token`. `dictionary`."
+         },
+         {
+            "name": "phone",
+            "description": "The phone number (not always normalized for country code) for the Page. No access token or user `access_token`. `string`."
+         },
+         {
+            "name": "checkins",
+            "description": "The total number of users who have checked in to the Page. No access token or user `access_token`. `number`."
+         },
+         {
+            "name": "picture",
+            "description": "Link to the Page's profile picture. No access token or user `access_token`. `string`."
+         },
+         {
+            "name": "website",
+            "description": "Link to the external website for the page. No access token or user `access_token`. `string`."
+         },
+         {
+            "name": "talking_about_count",
+            "description": "The number of people that are talking about this page (last seven days). No access token or user `access_token`. `number`"
+         },
+         {
+            "name": "access_token",
+            "description": "A Page admin `access_token` for this page; The current user must be an administrator of this page; only returned if specifically requested via the `fields` URL parameter. `manage_pages`. `string`"
+         }
+      ]
+   },
+   "type": "page"
+}

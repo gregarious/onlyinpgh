@@ -1,11 +1,12 @@
 # Django settings for onlyinpgh project.
 
+import os
 # import settings that differ based on deployment
 import settings_local
 
 def to_abspath(path):
     '''prepends ROOT_DIR setting from settings_local to the given path'''
-    return settings_local.ROOT_DIR + '/' + path
+    return os.path.join(settings_local.ROOT_DIR, path)
 
 DEBUG = settings_local.DEBUG
 TEMPLATE_DEBUG = settings_local.TEMPLATE_DEBUG
@@ -16,6 +17,7 @@ MANAGERS = settings_local.ADMINS
 DATABASES = {
     'default': settings_local.DB_DEFAULT
 }
+DATABASES['default']['TEST_CHARSET'] = 'utf8'
 
 # Local time zone for this installation. Choices can be found here:
 # http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
@@ -121,6 +123,7 @@ INSTALLED_APPS = (
     'onlyinpgh.tagging',
     'onlyinpgh.offers',
     'onlyinpgh.checkin',
+    'onlyinpgh.outsourcing',
 )
 
 # A sample logging configuration. The only tangible logging
@@ -135,7 +138,30 @@ LOGGING = {
         'mail_admins': {
             'level': 'ERROR',
             'class': 'django.utils.log.AdminEmailHandler'
-        }
+        },
+        'console': {
+            'level': 'DEBUG',
+            'class': 'logging.StreamHandler',
+            'formatter': 'simple'
+        },
+        'debug_file': {
+            'level': 'DEBUG',
+            'class': 'logging.FileHandler',
+            'formatter': 'verbose',
+            'filename': '/Users/gdn/Sites/onlyinpgh/logs/debug.log'
+        },
+        'resolve_file': {
+            'level': 'DEBUG',
+            'class': 'logging.FileHandler',
+            'formatter': 'verbose',
+            'filename': '/Users/gdn/Sites/onlyinpgh/logs/resolve.log'
+        },
+        'outsourcing_file': {
+            'level': 'DEBUG',
+            'class': 'logging.FileHandler',
+            'formatter': 'verbose',
+            'filename': '/Users/gdn/Sites/onlyinpgh/logs/outsourcing.log'
+        },
     },
     'loggers': {
         'django.request': {
@@ -143,5 +169,28 @@ LOGGING = {
             'level': 'ERROR',
             'propagate': True,
         },
+        'onlyinpgh.debugging': {
+            'handlers': ['console','debug_file'],
+            'level':'DEBUG',
+            'propagate': False
+        },
+        'onlyinpgh.resolve': {
+            'handlers': ['console','resolve_file'],
+            'level':'DEBUG',
+            'propagate': False
+        },
+        'onlyinpgh.outsourcing': {
+            'handlers': ['console','outsourcing_file'],
+            'level':'DEBUG',
+            'propagate': False
+        },
+    },
+    'formatters': {
+        'verbose': {
+            'format': '%(levelname)s %(asctime)s %(module)s %(message)s'
+        },
+        'simple': {
+            'format': '%(levelname)s %(message)s'
+        }
     }
 }

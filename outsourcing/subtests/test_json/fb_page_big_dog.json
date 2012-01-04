@@ -1,0 +1,150 @@
+{
+   "id": "53379078585",
+   "name": "Big Dog Coffee",
+   "picture": "http://profile.ak.fbcdn.net/hprofile-ak-snc4/50505_53379078585_7424534_s.jpg",
+   "link": "https://www.facebook.com/pages/Big-Dog-Coffee/53379078585",
+   "likes": 933,
+   "category": "Restaurant/cafe",
+   "website": "www.bigdogcoffee.net",
+   "location": {
+      "street": "2717 Sarah Street",
+      "city": "Pittsburgh",
+      "state": "PA",
+      "country": "United States",
+      "zip": "15203",
+      "latitude": 40.425995103761,
+      "longitude": -79.966805103952
+   },
+   "parking": {
+      "street": 1,
+      "lot": 1,
+      "valet": 0
+   },
+   "hours": {
+      "mon_1_open": 396000,
+      "mon_1_close": 453600,
+      "tue_1_open": 482400,
+      "tue_1_close": 540000,
+      "wed_1_open": 568800,
+      "wed_1_close": 626400,
+      "thu_1_open": 50400,
+      "thu_1_close": 108000,
+      "fri_1_open": 136800,
+      "fri_1_close": 190800,
+      "sat_1_open": 228600,
+      "sat_1_close": 280800,
+      "sun_1_open": 315000,
+      "sun_1_close": 367200,
+      "mon_2_open": 0,
+      "mon_2_close": 0,
+      "tue_2_open": 0,
+      "tue_2_close": 0,
+      "wed_2_open": 0,
+      "wed_2_close": 0,
+      "thu_2_open": 0,
+      "thu_2_close": 0,
+      "fri_2_open": 0,
+      "fri_2_close": 0,
+      "sat_2_open": 0,
+      "sat_2_close": 0,
+      "sun_2_open": 0,
+      "sun_2_close": 0
+   },
+   "payment_options": {
+      "cash_only": 0,
+      "visa": 1,
+      "amex": 1,
+      "mastercard": 1,
+      "discover": 1
+   },
+   "culinary_team": "Alice.......Hal   Enrico....April...Joy...",
+   "general_manager": "Dustin",
+   "restaurant_services": {
+      "reserve": 0,
+      "walkins": 1,
+      "groups": 1,
+      "kids": 1,
+      "takeout": 1,
+      "delivery": 0,
+      "catering": 1,
+      "waiter": 0,
+      "outdoor": 1
+   },
+   "restaurant_specialties": {
+      "breakfast": 1,
+      "lunch": 0,
+      "dinner": 0,
+      "coffee": 1,
+      "drinks": 1
+   },
+   "phone": "412-586-7306",
+   "can_post": true,
+   "checkins": 270,
+   "talking_about_count": 13,
+   "metadata": {
+      "connections": {
+         "feed": "https://graph.facebook.com/53379078585/feed?access_token=203898346321665\u00257Ce_aVTLcJCsV3c9tiQJn0tZjWcZg",
+         "posts": "https://graph.facebook.com/53379078585/posts?access_token=203898346321665\u00257Ce_aVTLcJCsV3c9tiQJn0tZjWcZg",
+         "tagged": "https://graph.facebook.com/53379078585/tagged?access_token=203898346321665\u00257Ce_aVTLcJCsV3c9tiQJn0tZjWcZg",
+         "statuses": "https://graph.facebook.com/53379078585/statuses?access_token=203898346321665\u00257Ce_aVTLcJCsV3c9tiQJn0tZjWcZg",
+         "links": "https://graph.facebook.com/53379078585/links?access_token=203898346321665\u00257Ce_aVTLcJCsV3c9tiQJn0tZjWcZg",
+         "notes": "https://graph.facebook.com/53379078585/notes?access_token=203898346321665\u00257Ce_aVTLcJCsV3c9tiQJn0tZjWcZg",
+         "photos": "https://graph.facebook.com/53379078585/photos?access_token=203898346321665\u00257Ce_aVTLcJCsV3c9tiQJn0tZjWcZg",
+         "albums": "https://graph.facebook.com/53379078585/albums?access_token=203898346321665\u00257Ce_aVTLcJCsV3c9tiQJn0tZjWcZg",
+         "events": "https://graph.facebook.com/53379078585/events?access_token=203898346321665\u00257Ce_aVTLcJCsV3c9tiQJn0tZjWcZg",
+         "videos": "https://graph.facebook.com/53379078585/videos?access_token=203898346321665\u00257Ce_aVTLcJCsV3c9tiQJn0tZjWcZg",
+         "questions": "https://graph.facebook.com/53379078585/questions?access_token=203898346321665\u00257Ce_aVTLcJCsV3c9tiQJn0tZjWcZg"
+      },
+      "fields": [
+         {
+            "name": "id",
+            "description": "The Page's ID. No access token or user `access_token`. `string`."
+         },
+         {
+            "name": "name",
+            "description": "The Page's name. No access token or user `access_token`. `string`."
+         },
+         {
+            "name": "link",
+            "description": "Link to the page on Facebook. No access token or user `access_token`. `string` containing a valid URL."
+         },
+         {
+            "name": "category",
+            "description": "The Page's category. No access token or user `access_token`. `string`."
+         },
+         {
+            "name": "likes",
+            "description": "The number of users who like the Page. No access token or user `access_token`. `number`."
+         },
+         {
+            "name": "location",
+            "description": "The Page's street address, latitude, and longitude (when available). No access token or user `access_token`. `dictionary`."
+         },
+         {
+            "name": "phone",
+            "description": "The phone number (not always normalized for country code) for the Page. No access token or user `access_token`. `string`."
+         },
+         {
+            "name": "checkins",
+            "description": "The total number of users who have checked in to the Page. No access token or user `access_token`. `number`."
+         },
+         {
+            "name": "picture",
+            "description": "Link to the Page's profile picture. No access token or user `access_token`. `string`."
+         },
+         {
+            "name": "website",
+            "description": "Link to the external website for the page. No access token or user `access_token`. `string`."
+         },
+         {
+            "name": "talking_about_count",
+            "description": "The number of people that are talking about this page (last seven days). No access token or user `access_token`. `number`"
+         },
+         {
+            "name": "access_token",
+            "description": "A Page admin `access_token` for this page; The current user must be an administrator of this page; only returned if specifically requested via the `fields` URL parameter. `manage_pages`. `string`"
+         }
+      ]
+   },
+   "type": "page"
+}
