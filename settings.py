@@ -1,29 +1,23 @@
 # Django settings for onlyinpgh project.
 
-# many settings are left with default values and assumed to be overridden
-# when settings_local is imported below
+import os
+# import settings that differ based on deployment
+import settings_local
 
-# LOCAL OVERRIDE
-DEBUG = False
-TEMPLATE_DEBUG = DEBUG
+def to_abspath(path):
+    '''prepends ROOT_DIR setting from settings_local to the given path'''
+    return os.path.join(settings_local.ROOT_DIR, path)
 
-# LOCAL OVERRIDE
-ADMINS = (
-    # ('Your Name', 'your_email@example.com'),
-)
-MANAGERS = ADMINS
+DEBUG = settings_local.DEBUG
+TEMPLATE_DEBUG = settings_local.TEMPLATE_DEBUG
 
-# LOCAL OVERRIDE
+ADMINS = settings_local.ADMINS
+MANAGERS = settings_local.ADMINS
+
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.', # Add 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
-        'NAME': '',                      # Or path to database file if using sqlite3.
-        'USER': '',                      # Not used with sqlite3.
-        'PASSWORD': '',                  # Not used with sqlite3.
-        'HOST': '',                      # Set to empty string for localhost. Not used with sqlite3.
-        'PORT': '',                      # Set to empty string for default. Not used with sqlite3.
-    }
+    'default': settings_local.DB_DEFAULT
 }
+DATABASES['default']['TEST_CHARSET'] = 'utf8'
 
 # Local time zone for this installation. Choices can be found here:
 # http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
@@ -32,7 +26,7 @@ DATABASES = {
 # timezone as the operating system.
 # If running in a Windows environment this must be set to the same as your
 # system time zone.
-TIME_ZONE = 'America/New_York'
+TIME_ZONE = settings_local.TIME_ZONE
 
 # Language code for this installation. All choices can be found here:
 # http://www.i18nguy.com/unicode/language-identifiers.html
@@ -50,18 +44,18 @@ USE_L10N = True
 
 # Absolute filesystem path to the directory that will hold user-uploaded files.
 # Example: "/home/media/media.lawrence.com/media/"
-MEDIA_ROOT = '' # LOCAL OVERRIDE
+MEDIA_ROOT = settings_local.MEDIA_ROOT
 
 # URL that handles the media served from MEDIA_ROOT. Make sure to use a
 # trailing slash.
 # Examples: "http://media.lawrence.com/media/", "http://example.com/media/"
-MEDIA_URL = ''  # LOCAL OVERRIDE
+MEDIA_URL = ''
 
 # Absolute path to the directory static files should be collected to.
 # Don't put anything in this directory yourself; store your static files
 # in apps' "static/" subdirectories and in STATICFILES_DIRS.
 # Example: "/home/media/media.lawrence.com/static/"
-STATIC_ROOT = ''    # LOCAL OVERRIDE
+STATIC_ROOT = settings_local.STATIC_ROOT
 
 # URL prefix for static files.
 # Example: "http://media.lawrence.com/static/"
@@ -73,10 +67,8 @@ STATIC_URL = '/static/'
 ADMIN_MEDIA_PREFIX = '/static/admin/'
 
 # Additional locations of static files
-STATICFILES_DIRS = (
-    # Put strings here, like "/home/html/static" or "C:/www/django/static".
-    # Always use forward slashes, even on Windows.
-    # Don't forget to use absolute paths, not relative paths.
+STATICFILES_DIRS = (    
+    to_abspath('boilerplate'),
 )
 
 # List of finder classes that know how to find static files in
@@ -108,9 +100,7 @@ MIDDLEWARE_CLASSES = (
 ROOT_URLCONF = 'onlyinpgh.urls'
 
 TEMPLATE_DIRS = (
-    # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
-    # Always use forward slashes, even on Windows.
-    # Don't forget to use absolute paths, not relative paths.
+    to_abspath('templates'),
 )
 
 INSTALLED_APPS = (
@@ -133,6 +123,7 @@ INSTALLED_APPS = (
     'onlyinpgh.tagging',
     'onlyinpgh.offers',
     'onlyinpgh.checkin',
+    'onlyinpgh.outsourcing',
 )
 
 # A sample logging configuration. The only tangible logging
@@ -147,7 +138,30 @@ LOGGING = {
         'mail_admins': {
             'level': 'ERROR',
             'class': 'django.utils.log.AdminEmailHandler'
-        }
+        },
+        'console': {
+            'level': 'DEBUG',
+            'class': 'logging.StreamHandler',
+            'formatter': 'simple'
+        },
+        'debug_file': {
+            'level': 'DEBUG',
+            'class': 'logging.FileHandler',
+            'formatter': 'verbose',
+            'filename': '/Users/gdn/Sites/onlyinpgh/logs/debug.log'
+        },
+        'resolve_file': {
+            'level': 'DEBUG',
+            'class': 'logging.FileHandler',
+            'formatter': 'verbose',
+            'filename': '/Users/gdn/Sites/onlyinpgh/logs/resolve.log'
+        },
+        'outsourcing_file': {
+            'level': 'DEBUG',
+            'class': 'logging.FileHandler',
+            'formatter': 'verbose',
+            'filename': '/Users/gdn/Sites/onlyinpgh/logs/outsourcing.log'
+        },
     },
     'loggers': {
         'django.request': {
@@ -155,9 +169,28 @@ LOGGING = {
             'level': 'ERROR',
             'propagate': True,
         },
+        'onlyinpgh.debugging': {
+            'handlers': ['console','debug_file'],
+            'level':'DEBUG',
+            'propagate': False
+        },
+        'onlyinpgh.resolve': {
+            'handlers': ['console','resolve_file'],
+            'level':'DEBUG',
+            'propagate': False
+        },
+        'onlyinpgh.outsourcing': {
+            'handlers': ['console','outsourcing_file'],
+            'level':'DEBUG',
+            'propagate': False
+        },
+    },
+    'formatters': {
+        'verbose': {
+            'format': '%(levelname)s %(asctime)s %(module)s %(message)s'
+        },
+        'simple': {
+            'format': '%(levelname)s %(message)s'
+        }
     }
 }
-
-# overwrites many of the default settings above, including but not limited to:
-# TIME_ZONE, DEBUG, TEMPLATE_DEBUG, DATABASES, ADMINS
-from settings_local import *

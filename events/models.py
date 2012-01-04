@@ -1,11 +1,19 @@
 from django.db import models
 
+import pytz
+
 from onlyinpgh.places.models import Place
 from onlyinpgh.tagging.models import Tag
-from onlyinpgh.identity.models import Identity
+from onlyinpgh.identity.models import Identity, Organization
+
+from utils.time import utctolocal
+from settings import TIME_ZONE
 
 # Create your models here.
 class Event(models.Model):
+    class Meta:
+        ordering = ['name']
+
     name = models.CharField(max_length=200)
     description = models.TextField()
 
@@ -13,13 +21,6 @@ class Event(models.Model):
     dtmodified = models.DateTimeField('modified datetime (UTC)',auto_now=True)
     
     # all times are assumed to be UTC within models unless explicitly converted. 
-    # cliff's notes on converting a Model's UTC dt:
-    # >>> from pytz import timezone
-    # >>> utc = timezone('utc'); est = timezone('US/Eastern')
-    # >>> utc_dt = utc.localize(dt)                         % change the tz-agnostic datetime into a utc datetime
-    # >>> est_dt = est.normalize(utc_dt.astimezone(est))    % convert into the EST timezone
-    # Note that just setting tzinfo to localize and using datetime.astimezone to convert isn't enough. the pytz 
-    #   normalize/localize methods are needed to ensure Daylight savings special cases are handled
     dtstart = models.DateTimeField('start datetime (UTC)')
     # dtend is the non-inclusive end date/time, meaning an event with dtend at 11pm actually only takes up time till 10:59pm
     # for all day events, this should be set to the next date (time irrelevant)
@@ -40,32 +41,48 @@ class Event(models.Model):
     place = models.ForeignKey(Place,blank=True,null=True)
     parent_event = models.ForeignKey('self',default=None,blank=True,null=True)
 
+    # make the event "invisible", meaning it won't be displayable, searchable, etc.
+    invisible = models.BooleanField(default=False)
+
     tags = models.ManyToManyField(Tag,blank=True,null=True)
 
     # TODO: change these to template filters
     @property
     def dtstart_local(self):
-        return utctolocal(self.dtstart).replace(tzinfo=None)
+        return utctolocal(self.dtstart,TIME_ZONE,return_naive=True)
 
     @property
     def dtend_local(self):
-        return utctolocal(self.dtend).replace(tzinfo=None)
+        return utctolocal(self.dtend,TIME_ZONE,return_naive=True)
 
     def __unicode__(self):
         return self.name
 
+## custom Role managers to make it simpler to query a particular type of Role
+class HostRoleManager(models.Manager):
+    def get_query_set(self):
+        return super(HostRoleManager, self).get_query_set().filter(role_type='host')
+
+class ReferrerRoleManager(models.Manager):
+    def get_query_set(self):
+        return super(HostRoleManager, self).get_query_set().filter(role_type='referrer')
+
 class Role(models.Model):
     ROLE_TYPES = (
         ('host','Host'),
-        ('creator','Creator'),
+        ('referer','Referer'),
     )
 
     role_name = models.CharField(max_length=50,choices=ROLE_TYPES)
     event = models.ForeignKey(Event)
-    identity = models.ForeignKey(Identity)
+    organization = models.ForeignKey(Organization)
+
+    objects = models.Manager()
+    hosts = HostRoleManager()
+    referrers = ReferrerRoleManager()
 
     def __unicode__(self):
-        return self.role_name + u':' + unicode(self.identity) + u'(%s)' % self.role_name
+        return self.role_name + u':' + unicode(self.organization) + u'(%s)' % self.role_name
 
 class Meta(models.Model):
     event = models.ForeignKey(Event)
@@ -82,3 +99,4 @@ class Attendee(models.Model):
 
     def __unicode__(self):
         return unicode(self.individual) + u'@' + unicode(self.event)
+

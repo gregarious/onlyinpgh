@@ -4,6 +4,9 @@ from onlyinpgh.tagging.models import Tag
 from datetime import datetime
 
 class Post(models.Model):
+    class Meta:
+        ordering = ['title']
+
     # might turn earch post type into an implementation of a Post ABC, we'll see
     POST_TYPES = (
         ('photo','Photo'),
@@ -14,6 +17,8 @@ class Post(models.Model):
 
     post_type = models.CharField('type (e.g. photo, question, etc.)',
                                     max_length=30,choices=POST_TYPES)
+
+    title = models.CharField(max_length=40,blank=True)
     author = models.ForeignKey(Identity)
     
     content = models.TextField()

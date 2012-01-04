@@ -12,11 +12,18 @@ class Neighborhood(models.Model):
     def __unicode__(self):
         return self.name
 
+# TODO: create model manage for Location that allows a fudgable "get" on geocoding
+# TODO: be sure to create test cases that try get_or_create, get_or_404, etc.
+#       since it's an unorthodox thing to do
+
 class Location(models.Model):
     '''
     Handles specific information about where a physical place is located. Should
     rarely be exposed without a Place wrapping it on the front end.
     '''
+    class Meta:
+        ordering = ['address','latitude']
+
     # TODO: probably take out defaults for town and state, definitely country
     # 2-char country code (see http://en.wikipedia.org/wiki/ISO_3166-1)
     country = models.CharField(max_length=2,blank=True,
@@ -55,16 +62,6 @@ class Location(models.Model):
         # TODO: revisit address normalization api
         pass
     
-    def _complete_missing_fields(self):
-        '''
-        Refers to an authoritative source to complete missing fields. 
-        
-        Currently uses Google Geocoding API, but will hopefully move to 
-        Factual Resolve API.
-        '''
-        # TODO: revisit missing location info api
-        pass
-
     def save(self,*args,**kwargs):
         self.full_clean()        # run field validators
         # ensure country and state are saved in db in uppercase
@@ -72,6 +69,7 @@ class Location(models.Model):
             self.country = self.country.upper()
         if self.state:
             self.state = self.state.upper()
+        # TODO: normalize?
         return super(Location,self).save(*args,**kwargs)
 
     def clean(self,*args,**kwargs):
@@ -86,6 +84,28 @@ class Location(models.Model):
         lat_s = '%.3f' % self.latitude if self.latitude is not None else '-'
         lon_s = '%.3f' % self.longitude if self.longitude is not None else '-'
         return u'%s (%s,%s)' % (addr_s,lat_s,lon_s)
+    
+    @property
+    def full_string(self):
+        s = ''
+        if self.address:
+            s += '%s, ' % self.address
+        if self.town:
+            s += '%s, ' % self.town
+        
+        if self.state and self.postcode:
+            s += '%s %s, ' % (self.state, self.postcode)
+        elif self.state:
+            s += '%s, ' % self.state
+        elif self.postcode:
+            s += '%s, ' % self.postcode
+        
+        if self.latitude or self.longitude:
+            s += '(%s,%s)' % ('%.3f'%self.latitude if self.latitude else '-',
+                              '%.3f'%self.longitude if self.latitude else '-')
+
+        return s.rstrip(', ')
+
 
 class Place(models.Model):
     '''
@@ -93,59 +113,43 @@ class Place(models.Model):
     '''
     class Meta:
         unique_together = ('name','location')
+        ordering = ['name']
 
     dtcreated = models.DateTimeField('dt created',auto_now_add=True)
     
     name = models.CharField(max_length=200,blank=True)
     description = models.TextField(blank=True)
-    url = models.URLField(max_length=400,blank=True)
     location = models.ForeignKey(Location,blank=True,null=True)
 
+    owner = models.ForeignKey(Organization,blank=True,null=True)
     tags = models.ManyToManyField(Tag,blank=True,null=True)
 
     def __unicode__(self):
-        return self.name
+        s = self.name
+        if self.location:
+            s += '. Loc: ' + self.location.address + ', ' + self.location.town  + ', ' + self.location.state + ', ' + self.location.postcode  
+        return unicode(s)
 
-# TODO: revisit model inheritance here. maybe do some contenttypes fun.
-#       do some performance testing if we go with this
-
-class Establishment(Place):
+class Meta(models.Model):
     '''
-    Handles information about places.
+    Handles meta information for a Place.
     '''
-    owner = models.ForeignKey(Organization)
+    key_choices = ( ('url','Website'),
+                    ('phone','Phone number'),
+                    ('hours','Hours'),
+                    ('image_url','Image URL')
+                  )
 
-    phone_number = models.CharField(max_length=20,blank=True)
-    
-    # probably beef this hours representation up. text ok for now.
-    hours = models.TextField(blank=True)
-
-    def __unicode__(self):
-        return self.name
-
-class PlaceMeta(models.Model):
-    '''
-    Handles meta information (external API ids, etc.) for a Place.
-    '''
     place = models.ForeignKey(Place)
-    meta_key = models.CharField(max_length=100)
-    # blank values allowed (boolean meta attributes)
-    meta_value = models.TextField(blank=True)
+    meta_key = models.CharField(max_length=20,choices=key_choices)
+    meta_value = models.TextField(blank=True)   # blank values allowed (boolean meta attributes)
 
     def __unicode__(self):
-        return u'%s: %s' % (self.meta_key,self.meta_value)
-
-class LocationMeta(models.Model):
-    '''
-    Handles meta information (external API ids, etc.) for a Place.
-    '''
-    location = models.ForeignKey(Location)
-    meta_key = models.CharField(max_length=100)
-    # blank values allowed (boolean meta attributes)
-    meta_value = models.TextField(blank=True)
-
-    def __unicode__(self):
-        return u'%s: %s' % (self.meta_key,self.meta_value)
+        if len(self.meta_value) < 20:
+            val = self.meta_value
+        else:
+            val = self.meta_value[:16] + '...'
+        return u'%s: %s' % (self.meta_key,val)
 
 class LocationLookupNotice(models.Model):
     '''
