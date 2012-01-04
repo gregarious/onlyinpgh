@@ -130,7 +130,7 @@ class Place(models.Model):
             s += '. Loc: ' + self.location.address + ', ' + self.location.town  + ', ' + self.location.state + ', ' + self.location.postcode  
         return unicode(s)
 
-class PlaceMeta(models.Model):
+class Meta(models.Model):
     '''
     Handles meta information for a Place.
     '''

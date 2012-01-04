@@ -55,7 +55,7 @@ class FacebookEventRecord(models.Model):
     
     # TODO: temporary null here
     last_updated = models.DateTimeField('time Facebook record was last updated',null=True)
-    ignore = models.BooleanField('always ignore this page',default=False)    
+    ignore = models.BooleanField('always ignore this event',default=False)    
 
 class FacebookOrgRecord(models.Model):
     '''

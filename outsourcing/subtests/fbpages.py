@@ -1,9 +1,12 @@
 from django.test import TestCase
 
+from onlyinpgh.outsourcing.fbpages import PageImportManager, PageImportReport
+from onlyinpgh.outsourcing.fbpages import store_fbpage_organization, store_fbpage_place
+
 from onlyinpgh.identity.models import Organization
+from onlyinpgh.places.models import Place, Meta as PlaceMeta
 from onlyinpgh.outsourcing.models import FacebookOrgRecord, ExternalPlaceSource
 from onlyinpgh.outsourcing.apitools.facebook import FacebookAPIError
-from onlyinpgh.outsourcing.fbpages import *
 
 from onlyinpgh.outsourcing.subtests import load_test_json
 

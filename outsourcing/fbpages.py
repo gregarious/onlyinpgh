@@ -7,7 +7,7 @@ from django.db import transaction
 
 from onlyinpgh.outsourcing.apitools import facebook, google, factual
 from onlyinpgh.identity.models import Organization
-from onlyinpgh.places.models import Location, Place, PlaceMeta
+from onlyinpgh.places.models import Location, Place, Meta as PlaceMeta
 from onlyinpgh.outsourcing.models import FacebookOrgRecord, ExternalPlaceSource
 
 import logging

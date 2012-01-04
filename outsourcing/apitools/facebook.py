@@ -106,7 +106,6 @@ class GraphAPIClient(object):
             raise FacebookAPIError(unicode(request),
                                     u'%s: "%s"' %  (response['error'].get('type','Unknown'),
                                                     response['error'].get('message','')))
-
         return response
 
     def graph_api_page_request(self,fbid):

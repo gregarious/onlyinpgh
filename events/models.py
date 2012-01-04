@@ -84,8 +84,6 @@ class Role(models.Model):
     def __unicode__(self):
         return self.role_name + u':' + unicode(self.organization) + u'(%s)' % self.role_name
 
-
-
 class Meta(models.Model):
     event = models.ForeignKey(Event)
     meta_key = models.CharField(max_length=200)

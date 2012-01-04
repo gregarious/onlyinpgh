@@ -144,7 +144,7 @@
     }, 
     {
         "pk": 1, 
-        "model": "places.placemeta", 
+        "model": "places.meta", 
         "fields": {
             "meta_value": "http://profile.ak.fbcdn.net/hprofile-ak-snc4/50266_30273572778_5912500_s.jpg", 
             "place": 2, 
@@ -153,7 +153,7 @@
     }, 
     {
         "pk": 2, 
-        "model": "places.placemeta", 
+        "model": "places.meta", 
         "fields": {
             "meta_value": "412-821-4447", 
             "place": 2, 
@@ -162,7 +162,7 @@
     }, 
     {
         "pk": 3, 
-        "model": "places.placemeta", 
+        "model": "places.meta", 
         "fields": {
             "meta_value": "www.mrsmalls.com", 
             "place": 2, 
