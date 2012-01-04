@@ -171,14 +171,12 @@ sub {
 /* =============================================================================
    Lists
    ========================================================================== */
+/* Boilerplate defaults we aren't using, are preserving */
+/* ul, ol { margin: 1em 0; padding: 0 0 0 40px; }
+dd { margin: 0 0 0 40px; }
+nav ul, nav ol { list-style: none; list-style-image: none; margin: 0; padding: 0; } */
+/* Our [lack of] list style: */
 ul, ol {
-  margin: 1em 0;
-  padding: 0 0 0 40px;
-}
-dd {
-  margin: 0 0 0 40px;
-}
-nav ul, nav ol {
   list-style: none;
   list-style-image: none;
   margin: 0;
@@ -371,32 +369,88 @@ body:after {
 .selected-menu-item {
   background-color: #999;
 }
-/* 10 CONTENT ---------- */
+/* 10 MAIN ---------- */
 .main {
   display: inline;
   float: left;
   width: 72.91666666666666%;
   margin: 0 1.0416666666666665%;
+  background-color: #f3f3f3;
 }
 .sidebar {
+  background-color: #ccc;
   display: inline;
   float: left;
   width: 22.916666666666664%;
   margin: 0 1.0416666666666665%;
-  background-color: #ccc;
 }
+/* 11 FEEDS ---------- */
 .feed {
+  background-color: #aaa;
+  *zoom: 1;
+  *zoom: 1;
   display: inline;
   float: left;
-  width: 47.91666666666667%;
+  width: 97.91666666666666%;
   margin: 0 1.0416666666666665%;
-  background-color: #aaa;
   -webkit-border-radius: 0.5em;
   -moz-border-radius: 0.5em;
   border-radius: 0.5em;
   -moz-background-clip: padding;
   -webkit-background-clip: padding-box;
   background-clip: padding-box;
+}
+.feed:before, .feed:after {
+  content: "";
+  display: table;
+}
+.feed:after {
+  clear: both;
+}
+.feed-item {
+  display: inline;
+  float: left;
+  width: 47.91666666666667%;
+  margin: 0 1.0416666666666665%;
+  -webkit-border-radius: 0.2em;
+  -moz-border-radius: 0.2em;
+  border-radius: 0.2em;
+  -moz-background-clip: padding;
+  -webkit-background-clip: padding-box;
+  background-clip: padding-box;
+}
+.feed-item-content-container {
+  background-color: green;
+  *zoom: 1;
+  *zoom: 1;
+  margin: 0.5em;
+  padding: 0.5em;
+}
+.feed-item-content-container:before, .feed-item-content-container:after {
+  content: "";
+  display: table;
+}
+.feed-item-content-container:after {
+  clear: both;
+}
+.feed-item-content {
+  display: inline;
+  float: left;
+  width: 72.91666666666666%;
+  margin: 0 1.0416666666666665%;
+}
+.feed-item-thumb {
+  display: inline;
+  float: left;
+  width: 22.916666666666664%;
+  margin: 0 1.0416666666666665%;
+  overflow: hidden;
+}
+.feed-footer {
+  display: inline;
+  float: left;
+  width: 97.91666666666666%;
+  margin: 0 1.0416666666666665%;
 }
 /* 11 CALENDAR ---------- */
 .calendar-toggled {
@@ -463,7 +517,7 @@ body:after {
  */
 /* Styles for mobile ----------- */
 @media screen and (max-width: 720px) {
-  .feed {
+  .feed-item, .sidebar, .main {
     display: inline;
     float: left;
     width: 97.91666666666666%;

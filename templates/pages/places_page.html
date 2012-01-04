@@ -1,3 +1,7 @@
+<script>
+$('.feed-item:even').css('float', 'right');
+</script>
+
 {% comment %}
 template for the individual event page
 {% endcomment %}
@@ -30,8 +34,8 @@ template for the Places page
 
   {% for e in establishments %}
 
-  <li>
-    <article class="feed-item-single">
+  <li class="feed-item">
+    <article class="feed-item-content-container">
       <h4 class="feed-item-title">{{ e.name }}</h4>
 
       <div class="feed-item-content">

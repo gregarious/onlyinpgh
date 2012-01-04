@@ -99,9 +99,15 @@ sub { bottom: -0.25em; }
    Lists
    ========================================================================== */
 
-ul, ol { margin: 1em 0; padding: 0 0 0 40px; }
+/* Boilerplate defaults we aren't using, are preserving */
+
+/* ul, ol { margin: 1em 0; padding: 0 0 0 40px; }
 dd { margin: 0 0 0 40px; }
-nav ul, nav ol { list-style: none; list-style-image: none; margin: 0; padding: 0; }
+nav ul, nav ol { list-style: none; list-style-image: none; margin: 0; padding: 0; } */
+
+/* Our [lack of] list style: */
+
+ul, ol { list-style: none; list-style-image: none; margin: 0; padding: 0; }
 
 
 /* =============================================================================
@@ -222,6 +228,9 @@ td { vertical-align: top; }
 
 /* 1 ROOT ---------- */
 
+section {
+  
+}
 
 /* 2 HEADINGS ---------- */
 /* 3 TYPOGRAPHY ---------- */
@@ -270,21 +279,50 @@ td { vertical-align: top; }
   background-color: #999;
 }
 
-/* 10 CONTENT ---------- */
+/* 10 MAIN ---------- */
 
 .main {
   .column(9);
+  background-color: #f3f3f3;
 }
 
 .sidebar {
-  .column(3);
   background-color: #ccc;
+  .column(3);
 }
 
+/* 11 FEEDS ---------- */
+
 .feed {
-  .column(6);
   background-color: #aaa;
+  .clearfix;
+  .column(12);
   .rounded(0.5em);
+}
+
+.feed-item {
+  .column(6);
+  .rounded(0.2em);
+}
+
+.feed-item-content-container {
+  background-color: green;
+  .clearfix;
+  margin: 0.5em;
+  padding: 0.5em;
+}
+
+.feed-item-content {
+  .column(9);
+}
+
+.feed-item-thumb {
+  .column(3);
+  overflow: hidden;
+}
+
+.feed-footer {
+  .column(12);
 }
 
 /* 11 CALENDAR ---------- */
@@ -359,7 +397,7 @@ td { vertical-align: top; }
 /* Styles for mobile ----------- */
 
 @media screen and (max-width: 720px) {
-  .feed{
+  .feed-item, .sidebar, .main {
     .column(12);
     margin-bottom: 1em;
   }

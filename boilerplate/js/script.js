@@ -103,7 +103,7 @@ jQuery(document).ready( function($) {
 	    }
 	);
 
-	function loadSingleEvent() {
+/*	function loadSingleEvent() {
 		$.get('/ajax/event-single', function(data) { 
 				$('.main').html(data); 
 	    	}
@@ -118,11 +118,12 @@ jQuery(document).ready( function($) {
 		);		
 		return false;
 	}
+*/
 
-	$('.main')
-		.on('click', '.load-single-event', loadSingleEvent)
-		.on('click', '.load-single-place', loadSinglePlace);
-
+	//$('.main')
+		//.on('click', '.load-single-event', loadSingleEvent)
+		//.on('click', '.load-single-place', loadSinglePlace);		
+		
 	/**********************/
 	/*** CALENDAR VIEWS ***/
 	/**********************/	

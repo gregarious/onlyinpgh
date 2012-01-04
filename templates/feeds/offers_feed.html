@@ -4,8 +4,8 @@ template to be included inside ul#offersFeed
 
 {% for o in offers|slice:":4" %}
 
-  <li>  
-    <article class="feed-item">
+  <li class="feed-item">
+    <article class="feed-item-container">
       <h1 class="feed-item-title">{{ o.description }}</h1>
       <div class="feed-item-content">
         <ul>

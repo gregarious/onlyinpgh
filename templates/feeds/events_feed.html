@@ -1,13 +1,18 @@
+<script>
+$('.feed-item:even').css('float', 'right');
+</script>
+
+
 {% comment %}
   Template for Events.
   Rendered in #eventsFeed
 {% endcomment %}
 
-{% for e in events|slice:":3" %}
+{% for e in events %}
 
-<li>
+<li class="feed-item">
 
-  <article class="feed-item-single">
+  <article class="feed-item-content-container">
 
     <h4 class="feed-item-title">{{ e.name }}</h4>
 
@@ -34,9 +39,9 @@
       </ul>
     </div>
 
-  </article> <!-- .page-item -->
+  </article>
 
-</li>
+</li> <!-- .feed-item -->
 
 {% endfor %}
 
