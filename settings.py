@@ -148,19 +148,28 @@ LOGGING = {
             'level': 'DEBUG',
             'class': 'logging.FileHandler',
             'formatter': 'verbose',
-            'filename': '/Users/gdn/Sites/onlyinpgh/logs/debug.log'
+            # Lara:
+            'filename': '/Volumes/OSX/Lara/Dropbox/Sites/onlyinpgh/logs/debug.log'
+            # Greg:
+            #'filename': '/Users/gdn/Sites/onlyinpgh/logs/debug.log'
         },
         'resolve_file': {
             'level': 'DEBUG',
             'class': 'logging.FileHandler',
             'formatter': 'verbose',
-            'filename': '/Users/gdn/Sites/onlyinpgh/logs/resolve.log'
+             # Lara:
+            'filename': '/Volumes/OSX/Lara/Dropbox/Sites/onlyinpgh/logs/resolve.log'
+            # Greg:
+            #'filename': '/Users/gdn/Sites/onlyinpgh/logs/resolve.log'
         },
         'outsourcing_file': {
             'level': 'DEBUG',
             'class': 'logging.FileHandler',
             'formatter': 'verbose',
-            'filename': '/Users/gdn/Sites/onlyinpgh/logs/outsourcing.log'
+             # Lara:
+            'filename': '/Volumes/OSX/Lara/Dropbox/Sites/onlyinpgh/logs/outsourcing.log'
+            # Greg:
+            #'filename': '/Users/gdn/Sites/onlyinpgh/logs/outsourcing.log'
         },
     },
     'loggers': {
