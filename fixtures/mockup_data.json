@@ -312,6 +312,240 @@
     }
   }, 
   {
+    "pk": 42, 
+    "model": "admin.logentry", 
+    "fields": {
+      "action_flag": 2, 
+      "action_time": "2012-01-05 00:08:47", 
+      "object_repr": "Offer object", 
+      "object_id": "1", 
+      "change_message": "Changed sponsor.", 
+      "user": 1, 
+      "content_type": 25
+    }
+  }, 
+  {
+    "pk": 41, 
+    "model": "admin.logentry", 
+    "fields": {
+      "action_flag": 2, 
+      "action_time": "2012-01-05 00:08:41", 
+      "object_repr": "Offer object", 
+      "object_id": "2", 
+      "change_message": "Changed sponsor.", 
+      "user": 1, 
+      "content_type": 25
+    }
+  }, 
+  {
+    "pk": 40, 
+    "model": "admin.logentry", 
+    "fields": {
+      "action_flag": 2, 
+      "action_time": "2012-01-05 00:08:34", 
+      "object_repr": "Offer object", 
+      "object_id": "3", 
+      "change_message": "Changed sponsor.", 
+      "user": 1, 
+      "content_type": 25
+    }
+  }, 
+  {
+    "pk": 39, 
+    "model": "admin.logentry", 
+    "fields": {
+      "action_flag": 2, 
+      "action_time": "2012-01-05 00:08:13", 
+      "object_repr": "Offer object", 
+      "object_id": "4", 
+      "change_message": "Changed sponsor.", 
+      "user": 1, 
+      "content_type": 25
+    }
+  }, 
+  {
+    "pk": 38, 
+    "model": "admin.logentry", 
+    "fields": {
+      "action_flag": 2, 
+      "action_time": "2012-01-04 23:59:20", 
+      "object_repr": "Dr. Spangler Presents \"Metaphysics in the Modern World\"", 
+      "object_id": "17000", 
+      "change_message": "Added role \"host:University of Pittsburgh(host)\".", 
+      "user": 1, 
+      "content_type": 14
+    }
+  }, 
+  {
+    "pk": 37, 
+    "model": "admin.logentry", 
+    "fields": {
+      "action_flag": 2, 
+      "action_time": "2012-01-04 23:59:06", 
+      "object_repr": "Karaoke Contest", 
+      "object_id": "17001", 
+      "change_message": "Added role \"host:Bootlegger's(host)\".", 
+      "user": 1, 
+      "content_type": 14
+    }
+  }, 
+  {
+    "pk": 36, 
+    "model": "admin.logentry", 
+    "fields": {
+      "action_flag": 2, 
+      "action_time": "2012-01-04 23:58:54", 
+      "object_repr": "Icelandic String Quartet performs at the Carnegie", 
+      "object_id": "17002", 
+      "change_message": "Added role \"host:Carnegie Music Hall(host)\".", 
+      "user": 1, 
+      "content_type": 14
+    }
+  }, 
+  {
+    "pk": 35, 
+    "model": "admin.logentry", 
+    "fields": {
+      "action_flag": 2, 
+      "action_time": "2012-01-04 23:58:36", 
+      "object_repr": "Bigelow Bash", 
+      "object_id": "17003", 
+      "change_message": "Changed description. Added role \"host:University of Pittsburgh(host)\".", 
+      "user": 1, 
+      "content_type": 14
+    }
+  }, 
+  {
+    "pk": 34, 
+    "model": "admin.logentry", 
+    "fields": {
+      "action_flag": 3, 
+      "action_time": "2012-01-04 23:57:00", 
+      "object_repr": "Dr. Spangler Presents ", 
+      "object_id": "1", 
+      "change_message": "", 
+      "user": 1, 
+      "content_type": 14
+    }
+  }, 
+  {
+    "pk": 33, 
+    "model": "admin.logentry", 
+    "fields": {
+      "action_flag": 1, 
+      "action_time": "2012-01-04 23:48:04", 
+      "object_repr": "Bigelow Blvd. Loc: Bigelow Blvd, Pittsburgh, PA, 15213", 
+      "object_id": "1476", 
+      "change_message": "", 
+      "user": 1, 
+      "content_type": 11
+    }
+  }, 
+  {
+    "pk": 32, 
+    "model": "admin.logentry", 
+    "fields": {
+      "action_flag": 1, 
+      "action_time": "2012-01-04 23:47:46", 
+      "object_repr": "Bigelow Blvd (40.444,-79.954)", 
+      "object_id": "1346", 
+      "change_message": "", 
+      "user": 1, 
+      "content_type": 10
+    }
+  }, 
+  {
+    "pk": 31, 
+    "model": "admin.logentry", 
+    "fields": {
+      "action_flag": 2, 
+      "action_time": "2012-01-04 22:59:24", 
+      "object_repr": "Charice", 
+      "object_id": "1348", 
+      "change_message": "Changed avatar.", 
+      "user": 1, 
+      "content_type": 20
+    }
+  }, 
+  {
+    "pk": 30, 
+    "model": "admin.logentry", 
+    "fields": {
+      "action_flag": 2, 
+      "action_time": "2012-01-04 22:59:10", 
+      "object_repr": "Joe", 
+      "object_id": "1347", 
+      "change_message": "Changed avatar.", 
+      "user": 1, 
+      "content_type": 20
+    }
+  }, 
+  {
+    "pk": 29, 
+    "model": "admin.logentry", 
+    "fields": {
+      "action_flag": 2, 
+      "action_time": "2012-01-04 22:59:00", 
+      "object_repr": "bwiewiora", 
+      "object_id": "1346", 
+      "change_message": "Changed avatar.", 
+      "user": 1, 
+      "content_type": 20
+    }
+  }, 
+  {
+    "pk": 28, 
+    "model": "admin.logentry", 
+    "fields": {
+      "action_flag": 2, 
+      "action_time": "2012-01-04 22:58:51", 
+      "object_repr": "Heather232", 
+      "object_id": "1345", 
+      "change_message": "Changed avatar.", 
+      "user": 1, 
+      "content_type": 20
+    }
+  }, 
+  {
+    "pk": 27, 
+    "model": "admin.logentry", 
+    "fields": {
+      "action_flag": 2, 
+      "action_time": "2012-01-04 22:58:40", 
+      "object_repr": "Pratibha", 
+      "object_id": "1344", 
+      "change_message": "Changed avatar.", 
+      "user": 1, 
+      "content_type": 20
+    }
+  }, 
+  {
+    "pk": 26, 
+    "model": "admin.logentry", 
+    "fields": {
+      "action_flag": 2, 
+      "action_time": "2012-01-04 22:58:24", 
+      "object_repr": "McLeeber", 
+      "object_id": "1343", 
+      "change_message": "Changed avatar.", 
+      "user": 1, 
+      "content_type": 20
+    }
+  }, 
+  {
+    "pk": 25, 
+    "model": "admin.logentry", 
+    "fields": {
+      "action_flag": 2, 
+      "action_time": "2012-01-04 22:58:12", 
+      "object_repr": "Lara", 
+      "object_id": "1342", 
+      "change_message": "Changed avatar.", 
+      "user": 1, 
+      "content_type": 20
+    }
+  }, 
+  {
     "pk": 24, 
     "model": "admin.logentry", 
     "fields": {
@@ -4082,6 +4316,20 @@
     }
   }, 
   {
+    "pk": 1346, 
+    "model": "places.location", 
+    "fields": {
+      "town": "Pittsburgh", 
+      "neighborhood": null, 
+      "country": "US", 
+      "longitude": "-79.954020", 
+      "state": "PA", 
+      "postcode": "15213", 
+      "address": "Bigelow Blvd", 
+      "latitude": "40.443802"
+    }
+  }, 
+  {
     "pk": 1336, 
     "model": "places.location", 
     "fields": {
@@ -4420,6 +4668,18 @@
       "tags": [], 
       "location": 1187, 
       "owner": 1187, 
+      "description": ""
+    }
+  }, 
+  {
+    "pk": 1476, 
+    "model": "places.place", 
+    "fields": {
+      "dtcreated": "2012-01-04 23:48:04", 
+      "name": "Bigelow Blvd", 
+      "tags": [], 
+      "location": 1346, 
+      "owner": null, 
       "description": ""
     }
   }, 
@@ -10526,6 +10786,144 @@
     }
   }, 
   {
+    "pk": 17003, 
+    "model": "events.event", 
+    "fields": {
+      "dtcreated": "2012-01-04 23:57:15", 
+      "allday": false, 
+      "name": "Bigelow Bash", 
+      "parent_event": null, 
+      "url": "http://pitt.edu/", 
+      "exrule": "", 
+      "exdate": "", 
+      "rdate": "", 
+      "image_url": "http://www.downlopedia.com/images/Fireworks%20Wallpaper%20Pack%20icon.jpg", 
+      "rrule": "", 
+      "dtmodified": "2012-01-04 23:58:36", 
+      "invisible": false, 
+      "place": 1476, 
+      "dtend": "2011-12-03 23:00:00", 
+      "dtstart": "2011-12-03 18:00:00", 
+      "tags": [], 
+      "description": "Enjoy the fireworks, live music and fun during this year's Bigelow Bash"
+    }
+  }, 
+  {
+    "pk": 17000, 
+    "model": "events.event", 
+    "fields": {
+      "dtcreated": "2012-01-04 23:57:15", 
+      "allday": false, 
+      "name": "Dr. Spangler Presents \"Metaphysics in the Modern World\"", 
+      "parent_event": null, 
+      "url": "http://pitt.edu/", 
+      "exrule": "", 
+      "exdate": "", 
+      "rdate": "", 
+      "image_url": "http://fc05.deviantart.net/fs48/f/2009/172/2/5/Ghostbusters_Dock_Icon_by_Timmie56.png", 
+      "rrule": "", 
+      "dtmodified": "2012-01-04 23:59:20", 
+      "invisible": false, 
+      "place": 1466, 
+      "dtend": "2011-12-02 14:00:00", 
+      "dtstart": "2011-12-02 13:00:00", 
+      "tags": [], 
+      "description": "Dr. Spangler, world renowned metaphysics researcher, presents his new findings."
+    }
+  }, 
+  {
+    "pk": 17005, 
+    "model": "events.event", 
+    "fields": {
+      "dtcreated": "2012-01-04 23:59:46", 
+      "allday": false, 
+      "name": "Holiday Season Hump Day Happy Hour!", 
+      "parent_event": null, 
+      "url": "https://www.facebook.com/pages/Panther-Hollow-Inn/52051703278", 
+      "exrule": "", 
+      "exdate": "", 
+      "rdate": "", 
+      "image_url": "http://rapunzelsonline.com/wordpress/wp-content/uploads/happy-happy-hour-96x96.jpg", 
+      "rrule": "", 
+      "dtmodified": "2012-01-04 23:59:46", 
+      "invisible": false, 
+      "place": 1437, 
+      "dtend": "2011-12-07 19:00:00", 
+      "dtstart": "2011-12-07 16:00:00", 
+      "tags": [], 
+      "description": "$2 Yuenglings and $3 rail drinks! Get ready for a great holiday season courtesy of Panther Hollow Inn!"
+    }
+  }, 
+  {
+    "pk": 17002, 
+    "model": "events.event", 
+    "fields": {
+      "dtcreated": "2012-01-04 23:57:15", 
+      "allday": false, 
+      "name": "Icelandic String Quartet performs at the Carnegie", 
+      "parent_event": null, 
+      "url": "http://www.carnegiemnh.org/", 
+      "exrule": "", 
+      "exdate": "", 
+      "rdate": "", 
+      "image_url": "http://www.dgmusic.co.uk/media/images/band_images/main/95120_highly_strung_sq.jpg", 
+      "rrule": "", 
+      "dtmodified": "2012-01-04 23:58:54", 
+      "invisible": false, 
+      "place": 1426, 
+      "dtend": "2011-12-03 18:00:00", 
+      "dtstart": "2011-12-03 16:00:00", 
+      "tags": [], 
+      "description": "The world-renowned Icelandic String Quartet is performing at the Carnegie Music Hall for one night only."
+    }
+  }, 
+  {
+    "pk": 17001, 
+    "model": "events.event", 
+    "fields": {
+      "dtcreated": "2012-01-04 23:57:15", 
+      "allday": false, 
+      "name": "Karaoke Contest", 
+      "parent_event": null, 
+      "url": "http://www.myspace.com/bootleggersbaroakland", 
+      "exrule": "", 
+      "exdate": "", 
+      "rdate": "", 
+      "image_url": "http://www.download4a.com/Android_Icons/Karaoke-Top-Hits-Dedications.png", 
+      "rrule": "", 
+      "dtmodified": "2012-01-04 23:59:06", 
+      "invisible": false, 
+      "place": 1403, 
+      "dtend": "2011-12-01 23:00:00", 
+      "dtstart": "2011-12-01 21:00:00", 
+      "tags": [], 
+      "description": "Bootleggers is holding a karaoke contest this Thursday! "
+    }
+  }, 
+  {
+    "pk": 17004, 
+    "model": "events.event", 
+    "fields": {
+      "dtcreated": "2012-01-04 23:59:46", 
+      "allday": false, 
+      "name": "Robotics Demo Day", 
+      "parent_event": null, 
+      "url": "http://cmu.edu/", 
+      "exrule": "", 
+      "exdate": "", 
+      "rdate": "", 
+      "image_url": "http://www.fallingpixel.com/products/29408/thumbs/keeponrobot005.jpg", 
+      "rrule": "", 
+      "dtmodified": "2012-01-04 23:59:46", 
+      "invisible": false, 
+      "place": 1458, 
+      "dtend": "2011-12-05 12:00:00", 
+      "dtstart": "2011-12-05 09:00:00", 
+      "tags": [], 
+      "description": "We have tons of new robots to show off this year, including the Mars Rover, the Wall-Crawler, and of course, Jumpy!"
+    }
+  }, 
+  {
     "pk": 16999, 
     "model": "events.event", 
     "fields": {
@@ -10549,6 +10947,42 @@
     }
   }, 
   {
+    "pk": 1, 
+    "model": "events.role", 
+    "fields": {
+      "organization": 1102, 
+      "role_name": "host", 
+      "event": 17003
+    }
+  }, 
+  {
+    "pk": 2, 
+    "model": "events.role", 
+    "fields": {
+      "organization": 1303, 
+      "role_name": "host", 
+      "event": 17002
+    }
+  }, 
+  {
+    "pk": 3, 
+    "model": "events.role", 
+    "fields": {
+      "organization": 1281, 
+      "role_name": "host", 
+      "event": 17001
+    }
+  }, 
+  {
+    "pk": 4, 
+    "model": "events.role", 
+    "fields": {
+      "organization": 1102, 
+      "role_name": "host", 
+      "event": 17000
+    }
+  }, 
+  {
     "pk": 1298, 
     "model": "identity.identity", 
     "fields": {
@@ -10565,7 +10999,7 @@
       "account": [], 
       "dt_created": "2012-01-04 22:37:38", 
       "name": "3 Guys Optical Center", 
-      "avatar": ""
+      "avatar": "http://fbcdn-profile-a.akamaihd.net/hprofile-ak-snc4/174874_161961833858809_3570943_n.jpg"
     }
   }, 
   {
@@ -10665,7 +11099,7 @@
       "account": [], 
       "dt_created": "2012-01-04 18:34:09", 
       "name": "Antoon's Pizza", 
-      "avatar": ""
+      "avatar": "http://cbk0.google.com/cbk?output=tile&cb_client=maps_sv&panoid=_ojruO1WFt_cMxKbNKhyng&x=0&y=0&zoom=2"
     }
   }, 
   {
@@ -10779,6 +11213,16 @@
     }
   }, 
   {
+    "pk": 1346, 
+    "model": "identity.identity", 
+    "fields": {
+      "account": [], 
+      "dt_created": "2012-01-04 22:57:45", 
+      "name": "bwiewiora", 
+      "avatar": "http://www.onlyinpgh.com/wp-content/uploads/2011/08/Brett-200px.jpg"
+    }
+  }, 
+  {
     "pk": 1294, 
     "model": "identity.identity", 
     "fields": {
@@ -10845,7 +11289,7 @@
       "account": [], 
       "dt_created": "2012-01-04 18:34:59", 
       "name": "Carnegie Mellon University", 
-      "avatar": ""
+      "avatar": "http://fbcdn-profile-a.akamaihd.net/hprofile-ak-snc4/41780_2344873594_4548_n.jpg"
     }
   }, 
   {
@@ -10865,7 +11309,7 @@
       "account": [], 
       "dt_created": "2012-01-04 18:34:51", 
       "name": "Carnegie Music Hall", 
-      "avatar": ""
+      "avatar": "http://mw2.google.com/mw-panoramio/photos/small/435757.jpg"
     }
   }, 
   {
@@ -10936,6 +11380,16 @@
       "dt_created": "2012-01-04 18:34:56", 
       "name": "Centre Ave. News", 
       "avatar": ""
+    }
+  }, 
+  {
+    "pk": 1348, 
+    "model": "identity.identity", 
+    "fields": {
+      "account": [], 
+      "dt_created": "2012-01-04 22:57:45", 
+      "name": "Charice", 
+      "avatar": "http://a0.twimg.com/profile_images/1393849763/110601_Charice-4-0769.jpg.scaled500_reasonably_small.jpg"
     }
   }, 
   {
@@ -11085,7 +11539,7 @@
       "account": [], 
       "dt_created": "2012-01-04 18:34:02", 
       "name": "Dave & Andy's Ice Cream", 
-      "avatar": ""
+      "avatar": "http://fbcdn-profile-a.akamaihd.net/hprofile-ak-ash2/276743_183840534624_6680639_n.jpg"
     }
   }, 
   {
@@ -11319,6 +11773,16 @@
     }
   }, 
   {
+    "pk": 1349, 
+    "model": "identity.identity", 
+    "fields": {
+      "account": [], 
+      "dt_created": "2012-01-04 22:57:45", 
+      "name": "Gregarious", 
+      "avatar": ""
+    }
+  }, 
+  {
     "pk": 1131, 
     "model": "identity.identity", 
     "fields": {
@@ -11376,6 +11840,16 @@
       "dt_created": "2012-01-04 18:34:17", 
       "name": "Hampton Inn", 
       "avatar": ""
+    }
+  }, 
+  {
+    "pk": 1345, 
+    "model": "identity.identity", 
+    "fields": {
+      "account": [], 
+      "dt_created": "2012-01-04 22:57:45", 
+      "name": "Heather232", 
+      "avatar": "http://a3.twimg.com/profile_images/1181177068/Heather_Larson_On_AIr_reasonably_small.jpg"
     }
   }, 
   {
@@ -11539,6 +12013,16 @@
     }
   }, 
   {
+    "pk": 1347, 
+    "model": "identity.identity", 
+    "fields": {
+      "account": [], 
+      "dt_created": "2012-01-04 22:57:45", 
+      "name": "Joe", 
+      "avatar": "http://www.urch.com/forums/avatars/macro-dude.gif?dateline=1233847866"
+    }
+  }, 
+  {
     "pk": 1158, 
     "model": "identity.identity", 
     "fields": {
@@ -11625,7 +12109,7 @@
       "account": [], 
       "dt_created": "2012-01-04 18:34:49", 
       "name": "Kiva Han Cafe", 
-      "avatar": ""
+      "avatar": "http://fbcdn-profile-a.akamaihd.net/hprofile-ak-ash2/41786_82852692424_3260065_n.jpg"
     }
   }, 
   {
@@ -11656,6 +12140,16 @@
       "dt_created": "2012-01-04 18:33:57", 
       "name": "Korean Central Church", 
       "avatar": ""
+    }
+  }, 
+  {
+    "pk": 1342, 
+    "model": "identity.identity", 
+    "fields": {
+      "account": [], 
+      "dt_created": "2012-01-04 22:57:45", 
+      "name": "Lara", 
+      "avatar": "http://onlyinpgh.com/wp-content/uploads/2011/08/Lara.jpg"
     }
   }, 
   {
@@ -11785,7 +12279,7 @@
       "account": [], 
       "dt_created": "2012-01-04 18:33:51", 
       "name": "Maggie & Stella's Gifts", 
-      "avatar": ""
+      "avatar": "http://fbcdn-profile-a.akamaihd.net/hprofile-ak-snc4/373045_83057190581_987265663_n.jpg"
     }
   }, 
   {
@@ -11816,6 +12310,16 @@
       "dt_created": "2012-01-04 18:34:09", 
       "name": "McKnight Capital Partners", 
       "avatar": ""
+    }
+  }, 
+  {
+    "pk": 1343, 
+    "model": "identity.identity", 
+    "fields": {
+      "account": [], 
+      "dt_created": "2012-01-04 22:57:45", 
+      "name": "McLeeber", 
+      "avatar": "http://www.angry-nerds.com/wp-content/uploads/2011/09/comic-book-guy.gif"
     }
   }, 
   {
@@ -11875,7 +12379,7 @@
       "account": [], 
       "dt_created": "2012-01-04 18:34:29", 
       "name": "Milano's Pizza", 
-      "avatar": ""
+      "avatar": "http://cbk0.google.com/cbk?output=tile&cb_client=maps_sv&panoid=BcqGz8hSKTCnozPHUGRYCQ&x=0&y=0&zoom=2"
     }
   }, 
   {
@@ -11975,7 +12479,7 @@
       "account": [], 
       "dt_created": "2012-01-04 18:34:07", 
       "name": "Oakland BID", 
-      "avatar": ""
+      "avatar": "http://www.onlyinoakland.org/images/obid-logo.gif"
     }
   }, 
   {
@@ -12175,7 +12679,7 @@
       "account": [], 
       "dt_created": "2012-01-04 18:34:54", 
       "name": "Panther Hollow Inn", 
-      "avatar": ""
+      "avatar": "http://fbcdn-profile-a.akamaihd.net/hprofile-ak-ash2/50316_52051703278_2423125_n.jpg"
     }
   }, 
   {
@@ -12245,7 +12749,7 @@
       "account": [], 
       "dt_created": "2012-01-04 18:33:53", 
       "name": "Peter's Pub", 
-      "avatar": ""
+      "avatar": "http://fbcdn-profile-a.akamaihd.net/hprofile-ak-snc4/41589_147938173556_6194040_n.jpg"
     }
   }, 
   {
@@ -12396,6 +12900,16 @@
       "dt_created": "2012-01-04 18:34:05", 
       "name": "Point Park University", 
       "avatar": ""
+    }
+  }, 
+  {
+    "pk": 1344, 
+    "model": "identity.identity", 
+    "fields": {
+      "account": [], 
+      "dt_created": "2012-01-04 22:57:45", 
+      "name": "Pratibha", 
+      "avatar": "http://www.sba-list.org/sites/default/files/imagecache/endorsed_candidate/prolife_images/Pratibha_Patil.jpeg"
     }
   }, 
   {
@@ -13005,7 +13519,7 @@
       "account": [], 
       "dt_created": "2012-01-04 18:34:40", 
       "name": "Touch of Gold and Silver", 
-      "avatar": ""
+      "avatar": "http://t0.gstatic.com/images?q=tbn:ANd9GcTUl0wjSOlefhZzh5qY7Xppz0enMOTr59Um2S7JblVxF3AOvw63--0X7NkW1Ow"
     }
   }, 
   {
@@ -13025,7 +13539,7 @@
       "account": [], 
       "dt_created": "2012-01-04 18:34:03", 
       "name": "Uncle Sam's Subs", 
-      "avatar": ""
+      "avatar": "http://fbcdn-profile-a.akamaihd.net/hprofile-ak-snc4/41789_2200270628_465_n.jpg"
     }
   }, 
   {
@@ -13035,7 +13549,7 @@
       "account": [], 
       "dt_created": "2012-01-04 18:34:47", 
       "name": "Union Grill", 
-      "avatar": ""
+      "avatar": "http://fbcdn-profile-a.akamaihd.net/hprofile-ak-snc4/50436_107604845966237_221_n.jpg"
     }
   }, 
   {
@@ -13125,7 +13639,7 @@
       "account": [], 
       "dt_created": "2012-01-04 18:34:37", 
       "name": "Vera Cruz", 
-      "avatar": ""
+      "avatar": "http://cbk0.google.com/cbk?output=tile&cb_client=maps_sv&panoid=JxazM-Ia5QdF4SkLpf2G5g&x=0&y=0&zoom=2"
     }
   }, 
   {
@@ -15280,6 +15794,784 @@
     "fields": {
       "url": "", 
       "account": []
+    }
+  }, 
+  {
+    "pk": 1346, 
+    "model": "identity.individual", 
+    "fields": {
+      "account": []
+    }
+  }, 
+  {
+    "pk": 1348, 
+    "model": "identity.individual", 
+    "fields": {
+      "account": []
+    }
+  }, 
+  {
+    "pk": 1349, 
+    "model": "identity.individual", 
+    "fields": {
+      "account": []
+    }
+  }, 
+  {
+    "pk": 1345, 
+    "model": "identity.individual", 
+    "fields": {
+      "account": []
+    }
+  }, 
+  {
+    "pk": 1347, 
+    "model": "identity.individual", 
+    "fields": {
+      "account": []
+    }
+  }, 
+  {
+    "pk": 1342, 
+    "model": "identity.individual", 
+    "fields": {
+      "account": []
+    }
+  }, 
+  {
+    "pk": 1343, 
+    "model": "identity.individual", 
+    "fields": {
+      "account": []
+    }
+  }, 
+  {
+    "pk": 1344, 
+    "model": "identity.individual", 
+    "fields": {
+      "account": []
+    }
+  }, 
+  {
+    "pk": 3, 
+    "model": "news.article", 
+    "fields": {
+      "source_name": "Pittsburgh Tech Council", 
+      "tags": [
+        2, 
+        1
+      ], 
+      "title": "Local Entrepreneurship on the Rise", 
+      "source_url": "http://www.pghtech.org/", 
+      "short_description": "A strong Entrepreneurship community is emerging in Pittsburgh. Based mainly our of Pitt and CMU, the new crop of businesses being started here is the highest number in nearly 50 years. ", 
+      "dt_published": "2011-11-29 11:53:51"
+    }
+  }, 
+  {
+    "pk": 1, 
+    "model": "news.article", 
+    "fields": {
+      "source_name": "Visit PA", 
+      "tags": [
+        1
+      ], 
+      "title": "Oakland Named one of Pennsylvania\u2019s Best Neighborh", 
+      "source_url": "http://www.visitpa.com/", 
+      "short_description": "Oakland, defined by its universities, cultural institutions, medical centers and nightlife, has been named one of Pennsylvania\u2019s best neighborhoods by the Pennsylvania Department of Tourism.", 
+      "dt_published": "2011-11-30 11:50:33"
+    }
+  }, 
+  {
+    "pk": 2, 
+    "model": "news.article", 
+    "fields": {
+      "source_name": "Pittsburgh Panthers", 
+      "tags": [
+        1
+      ], 
+      "title": "Pitt wins National Championship!", 
+      "source_url": "http://www.pittsburghpanthers.com/", 
+      "short_description": "The Pitt Panthers just won their first national championship in several decades! HAIL TO PITT! In a thrilling last-minute comeback, the Panthers displayed the grit and determination that has defined their season in an an unbelievable way. Down by 10 points, they....", 
+      "dt_published": "2011-12-01 11:52:44"
+    }
+  }, 
+  {
+    "pk": 5, 
+    "model": "chatter.post", 
+    "fields": {
+      "author": 1344, 
+      "title": "Cathedral ", 
+      "content": "It's such a unique beautiful building :)  It just makes me happy", 
+      "image_url": "http://www.onlyinpgh.com/wp-content/uploads/2010/03/Cathedral.jpg", 
+      "post_type": "indiv", 
+      "dt": "2011-11-30 15:45:26", 
+      "tags": [
+        1
+      ]
+    }
+  }, 
+  {
+    "pk": 8, 
+    "model": "chatter.post", 
+    "fields": {
+      "author": 1151, 
+      "title": "Happy Thursday!", 
+      "content": "How about a pizza to help kick off your weekend?", 
+      "image_url": "", 
+      "post_type": "org", 
+      "dt": "2011-12-01 01:08:56", 
+      "tags": [
+        1
+      ]
+    }
+  }, 
+  {
+    "pk": 1, 
+    "model": "chatter.post", 
+    "fields": {
+      "author": 1344, 
+      "title": "HUGE Pothole", 
+      "content": "Ok, what is up with the huge pothole on Forbes by Meyran?", 
+      "image_url": "http://www.onlyinpgh.com/wp-content/uploads/2009/07/OaklandPothole.jpg", 
+      "post_type": "indiv", 
+      "dt": "2011-11-30 19:45:29", 
+      "tags": [
+        1
+      ]
+    }
+  }, 
+  {
+    "pk": 14, 
+    "model": "chatter.post", 
+    "fields": {
+      "author": 1349, 
+      "title": "It got COLLLLD", 
+      "content": "Where did this come from???", 
+      "image_url": "", 
+      "post_type": "indiv", 
+      "dt": "2011-12-01 04:08:57", 
+      "tags": [
+        1
+      ]
+    }
+  }, 
+  {
+    "pk": 9, 
+    "model": "chatter.post", 
+    "fields": {
+      "author": 1342, 
+      "title": "Oakland is THE best place for JUMPING!", 
+      "content": "Just try it!!", 
+      "image_url": "", 
+      "post_type": "indiv", 
+      "dt": "2011-12-01 06:08:57", 
+      "tags": [
+        1
+      ]
+    }
+  }, 
+  {
+    "pk": 11, 
+    "model": "chatter.post", 
+    "fields": {
+      "author": 1345, 
+      "title": "Oakland rocks", 
+      "content": "Just sayin...", 
+      "image_url": "", 
+      "post_type": "indiv", 
+      "dt": "2011-12-01 01:08:56", 
+      "tags": [
+        1
+      ]
+    }
+  }, 
+  {
+    "pk": 13, 
+    "model": "chatter.post", 
+    "fields": {
+      "author": 1344, 
+      "title": "Oakland Wildlife", 
+      "content": "Can't say I've ever seen one of these in Oakland!  ", 
+      "image_url": "http://onlyinpgh.com/wp-content/uploads/2011/11/Carnegie-Nature-Reserve-Organutan.jpg", 
+      "post_type": "indiv", 
+      "dt": "2011-11-29 11:08:56", 
+      "tags": [
+        1
+      ]
+    }
+  }, 
+  {
+    "pk": 3, 
+    "model": "chatter.post", 
+    "fields": {
+      "author": 1343, 
+      "title": "OMG someone should sing...", 
+      "content": "Prince at Bootlegger's tonight!", 
+      "image_url": "", 
+      "post_type": "indiv", 
+      "dt": "2011-11-30 22:45:26", 
+      "tags": [
+        5, 
+        1
+      ]
+    }
+  }, 
+  {
+    "pk": 6, 
+    "model": "chatter.post", 
+    "fields": {
+      "author": 1343, 
+      "title": "Traffic is CRAAAAZY today", 
+      "content": "It took the bus 30 minutes to get down Forbes", 
+      "image_url": "", 
+      "post_type": "indiv", 
+      "dt": "2011-11-30 19:45:29", 
+      "tags": []
+    }
+  }, 
+  {
+    "pk": 4, 
+    "model": "chatter.post", 
+    "fields": {
+      "author": 1348, 
+      "title": "Volunteering?", 
+      "content": "Anyone else volunteering at the neighborhood cleanup this weekend?", 
+      "image_url": "", 
+      "post_type": "indiv", 
+      "dt": "2011-11-29 19:45:26", 
+      "tags": [
+        1
+      ]
+    }
+  }, 
+  {
+    "pk": 7, 
+    "model": "chatter.post", 
+    "fields": {
+      "author": 1344, 
+      "title": "What is the best sandwich shop?", 
+      "content": "I haven't been to them all, but what do you think is the best?", 
+      "image_url": "", 
+      "post_type": "indiv", 
+      "dt": "2011-11-30 17:45:26", 
+      "tags": []
+    }
+  }, 
+  {
+    "pk": 12, 
+    "model": "chatter.post", 
+    "fields": {
+      "author": 1347, 
+      "title": "Where's the best pizza in Oakland?", 
+      "content": "There's lots of pizza shops, but what's the best?", 
+      "image_url": "", 
+      "post_type": "indiv", 
+      "dt": "2011-12-01 02:08:57", 
+      "tags": [
+        1
+      ]
+    }
+  }, 
+  {
+    "pk": 2, 
+    "model": "chatter.post", 
+    "fields": {
+      "author": 1342, 
+      "title": "Who else is going to the Bigelow Bash?", 
+      "content": "Looks great this year--are you in?", 
+      "image_url": "", 
+      "post_type": "indiv", 
+      "dt": "2011-11-30 21:45:29", 
+      "tags": [
+        1, 
+        9
+      ]
+    }
+  }, 
+  {
+    "pk": 10, 
+    "model": "chatter.post", 
+    "fields": {
+      "author": 1344, 
+      "title": "Why is the Cathedral yellow sometimes?", 
+      "content": "Sometimes the Cathedral is lit up yellow on Saturday night...why is that?", 
+      "image_url": "", 
+      "post_type": "indiv", 
+      "dt": "2011-12-01 03:08:56", 
+      "tags": [
+        1
+      ]
+    }
+  }, 
+  {
+    "pk": 1, 
+    "model": "chatter.comment", 
+    "fields": {
+      "content": "I don't know--is that a pothole or a meteor impact?", 
+      "post": 1, 
+      "commenter": 1349, 
+      "dt": "2011-11-30 19:50:29"
+    }
+  }, 
+  {
+    "pk": 2, 
+    "model": "chatter.comment", 
+    "fields": {
+      "content": "Meteor. Definitely meteor.", 
+      "post": 1, 
+      "commenter": 1349, 
+      "dt": "2011-11-30 19:55:29"
+    }
+  }, 
+  {
+    "pk": 3, 
+    "model": "chatter.comment", 
+    "fields": {
+      "content": "I'll be there! Meet at the panther statue?", 
+      "post": 2, 
+      "commenter": 1349, 
+      "dt": "2011-11-30 21:55:29"
+    }
+  }, 
+  {
+    "pk": 4, 
+    "model": "chatter.comment", 
+    "fields": {
+      "content": "I can't this year :(", 
+      "post": 2, 
+      "commenter": 1349, 
+      "dt": "2011-11-30 22:00:29"
+    }
+  }, 
+  {
+    "pk": 5, 
+    "model": "chatter.comment", 
+    "fields": {
+      "content": "Done.", 
+      "post": 3, 
+      "commenter": 1349, 
+      "dt": "2011-11-30 23:10:26"
+    }
+  }, 
+  {
+    "pk": 6, 
+    "model": "chatter.comment", 
+    "fields": {
+      "content": "What song?", 
+      "post": 3, 
+      "commenter": 1349, 
+      "dt": "2011-11-30 23:12:26"
+    }
+  }, 
+  {
+    "pk": 7, 
+    "model": "chatter.comment", 
+    "fields": {
+      "content": "Kiss...or maybe Purple Rain. What do you think?", 
+      "post": 3, 
+      "commenter": 1349, 
+      "dt": "2011-11-30 23:15:26"
+    }
+  }, 
+  {
+    "pk": 8, 
+    "model": "chatter.comment", 
+    "fields": {
+      "content": "I'll try to", 
+      "post": 4, 
+      "commenter": 1349, 
+      "dt": "2011-11-29 20:45:26"
+    }
+  }, 
+  {
+    "pk": 9, 
+    "model": "chatter.comment", 
+    "fields": {
+      "content": "C'mon...it'll be fun!", 
+      "post": 4, 
+      "commenter": 1349, 
+      "dt": "2011-11-30 08:45:26"
+    }
+  }, 
+  {
+    "pk": 10, 
+    "model": "chatter.comment", 
+    "fields": {
+      "content": "Depends on how many papers I need to get done...", 
+      "post": 4, 
+      "commenter": 1349, 
+      "dt": "2011-11-30 12:45:26"
+    }
+  }, 
+  {
+    "pk": 11, 
+    "model": "chatter.comment", 
+    "fields": {
+      "content": "Gorgeous!", 
+      "post": 5, 
+      "commenter": 1349, 
+      "dt": "2011-11-30 19:45:26"
+    }
+  }, 
+  {
+    "pk": 12, 
+    "model": "chatter.comment", 
+    "fields": {
+      "content": "Well done!", 
+      "post": 5, 
+      "commenter": 1349, 
+      "dt": "2011-11-30 16:45:26"
+    }
+  }, 
+  {
+    "pk": 13, 
+    "model": "chatter.comment", 
+    "fields": {
+      "content": "The inside of the cathedral reminds me of Harry Potter :)", 
+      "post": 5, 
+      "commenter": 1349, 
+      "dt": "2011-11-30 18:45:26"
+    }
+  }, 
+  {
+    "pk": 14, 
+    "model": "chatter.comment", 
+    "fields": {
+      "content": "I know! What's going on?", 
+      "post": 6, 
+      "commenter": 1349, 
+      "dt": "2011-11-30 19:45:29"
+    }
+  }, 
+  {
+    "pk": 15, 
+    "model": "chatter.comment", 
+    "fields": {
+      "content": "UNCLE SAM'S IS THE BEST SANDWICH SHOP EVER", 
+      "post": 7, 
+      "commenter": 1349, 
+      "dt": "2011-11-30 17:49:26"
+    }
+  }, 
+  {
+    "pk": 16, 
+    "model": "chatter.comment", 
+    "fields": {
+      "content": "Whoa there, cowboy.", 
+      "post": 7, 
+      "commenter": 1349, 
+      "dt": "2011-11-30 18:10:26"
+    }
+  }, 
+  {
+    "pk": 17, 
+    "model": "chatter.comment", 
+    "fields": {
+      "content": "I don't like green peppers.", 
+      "post": 8, 
+      "commenter": 1349, 
+      "dt": "2011-12-01 01:08:56"
+    }
+  }, 
+  {
+    "pk": 18, 
+    "model": "chatter.comment", 
+    "fields": {
+      "content": "I LOVE Green Peppers", 
+      "post": 8, 
+      "commenter": 1349, 
+      "dt": "2011-12-01 02:08:56"
+    }
+  }, 
+  {
+    "pk": 19, 
+    "model": "chatter.comment", 
+    "fields": {
+      "content": "...what?", 
+      "post": 9, 
+      "commenter": 1349, 
+      "dt": "2011-12-01 07:08:57"
+    }
+  }, 
+  {
+    "pk": 20, 
+    "model": "chatter.comment", 
+    "fields": {
+      "content": "I absolutely 100% agree.", 
+      "post": 9, 
+      "commenter": 1349, 
+      "dt": "2011-12-01 07:15:57"
+    }
+  }, 
+  {
+    "pk": 21, 
+    "model": "chatter.comment", 
+    "fields": {
+      "content": "Does skipping count?", 
+      "post": 9, 
+      "commenter": 1349, 
+      "dt": "2011-12-01 09:08:57"
+    }
+  }, 
+  {
+    "pk": 22, 
+    "model": "chatter.comment", 
+    "fields": {
+      "content": "It means the Pitt Panthers won!", 
+      "post": 10, 
+      "commenter": 1349, 
+      "dt": "2011-12-01 03:10:56"
+    }
+  }, 
+  {
+    "pk": 23, 
+    "model": "chatter.comment", 
+    "fields": {
+      "content": "Ohhhhhh....that makes sense. Are there ever any other colors?", 
+      "post": 10, 
+      "commenter": 1349, 
+      "dt": "2011-12-01 03:20:56"
+    }
+  }, 
+  {
+    "pk": 24, 
+    "model": "chatter.comment", 
+    "fields": {
+      "content": "Last year they displayed a whole projected image on the Cathedral...it was really cool.", 
+      "post": 10, 
+      "commenter": 1349, 
+      "dt": "2011-12-01 03:30:56"
+    }
+  }, 
+  {
+    "pk": 25, 
+    "model": "chatter.comment", 
+    "fields": {
+      "content": "We think so :)", 
+      "post": 11, 
+      "commenter": 1349, 
+      "dt": "2011-11-30 00:08:56"
+    }
+  }, 
+  {
+    "pk": 26, 
+    "model": "chatter.comment", 
+    "fields": {
+      "content": "So do we!", 
+      "post": 11, 
+      "commenter": 1349, 
+      "dt": "2011-11-30 00:10:56"
+    }
+  }, 
+  {
+    "pk": 27, 
+    "model": "chatter.comment", 
+    "fields": {
+      "content": "Yes!", 
+      "post": 11, 
+      "commenter": 1349, 
+      "dt": "2011-11-01 01:08:56"
+    }
+  }, 
+  {
+    "pk": 28, 
+    "model": "chatter.comment", 
+    "fields": {
+      "content": "Us!", 
+      "post": 12, 
+      "commenter": 1349, 
+      "dt": "2011-12-01 02:10:57"
+    }
+  }, 
+  {
+    "pk": 29, 
+    "model": "chatter.comment", 
+    "fields": {
+      "content": "No, us!", 
+      "post": 12, 
+      "commenter": 1349, 
+      "dt": "2011-12-01 02:12:57"
+    }
+  }, 
+  {
+    "pk": 30, 
+    "model": "chatter.comment", 
+    "fields": {
+      "content": "What? Where was this taken?", 
+      "post": 13, 
+      "commenter": 1349, 
+      "dt": "2011-11-29 11:29:56"
+    }
+  }, 
+  {
+    "pk": 31, 
+    "model": "chatter.comment", 
+    "fields": {
+      "content": "CMU's campus :)", 
+      "post": 13, 
+      "commenter": 1349, 
+      "dt": "2011-11-29 12:08:56"
+    }
+  }, 
+  {
+    "pk": 32, 
+    "model": "chatter.comment", 
+    "fields": {
+      "content": "It's called WINTER\r\n\r\nj/k :)", 
+      "post": 14, 
+      "commenter": 1349, 
+      "dt": "2011-12-01 04:20:57"
+    }
+  }, 
+  {
+    "pk": 33, 
+    "model": "chatter.comment", 
+    "fields": {
+      "content": "We've been lucky so far this Fall, except for Halloween...", 
+      "post": 14, 
+      "commenter": 1349, 
+      "dt": "2011-12-01 04:25:57"
+    }
+  }, 
+  {
+    "pk": 34, 
+    "model": "chatter.comment", 
+    "fields": {
+      "content": "SOMEONE is off my Christmas list :)", 
+      "post": 14, 
+      "commenter": 1349, 
+      "dt": "2011-12-01 04:30:57"
+    }
+  }, 
+  {
+    "pk": 8, 
+    "model": "tagging.tag", 
+    "fields": {
+      "name": "Carnegie Mellon University"
+    }
+  }, 
+  {
+    "pk": 4, 
+    "model": "tagging.tag", 
+    "fields": {
+      "name": "Educational"
+    }
+  }, 
+  {
+    "pk": 2, 
+    "model": "tagging.tag", 
+    "fields": {
+      "name": "Entrepreneurship"
+    }
+  }, 
+  {
+    "pk": 6, 
+    "model": "tagging.tag", 
+    "fields": {
+      "name": "Fair"
+    }
+  }, 
+  {
+    "pk": 7, 
+    "model": "tagging.tag", 
+    "fields": {
+      "name": "Fireworks"
+    }
+  }, 
+  {
+    "pk": 10, 
+    "model": "tagging.tag", 
+    "fields": {
+      "name": "Food & Drink"
+    }
+  }, 
+  {
+    "pk": 11, 
+    "model": "tagging.tag", 
+    "fields": {
+      "name": "Happy Hour"
+    }
+  }, 
+  {
+    "pk": 5, 
+    "model": "tagging.tag", 
+    "fields": {
+      "name": "Music"
+    }
+  }, 
+  {
+    "pk": 1, 
+    "model": "tagging.tag", 
+    "fields": {
+      "name": "Oakland"
+    }
+  }, 
+  {
+    "pk": 3, 
+    "model": "tagging.tag", 
+    "fields": {
+      "name": "Sandwich Board"
+    }
+  }, 
+  {
+    "pk": 9, 
+    "model": "tagging.tag", 
+    "fields": {
+      "name": "University of Pittsburgh"
+    }
+  }, 
+  {
+    "pk": 1, 
+    "model": "offers.offer", 
+    "fields": {
+      "point_value": 4, 
+      "description": "Milano\u2019s Pizza Special: 2 slices and a drink for $4!", 
+      "tags": [
+        1, 
+        3
+      ], 
+      "sponsor": 1223
+    }
+  }, 
+  {
+    "pk": 2, 
+    "model": "offers.offer", 
+    "fields": {
+      "point_value": 10, 
+      "description": "$10 Recycled Wine and Cheese Trays at Maggie & Stella\u2019s", 
+      "tags": [
+        1, 
+        3
+      ], 
+      "sponsor": 1084
+    }
+  }, 
+  {
+    "pk": 3, 
+    "model": "offers.offer", 
+    "fields": {
+      "point_value": 50, 
+      "description": "$50 frames at 3 Guys!", 
+      "tags": [
+        1, 
+        3
+      ], 
+      "sponsor": 1341
+    }
+  }, 
+  {
+    "pk": 4, 
+    "model": "offers.offer", 
+    "fields": {
+      "point_value": 3, 
+      "description": "$3 Rail Drinks during the Pitt Game!", 
+      "tags": [
+        10, 
+        11, 
+        1, 
+        9
+      ], 
+      "sponsor": 1093
     }
   }, 
   {

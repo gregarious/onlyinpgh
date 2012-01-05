@@ -106,7 +106,6 @@ class Location(models.Model):
 
         return s.rstrip(', ')
 
-
 class Place(models.Model):
     '''
     Handles information about places.

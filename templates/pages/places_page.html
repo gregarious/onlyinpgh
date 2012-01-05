@@ -28,21 +28,21 @@ template for the Places page
 
 <ul>
 
-  {% for e in establishments %}
+  {% for p in places %}
 
   <li>
     <article class="feed-item-single">
-      <h4 class="feed-item-title">{{ e.name }}</h4>
+      <h4 class="feed-item-title">{{ p.name }}</h4>
 
       <div class="feed-item-content">
         <ul>
-          <li>{{ e.location.address }}</li>
+          <li>{{ p.location.address }}</li>
           <li>
             <p class="expand-details">Details...</p>
             <ul class="feed-item-details">
-              <li>{{ e.hours }}</li>
-              <li>{{ e.phone_number }}</li>
-              <li>{{ e.description }}</li>
+              <li>{{ p.hours }}</li>
+              <li>{{ p.phone }}</li>
+              <li>{{ p.description }}</li>
             </ul>
           </li>
           <li><a href="" class="load-single-place">Go to Event Page</a></li>
@@ -50,7 +50,7 @@ template for the Places page
       </div>
 
       <div class="feed-item-thumb">
-        <img class="thumbnail" width="100" height="100" alt="{{ e.name }}" src="{{ e.owner.identity.avatar }}" />
+        <img class="thumbnail" width="100" height="100" alt="{{ p.name }}" src="{{ p.owner.avatar }}" />
       </div>
 
       <div class="feed-item-tags">
