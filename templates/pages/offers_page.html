@@ -1,0 +1,62 @@
+{% comment %}
+	
+ ** Template for the offers page
+	Rendered when menu item 'Offers' is clicked
+	
+ ** Should
+	{% include "feeds/offers_feed.html " %}
+
+{% endcomment %}
+
+<header>
+  <h2>Coupon Book</h2>
+</header>
+
+<ul>
+<!-- Feed included for demonstration - will be accomplished with template inheritance instead -->
+{% for o in offers|slice:":4" %}
+
+  <li>  
+    <article class="feed-item">
+      <h1 class="feed-item-title">{{ o.description }}</h1>
+      <div class="feed-item-content">
+        <ul>
+          <li>{{ o.sponsor }}</li>
+          <li><time datetime="">Date deal ends</time></li>
+          <li><a href="">Details...</a></li>
+        </ul>
+        <a href="#grabbitModal" name="modal">Grabbit!</a>
+      </div>
+      <div class="feed-item-thumb">
+        <img src="{{ o.sponsor.avatar }}" width="100" height="100" alt="{{ o.name }}" />
+      </div>
+    </article>
+  </li>
+
+  <section id="grabbitModal" class="window">
+    <h3>Grab this coupon...</h3>
+    <p>{{ o.description }} from {{ o.sponsor }}<br />
+    Would you like to...</p>
+    <button>Pay with PayPal</button> or <button>Credit Card</button>
+    <p>You will recieve a printable receipt to redeem your coupon. You can also use your phone.</p>
+  </section>
+
+  <div id="modalMask"></div>
+
+{% endfor %}
+</ul>
+
+<section> <!-- or aside? -->
+
+	<header>
+		<h3>Contributing Businesses:</h3>
+	</header>
+	<ul>
+
+	{% for o in offers %}
+		<li>{{ o.sponsor }}</li>
+	{% endfor %}
+
+	</ul>
+
+</section>

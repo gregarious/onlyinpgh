@@ -1,0 +1,27 @@
+{% comment %}
+template to be included inside the #places div
+{% endcomment %}
+
+<ul class="broadcast clearfix">
+
+    {% for e in events %}
+    <li class="broadcast-item row">
+    	<section class="broadcast-info eightcol last">
+        	<h3>{{ e.name }}</h3>
+        	<p>{{ e.place.location.address }}</p>
+            <ul class="utility-icons row">
+                <li class="ui-icon ui-icon-newwin"></li>
+                <li class="ui-icon ui-icon-comment"></li>
+                <li class="ui-icon ui-icon-pin-w"></li>
+                <li class="ui-icon ui-icon-cart"></li>
+            </ul>
+        </section>
+        <div class="thumb-container fourcol last">
+        	<img class="thumbnail" class="" src="{{ e.image_url }}" />
+        </div>
+    </li>
+        {% if not forloop.last %}
+        	<hr>
+        {% endif %}
+    {% endfor %}
+</ul>

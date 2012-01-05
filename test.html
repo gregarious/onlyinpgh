@@ -1,0 +1,106 @@
+
+<style type="text/css">
+
+p {
+	margin: 0;
+}
+
+li {
+	list-style-type: none;
+	float: left;
+	width: 100px;
+	height: 100px;
+	border: 1px solid #999;
+}
+
+ul.day-events li {
+	border: none;
+	width: auto;
+	height: auto;
+	list-style-type: disc;
+}
+
+</style>
+
+
+{% comment %}
+template to be included inside the #eventsFeed div
+{% endcomment %}
+
+{% for e in events %}
+
+  <li>
+    <article class="feed-item">
+
+      <h1 class="feed-item-title">{{ e.name }}</h1>
+
+      <div class="feed-item-content">
+        <ul>
+          <li><time datetime="">{{ e.dtstart }}</time> - <time datetime="">{{ e.dtend }}</time></li>
+          <li>Hosted By: <a href="">{{ e.place }}</a></li>
+          <li>{{ e.place.location.address }}</li>
+          <li>Shortened Description</li>
+          <li><a href="">Details...</a></li>
+        </ul>
+      </div>
+
+      <div class="feed-item-thumb">
+        <img class="thumbnail" width="100" height="100" alt="{{ e.name }}" src="{{ e.image_url }}" />
+      </div>
+
+      <div class="feed-item-tags">
+        <ul class="tags-list">
+          <li>A Place</li>
+          <li>Holder</li>
+          <li>For Tags</li>
+        </ul>
+      </div>
+
+    </article>
+  </li>
+
+{% endfor %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- Individual calendar view loops -->
+
+<h3>Daily events calendar</h3>
+<ul>
+  {% for e in events|slice:":2" %}
+    <li class="daily-event">
+      <p>Daily events list</p>
+    </li>
+  {% endfor %}
+</ul>
+
+<!-- Weekly -->
+<h3>Weekly events calendar</h3>
+<ul class="calendar">
+  {% for e in events|slice:":7" %}
+    <li class="weekly-day">
+      <p></p>
+    </li>
+  {% endfor %}
+</ul>
+
+<!-- Monthly -->
+<h3>Monthly events calendar</h3>
+<ul class="calendar">
+  {% for e in events|slice:":7" %}
+    <li class="monthly-day">
+      <p></p>
+    </li>
+  {% endfor %}
+</ul>

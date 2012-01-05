@@ -1,0 +1,25 @@
+{% comment %}
+template to be included inside the #places div
+{% endcomment %}
+
+<ul class="broadcast">
+{% for o in offers %}
+	<li class="broadcast-item row">
+		<div class="row">
+			<span class="points twocol">+ {{ o.point_value }}</span>
+			<div class="eightcol last">
+		    	<h3>{{ o.description }}</h3>
+		    	<p class="more-info-link">Grabbit!</p>
+		    </div>
+		    <div class="twocol last">
+		    	<img height="100px" width="100px" src="{{ o.sponsor.identity.avatar }}" />
+		    </div>
+		</div>
+
+
+	    <!--<section class="more-info-dialog">
+			<p>adasdasdasdasdads</p>
+		</section>-->
+    </li>
+{% endfor %}
+</ul>

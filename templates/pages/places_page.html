@@ -1,0 +1,69 @@
+{% comment %}
+template for the individual event page
+{% endcomment %}
+
+Places page
+
+include places feed template + map
+
+{% comment %}
+template for the Places page
+{% endcomment %}
+
+<header>
+  <h2>Places</h2>
+</header>
+
+<div class="filter-items">
+  <select>
+    <option>Add some filters...</option>
+    <option>Restaurant</option>
+    <option>Retail</option>
+    <option>Cheap</option>
+    <option>Carnegie Mellon</option>
+    <option>Recreation</option>
+    <option>Bars</option>  
+  </select>
+</div>
+
+<ul>
+
+  {% for p in places %}
+
+  <li>
+    <article class="feed-item-single">
+      <h4 class="feed-item-title">{{ p.name }}</h4>
+
+      <div class="feed-item-content">
+        <ul>
+          <li>{{ p.location.address }}</li>
+          <li>
+            <p class="expand-details">Details...</p>
+            <ul class="feed-item-details">
+              <li>{{ p.hours }}</li>
+              <li>{{ p.phone }}</li>
+              <li>{{ p.description }}</li>
+            </ul>
+          </li>
+          <li><a href="" class="load-single-place">Go to Event Page</a></li>
+        </ul>
+      </div>
+
+      <div class="feed-item-thumb">
+        <img class="thumbnail" width="100" height="100" alt="{{ p.name }}" src="{{ p.owner.avatar }}" />
+      </div>
+
+      <div class="feed-item-tags">
+        <ul class="tags-list">
+          <li>A Place</li>
+          <li>Holder</li>
+          <li>For Tags</li>
+        </ul>
+      </div>
+
+    </article>
+  </li>
+
+{% endfor %}
+
+</ul>

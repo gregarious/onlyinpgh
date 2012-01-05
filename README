@@ -3,4 +3,10 @@ required external package installs (might include these in source later -- we'll
 django-extensions
 pytz
 pil
+
+
+## PROBLEMS ENCOUNTERED DURING DEMO PREP ##
+
+- all constraints have ON DELETE RESTRICT -- django docs suggest default should be CASCADE?
+
 icalendar
