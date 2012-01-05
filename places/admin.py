@@ -1,5 +1,5 @@
 from django.contrib import admin
-from onlyinpgh.places.models import *
+from onlyinpgh.places.models import Place, Location, Meta as PlaceMeta
 
 class PlaceMetaInline(admin.TabularInline):
     model = PlaceMeta

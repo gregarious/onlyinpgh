@@ -194,3 +194,6 @@ LOGGING = {
         }
     }
 }
+
+FIXTURE_DIRS = ( to_abspath('fixtures'),
+)

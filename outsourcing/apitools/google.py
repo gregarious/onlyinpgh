@@ -9,6 +9,14 @@ class GoogleGeocodingAPIError(APIError):
         self.request = request
         self.response = response
         super(GoogleGeocodingAPIError,self).__init__('google-geocoding',*args,**kwargs)    
+    
+    def __str__(self):
+        truncated = len(self.response) > 200
+        return 'GoogleGeocodingAPIError [req=%s, resp=%s%s]' % (self.request,self.response[:200],'...' if truncated else '')
+
+class GoogleGeocodingThrottleError(GoogleGeocodingAPIError):
+    def __init__(self,request,*args,**kwargs):
+        super(GoogleGeocodingThrottleError,self).__init__(request,'OVER_QUERY_LIMIT',*args,**kwargs)
 
 class GoogleGeocodingClient(object):
     '''
@@ -41,18 +49,33 @@ class GoogleGeocodingClient(object):
         
         request_url = cls.GOOGLE_BASE_URL + '?' + urllib.urlencode(options)
         
-        fp = delayed_retry_on_ioerror(lambda:urllib.urlopen(request_url),
-                                        delay_seconds=5,
-                                        retry_limit=1,
-                                        logger=outsourcing_log)                        
-        raw_response = fp.read()
-        return cls._package_response(raw_response,request_url)
-    
+        # Google will be polite and give us a nice notice if it's throttling us -- handle that in this loop 
+        throttle_retry_count = 0
+        throttle_retry_limit = 2
+        while throttle_retry_limit > 0:
+            fp = delayed_retry_on_ioerror(lambda:urllib.urlopen(request_url),
+                                            delay_seconds=5,
+                                            retry_limit=1,
+                                            logger=outsourcing_log)
+            raw_response = fp.read()
+            try:
+                return cls._package_response(raw_response,request_url)
+            except GoogleGeocodingThrottleError:
+                throttle_retry_count += 1
+                throttle_retry_limit -= 1
+                outsourcing_log.info('Google throttling: Will attempt retry %d (of %d max) in %d secs...' %\
+                    (throttle_retry_count,
+                    throttle_retry_limit,
+                    5))
+                time.sleep(5)
+            
     @classmethod
     def _package_response(cls,raw_response,request=None):
         response = GoogleGeocodingResponse(raw_response)
-        if response.status in ['OVER_QUERY_LIMIT','REQUEST_DENIED','INVALID_REQUEST']:
+        if response.status in ['REQUEST_DENIED','INVALID_REQUEST']:
             raise GoogleGeocodingAPIError(request,raw_response)
+        elif response.status == 'OVER_QUERY_LIMIT':
+            raise GoogleGeocodingThrottleError(request)
         return response
 
     @classmethod
@@ -225,8 +248,29 @@ class GoogleGeocodingResult(object):
         '''
         named_address_types = list(PREMISE_TYPES)
         named_address_types.remove('premise')   # we want to consider premises seperately from the rest of the named types
+
+        ############
+        # TODO: problem here with more than one establishment
+        # 
+        # CRAAAAAZY HACK REMOVE REMOVE REMOVE ALL OF THIS
+        # HACK ON
+        named_address_types.remove('establishment')   # we want to consider premises seperately from the rest of the named types        
+        # HACK OFF
         named_components = [ comp for comp in [ self.get_address_component(t) for t in named_address_types ] 
                                 if comp is not None ]
+        # HACK ON
+        # manually get the establishments
+        establishments = self.get_address_component(t,allow_multiple=True)
+        # if there's more than one, grab the first one that isn't the university name
+        if len(establishments) > 1:
+            for estab in establishments:
+                if 'university' not in estab.lower():
+                    named_components.insert(0,establishments[0])
+                    break
+        elif len(establishments) == 1:
+            named_components.insert(0,establishments[0])
+        # HACK OFF
+        ############
         named_component = named_components[0] if len(named_components) > 0 else None
         premise = self.get_address_component('premise',None)
         subpremise = self.get_address_component('subpremise',None)
