@@ -339,7 +339,30 @@ body:after {
 /* 5 FIGURES & IMAGES ---------- */
 /* 6 TABLES ---------- */
 /* 7 FORMS ---------- */
-/* 8 BANNER ---------- */
+/* 8 HEADER ---------- */
+.site-header {
+  *zoom: 1;
+  *zoom: 1;
+  left: 0;
+  right: 0;
+  position: fixed;
+  z-index: 9000;
+  background-color: #A9D5E4;
+}
+.site-header:before, .site-header:after {
+  content: "";
+  display: table;
+}
+.site-header:after {
+  clear: both;
+}
+.site-footer {
+  display: inline;
+  float: left;
+  width: 97.91666666666666%;
+  margin: 0 1.0416666666666665%;
+  background-color: #A9D5E4;
+}
 /* 9 NAVIGATION ---------- */
 .global-nav, .feed-item-tags, .page-utility-nav {
   display: inline;
@@ -371,11 +394,11 @@ body:after {
 }
 /* 10 MAIN ---------- */
 .main {
+  background-color: #f3f3f3;
   display: inline;
   float: left;
   width: 72.91666666666666%;
   margin: 0 1.0416666666666665%;
-  background-color: #f3f3f3;
 }
 .sidebar {
   background-color: #ccc;
@@ -383,6 +406,10 @@ body:after {
   float: left;
   width: 22.916666666666664%;
   margin: 0 1.0416666666666665%;
+}
+.main, .sidebar, .site-footer {
+  position: relative;
+  top: 10em;
 }
 /* 11 FEEDS ---------- */
 .feed {
@@ -420,7 +447,7 @@ body:after {
   background-clip: padding-box;
 }
 .feed-item-content-container {
-  background-color: green;
+  background-color: #fff;
   *zoom: 1;
   *zoom: 1;
   margin: 0.5em;
@@ -432,6 +459,11 @@ body:after {
 }
 .feed-item-content-container:after {
   clear: both;
+}
+.feed-item-title {
+  margin: 0 0 0.5em 0;
+  padding: 0.2em;
+  background-color: #f1f1f1;
 }
 .feed-item-content {
   display: inline;

@@ -238,7 +238,22 @@ section {
 /* 5 FIGURES & IMAGES ---------- */
 /* 6 TABLES ---------- */
 /* 7 FORMS ---------- */
-/* 8 BANNER ---------- */
+/* 8 HEADER ---------- */
+
+.site-header {
+  .clearfix;
+  left: 0;
+  right: 0;
+  position: fixed;
+  z-index: 9000;  
+  background-color: #A9D5E4;
+}
+
+.site-footer {
+  .column(12);
+  background-color: #A9D5E4;
+}
+
 /* 9 NAVIGATION ---------- */
 
 .global-nav, .feed-item-tags, .page-utility-nav {
@@ -282,8 +297,8 @@ section {
 /* 10 MAIN ---------- */
 
 .main {
-  .column(9);
   background-color: #f3f3f3;
+  .column(9);
 }
 
 .sidebar {
@@ -291,6 +306,11 @@ section {
   .column(3);
 }
 
+.main, .sidebar, .site-footer {
+  position: relative;
+  top: 10em;
+}
+  
 /* 11 FEEDS ---------- */
 
 .feed {
@@ -306,10 +326,16 @@ section {
 }
 
 .feed-item-content-container {
-  background-color: green;
+  background-color: #fff;
   .clearfix;
   margin: 0.5em;
   padding: 0.5em;
+}
+
+.feed-item-title {
+  margin: 0 0 0.5em 0;
+  padding: 0.2em;
+  background-color: #f1f1f1;
 }
 
 .feed-item-content {
