@@ -1,0 +1,68 @@
+{
+   "results" : [
+      {
+         "address_components" : [
+            {
+               "long_name" : "Atwood St",
+               "short_name" : "Atwood St",
+               "types" : [ "route" ]
+            },
+            {
+               "long_name" : "Pittsburgh",
+               "short_name" : "Pittsburgh",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Allegheny",
+               "short_name" : "Allegheny",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Pennsylvania",
+               "short_name" : "PA",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "United States",
+               "short_name" : "US",
+               "types" : [ "country", "political" ]
+            },
+            {
+               "long_name" : "15213",
+               "short_name" : "15213",
+               "types" : [ "postal_code" ]
+            }
+         ],
+         "formatted_address" : "Atwood St, Pittsburgh, PA 15213, USA",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 40.44175420,
+                  "lng" : -79.9525060
+               },
+               "southwest" : {
+                  "lat" : 40.436960,
+                  "lng" : -79.95847139999999
+               }
+            },
+            "location" : {
+               "lat" : 40.4396760,
+               "lng" : -79.95591589999999
+            },
+            "location_type" : "GEOMETRIC_CENTER",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 40.44175420,
+                  "lng" : -79.9525060
+               },
+               "southwest" : {
+                  "lat" : 40.436960,
+                  "lng" : -79.95847139999999
+               }
+            }
+         },
+         "types" : [ "route" ]
+      }
+   ],
+   "status" : "OK"
+}

@@ -1,0 +1,68 @@
+{
+   "id": "50141015898",
+   "name": "Voluto Coffee",
+   "picture": "http://profile.ak.fbcdn.net/hprofile-ak-snc4/50514_50141015898_6026239_s.jpg",
+   "link": "https://www.facebook.com/pages/Voluto-Coffee/50141015898",
+   "likes": 718,
+   "category": "Restaurant/cafe",
+   "website": "volutocoffee.com",
+   "location": {
+      "street": "5467 Penn Avenue",
+      "city": "Pittsburgh",
+      "state": "PA",
+      "country": "United States",
+      "zip": "15206",
+      "latitude": 40.464737,
+      "longitude": -79.934079
+   },
+   "parking": {
+      "street": 1,
+      "lot": 1,
+      "valet": 0
+   },
+   "hours": {
+      "mon_1_open": "07:00",
+      "mon_1_close": "19:00",
+      "tue_1_open": "07:00",
+      "tue_1_close": "19:00",
+      "wed_1_open": "07:00",
+      "wed_1_close": "19:00",
+      "thu_1_open": "07:00",
+      "thu_1_close": "19:00",
+      "fri_1_open": "07:00",
+      "fri_1_close": "17:00",
+      "sat_1_open": "09:00",
+      "sat_1_close": "17:00",
+      "sun_1_open": "09:00",
+      "sun_1_close": "17:00"
+   },
+   "payment_options": {
+      "cash_only": 0,
+      "visa": 1,
+      "amex": 1,
+      "mastercard": 1,
+      "discover": 1
+   },
+   "restaurant_services": {
+      "reserve": 0,
+      "walkins": 0,
+      "groups": 1,
+      "kids": 1,
+      "takeout": 0,
+      "delivery": 0,
+      "catering": 0,
+      "waiter": 0,
+      "outdoor": 1
+   },
+   "restaurant_specialties": {
+      "breakfast": 1,
+      "lunch": 0,
+      "dinner": 0,
+      "coffee": 1,
+      "drinks": 0
+   },
+   "phone": "412-661-3000",
+   "can_post": true,
+   "checkins": 70,
+   "talking_about_count": 17
+}
