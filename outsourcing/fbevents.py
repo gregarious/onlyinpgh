@@ -116,6 +116,15 @@ def _process_place_cache_support(event_info,resolve_cache):
     
     return place
 
+def _location_to_kwargs(location,omit_null=True):
+    kwargs = {}
+    for f in Location._meta.fields:
+        val = location.__getattribute__(f.name)
+        if omit_null and ( val == '' or val is None ):
+            continue
+        kwargs[f.name] = val
+    return kwargs
+
 def _process_place(event_info):
     '''
     Attempts to tease a Place out of the given event_info. 
@@ -123,55 +132,84 @@ def _process_place(event_info):
     May return either an already stored Place or a non-stored one (check 
     the pk value to tell the difference).
 
-    Important! If Place is not yet stored, neither is Location inside
-    it. Ensure the inner Location is saved first!
+    Important! If Place is not yet stored, the Location inside it is not
+    guaranteed to be stored either. Ensure the inner Location is saved 
+    before saving the Place!
     '''
-    # TODO: add some debug logging?
     venue = event_info.get('venue',{})
     place_name = event_info.get('location','').strip()
-
     if venue.get('id'):
-        # best case is that our venue is identified by a Facebook ID
+        # best case is that our venue is identified by an existing Facebook ID
         try:
             return ExternalPlaceSource.facebook.get(uid=venue.get('id')).place
         except ExternalPlaceSource.DoesNotExist:
             pass
 
-    # id didn't work, so lets get our hands dirty with some resolve/geocoding API calls
+    # we couldn't get a nice id-based Place, so we're going to try to figure one 
+    # out manually if there's vanue or place_name fields 
     if venue or place_name:
-        location = fbpages.fbloc_to_loc(venue)
-        
-        # if there's no address or geocoding, we'll need to talk to outside services
-        if not location.address:
-            # try to build a seed to resolve with
-            seed_loc = copy.deepcopy(location)
+        # do something semi-intelligent to get a good Location out of the venue
+        if venue:
+            location = fbpages.fbloc_to_loc(venue)
+            # if there's no address or geocoding, we'll need to talk to outside services
+            if not location.address:
+                # try to build a seed to resolve with
+                seed_loc = copy.deepcopy(location)
+                
+                # in the absense of city/state info, assume location is in same city/state as owner
+                if not seed_loc.town or not seed_loc.state:
+                    fbowner = event_info.get('owner',{})
+                    if fbowner.get('id'):
+                        try:
+                            owner_place = ExternalPlaceSource.facebook.get(uid=fbowner.get('id')).place
+                        except ExternalPlaceSource.DoesNotExist:
+                            owner_place = None
+                        if owner_place:
+                            if not seed_loc.town:
+                                seed_loc.town = owner_place.location.town
+                            if not seed_loc.state:
+                                seed_loc.state = owner_place.location.state
+
+                seed_place = Place(name=place_name,location=seed_loc)
+                resolved_place = resolve_place(seed_place)
+                if resolved_place:
+                    # throw awy everything but the location
+                    location = resolved_place.location
             
-            # in the absense of city/state info, assume location is in same city/state as owner
-            if not seed_loc.town or not seed_loc.state:
-                fbowner = event_info.get('owner',{})
-                if fbowner.get('id'):
-                    try:
-                        owner_place = ExternalPlaceSource.facebook.get(uid=fbowner.get('id')).place
-                    except ExternalPlaceSource.DoesNotExist:
-                        owner_place = None
-                    if owner_place:
-                        if not seed_loc.town:
-                            seed_loc.town = owner_place.location.town
-                        if not seed_loc.state:
-                            seed_loc.state = owner_place.location.state
-
-            seed_place = Place(name=place_name,location=seed_loc)
-            resolved_place = resolve_place(seed_place)
-            if resolved_place:
-                # throw awy everything but the location
-                location = resolved_place.location
-
-        # really want geolocation, go to Google Geocoding for it if we need it
-        if location.longitude is None or location.latitude is None:
-            seed_loc = copy.deepcopy(location)
-            resolved_location = resolve_location(seed_loc)
-            if resolved_location: 
-                location = resolved_location
+            # really want geolocation, go to Google Geocoding for it if we need it
+            if location.longitude is None or location.latitude is None:
+                seed_loc = copy.deepcopy(location)
+                resolved_location = resolve_location(seed_loc)
+                if resolved_location: 
+                    location = resolved_location
+            
+            # if there's a "close enough" location in the db already, find and use it
+            # only want to include "not-null" arguments into the get_close call. find these here
+            # if still no geocoding info, 
+            has_geocoding = location.latitude is not None and location.longitude is not None
+            if has_geocoding:
+                # since we've got geocoding info, this location is specific. therefore, null entries 
+                # just signify a lack of info, not a planned null field for a vague address: omit them 
+                # for the get query
+                kwargs = _location_to_kwargs(location,True)  
+                try:
+                    location = Location.close_manager.get_close(**kwargs)
+                except Location.DoesNotExist:   # if none found, no biggie, just return
+                    pass
+            else:
+                # if we don't have geocoding, we want to find an exact match in the db, null fields and all
+                kwargs = _location_to_kwargs(location,False) 
+                try:
+                    location = Location.objects.get(**kwargs)
+                except Location.DoesNotExist:   
+                    # if none found, no biggie, just return
+                    pass
+                except Location.MultipleObjectsReturned:
+                    # if more than one found, its a sign there's some dups in the db. just return the first one.
+                    outsourcing_log.warning('Multiple objects returned with Location query of %s' % str(kwargs))
+                    return Location.objects.filter(**kwargs)[0]
+        else:
+            location = None
 
         return Place(name=place_name,location=location)
             
@@ -271,8 +309,8 @@ def store_fbevent(event_info,event_image=None,
         event.place = _process_place(event_info)
     
     if event.place and event.place.pk is None:
-        # TODO: ensure unique locations stored
-        event.place.location.save()
+        if event.place.location and event.place.location.pk is None:
+            event.place.location.save()
         event.place.save()
 
     event.save()

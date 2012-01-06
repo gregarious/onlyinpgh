@@ -111,11 +111,19 @@ class EventImportingTest(TestCase):
         # can't really assert anything about some third party page's events. be content
         # with just testing that there's a few of them and the first one has some 
         # event-specific fields
-        valid_events = pid_infos_map['40796308305']
-        self.assertGreater(len(valid_events),4)       # should be more than 4? why not.
-        for valid_event in valid_events:
-            self.assertIn('start_time',valid_event.keys())
-            self.assertIn('owner',valid_event.keys())
+        events = pid_infos_map['40796308305']
+        self.assertGreater(len(events),4)       # should be more than 4? why not.
+
+        # some of the queries will randomly fail. trim these out and ensure less 
+        # than 25% of the respopnses are failures
+        failures = [ev for ev in events if isinstance(ev,FacebookAPIError)]
+        if len(failures) > .25*len(events):
+            self.fail('Unexpected large number of failed event pulls (%d of %d).' % (len(failures),len(events)))
+        
+        for event in events:
+            if event not in failures:
+                self.assertIn('start_time',event.keys())
+                self.assertIn('owner',event.keys())
 
         # this one should return an empty list
         self.assertEquals(pid_infos_map['121994841144517'],[])

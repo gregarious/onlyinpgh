@@ -251,7 +251,7 @@ def store_fbpage_place(page_info,create_owner=True):
         if resolved_location: 
             location = resolved_location
 
-    location, created = Location.objects.get_or_create(
+    location, created = Location.close_manager.get_close_or_create(
                     address=location.address,
                     postcode=location.postcode,
                     town=location.town,
