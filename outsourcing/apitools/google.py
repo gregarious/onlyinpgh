@@ -260,7 +260,7 @@ class GoogleGeocodingResult(object):
                                 if comp is not None ]
         # HACK ON
         # manually get the establishments
-        establishments = self.get_address_component(t,allow_multiple=True)
+        establishments = self.get_address_component('establishment',allow_multiple=True)
         # if there's more than one, grab the first one that isn't the university name
         if len(establishments) > 1:
             for estab in establishments:
