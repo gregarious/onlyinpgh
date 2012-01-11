@@ -110,7 +110,11 @@ class CloseLocationManagerTest(TestCase):
         lat,lng = 40.464237,-79.932940
         l,created = Location.close_manager.get_close_or_create(address='5467 Penn Ave',latitude=lat,longitude=lng)
         self.assertFalse(created)
+        l,created = Location.close_manager.get_close_or_create(latitude=lat,longitude=lng)
+        self.assertFalse(created)
+        
         l,created = Location.close_manager.get_close_or_create(address='5468 Penn Ave',latitude=lat,longitude=lng)
         self.assertTrue(created)
         self.assertEquals(l.latitude,lat)
         self.assertEquals(l.longitude,lng)
+        

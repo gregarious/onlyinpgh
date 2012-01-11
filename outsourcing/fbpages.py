@@ -10,7 +10,9 @@ from onlyinpgh.identity.models import Organization
 from onlyinpgh.places.models import Location, Place, Meta as PlaceMeta
 from onlyinpgh.outsourcing.models import FacebookOrgRecord, ExternalPlaceSource
 
-import logging
+from onlyinpgh.outsourcing.places import resolve_place
+
+import logging, copy
 outsourcing_log = logging.getLogger('onlyinpgh.outsourcing')
 
 # reverse the US_STATE_MAP for eaach lookup of full names to abbreviations
@@ -60,6 +62,9 @@ def gather_fb_place_pages(center,radius,query=None,limit=4000,batch_requests=Tru
     If batch_request is True (default), these requests will be batched, 
     otherwise they'll be run once at a time. Commands with a large number
     of results may fail if batched.
+
+    No error handling right now -- if any of the search requests fail the whole 
+    thing is coming down.
     '''
     search_opts = dict(type='place',
                         center='%f,%f' % center,
@@ -186,7 +191,7 @@ def _store_fbpage_placemeta(page_info,place):
         url = page_info.get('website','').split()[0].strip()[:400]
     except IndexError:
         # otherwise, go with the fb link (and manually create it if even that fails)
-        url = page_info.get('link','http://www.facebook.com/%s'%pid)
+        url = page_info.get('link','http://www.facebook.com/%s'%page_info['id'])
     if url:
         PlaceMeta.objects.get_or_create(place=place,meta_key='url',meta_value=url)
 
@@ -251,6 +256,10 @@ def store_fbpage_place(page_info,create_owner=True):
         if resolved_location: 
             location = resolved_location
 
+    # if there's no specific address information, make the error radius around the
+    # lat/lng super tight. Don't want to create whirlpools. 
+    cl_opts = dict(lat_error=1e-5,lng_error=1e-5) if not location.address else {}
+    
     location, created = Location.close_manager.get_close_or_create(
                     address=location.address,
                     postcode=location.postcode,
@@ -259,7 +268,8 @@ def store_fbpage_place(page_info,create_owner=True):
                     country=location.country,
                     neighborhood=location.neighborhood,
                     latitude=location.latitude,
-                    longitude=location.longitude)
+                    longitude=location.longitude,
+                    _close_options=cl_opts)
     if created:
         outsourcing_log.debug('Saved new location "%s"' % location.full_string)
     else:
@@ -389,7 +399,8 @@ class PageImportManager(object):
 
     def import_orgs(self,page_ids,use_cache=True):
         '''
-        Inserts Organizations for a batch of page_ids from Facebook.
+        Inserts Organizations for a batch of page_ids from Facebook. 
+        Yields a parallel list of PageImportReports (is a generator).
 
         Will skip over creating any Organizations already tracked by a 
         FacebookOrgRecord instance and return a result with a 
@@ -397,16 +408,16 @@ class PageImportManager(object):
 
         If use_cache is True, any available cached page information stored 
         in this manager will be used.
-
-        Returns a parallel list of PageImportReport objects.
         '''
         # TODO: could do something here to filter out page ids that we 
         #       already have info for before we pull them
         page_infos = self.pull_page_info(page_ids,use_cache)
         
-        return [self._store_org(info) if not isinstance(info,Exception)
-                                        else PageImportReport(pid,None,[info])
-                                        for pid,info in zip(page_ids,page_infos)]
+        for pid,info in zip(page_ids,page_infos):
+            if not isinstance(info,Exception):
+                yield self._store_org(info)
+            else:
+                yield PageImportReport(pid,None,[info])
 
     def _store_place(self,info,import_owners=True):
         '''
@@ -449,9 +460,11 @@ class PageImportManager(object):
         #       already have info for before we pull them
         page_infos = self.pull_page_info(page_ids,use_cache)
         
-        return [self._store_place(info,import_owners) if not isinstance(info,Exception)
-                                        else PageImportReport(pid,None,[info])
-                                        for pid,info in zip(page_ids,page_infos)]
+        for pid,info in zip(page_ids,page_infos):
+            if not isinstance(info,Exception):
+                yield self._store_place(info,import_owners)
+            else:
+                yield PageImportReport(pid,None,[info])
 
 def import_org(page_id):
     '''
@@ -467,22 +480,3 @@ def import_place(page_id,import_owner=True):
     '''
     mgr = PageImportManager()
     return mgr.import_places([page_id],import_owners=import_owner)[0]
-
-def _get_all_places_from_cron_job():
-    '''
-    Runs a series of queries to return the same results that the old oip
-    fb5_getLocal.execute_quadrants Java code searches over.
-    '''
-    search_coords = [ (40.44181,-80.01277),
-                      (40.666667,-79.700556),
-                      (40.666667,-80.308056),
-                      (40.216944,-79.700556),
-                      (40.216944,-80.308056),
-                      (40.44181,-80.01277),
-                    ]
-
-    all_ids = set()
-    for coords in search_coords:
-        ids = [page['id'] for page in gather_fb_place_pages(coords,25000)]
-        all_ids.update(ids)
-    return list(all_ids)

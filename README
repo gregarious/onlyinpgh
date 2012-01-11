@@ -3,10 +3,5 @@ required external package installs (might include these in source later -- we'll
 django-extensions
 pytz
 pil
-
-
-## PROBLEMS ENCOUNTERED DURING DEMO PREP ##
-
-- all constraints have ON DELETE RESTRICT -- django docs suggest default should be CASCADE?
-
+dateutil (v1.5 for Python 2.x -- for pip use "pip install dateutil==1.5")
 icalendar

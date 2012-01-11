@@ -2,14 +2,16 @@ from django.test import TestCase
 
 from onlyinpgh.identity.models import Organization
 from onlyinpgh.places.models import Place
+from onlyinpgh.events.models import Event
 from onlyinpgh.outsourcing.models import FacebookOrgRecord, ExternalPlaceSource, FacebookEventRecord
 
 from onlyinpgh.outsourcing.apitools.facebook import FacebookAPIError
-from onlyinpgh.outsourcing.fbevents import *
+from onlyinpgh.outsourcing.fbevents import store_fbevent, EventImportManager, EventImportReport
 
 from onlyinpgh.outsourcing.subtests import load_test_json
 
 import random, logging
+from datetime import datetime
 logging.disable(logging.CRITICAL)
 
 class EventStorageTest(TestCase):
@@ -40,9 +42,11 @@ class EventStorageTest(TestCase):
             self.fail('Event not inserted')
 
         try:
-            # make sure the stored FBEventRecord has the correct Event set
-            event_on_record = FacebookEventRecord.objects.get(fb_id=event_fbid).event
-            self.assertEquals(event_on_record,event)
+            # make ensure the stored FBEventRecord has the correct Event set
+            record = FacebookEventRecord.objects.get(fb_id=event_fbid)
+            self.assertEquals(record.event,event)
+            # ensure the last updated time was set correctly on the event record
+            self.assertEquals(record.last_updated,datetime(2011,9,23,18,27,48))
         except Event.DoesNotExist:
             self.fail('FacebookEventRecord not found!')            
 

@@ -16,15 +16,14 @@ from onlyinpgh.outsourcing.places import resolve_place, resolve_location
 from onlyinpgh.utils.time import localtoutc
 
 from itertools import chain
-from datetime import datetime
-
+from dateutil import parser as dtparser
 import json, copy, logging, pytz
 
 outsourcing_log = logging.getLogger('onlyinpgh.outsourcing')
 
 EST = pytz.timezone('US/Eastern')
 
-# TODO: should be in apitools.faceboob somewhere
+# TODO: should be in apitools.facebook somewhere
 def _run_batch(batch):
     batch_response = facebook.oip_client.run_batch_request(batch)
     responses = []
@@ -35,14 +34,6 @@ def _run_batch(batch):
             resp = e
         responses.append(resp)
     return responses
-
-def fbtime_to_datetime(fbtime_str):
-    '''
-    Translate Facebook-formatted start_time or end_time field to datetime.
-
-    Will return ValueError if the time string has an unexpected format.
-    '''
-    return datetime.strptime(fbtime_str,'%Y-%m-%dT%H:%M:%S')
 
 def get_full_event_infos(event_ids):
     event_details = []
@@ -84,8 +75,6 @@ def get_page_event_stubs(page_ids):
                                 for resp in _run_batch(cmds) ]
         page_event_lists.extend( r.get('data',[]) for r in responses )
 
-    # TODO: REMOVE
-    assert len(page_ids) == len(page_event_lists)
     return dict(zip(page_ids,page_event_lists))
 
 def _get_owner(page_id,create_new=False):
@@ -286,8 +275,8 @@ def store_fbevent(event_info,event_image=None,
 
     # process times
     try:
-        dtstart_est = EST.localize(fbtime_to_datetime(event_info.get('start_time')))
-        dtend_est = EST.localize(fbtime_to_datetime(event_info.get('end_time')))
+        dtstart_est = EST.localize(dtparser.parse(event_info.get('start_time')))
+        dtend_est = EST.localize(dtparser.parse(event_info.get('end_time')))
     except ValueError as e:
         raise ValueError('Bad start/end time for event fbid %s: %s' % (str(fbid),str(e)))
         
@@ -315,8 +304,18 @@ def store_fbevent(event_info,event_image=None,
 
     event.save()
 
+    # get the update time from the fbevent
+    dtupdate_str = event_info.get('updated_time')
+    if dtupdate_str:
+        dtupdated = dtparser.parse(event_info.get('updated_time'))
+        if dtupdated.tzinfo:    # if a tz was part of the time string, convert to UTC (otherwise just assume UTC)
+            dtupdated = localtoutc(dtupdated,return_naive=True)
+        event.dtmodified = dtupdated
+    else:
+        dtupdated = event.dtmodified
+
     # create a FB record
-    FacebookEventRecord.objects.create(fb_id=fbid,event=event)
+    FacebookEventRecord.objects.create(fb_id=fbid,event=event,last_updated=dtupdated)
 
     # add event categories as EventMeta objects
     categorize.add_event_oldtypes(event)
@@ -458,7 +457,7 @@ class EventImportManager(object):
             stubs = self._cached_page_estub_lists.get(pid,[])
             if start_filter:
                 stubs = [stub for stub in stubs
-                            if fbtime_to_datetime(stub['start_time']) >= start_filter ]
+                            if dtparser.parse(stub['start_time']) >= start_filter ]
             page_eids_map[pid] = [stub['id'] for stub in stubs]
 
         # flatten list of eids

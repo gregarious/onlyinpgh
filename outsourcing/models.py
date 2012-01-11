@@ -53,8 +53,7 @@ class FacebookEventRecord(models.Model):
     time_added = models.DateTimeField('time added in our records',auto_now_add=True)
     last_checked = models.DateTimeField('time last checked for updated',auto_now_add=True)
     
-    # TODO: temporary null here
-    last_updated = models.DateTimeField('time Facebook record was last updated',null=True)
+    last_updated = models.DateTimeField('time Facebook record was last updated')
     ignore = models.BooleanField('always ignore this event',default=False)    
 
 class FacebookOrgRecord(models.Model):

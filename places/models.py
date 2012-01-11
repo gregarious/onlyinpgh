@@ -14,11 +14,11 @@ class Neighborhood(models.Model):
     def __unicode__(self):
         return self.name
 
-class CloseLocationManager(models.Manager):
-    def _calc_distance(p0,p1):
-        return sqrt(pow(p1[0]-p0[0],2),
-                    pow(p1[1]-p0[1],2))
+def _calc_distance(p0,p1):
+    return sqrt(pow(p1[0]-p0[0],2),
+                pow(p1[1]-p0[1],2))
 
+class CloseLocationManager(models.Manager):
     def get_close(self,**kwargs):
         '''
         Runs a get query that allows some leeway on exact matching of 
@@ -35,7 +35,7 @@ class CloseLocationManager(models.Manager):
         '''
         assert kwargs, 'get_close() only support keyword arguments'
 
-        close_options = kwargs.pop('_close_options', {})
+        close_options = kwargs.pop('_close_options',{})
         lat_error = close_options.get('lat_error',1e-3)
         lng_error = close_options.get('lng_error',1e-3)
         assert_single_match = close_options.get('assert_single_match',False)
@@ -61,13 +61,15 @@ class CloseLocationManager(models.Manager):
         elif len(results) == 1:
             return results[0]
         else:
+            calc_distance = lambda p0,p1: sqrt(pow(float(p1[0])-float(p0[0]),2) +
+                                                pow(float(p1[1])-float(p0[1]),2))
             if lat is None: lat = 0
             if lng is None: lng = 0
             anchor = (lat,lng)
             best, best_dist = None, float('inf')
             for r in results:
                 point = (r.latitude or 0, r.longitude or 0)
-                dist = self._calc_distance(anchor,point)
+                dist = calc_distance(anchor,point)
                 if dist < best_dist:
                     best, best_dist = r, dist
             return best
@@ -77,19 +79,24 @@ class CloseLocationManager(models.Manager):
         Runs get_or_create query with some leeway on matching geocoding
         criteria for the get attempt.
 
+        Note: be careful on using this function with address-less
+        locations that just feature geocoding. Doing so will encourage all
+        address-less locations to converge to focus points (the first 
+        one created).
+
         Accepts same _close_options as get_close() -- see that method's 
         docstring for more details.
 
         Note, this involves one extra query than a normal get_or_create
-        call because I didn't want to muck around in duplicating the
-        intricaies of Django's own get_or_create.
+        when the get_close fails because I didn't want to muck around 
+        in duplicating the intricaies of Django's own get_or_create.
         '''
         try:
             return self.get_close(**kwargs), False
         except Location.DoesNotExist:
             kwargs.pop('_close_options', {})
             return self.get_or_create(**kwargs)
-
+        
 
 class Location(models.Model):
     '''
