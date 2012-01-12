@@ -185,7 +185,6 @@ class Place(models.Model):
     Handles information about places.
     '''
     class Meta:
-        unique_together = ('name','location')
         ordering = ['name']
 
     dtcreated = models.DateTimeField('dt created',auto_now_add=True)

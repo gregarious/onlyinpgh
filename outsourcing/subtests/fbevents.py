@@ -206,8 +206,8 @@ class EventImportingTest(TestCase):
                             set(pids),
                             'unexpected number of EventImportReport groups returned')
 
-        for pid,expected in pid_expected_pairs:
-            result_list = result_lists[pid]
+        for pid_exp_pair,result_list in zip(pid_expected_pairs,result_lists):
+            pid,expected = pid_exp_pair
             if expected:
                 for result in result_list:
                     # basic sanity tests
