@@ -5,15 +5,15 @@ import logging
 importlog = logging.getLogger('onlyinpgh.fb_import')
 
 from datetime import datetime
+from itertools import izip
 
-def import_events(start_filter=None)
+def import_events(start_filter=None):
     page_ids = [obj.fb_id for obj in FacebookOrgRecord.objects.all()]
-    page_ids = page_ids[:10]
 
     event_mgr = EventImportManager()
-    reports_by_page = event_mg.import_events_from_pages(page_ids,start_filter)
+    reports_by_page = event_mgr.import_events_from_pages(page_ids,start_filter)
 
-    for page_id,reports in zip(page_ids,reports_by_page):
+    for page_id,reports in izip(page_ids,reports_by_page):
         importlog.info('Importing events for Facebook page %s' % page_id)
         for report in reports:
             if report.notices:

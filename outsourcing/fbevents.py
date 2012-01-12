@@ -543,7 +543,6 @@ class EventImportManager(object):
         page_fbevents_map = self.pull_event_info_from_pages(page_ids,
                                                             start_filter=start_filter,
                                                             use_cache=use_cache)
-        
         page_reports_map = {}
         for pid,fbevents in page_fbevents_map.items():
             venue_cache = VenueResolveCache()   # used to prevent redundant resolve calls for a 

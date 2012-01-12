@@ -43,12 +43,19 @@ class ExternalPlaceSource(models.Model):
     def __unicode__(self):
         return '%s:%s -> %s' % (self.service,self.uid,self.place)
 
+class FacebookPage(models.Model):
+    '''
+    Simple model to store all FB ids encountered.
+    '''
+    fb_id = models.BigIntegerField(primary_key=True)
+    ignore = models.BooleanField('always ignore this page',default=False)    
+
 class FacebookEventRecord(models.Model):
     '''
     Model that records links between Facebook events and internal Events.
     '''
     fb_id = models.BigIntegerField(primary_key=True)
-    event = models.ForeignKey(Event,null=True,blank=True)
+    event = models.ForeignKey(Event)
 
     time_added = models.DateTimeField('time added in our records',auto_now_add=True)
     last_checked = models.DateTimeField('time last checked for updated',auto_now_add=True)
