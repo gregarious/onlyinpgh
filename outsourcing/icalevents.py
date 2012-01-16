@@ -54,7 +54,12 @@ class FeedImporter(object):
 	def _resolve_location_string(self,location_str):
 		if location_str:
 			# TODO: could do some geocoding filtering here
-			result = smart_text_resolve(location_str)
+			try:
+				result = smart_text_resolve(location_str)
+			except Exception as e:
+				print 'location resolve error!',e
+				return None, None
+
 			if result.place is not None:
 				place = result.place
 			elif result.location is not None:
