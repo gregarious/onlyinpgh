@@ -266,14 +266,14 @@ def smart_text_resolve(address_text,seed_location=None):
         if state:       l.state = state
         return resolve_place(Place(name=name,location=l))
     
-    # TEMPORARILY MOVED STEP 3 TO 0
+    ### Resolve API battery
+    # 1: First try first field as the name, second as address
     if len(fields) > 1:
         result = _seeded_resolve(name=fields[0],address=fields[1])
         if result: 
             return SmartTextResolveResult(address_text,'RESOLVED_FIELD0_NAME_FIELD1_ADDRESS',place=result)
 
-    ### Resolve API battery
-    # 1: Try the whole string as the name
+    # 2: Try the whole string as the name
     result = _seeded_resolve(name=address_text)
     if result:
         return SmartTextResolveResult(address_text,'RESOLVED_FULL_STRING',place=result)
@@ -282,12 +282,6 @@ def smart_text_resolve(address_text,seed_location=None):
     result = _seeded_resolve(name=fields[0])
     if result: 
         return SmartTextResolveResult(address_text,'RESOLVED_FIELD0_NAME',place=result)
-
-    # 3: First split field as the name, second as the address
-#    if len(fields) > 1:
-#        result = _seeded_resolve(name=fields[0],address=fields[1])
-#        if result: 
-#            return SmartTextResolveResult(address_text,'RESOLVED_FIELD0_NAME_FIELD1_ADDRESS',place=result)
 
     # 4: First split as name, potential zip code (only if it exists)
     # (Potential zip code is more reliable than city/state. Try this alone before others.)
