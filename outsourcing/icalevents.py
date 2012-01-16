@@ -6,21 +6,20 @@ from onlyinpgh.outsourcing.places import smart_text_resolve
 from onlyinpgh.utils.time import localtoutc
 import icalendar, urllib, pytz
 
-class EventImportReport:
+class EventImportReport(object):
 	def __init__(self,event_instance,notices=[]):
 		self.event_instance = event_instance
 		self.notices = notices
 
-    # inner classes to be used as notices
-	class EventImportNotice(Warning):
-		def __init__(self,uid):
-			self.uid = uid
-			super(EventImportReport.EventImportNotice,self).__init__()
+    # base class to be used to classify all notices
+	class EventImportNotice(object):
+		def __init__(self):
+			pass
 
 	class UnknownTimezone(EventImportNotice):
-		def __init__(self,uid,tzid):
+		def __init__(self,tzid):
 			self.tzid = tzid
-			super(EventImportReport.UnknownTimezone,self).__init__(uid)
+			super(EventImportReport.UnknownTimezone,self).__init__()
 
 	class UnavailableTimezone(EventImportNotice):
 		pass
@@ -28,10 +27,16 @@ class EventImportReport:
 	class EventExists(EventImportNotice):
 		pass
 
-	class FailedLocationResolve(EventImportNotice):
-		def __init__(self,uid,location_str):
+	class LocationResolveStatus(EventImportNotice):
+		def __init__(self,location_str,status):
 			self.location_str = location_str
-			super(EventImportReport.FailedLocationResolve,self).__init__(uid)
+			self.status = status
+			super(EventImportReport.LocationResolveStatus,self).__init__()
+
+	class FailedLocationResolve(EventImportNotice):
+		def __init__(self,location_str):
+			self.location_str = location_str
+			super(EventImportReport.FailedLocationResolve,self).__init__()
 
 class FeedImporter(object):
 	def __init__(self,feed_inst):
@@ -55,9 +60,9 @@ class FeedImporter(object):
 			elif result.location is not None:
 				place = Place(name=location_str,location=result.location)
 			else:
-				return None
+				return None, None
 		else:
-			return None
+			return None, None
 
 		# neither the location nor place are in the DB yet. do this now
 		l = place.location
@@ -72,7 +77,7 @@ class FeedImporter(object):
 									latitude=l.latitude,
 									longitude=l.longitude)
 		place, _ = Place.objects.get_or_create(name=place.name,location=place.location)
-		return place
+		return place, result.parse_status
 
 
 	def import_new(self,start_filter=None):
@@ -102,14 +107,14 @@ class FeedImporter(object):
 			tz_str = component.params.get('TZID',default_tz_str)
 			# if couldn't find one, return the bare dt with a notice
 			if not tz_str:
-				notices.append(EventImportReport.UnavailableTimezone(uid))
+				notices.append(EventImportReport.UnavailableTimezone())
 				return component.dt
 			
 			# we have a timezone string, try converting to UTC now. if the string is invalid, return a notice
 			try:
 				return localtoutc(component.dt,tz_str,return_naive=True)
 			except pytz.exceptions.UnknownTimeZoneError:
-				notices.append(EventImportReport.UnknownTimezone(uid,tz_str))
+				notices.append(EventImportReport.UnknownTimezone(tz_str))
 				return component.dt
 
 		place_cache = {}	# cached dict of location strings to resolved places
@@ -136,7 +141,7 @@ class FeedImporter(object):
 				# see if we've already processed this record. if so, we're done
 				try:
 					record = VEventRecord.objects.get(feed=self.feed_instance,uid=entry['uid'])
-					reports.append( EventImportReport(record.event,[EventImportReport.EventExists(uid)]) )
+					reports.append( EventImportReport(record.event,[EventImportReport.EventExists()]) )
 					continue
 				except VEventRecord.DoesNotExist:
 					pass
@@ -148,13 +153,15 @@ class FeedImporter(object):
 				# if the place isn't cached, we need to resolve and cache it
 				place = place_cache.get(loc_key)
 				if place is None:
-					place = self._resolve_location_string(location_str)
+					place, status = self._resolve_location_string(location_str)
+					notices.append(EventImportReport.LocationResolveStatus(location_str,status))
 					# cache the results of the resolve process
 					place_cache[loc_key] = place
 		        
 				# if the location string is non-empty but the place is, we need a notice
 				if location_str and place is None:
 					notices.append(EventImportReport.FailedLocationResolve(location_str))
+					
 				#### Other field processing and Event creation ####
 				dtmodified = entry.get('LAST-MODIFIED')
 				if dtmodified:

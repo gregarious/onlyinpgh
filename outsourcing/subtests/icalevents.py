@@ -37,14 +37,14 @@ class ICalEventTest(TestCase):
 		If a count is given, the number of notices of this type must match
 		exactly.
 		'''
-		event_exist_notices = [n for n in report.notices
-								if isinstance(n,notice_class)]
+		relevant_notices = [n for n in report.notices
+							if isinstance(n,notice_class)]
 		
 		# either assert at least one, or an exact count if provided
 		if count is None:
-			self.assertGreaterEqual(len(event_exist_notices),1)
+			self.assertGreaterEqual(len(relevant_notices),1)
 		else:
-			self.assertEquals(len(event_exist_notices,count))
+			self.assertEquals(len(relevant_notices,count))
 
 	def test_new_feed(self):
 		test_org = Organization.objects.create(name="TestOrg")
@@ -72,10 +72,16 @@ class ICalEventTest(TestCase):
 		# ensure the test_org is hosting the event
 		self.assertEquals(test_org,Role.hosts.get(event=event).organization)
 
-		# assert the OTB place was created
+		# assert the OTB place was created and the expected notice was created about it
 		otb = Place.objects.get(name__startswith='OTB',
 								location__address__startswith='2518 E')
 		self.assertEquals(event.place,otb)
+
+		rstatus_notices = [n for n in reports[0].notices
+							if isinstance(n,EventImportReport.LocationResolveStatus)]
+		self.assertEquals(len(rstatus_notices),1)
+		self.assertEquals(rstatus_notices[0].status,'RESOLVED_FIELD0_NAME_FIELD1_ADDRESS')
+
 
 		# finally test the first VEventRecord
 		record = VEventRecord.objects.get(event=event)
