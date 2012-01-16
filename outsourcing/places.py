@@ -266,6 +266,12 @@ def smart_text_resolve(address_text,seed_location=None):
         if state:       l.state = state
         return resolve_place(Place(name=name,location=l))
     
+    # TEMPORARILY MOVED STEP 3 TO 0
+    if len(fields) > 1:
+        result = _seeded_resolve(name=fields[0],address=fields[1])
+        if result: 
+            return SmartTextResolveResult(address_text,'RESOLVED_FIELD0_NAME_FIELD1_ADDRESS',place=result)
+
     ### Resolve API battery
     # 1: Try the whole string as the name
     result = _seeded_resolve(name=address_text)
@@ -278,10 +284,10 @@ def smart_text_resolve(address_text,seed_location=None):
         return SmartTextResolveResult(address_text,'RESOLVED_FIELD0_NAME',place=result)
 
     # 3: First split field as the name, second as the address
-    if len(fields) > 1:
-        result = _seeded_resolve(name=fields[0],address=fields[1])
-        if result: 
-            return SmartTextResolveResult(address_text,'RESOLVED_FIELD0_NAME_FIELD1_ADDRESS',place=result)
+#    if len(fields) > 1:
+#        result = _seeded_resolve(name=fields[0],address=fields[1])
+#        if result: 
+#            return SmartTextResolveResult(address_text,'RESOLVED_FIELD0_NAME_FIELD1_ADDRESS',place=result)
 
     # 4: First split as name, potential zip code (only if it exists)
     # (Potential zip code is more reliable than city/state. Try this alone before others.)
@@ -338,7 +344,6 @@ def smart_text_resolve(address_text,seed_location=None):
             return SmartTextResolveResult(address_text,'GEOCODED_OUT_PARENTHESIS',location=result)
     
     # gnarly address, dude. return the fallback
-    resolvelog.debug("[FAILURE] %s" % address_text)
     return SmartTextResolveResult(address_text,'FAILURE')
 
 def normalize_street_address(address_text):

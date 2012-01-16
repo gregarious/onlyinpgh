@@ -69,18 +69,13 @@ class FacebookOrgRecord(models.Model):
     ignore = models.BooleanField('always ignore this page',default=False)
 
 class ICalendarFeed(models.Model):
-    timezone_choices = zip(pytz.all_timezones,pytz.all_timezones)
-
     url = models.URLField(max_length=300)
     owner = models.ForeignKey(Organization,null=True,blank=True)
     xcal_name = models.CharField(max_length=100)
 
-    default_timezone = models.CharField('fallback timezone for DATETIMEs in feed when none specified',
-                                        max_length=50,choices=timezone_choices,default='US/Eastern')
-
 class VEventRecord(models.Model):
     feed = models.ForeignKey(ICalendarFeed)
     uid = models.CharField(max_length=255)
-    time_last_modified = models.DateTimeField('last modification date in entry (in UTC)')
+    dtmodified = models.DateTimeField('last modification date in entry (in UTC)')
     event = models.ForeignKey(Event,null=True,blank=True)
 
