@@ -31,10 +31,10 @@ def import_all():
         importlog.info('%d new Events imported from feed "%s"' % (import_count,unicode(feed)))
 
 def run():
-    #try:
+    try:
         # TODO: have import_all return VEvents, not Events
         importlog.info('Event import start')
         import_all()
         importlog.info('Event import complete')
-    #except Exception as e:
+    except Exception as e:
         importlog.critical('Unexpected error: %s' % str(e))

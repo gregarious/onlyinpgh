@@ -142,7 +142,7 @@ def text_to_location(address_text,seed_location=None,allow_numberless=True):
 
     return resolve_location(location,allow_numberless)
 
-#### Helper functions for processing raw address text in text_to_place
+#### Helper functions for processing raw address text in smart_text_resolve
 city_pattern = re.compile( 
             r'((new\s+)?[\w-]+)' +  # city part (doesn't support multi-word cities other that ones starting with )
             r'\W+' +                # space between city and state/zip
@@ -156,7 +156,7 @@ postcode_pattern = re.compile(r'\b(\d{5}(\-\d{4})?)\W*$')
 splitter_pattern = re.compile(r'[\|\;\(\)]|(\s-{1,2}\s)')
 def _parse_raw_address(address):
     '''
-    Returns a dict of various values used in text_to_place to help
+    Returns a dict of various values used in smart_text_resolve to help
     resolve unstructured address requests
     '''
     result_dict = {}

@@ -39,7 +39,6 @@ class ExternalPlaceSource(models.Model):
     objects = models.Manager()
     facebook = FBPlaceManager()
     factual = FactualPlaceManager()
-
     def __unicode__(self):
         return '%s:%s -> %s' % (self.service,self.uid,self.place)
 
