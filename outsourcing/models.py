@@ -73,9 +73,15 @@ class ICalendarFeed(models.Model):
     owner = models.ForeignKey(Organization,null=True,blank=True)
     xcal_name = models.CharField(max_length=100)
 
+    def __unicode__(self):
+        return self.xcal_name
+
 class VEventRecord(models.Model):
     feed = models.ForeignKey(ICalendarFeed)
     uid = models.CharField(max_length=255)
     dtmodified = models.DateTimeField('last modification date in entry (in UTC)')
-    event = models.ForeignKey(Event,null=True,blank=True)
+    event = models.ForeignKey(Event)
+
+    def __unicode__(self):
+        return self.uid
 

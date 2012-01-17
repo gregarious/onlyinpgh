@@ -62,7 +62,7 @@ def get_page_event_stubs(page_ids):
     # TODO: repetitive. should be in apitools.faceboob somewhere. 
     # TODO: also FacebookAPIErrors as possible responses still sucks.
     for pid in page_ids:
-        cmds.append(facebook.BatchCommand('%s/events'%str(pid)))
+        cmds.append(facebook.BatchCommand('%s/events'%unicode(pid)))
         if len(cmds) == 50:
             # just throw out FacebookAPIError responses
             responses = [ resp if isinstance(resp,dict) else {}
@@ -90,7 +90,7 @@ def _get_owner(page_id,create_new=False):
             import_report = fbpages.import_org(page_id)
             # log any notices
             for notice in import_report.notices:
-                outsourcing_log.info('Notice during creation of owner: %s' % str(notice))
+                outsourcing_log.info('Notice during creation of owner: %s' % unicode(notice))
             return import_report.model_instance
     return None
 
@@ -195,7 +195,7 @@ def _process_place(event_info):
                     pass
                 except Location.MultipleObjectsReturned:
                     # if more than one found, its a sign there's some dups in the db. just return the first one.
-                    outsourcing_log.warning('Multiple objects returned with Location query of %s' % str(kwargs))
+                    outsourcing_log.warning('Multiple objects returned with Location query of %s' % unicode(kwargs))
                     return Location.objects.filter(**kwargs)[0]
         else:
             location = None
@@ -255,7 +255,7 @@ def store_fbevent(event_info,event_image=None,
     # look to see if event already exists. return with it if so.
     try:
         event = FacebookEventRecord.objects.get(fb_id=fbid).event
-        outsourcing_log.info('Existing fb event found for fbid %s'%str(fbid))
+        outsourcing_log.info('Existing fb event found for fbid %s'%unicode(fbid))
         return event
     except FacebookEventRecord.DoesNotExist:
         pass
@@ -278,7 +278,7 @@ def store_fbevent(event_info,event_image=None,
         dtstart_est = EST.localize(dtparser.parse(event_info.get('start_time')))
         dtend_est = EST.localize(dtparser.parse(event_info.get('end_time')))
     except ValueError as e:
-        raise ValueError('Bad start/end time for event fbid %s: %s' % (str(fbid),str(e)))
+        raise ValueError('Bad start/end time for event fbid %s: %s' % (unicode(fbid),unicode(e)))
         
     event.dtstart = localtoutc(dtstart_est,return_naive=True)
     event.dtend = localtoutc(dtend_est,return_naive=True)
@@ -288,7 +288,7 @@ def store_fbevent(event_info,event_image=None,
         try:
             event.image_url = facebook.oip_client.graph_api_picture_request(fbid)
         except IOError as e:
-            outsourcing_log.error('Error retreiving picture for event %s: %s' % (str(eid),str(e)))
+            outsourcing_log.error('Error retreiving picture for event %s: %s' % (unicode(eid),unicode(e)))
         
     # process place
     if resolve_cache:
@@ -370,7 +370,7 @@ class EventImportReport(object):
 
         def __str__(self):
             return 'RelatedObjectCreationError: %s failed with error: "%s"' % \
-                    (str(self.related_object),str(self.error))
+                    (unicode(self.related_object),unicode(self.error))
 
     class EventInstanceExists(Exception):
         def __init__(self,fbid):
@@ -378,7 +378,7 @@ class EventImportReport(object):
             super(EventImportReport.EventInstanceExists,self).__init__()
         
         def __str__(self):
-            return 'EventInstanceExists: Facebook page id %s' % str(self.fbid)
+            return 'EventInstanceExists: Facebook page id %s' % unicode(self.fbid)
 
 class EventImportManager(object):
     '''
@@ -408,7 +408,7 @@ class EventImportManager(object):
         try:
             page_infos = get_full_event_infos(ids_to_pull)
         except IOError as e:
-            outsourcing_log.error('IOError on batch event info pull: %s' % str(e))
+            outsourcing_log.error('IOError on batch event info pull: %s' % unicode(e))
             # spread the IOError to all requests
             page_infos = [e]*len(ids_to_pull)
 
@@ -445,7 +445,7 @@ class EventImportManager(object):
             self._cached_page_estub_lists.update(page_estubs_map)
             # everything should be in the cache now: use only it below
         except IOError as e:
-            outsourcing_log.error('IOError on batch event stub pull: %s' % str(e))
+            outsourcing_log.error('IOError on batch event stub pull: %s' % unicode(e))
             # if we're using the cache, there's still a chance to recover some events from cache
             # if not, just return now
             if not use_cache:
@@ -518,7 +518,7 @@ class EventImportManager(object):
             try:
                 fbevent_pics.append(facebook.oip_client.graph_api_picture_request(eid))
             except IOError as e:
-                outsourcing_log.error('Error retreiving picture for event %s: %s' % (str(eid),str(e)))
+                outsourcing_log.error('Error retreiving picture for event %s: %s' % (unicode(eid),unicode(e)))
                 fbevent_pics.append('')
         
         reports = []
@@ -564,7 +564,7 @@ class EventImportManager(object):
                     try:
                         pic = facebook.oip_client.graph_api_picture_request(eid)
                     except IOError as e:
-                        outsourcing_log.error('Error retreiving picture for event %s: %s' % (str(eid),str(e)))
+                        outsourcing_log.error('Error retreiving picture for event %s: %s' % (unicode(eid),unicode(e)))
                         pic = ''
                     reports.append( self._store_event( fbevent,
                                                         pic,
