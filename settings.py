@@ -167,10 +167,18 @@ LOGGING = {
             'level': 'DEBUG',
             'class': 'logging.FileHandler',
             'formatter': 'simple_timestamped',
-            'filename': to_abspath('logs/fbimports/import_%s.log' % _timestamp),
+            'filename': to_abspath('logs/imports/facebook_%s.log' % _timestamp),
             'delay': True,      # only open if message is emitted
             'mode': 'w'
         },
+        'ical_import_file': {
+            'level': 'DEBUG',
+            'class': 'logging.FileHandler',
+            'formatter': 'simple_timestamped',
+            'filename': to_abspath('logs/imports/ical_%s.log' % _timestamp),
+            'delay': True,      # only open if message is emitted
+            'mode': 'w'
+        }
     },
     'loggers': {
         'django.request': {
@@ -195,6 +203,11 @@ LOGGING = {
         },
         'onlyinpgh.fb_import': {
             'handlers': ['console','fb_import_file'],
+            'level':'DEBUG',
+            'propagrate': False
+        },
+        'onlyinpgh.ical_import': {
+            'handlers': ['console','ical_import_file'],
             'level':'DEBUG',
             'propagrate': False
         },

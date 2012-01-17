@@ -38,7 +38,7 @@ class GoogleGeocodingClient(object):
         Will pass on errors of urllib.urlopen if the API's URL has trouble
         connecting.
         '''
-        cleaned_address = cls._preprocess_address(query)
+        cleaned_address = cls._preprocess_address(query).encode('utf8')
         options = { 'address': cleaned_address,
                     'sensor': 'true' if sensor else 'false' }
         if bounds is not None:

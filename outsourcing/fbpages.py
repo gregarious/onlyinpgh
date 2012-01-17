@@ -120,7 +120,7 @@ def store_fbpage_organization(page_info):
 
     try:
         organization = FacebookOrgRecord.objects.get(fb_id=pid).organization
-        outsourcing_log.info('Existing fb page Organization found for fbid %s' % str(pid))
+        outsourcing_log.info('Existing fb page Organization found for fbid %s' % unicode(pid))
         return organization
     except FacebookOrgRecord.DoesNotExist:
         pass
@@ -143,7 +143,7 @@ def store_fbpage_organization(page_info):
 
     if not created:
         outsourcing_log.info('An organization matching fbid %s already existed with '\
-                             'no FacebookOrgRecord. The record was created.' % str(pid))
+                             'no FacebookOrgRecord. The record was created.' % unicode(pid))
     
     record = FacebookOrgRecord.objects.create(fb_id=pid,organization=organization)
     outsourcing_log.info(u'Stored new Organization for fbid %s: "%s"' % (pid,unicode(organization)))
@@ -223,7 +223,7 @@ def store_fbpage_place(page_info,create_owner=True):
     
     try:
         place = ExternalPlaceSource.objects.get(service='fb',uid=pid).place
-        outsourcing_log.info('Existing fb page Place found for fbid %s' % str(pid))
+        outsourcing_log.info('Existing fb page Place found for fbid %s' % unicode(pid))
         return place
     except ExternalPlaceSource.DoesNotExist:
         pass
@@ -279,7 +279,7 @@ def store_fbpage_place(page_info,create_owner=True):
         owner = FacebookOrgRecord.objects.get(fb_id=pid).organization
     except FacebookOrgRecord.DoesNotExist:
         if create_owner:
-            outsourcing_log.info('Creating new Organization as byproduct of creating Place from Facebook page %s' % str(pid))
+            outsourcing_log.info('Creating new Organization as byproduct of creating Place from Facebook page %s' % unicode(pid))
             owner = store_fbpage_organization(page_info)
         else:
             owner = None
@@ -321,7 +321,7 @@ class PageImportReport(object):
 
         def __str__(self):
             return 'RelatedObjectCreationError: %s failed with error: "%s"' % \
-                    (str(self.related_object),str(self.error))
+                    (unicode(self.related_object),unicode(self.error))
 
     class ModelInstanceExists(Exception):
         def __init__(self,fbid,model_type):
@@ -331,7 +331,7 @@ class PageImportReport(object):
         
         def __str__(self):
             return 'ModelInstanceExists: %s for Facebook page id %s' % \
-                    (str(self.model_type),str(self.fbid))
+                    (unicode(self.model_type),unicode(self.fbid))
 
 class PageImportManager(object):
     '''
@@ -359,7 +359,7 @@ class PageImportManager(object):
         try:
             page_infos = get_full_place_pages(ids_to_pull)
         except IOError as e:
-            outsourcing_log.error('IOError on batch page info pull: %s' % str(e))
+            outsourcing_log.error('IOError on batch page info pull: %s' % unicode(e))
             # spread the IOError to all requests
             page_infos = [e]*len(ids_to_pull)
 

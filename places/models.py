@@ -199,8 +199,9 @@ class Place(models.Model):
     def __unicode__(self):
         s = self.name
         if self.location:
-            s += '. Loc: ' + self.location.address + ', ' + self.location.town  + ', ' + self.location.state + ', ' + self.location.postcode  
-        return unicode(s)
+            s += u'. Loc: ' + self.location.address + u', ' + self.location.town  + u', ' + self.location.state + u', ' + self.location.postcode  
+        assert type(s==unicode)
+        return s
 
 class Meta(models.Model):
     '''

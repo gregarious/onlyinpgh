@@ -39,7 +39,6 @@ class ExternalPlaceSource(models.Model):
     objects = models.Manager()
     facebook = FBPlaceManager()
     factual = FactualPlaceManager()
-
     def __unicode__(self):
         return '%s:%s -> %s' % (self.service,self.uid,self.place)
 
@@ -76,18 +75,19 @@ class FacebookOrgRecord(models.Model):
     ignore = models.BooleanField('always ignore this page',default=False)
 
 class ICalendarFeed(models.Model):
-    timezone_choices = zip(pytz.all_timezones,pytz.all_timezones)
-
     url = models.URLField(max_length=300)
     owner = models.ForeignKey(Organization,null=True,blank=True)
     xcal_name = models.CharField(max_length=100)
 
-    default_timezone = models.CharField('fallback timezone for DATETIMEs in feed when none specified',
-                                        max_length=50,choices=timezone_choices,default='US/Eastern')
+    def __unicode__(self):
+        return self.xcal_name
 
 class VEventRecord(models.Model):
     feed = models.ForeignKey(ICalendarFeed)
     uid = models.CharField(max_length=255)
-    time_last_modified = models.DateTimeField('last modification date in entry (in UTC)')
-    event = models.ForeignKey(Event,null=True,blank=True)
+    dtmodified = models.DateTimeField('last modification date in entry (in UTC)')
+    event = models.ForeignKey(Event)
+
+    def __unicode__(self):
+        return self.uid
 

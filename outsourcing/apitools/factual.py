@@ -46,7 +46,7 @@ class FactualClient(object):
         request = build_oauth_request(full_url,self.key,self.secret)
 
         response = delayed_retry_on_ioerror(lambda:ResolveResponse(urllib2.urlopen(request)),
-                                            5,2,outsourcing_log)
+                                            5,3,outsourcing_log)
 
         if response.status != 'ok':
             raise FactualAPIError(request,response.error_type,response.message)
