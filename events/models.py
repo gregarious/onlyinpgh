@@ -61,11 +61,11 @@ class Event(models.Model):
 ## custom Role managers to make it simpler to query a particular type of Role
 class HostRoleManager(models.Manager):
     def get_query_set(self):
-        return super(HostRoleManager, self).get_query_set().filter(role_type='host')
+        return super(HostRoleManager, self).get_query_set().filter(role_name='host')
 
 class ReferrerRoleManager(models.Manager):
     def get_query_set(self):
-        return super(HostRoleManager, self).get_query_set().filter(role_type='referrer')
+        return super(HostRoleManager, self).get_query_set().filter(role_name='referrer')
 
 class Role(models.Model):
     ROLE_TYPES = (

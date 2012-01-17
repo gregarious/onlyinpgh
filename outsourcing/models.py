@@ -39,22 +39,27 @@ class ExternalPlaceSource(models.Model):
     objects = models.Manager()
     facebook = FBPlaceManager()
     factual = FactualPlaceManager()
-
     def __unicode__(self):
         return '%s:%s -> %s' % (self.service,self.uid,self.place)
+
+class FacebookPage(models.Model):
+    '''
+    Simple model to store all FB ids encountered.
+    '''
+    fb_id = models.BigIntegerField(primary_key=True)
+    ignore = models.BooleanField('always ignore this page',default=False)    
 
 class FacebookEventRecord(models.Model):
     '''
     Model that records links between Facebook events and internal Events.
     '''
     fb_id = models.BigIntegerField(primary_key=True)
-    event = models.ForeignKey(Event,null=True,blank=True)
+    event = models.ForeignKey(Event)
 
     time_added = models.DateTimeField('time added in our records',auto_now_add=True)
     last_checked = models.DateTimeField('time last checked for updated',auto_now_add=True)
     
-    # TODO: temporary null here
-    last_updated = models.DateTimeField('time Facebook record was last updated',null=True)
+    last_updated = models.DateTimeField('time Facebook record was last updated')
     ignore = models.BooleanField('always ignore this event',default=False)    
 
 class FacebookOrgRecord(models.Model):
@@ -70,18 +75,19 @@ class FacebookOrgRecord(models.Model):
     ignore = models.BooleanField('always ignore this page',default=False)
 
 class ICalendarFeed(models.Model):
-    timezone_choices = zip(pytz.all_timezones,pytz.all_timezones)
-
     url = models.URLField(max_length=300)
     owner = models.ForeignKey(Organization,null=True,blank=True)
     xcal_name = models.CharField(max_length=100)
 
-    default_timezone = models.CharField('fallback timezone for DATETIMEs in feed when none specified',
-                                        max_length=50,choices=timezone_choices,default='US/Eastern')
+    def __unicode__(self):
+        return self.xcal_name
 
 class VEventRecord(models.Model):
     feed = models.ForeignKey(ICalendarFeed)
     uid = models.CharField(max_length=255)
-    time_last_modified = models.DateTimeField('last modification date in entry (in UTC)')
-    event = models.ForeignKey(Event,null=True,blank=True)
+    dtmodified = models.DateTimeField('last modification date in entry (in UTC)')
+    event = models.ForeignKey(Event)
+
+    def __unicode__(self):
+        return self.uid
 

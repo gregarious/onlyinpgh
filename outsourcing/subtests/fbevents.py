@@ -2,14 +2,16 @@ from django.test import TestCase
 
 from onlyinpgh.identity.models import Organization
 from onlyinpgh.places.models import Place
+from onlyinpgh.events.models import Event
 from onlyinpgh.outsourcing.models import FacebookOrgRecord, ExternalPlaceSource, FacebookEventRecord
 
 from onlyinpgh.outsourcing.apitools.facebook import FacebookAPIError
-from onlyinpgh.outsourcing.fbevents import *
+from onlyinpgh.outsourcing.fbevents import store_fbevent, EventImportManager, EventImportReport
 
 from onlyinpgh.outsourcing.subtests import load_test_json
 
 import random, logging
+from datetime import datetime
 logging.disable(logging.CRITICAL)
 
 class EventStorageTest(TestCase):
@@ -40,9 +42,11 @@ class EventStorageTest(TestCase):
             self.fail('Event not inserted')
 
         try:
-            # make sure the stored FBEventRecord has the correct Event set
-            event_on_record = FacebookEventRecord.objects.get(fb_id=event_fbid).event
-            self.assertEquals(event_on_record,event)
+            # make ensure the stored FBEventRecord has the correct Event set
+            record = FacebookEventRecord.objects.get(fb_id=event_fbid)
+            self.assertEquals(record.event,event)
+            # ensure the last updated time was set correctly on the event record
+            self.assertEquals(record.last_updated,datetime(2011,9,23,18,27,48))
         except Event.DoesNotExist:
             self.fail('FacebookEventRecord not found!')            
 
@@ -111,11 +115,19 @@ class EventImportingTest(TestCase):
         # can't really assert anything about some third party page's events. be content
         # with just testing that there's a few of them and the first one has some 
         # event-specific fields
-        valid_events = pid_infos_map['40796308305']
-        self.assertGreater(len(valid_events),4)       # should be more than 4? why not.
-        for valid_event in valid_events:
-            self.assertIn('start_time',valid_event.keys())
-            self.assertIn('owner',valid_event.keys())
+        events = pid_infos_map['40796308305']
+        self.assertGreater(len(events),4)       # should be more than 4? why not.
+
+        # some of the queries will randomly fail. trim these out and ensure less 
+        # than 25% of the respopnses are failures
+        failures = [ev for ev in events if isinstance(ev,FacebookAPIError)]
+        if len(failures) > .25*len(events):
+            self.fail('Unexpected large number of failed event pulls (%d of %d).' % (len(failures),len(events)))
+        
+        for event in events:
+            if event not in failures:
+                self.assertIn('start_time',event.keys())
+                self.assertIn('owner',event.keys())
 
         # this one should return an empty list
         self.assertEquals(pid_infos_map['121994841144517'],[])
@@ -194,8 +206,8 @@ class EventImportingTest(TestCase):
                             set(pids),
                             'unexpected number of EventImportReport groups returned')
 
-        for pid,expected in pid_expected_pairs:
-            result_list = result_lists[pid]
+        for pid_exp_pair,result_list in zip(pid_expected_pairs,result_lists):
+            pid,expected = pid_exp_pair
             if expected:
                 for result in result_list:
                     # basic sanity tests

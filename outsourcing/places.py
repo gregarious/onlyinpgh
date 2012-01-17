@@ -142,7 +142,7 @@ def text_to_location(address_text,seed_location=None,allow_numberless=True):
 
     return resolve_location(location,allow_numberless)
 
-#### Helper functions for processing raw address text in text_to_place
+#### Helper functions for processing raw address text in smart_text_resolve
 city_pattern = re.compile( 
             r'((new\s+)?[\w-]+)' +  # city part (doesn't support multi-word cities other that ones starting with )
             r'\W+' +                # space between city and state/zip
@@ -156,7 +156,7 @@ postcode_pattern = re.compile(r'\b(\d{5}(\-\d{4})?)\W*$')
 splitter_pattern = re.compile(r'[\|\;\(\)]|(\s-{1,2}\s)')
 def _parse_raw_address(address):
     '''
-    Returns a dict of various values used in text_to_place to help
+    Returns a dict of various values used in smart_text_resolve to help
     resolve unstructured address requests
     '''
     result_dict = {}
@@ -191,10 +191,37 @@ def _parse_raw_address(address):
         result_dict['paren_inside'] = p_match.group(2).strip()
     return result_dict
 
-def text_to_place(address_text,fallback_place_name='',seed_location=None):
+class SmartTextResolveResult():
+    parse_statuses = [
+        'RESOLVED_FULL_STRING',
+        'RESOLVED_FIELD0_NAME',
+        'RESOLVED_FIELD0_NAME_FIELD1_ADDRESS',
+        'RESOLVED_FIELD0_NAME_POSTCODE',
+        'RESOLVED_FIELD0_NAME_TOWN_POSTCODE',
+        'RESOLVED_OUT_NAME_IN_ADDRESS',
+        'RESOLVED_IN_NAME_OUT_ADDRESS',
+        'GEOCODED_FULL_STRING',
+        'GEOCODED_FIELD0_EXCLUDED',
+        'GEOCODED_IN_PARENTHESIS',
+        'GEOCODED_OUT_PARENTHESIS',
+        'FAILURE'
+    ]
+    parse_status_priorities = dict(zip(parse_statuses,
+                                        range(len(parse_statuses))))
+
+    def __init__(self,text,parse_status,place=None,location=None):
+        self.text = text
+        self.parse_status = parse_status
+        self.location = location
+        self.place = place
+
+
+def smart_text_resolve(address_text,seed_location=None):
     '''
-    Attempts to resolve a raw text string into a Place using a series of
-    strategies.
+    Attempts to resolve a raw text string into a Place or Location using
+    a series of strategies. Returns a TextResolveResult object which 
+    contains the resulting place/location as well as a code for the 
+    parsing strategy used.
 
     First, the Resolve API is queried using various mutations of the
     fields in the input text. 
@@ -214,7 +241,7 @@ def text_to_place(address_text,fallback_place_name='',seed_location=None):
     the fallback place name and no location.
     '''
     if address_text == '':
-        return Place()
+        return SmartTextResolveResult(address_text,'FAILURE')
     
     # parse out various fields of interest 
     parsed_content = _parse_raw_address(address_text) 
@@ -226,7 +253,7 @@ def text_to_place(address_text,fallback_place_name='',seed_location=None):
     pot_state = parsed_content.get('potential_state')
     pot_postcode = parsed_content.get('potential_postcode')
 
-    ### Resolve API battery
+    # helper to call resolve_place with a newly constructed partial place
     def _seeded_resolve(name=None,address=None,postcode=None,town=None,state=None):
         if seed_location:
             l = copy.deepcopy(seed_location)
@@ -239,41 +266,29 @@ def text_to_place(address_text,fallback_place_name='',seed_location=None):
         if state:       l.state = state
         return resolve_place(Place(name=name,location=l))
     
-    def _place_string(place):
-        return '%s: %s' % (result.name,result.location.full_string)
-    
-    # 1: Try the whole string as the name
+    ### Resolve API battery
+    # 1: First try first field as the name, second as address
+    if len(fields) > 1:
+        result = _seeded_resolve(name=fields[0],address=fields[1])
+        if result: 
+            return SmartTextResolveResult(address_text,'RESOLVED_FIELD0_NAME_FIELD1_ADDRESS',place=result)
+
+    # 2: Try the whole string as the name
     result = _seeded_resolve(name=address_text)
     if result:
-        resolvelog.debug("FULL STRING NAME: %s => %s" % (address_text,_place_string(result)))
-        return result
+        return SmartTextResolveResult(address_text,'RESOLVED_FULL_STRING',place=result)
     
     # 2: The first split field as the name
     result = _seeded_resolve(name=fields[0])
     if result: 
-        resolvelog.debug("NAME: %s => %s" % (fields[0],_place_string(result)))
-        return result
-
-    # 3: First split field as the name, second as the address
-    if len(fields) > 1:
-        result = _seeded_resolve(name=fields[0],address=fields[1])
-        if result: 
-            resolvelog.debug("NAME & ADDRESS %s,%s => %s" % \
-                                (fields[0],
-                                 fields[1],
-                                 _place_string(result)))
-            return result
+        return SmartTextResolveResult(address_text,'RESOLVED_FIELD0_NAME',place=result)
 
     # 4: First split as name, potential zip code (only if it exists)
     # (Potential zip code is more reliable than city/state. Try this alone before others.)
     if pot_postcode:
         result = _seeded_resolve(name=fields[0],postcode=pot_postcode)
         if result: 
-            resolvelog.debug("NAME & POSTCODE %s,%s => %s" % \
-                                (fields[0],
-                                 pot_postcode,
-                                 _place_string(result)))
-            return result
+            return SmartTextResolveResult(address_text,'RESOLVED_FIELD0_NAME_POSTCODE',place=result)
 
     # 5: Now try all other potential fields (assuming a potential city was found)
     if pot_town:
@@ -282,76 +297,48 @@ def text_to_place(address_text,fallback_place_name='',seed_location=None):
                                     state=pot_state,
                                     postcode=pot_postcode)
         if result: 
-            resolvelog.debug("NAME, POSTCODE, TOWN, STATE %s,%s,%s,%s => %s" % \
-                                (fields[0],
-                                 pot_town,
-                                 pot_state,
-                                 pot_postcode,
-                                 _place_string(result)))
-            return result
+            return SmartTextResolveResult(address_text,'RESOLVED_FIELD0_NAME_TOWN_POSTCODE',place=result)
 
     # 6: If parenthesized expression is in string, Try inside as address, outside as name and vice versa
     if outside:
         result = _seeded_resolve(name=outside,address=inside)
         if result: 
-            resolvelog.debug("NAME (ADDRESS) %s (%s) => %s" % \
-                                (outside,
-                                inside,
-                                _place_string(result)))
-            return result
+            return SmartTextResolveResult(address_text,'RESOLVED_OUT_NAME_IN_ADDRESS',place=result)
+
     if inside:
         result = _seeded_resolve(name=inside,address=outside)
         if result: 
-            resolvelog.debug("ADDRESS (NAME) %s (%s) => %s" % \
-                                (inside,
-                                 outside,
-                                 _place_string(result)))
-            return result
+            return SmartTextResolveResult(address_text,'RESOLVED_IN_NAME_OUT_ADDRESS',place=result)
+
             
     ### no resolve calls worked. falling back to geocoding
     
     # 1: Try geocoding the address part, with seed
     result = text_to_location(address_text,seed_location,allow_numberless=False)
     if result is not None:
-        resolvelog.debug("[GEOCODED] FULL STRING: %s <seed %s> => %s" % \
-                            (address_text,
-                             seed_location.full_string,
-                             result.full_string))
-        return Place(name='',location=result)
+        return SmartTextResolveResult(address_text,'GEOCODED_FULL_STRING',location=result)
 
     # 2: Try geocoding the concatenation of split fields 2 through end
     #    If successful, use first field as place name
     if len(fields) > 1:
         result = text_to_location(','.join(fields[1:]),seed_location,allow_numberless=False)
         if result is not None:
-            resolvelog.debug("[GEOCODED] TAIL CONCAT: %s <seed %s> => %s" % \
-                                (','.join(fields[1:]),
-                                 seed_location.full_string,
-                                 result.full_string))
-            return Place(name=fields[0],location=result)
+            return SmartTextResolveResult(address_text,'GEOCODED_FIELD0_EXCLUDED',location=result)
 
     # 3a: Try geocoding the inside, use outside as place on success
     if inside:        
         result = text_to_location(inside,seed_location,allow_numberless=False)
         if result is not None:
-            resolvelog.debug("[GEOCODED] (ADDRESS): %s <seed %s> => %s" % \
-                                (inside,
-                                 seed_location.full_string,
-                                 result.full_string))
-            return Place(name=outside,location=result)
+            return SmartTextResolveResult(address_text,'GEOCODED_IN_PARENTHESIS',location=result)
+
     # 3b: Try geocoding the outside, use inside as place on success
     if outside:
         result = text_to_location(outside,seed_location,allow_numberless=False)
         if result is not None:
-            resolvelog.debug("[GEOCODED] ADDRESS (...): %s <seed %s> => %s" % \
-                                (outside,
-                                 seed_location.full_string,
-                                 result.full_string))
-            return Place(name=inside,location=result)
+            return SmartTextResolveResult(address_text,'GEOCODED_OUT_PARENTHESIS',location=result)
     
     # gnarly address, dude. return the fallback
-    resolvelog.debug("[FAILURE] %s" % address_text)
-    return Place(name=fallback_place_name,location=None)    
+    return SmartTextResolveResult(address_text,'FAILURE')
 
 def normalize_street_address(address_text):
     '''
