@@ -495,7 +495,8 @@ class EventImportManager(object):
 
     def import_events(self,fbevent_ids,use_cache=True,import_owners=True):
         '''
-        Inserts Events for a batch of fbevent_ids from Facebook.
+        Inserts Events for a batch of fbevent_ids from Facebook. Generates
+        a parallel list of EventImportReport objects (via yields).
 
         Will skip over creating any Events already tracked by a 
         FacebookEventRecord instance and return a result with a 
@@ -504,37 +505,30 @@ class EventImportManager(object):
         If use_cache is True, any available cached event information 
         stored in this manager will be used.
 
-        If import_owners is True, a new Organization will be created
-        for the event owner if it not yet linked to the relevant fbid.
-
-        Returns a parallel list of EventImportReport objects.
+        If import_owners is True, a new Organization will be created for 
+        the event owner if it not yet linked to the relevant fbid.
         '''
         # TODO: could do something here to filter out fbevent ids that we 
         #       already have info for before we pull them
         fbevent_infos = self.pull_event_info(fbevent_ids,use_cache=use_cache)
-        fbevent_pics = []
 
-        for eid in fbevent_ids:
+        for eid,info in zip(fbevent_ids,fbevent_infos):
             try:
-                fbevent_pics.append(facebook.oip_client.graph_api_picture_request(eid))
+                pic = facebook.oip_client.graph_api_picture_request(eid)
             except IOError as e:
                 outsourcing_log.error('Error retreiving picture for event %s: %s' % (unicode(eid),unicode(e)))
                 fbevent_pics.append('')
-        
-        reports = []
-        for eid,info,pic in zip(fbevent_ids,fbevent_infos,fbevent_pics):
+            
             if not isinstance(info,Exception):
-                reports.append(self._store_event(info,
-                                                    pic,
-                                                    import_owners=import_owners))
+                yield self._store_event(info,pic,import_owners=import_owners)
             else:
-                reports.append(EventImportReport(eid,None,[info]))
-        return reports
+                yield EventImportReport(eid,None,[info])
 
     def import_events_from_pages(self,page_ids,start_filter=None,use_cache=True,import_owners=True):
         '''
-        Inserts Places for a batch of page_ids from Facebook. Returns a 
-        dict of lists of EventImportReport objects.
+        Inserts Places for a batch of page_ids from Facebook. Generates a 
+        series of lists of EventImportReport objects that were generated
+        from each import page id.
 
         If start_filter is provided, events occuring before the given 
         datetime will not be imported.
@@ -549,7 +543,6 @@ class EventImportManager(object):
         page_fbevents_map = self.pull_event_info_from_pages(page_ids,
                                                             start_filter=start_filter,
                                                             use_cache=use_cache)
-        
         page_reports_map = {}
         for pid,fbevents in page_fbevents_map.items():
             venue_cache = VenueResolveCache()   # used to prevent redundant resolve calls for a 
@@ -570,8 +563,7 @@ class EventImportManager(object):
                                                         pic,
                                                         import_owners=import_owners,
                                                         resolve_cache=venue_cache))
-            page_reports_map[pid] = reports
-        return page_reports_map
+            yield reports
 
 def import_event(event_id,import_owners=True):
     '''
