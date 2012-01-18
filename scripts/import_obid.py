@@ -4,17 +4,16 @@ from onlyinpgh.places.models import Location, Place, Meta as PlaceMeta
 from onlyinpgh.outsourcing.places import resolve_location
 from onlyinpgh.identity.models import Organization
 from onlyinpgh.outsourcing.models import ExternalPlaceSource
+from onlyinpgh.outsourcing.fbpages import PageImportManager
 from onlyinpgh.outsourcing.apitools.facebook import oip_client as fb_client
 
-def save_facebook_ref(fb_id,place):
+fb_mgr = PageImportManager()
+
+def add_from_facebook(fb_id,place,import_org=True):
     assert fb_id and place
-    if not re.match('\d+$',fb_id):  # if there's some alphanumeric chars in the username
-        try:
-            response = fb_client.graph_api_objects_request(fb_id)
-            fb_id = response['id']
-        except Exception as e:
-            print 'Error retreiving ID %s: %s' % (str(fb_id),str(e))
-    
+    fb_mgr.import_orgs([fb_id])
+
+    # manually hook up the place page
     ExternalPlaceSource.objects.create(service='fb',uid=fb_id,place=place)
 
 def run():
@@ -40,8 +39,8 @@ def run():
                     print 'row %d of %d completed' % (i,num_rows)
                 # ensure each row is at least 6 fields long
                 if len(row) < 6:
-                    row.extend(['']*(6-len(row)))
-                org_str, place_str, loc_str, phone, url, _, fb_id = [x.strip() for x in row[:6]]
+                    row.extend(['']*(7-len(row)))
+                org_str, place_str, loc_str, phone, url, _, fb_id = [x.strip() for x in row[:7]]
 
                 if org_str == '':
                     if place_str == '':
@@ -51,26 +50,27 @@ def run():
                         org_str = place_str
 
                 location = resolve_location(Location(address=loc_str,postcode='15213'))
-                if not location:
-                    writer.writerow(row)
-                    continue
-                elif ( location.address.startswith('University') and not loc_str.lower().startswith('univ') ) or \
-                     ( location.address.startswith('Carnegie Mellon') and loc_str.lower().startswith('carnegie mellon') ):
+                if location and ( location.address.startswith('University') and not loc_str.lower().startswith('univ') ) or \
+                                ( location.address.startswith('Carnegie Mellon') and loc_str.lower().startswith('carnegie mellon') ):
                     location.address = ','.join(location.address.split(',')[1:])
 
-                try:
-                    # if exact match exists, use it instead of the newly found one
-                    location = Location.objects.get(address=location.address,postcode=location.postcode)
-                except Location.DoesNotExist:
-                    location.save()
+                if location:
+                    try:
+                        # if exact match exists, use it instead of the newly found one
+                        location = Location.objects.get(address=location.address,postcode=location.postcode)
+                    except Location.DoesNotExist:
+                        location.save()
+                else:
+                    print 'WARNING: Geocoding failed for %s' % loc_str
 
                 org,created = Organization.objects.get_or_create(name=org_str)
                 if created:
                     if org_str == place_str and url:
                         org.url = url
                         org.save()
-                else:
-                    print '%s already exists' % org
+                    if fb_id:
+                        fb_mgr.import_orgs([fb_id])
+
                 
                 place,created = Place.objects.get_or_create(name=place_str,location=location,owner=org)
                 if not created:
