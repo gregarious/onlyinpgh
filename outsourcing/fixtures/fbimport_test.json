@@ -50,7 +50,7 @@
         "model": "events.role", 
         "fields": {
             "organization": 3, 
-            "role_name": "host", 
+            "role_type": "host", 
             "event": 17000
         }
     }, 

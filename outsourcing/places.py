@@ -23,10 +23,10 @@ def _resolve_result_to_place(result):
     '''
     resolved_loc = Location(
             country='US',           
-            address=result.get('address',''),
-            town=result.get('locality',''),
-            state=result.get('region',''),
-            postcode=result.get('postcode',''),
+            address=result.get('address','').strip(),
+            town=result.get('locality','').strip(),
+            state=result.get('region','').strip(),
+            postcode=result.get('postcode','').strip(),
             latitude=result.get('latitude'),
             longitude=result.get('longitude'))
     
@@ -35,11 +35,11 @@ def _resolve_result_to_place(result):
 def _geocode_result_to_location(result):
     coords = result.get_geocoding()
     return Location(
-        address = result.get_street_address(),
-        postcode = result.get_postalcode(),
-        town = result.get_town(),
-        state = result.get_state(),
-        country = result.get_country(),
+        address = result.get_street_address().strip(),
+        postcode = result.get_postalcode().strip(),
+        town = result.get_town().strip(),
+        state = result.get_state().strip(),
+        country = result.get_country().strip(),
         latitude = coords[0],
         longitude = coords[1]
     )

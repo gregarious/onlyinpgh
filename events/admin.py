@@ -4,7 +4,7 @@ from onlyinpgh.events.models import *
 class RoleInline(admin.TabularInline):
     model = Role
     extra = 1
-    radio_fields = {'role_name':admin.VERTICAL}
+    radio_fields = {'role_type':admin.VERTICAL}
 
 class MetaInline(admin.TabularInline):
     model = Meta

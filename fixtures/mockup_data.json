@@ -10951,7 +10951,7 @@
     "model": "events.role", 
     "fields": {
       "organization": 1102, 
-      "role_name": "host", 
+      "role_type": "host", 
       "event": 17003
     }
   }, 
@@ -10960,7 +10960,7 @@
     "model": "events.role", 
     "fields": {
       "organization": 1303, 
-      "role_name": "host", 
+      "role_type": "host", 
       "event": 17002
     }
   }, 
@@ -10969,7 +10969,7 @@
     "model": "events.role", 
     "fields": {
       "organization": 1281, 
-      "role_name": "host", 
+      "role_type": "host", 
       "event": 17001
     }
   }, 
@@ -10978,7 +10978,7 @@
     "model": "events.role", 
     "fields": {
       "organization": 1102, 
-      "role_name": "host", 
+      "role_type": "host", 
       "event": 17000
     }
   }, 

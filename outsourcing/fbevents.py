@@ -325,7 +325,7 @@ def store_fbevent(event_info,event_image=None,
     if fbowner_id:
         owner = _get_owner(fbowner_id,create_new=create_owners)
         if owner:
-            role = Role.objects.create(role_name='host',
+            role = Role.objects.create(role_type='host',
                                         organization=owner,
                                         event=event)
         
