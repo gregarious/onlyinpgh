@@ -16,6 +16,7 @@ class EventSearcher {
 		$this->f_edate = NULL;	// will be date string (no time) if set
 		$this->f_att = NULL;	// will be user id string if set
 		$this->f_kw = NULL;		// will be an array of keywords if set
+		$this->f_etype = NULL;  // will be an array of event types if set
 
 		$this->query_uid = NULL; // will be a user id if q_att/f_att is set
 		
@@ -79,7 +80,13 @@ class EventSearcher {
 	public function filterByKeywords($kw_array) {
 		$this->f_kw = $kw_array;
 	}
-
+	
+	public function filterByEType($etype) {
+		$this->filterByETypes(array($etype));	
+	}
+	public function filterByETypes($etype_array) {
+		$this->f_etype = $etype_array;	
+	}
 
 /* QUERY BUILDING 
 
@@ -154,7 +161,7 @@ class EventSearcher {
 						'end_dt'		=> $dtend );
 
 			if($this->q_att) {
-				$new_event['attending'] = $row['individual']!==NULL;
+				$new_event['attending'] = $row['user_id']!==NULL;
 			}
 
 			if($this->q_loc) {
@@ -169,7 +176,7 @@ class EventSearcher {
 				$new_event['org_fancount'] = 0;	// this is useless
 				// if no image in the event, try setting it to the organization avatar
 				if(!$new_event['image_url']) {
-					$new_event['image_url'] = $row['organization_avatar']
+					$new_event['image_url'] = $row['organization_avatar'];
 				}
 
 			}
@@ -215,7 +222,7 @@ class EventSearcher {
 		}
 
 		if($this->q_att||$this->f_att!==NULL) {
-			$select .= ", a.individual";
+			$select .= ", a.user_id";
 		}
 		return $select;
 	}
@@ -235,7 +242,7 @@ class EventSearcher {
 			// if we're actually filtering by attendance, use an INNER JOIN to exclude
 			//  rows with no attendance by the user. otherwise, just do a LEFT OUTER
 			$join_type = ($this->f_att!==NULL) ? "INNER" : "LEFT OUTER";
-			$from .= " " . $join_type . " JOIN events_attendee a ON (e.id = a.event_id)";
+			$from .= " " . $join_type . " JOIN events_hackattendance a ON (e.id = a.event_id)";
 		}
 
 		// if organization info is needed
@@ -254,7 +261,8 @@ class EventSearcher {
 	// builds where and having clauses
 	private function buildWhere() {
 		$where_clauses = array();
-		
+		$where_clauses[] = 'e.invisible = 0';
+
 		// if querying by id
 		if($this->f_eid!==NULL) {
 			$where_clauses[] = 'e.id = :eid';
@@ -282,7 +290,7 @@ class EventSearcher {
 		}
 
 		if($this->f_att!==NULL) {
-			$where_clauses[] = "a.individual = :uid";
+			$where_clauses[] = "a.user_id = :uid";
 			$this->query_args['uid'] = $this->query_uid;
 		}
 
@@ -303,6 +311,18 @@ class EventSearcher {
 		if($this->f_dist!==NULL) {
 			$this->query_args['rad'] = $this->f_dist[2];
 			$having_clauses[] = "distance < :rad";
+		}
+
+		if($this->f_etype!==NULL) {
+			$eterm_clauses = array();
+			$i = 0;
+			foreach ($this->f_etype as $eterm) {
+				$eterm_clauses[] = "e.name rLIKE :keyword$i OR 
+									categories rLIKE :keyword$i";
+				$this->query_args["keyword$i"] = $eterm;
+				$i++;
+			}
+			$having_clauses[] = implode(' OR ', $eterm_clauses);
 		}
 
 		if($this->f_kw!==NULL) {
