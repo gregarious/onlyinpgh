@@ -217,7 +217,7 @@ class EventImportingTest(TestCase):
                     self.assertGreaterEqual(result.event_instance.dtstart,start_filter)
                     # test to make sure the origin page's linked Org ends up as the event host
                     page_linked_org = FacebookOrgRecord.objects.get(fb_id=pid).organization
-                    event_owner = result.event_instance.role_set.get(role_name='host').organization
+                    event_owner = result.event_instance.role_set.get(role_type='host').organization
                     self.assertEquals(page_linked_org,event_owner)
             else:
                 self.assertEquals([],result_list)
@@ -242,7 +242,7 @@ class EventImportingTest(TestCase):
         host_fbid = event_info['owner']['id']
 
         # ensure the existing org was found used to connect to the second event
-        self.assertEquals(results[1].event_instance.role_set.get(role_name='host').organization,
+        self.assertEquals(results[1].event_instance.role_set.get(role_type='host').organization,
                             FacebookOrgRecord.objects.get(fb_id=host_fbid).organization)
 
         # double check that the Place, Organization, and related link tables weren't touched

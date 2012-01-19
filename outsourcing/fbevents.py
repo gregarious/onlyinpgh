@@ -325,7 +325,7 @@ def store_fbevent(event_info,event_image=None,
     if fbowner_id:
         owner = _get_owner(fbowner_id,create_new=create_owners)
         if owner:
-            role = Role.objects.create(role_name='host',
+            role = Role.objects.create(role_type='host',
                                         organization=owner,
                                         event=event)
         
@@ -457,7 +457,7 @@ class EventImportManager(object):
             stubs = self._cached_page_estub_lists.get(pid,[])
             if start_filter:
                 stubs = [stub for stub in stubs
-                            if dtparser.parse(stub['start_time']) >= start_filter ]
+                            if dtparser.parse(stub.get('start_time','1970-01-01')) >= start_filter ]
             page_eids_map[pid] = [stub['id'] for stub in stubs]
 
         # flatten list of eids
