@@ -41,12 +41,13 @@ class CloseLocationManager(models.Manager):
         assert_single_match = close_options.get('assert_single_match',False)
 
         # remove the equality constraints and add a pair of bounding ones
-        lat = kwargs.pop('latitude',None)
-        if lat:
+        lat = kwargs.get('latitude')
+        if lat is not None:
+            kwargs.pop('latitude')
             kwargs['latitude__lt'] = lat + lat_error
             kwargs['latitude__gt'] = lat - lat_error
-        lng = kwargs.pop('longitude',None)
-        if lng:
+        lng = kwargs.get('longitude')
+        if lng is not None:
             kwargs['longitude__lt'] = lng + lng_error
             kwargs['longitude__gt'] = lng - lng_error
         
