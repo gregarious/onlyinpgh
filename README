@@ -3,12 +3,37 @@ pytz
 pil
 dateutil (v1.5 for Python 2.x -- for pip use "pip install dateutil==1.5")
 icalendar
+-------------------
+!!!!!! oldsite-events-handling branch notes !!!!!!!
 
-Loading initial events data (pre December 2011):
+This branch exists for the benefit of importing new events to the old site.
+While the new codebase is being developed. This should be the only branch
+ever checked out on the old site's production server.
 
-All events added to onlyinpgh.com prior to 12/14/2011 are frozen
-in a different set of models with the appname "oldevents".
+It is safe to use this code to update data for display on the old site. (e.g.
+the scripts import_icalevents, import_fbpages, etc.)
 
-To load this initial data, run the following after syncdb:
+Differences between this branch and master:
+- oldevents app: An data schema that's frozen in time from back in December. 
+	All events added prior to 12/14/2011 are stored in a fixture that is 
+	compatiable with this schema (oldevents/fixtures/oldsite_events.json.gz)
 
-python manage.py loaddata oldsite_events
+	To build an old site compatable database from this code and attached
+	fixtures:
+	1. Create database with utf8 character set
+	2. ./manage syncdb
+	3. ./manage loaddata oldsite_events
+	4. At this point, any other means necessary to add new events. e.g. ./manage loaddata <fixture file>
+ 
+ - fixture files and logs:
+ 	These are saved fixtures/logs from previous imports. Should be timestamped.
+ 	.gitignore file is edited to track these logs.
+
+- php folder: This folder contains PHP code to work with the old Wordpress
+	site. This code should be updated anytime there is a schema change to any
+	of the following models:
+	* from Places: Place, Location
+	* from Events: Event, Role, Attendee
+	* from Identity: Identity, Organization
+
+	This code should be copied to the appropriate places in the WP site code.
