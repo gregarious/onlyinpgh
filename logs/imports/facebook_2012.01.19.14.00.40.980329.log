@@ -1,0 +1,600 @@
+INFO 2012-01-19 14:00:41,519 Importing Organizations into database from 72 pages
+INFO 2012-01-19 14:00:46,081 105690877222: Record for Organization exists
+INFO 2012-01-19 14:00:46,082 63893177312: Record for Organization exists
+INFO 2012-01-19 14:00:46,087 55254374259: Record for Organization exists
+INFO 2012-01-19 14:00:46,142 64648244877: Imported successfully as Women's Law Project
+INFO 2012-01-19 14:00:46,145 90421944415: Record for Organization exists
+INFO 2012-01-19 14:00:46,173 48153879157: Imported successfully as Three Rivers Arts Festival
+INFO 2012-01-19 14:00:46,189 48091193813: Imported successfully as Rivers of Steel Heritage Area
+INFO 2012-01-19 14:00:46,191 47807149916: Record for Organization exists
+INFO 2012-01-19 14:00:46,257 138876738133: Imported successfully as Venture Outdoors
+INFO 2012-01-19 14:00:46,278 149813205055627: Record for Organization exists
+INFO 2012-01-19 14:00:46,297 78716328021: Imported successfully as POP UP PITTSBURGH!
+INFO 2012-01-19 14:00:46,312 73877691965: Imported successfully as Carnegie Library of Pittsburgh
+INFO 2012-01-19 14:00:46,331 150516201679201: Imported successfully as Fleeting Pages
+INFO 2012-01-19 14:00:46,343 94563290388: Record for Organization exists
+INFO 2012-01-19 14:00:46,346 42311531114: Record for Organization exists
+INFO 2012-01-19 14:00:46,347 101281573289094: Record for Organization exists
+INFO 2012-01-19 14:00:46,376 109854719044265: Imported successfully as Enjoy Bellevue
+INFO 2012-01-19 14:00:46,392 209580709084986: Imported successfully as Wünderstudies
+INFO 2012-01-19 14:00:46,407 257456362121: Imported successfully as Steel Valley Arts Council
+INFO 2012-01-19 14:00:46,422 51754364431: Record for Organization exists
+INFO 2012-01-19 14:00:46,425 156369719178: Record for Organization exists
+ERROR 2012-01-19 14:00:46,425 88574885865: 'false' response returned
+INFO 2012-01-19 14:00:46,427 123830718713: Record for Organization exists
+ERROR 2012-01-19 14:00:46,427 33240611436: 'false' response returned
+INFO 2012-01-19 14:00:46,450 129895070422596: Imported successfully as Organic Theater Pittsburgh
+INFO 2012-01-19 14:00:46,452 123450319864: Record for Organization exists
+INFO 2012-01-19 14:00:46,471 177222788995685: Imported successfully as Steel City Derby Demons
+INFO 2012-01-19 14:00:46,512 45215576972: Imported successfully as Greater Pittsburgh Arts Council
+INFO 2012-01-19 14:00:46,553 111815322185853: Imported successfully as Only in Pittsburgh
+INFO 2012-01-19 14:00:46,574 56614993489: Imported successfully as Big Butler Fair
+INFO 2012-01-19 14:00:46,589 213633925321866: Imported successfully as Pittsburgh 48 Hour Film Project
+INFO 2012-01-19 14:00:46,591 180022602641: Record for Organization exists
+INFO 2012-01-19 14:00:46,613 35466002033: Imported successfully as Pittsburgh Center for the Arts
+INFO 2012-01-19 14:00:46,615 36773390241: Record for Organization exists
+INFO 2012-01-19 14:00:46,631 358732526381: Imported successfully as Unseam'd Shakespeare Co.
+INFO 2012-01-19 14:00:46,633 39891014863: Record for Organization exists
+INFO 2012-01-19 14:00:46,675 288803693224: Imported successfully as Three Rivers Community Foundation
+INFO 2012-01-19 14:00:46,677 14844477997: Record for Organization exists
+INFO 2012-01-19 14:00:46,701 124335417587427: Imported successfully as EQT Pittsburgh Three Rivers Regatta
+INFO 2012-01-19 14:00:46,719 33345667517: Record for Organization exists
+INFO 2012-01-19 14:00:46,752 195698713784992: Imported successfully as Connect Greenfield
+INFO 2012-01-19 14:00:46,785 210179182355132: Imported successfully as WIP Arts
+INFO 2012-01-19 14:00:46,800 281162802176: Imported successfully as The Official PYP Page
+INFO 2012-01-19 14:00:46,815 204032578648: Imported successfully as Pittsburgh Urban Magnet Project (PUMP)
+INFO 2012-01-19 14:00:46,833 156776297439: Imported successfully as Waffle Shop
+INFO 2012-01-19 14:00:46,848 21315572698: Imported successfully as Urban Hike
+INFO 2012-01-19 14:00:46,862 24446366693: Imported successfully as I Made It! Market
+INFO 2012-01-19 14:00:46,864 439880280018: Record for Organization exists
+INFO 2012-01-19 14:00:46,885 5510679098: Imported successfully as Startup Weekend
+INFO 2012-01-19 14:00:46,901 89620683406: Imported successfully as YinzerParty.com
+ERROR 2012-01-19 14:00:46,901 43246695373: 'false' response returned
+INFO 2012-01-19 14:00:46,915 160952297262214: Imported successfully as Pittsburgh Horror Film Festival
+INFO 2012-01-19 14:00:46,916 8582573089: Record for Organization exists
+INFO 2012-01-19 14:00:46,952 184142654825: Imported successfully as Pittsburgh Post-Gazette
+INFO 2012-01-19 14:00:46,955 52462820965: Record for Organization exists
+INFO 2012-01-19 14:00:46,982 200907259938787: Imported successfully as Lawrenceville Hospitality Association
+INFO 2012-01-19 14:00:46,999 231127495028: Imported successfully as Lawrenceville Pittsburgh
+INFO 2012-01-19 14:00:47,001 24239386691: Record for Organization exists
+ERROR 2012-01-19 14:00:47,001 98985619819: 'false' response returned
+INFO 2012-01-19 14:00:47,003 135261526501378: Record for Organization exists
+INFO 2012-01-19 14:00:47,022 49033192650: Record for Organization exists
+INFO 2012-01-19 14:00:47,024 35942576698: Record for Organization exists
+ERROR 2012-01-19 14:00:47,024 173205309369201: 'false' response returned
+INFO 2012-01-19 14:00:47,040 39442731149: Imported successfully as Shadow Lounge
+INFO 2012-01-19 14:00:47,071 186545458050286: Imported successfully as CityLAB
+INFO 2012-01-19 14:00:47,089 180202535327646: Imported successfully as Gordon Nunn: Denbaya Drumming
+INFO 2012-01-19 14:00:47,106 19822307654: Imported successfully as Pittsburgh Symphony Orchestra
+INFO 2012-01-19 14:00:47,126 135605626026: Imported successfully as The Pittsburgh Banjo Club
+INFO 2012-01-19 14:00:47,141 285942258081: Imported successfully as Yours Truly
+INFO 2012-01-19 14:00:47,158 81689463423: Imported successfully as The Hang Lows
+INFO 2012-01-19 14:00:47,162 131081043586334: Record for Organization exists
+INFO 2012-01-19 14:00:47,198 121185354657356: Imported successfully as John Bechtol Music
+INFO 2012-01-19 14:00:47,198 41 new Organizations imported
+INFO 2012-01-19 14:00:47,617 105690877222: Record for Place exists
+INFO 2012-01-19 14:00:47,620 63893177312: Record for Place exists
+INFO 2012-01-19 14:00:47,632 55254374259: Record for Place exists
+INFO 2012-01-19 14:00:48,326 64648244877: Imported successfully as Women's Law Project. Loc: 125 S 9th St, Philadelphia, PA, 19107
+INFO 2012-01-19 14:00:48,346 90421944415: Record for Place exists
+ERROR 2012-01-19 14:00:48,350 48153879157: Cannot store object without location key as a Place.
+INFO 2012-01-19 14:00:48,435 48091193813: Imported successfully as Rivers of Steel Heritage Area. Loc: 623 E. Eighth Avenue, Homestead, PA, 
+INFO 2012-01-19 14:00:48,437 47807149916: Record for Place exists
+INFO 2012-01-19 14:00:48,512 138876738133: Imported successfully as Venture Outdoors. Loc: 33 Terminal Way Suite 537 East, Pittsburgh, PA, 
+INFO 2012-01-19 14:00:48,534 149813205055627: Record for Place exists
+ERROR 2012-01-19 14:00:48,540 78716328021: Cannot store object without location key as a Place.
+ERROR 2012-01-19 14:00:48,544 73877691965: Cannot store object without location key as a Place.
+INFO 2012-01-19 14:00:48,878 150516201679201: Imported successfully as Fleeting Pages. Loc: , Pittsburgh, PA, 
+INFO 2012-01-19 14:00:48,895 94563290388: Record for Place exists
+INFO 2012-01-19 14:00:48,929 42311531114: Record for Place exists
+INFO 2012-01-19 14:00:48,944 101281573289094: Record for Place exists
+INFO 2012-01-19 14:00:49,001 109854719044265: Imported successfully as Enjoy Bellevue. Loc: 18 Hawley Avenue, Bellevue, PA, 
+INFO 2012-01-19 14:00:49,069 209580709084986: Imported successfully as Wünderstudies. Loc: Steel City Improv Theater, 808-B Tripoli Street, Pittsburgh, PA, 
+INFO 2012-01-19 14:00:49,132 257456362121: Imported successfully as Steel Valley Arts Council. Loc: 105 E. Eighth Avenue, Homestead, PA, 
+INFO 2012-01-19 14:00:49,134 51754364431: Record for Place exists
+INFO 2012-01-19 14:00:49,139 156369719178: Record for Place exists
+ERROR 2012-01-19 14:00:49,142 88574885865: 'false' response returned
+INFO 2012-01-19 14:00:49,145 123830718713: Record for Place exists
+ERROR 2012-01-19 14:00:49,145 33240611436: 'false' response returned
+INFO 2012-01-19 14:00:49,381 129895070422596: Imported successfully as Organic Theater Pittsburgh. Loc: 501 Grant St, Pittsburgh, PA, 15219
+INFO 2012-01-19 14:00:49,384 123450319864: Record for Place exists
+INFO 2012-01-19 14:00:49,432 177222788995685: Imported successfully as Steel City Derby Demons. Loc: 1661 E. Sutter Road, Glenshaw, PA, 
+INFO 2012-01-19 14:00:49,636 45215576972: Imported successfully as Greater Pittsburgh Arts Council. Loc: 810 Penn Ave #200, Pittsburgh, PA, 15221
+INFO 2012-01-19 14:00:49,692 111815322185853: Imported successfully as Only in Pittsburgh. Loc: 4620 Henry Street - 1st floor, Pittsburgh, PA, 
+INFO 2012-01-19 14:00:49,741 56614993489: Imported successfully as Big Butler Fair. Loc: 1127 New Castle Road, Prospect, PA, 
+ERROR 2012-01-19 14:00:49,746 213633925321866: Cannot store object without location key as a Place.
+INFO 2012-01-19 14:00:49,780 180022602641: Record for Place exists
+INFO 2012-01-19 14:00:49,948 35466002033: Imported successfully as Pittsburgh Center for the Arts. Loc: Fifth Ave & Shady Ave, Pittsburgh, PA, 15232
+INFO 2012-01-19 14:00:49,964 36773390241: Record for Place exists
+ERROR 2012-01-19 14:00:49,968 358732526381: Cannot store object without location key as a Place.
+INFO 2012-01-19 14:00:49,970 39891014863: Record for Place exists
+INFO 2012-01-19 14:00:50,039 288803693224: Imported successfully as Three Rivers Community Foundation. Loc: 100 N. Braddock, Pittsburgh, PA, 
+INFO 2012-01-19 14:00:50,059 14844477997: Record for Place exists
+INFO 2012-01-19 14:00:50,278 124335417587427: Imported successfully as EQT Pittsburgh Three Rivers Regatta. Loc: 900 Parish St, Pittsburgh, PA, 15220
+INFO 2012-01-19 14:00:50,280 33345667517: Record for Place exists
+INFO 2012-01-19 14:00:50,443 195698713784992: Imported successfully as Connect Greenfield. Loc: Greenfield Avenue, Pittsburgh, PA, 
+INFO 2012-01-19 14:00:50,660 210179182355132: Imported successfully as WIP Arts. Loc: 7013 E Main St, Scottsdale, AZ, 85251
+ERROR 2012-01-19 14:00:50,663 281162802176: Cannot store object without location key as a Place.
+INFO 2012-01-19 14:00:50,902 204032578648: Imported successfully as Pittsburgh Urban Magnet Project (PUMP). Loc: 425 6th Ave #1690, Grinnell, IA, 50112
+ERROR 2012-01-19 14:00:50,907 156776297439: Cannot store object without location key as a Place.
+ERROR 2012-01-19 14:00:50,912 21315572698: Cannot store object without location key as a Place.
+INFO 2012-01-19 14:00:51,060 24446366693: Imported successfully as I Made It! Market. Loc: P.O. Box 9613, Pittsburgh, PA, 
+INFO 2012-01-19 14:00:51,074 439880280018: Record for Place exists
+INFO 2012-01-19 14:00:51,224 5510679098: Imported successfully as Startup Weekend. Loc: 411 Fairview Ave N, Seattle, WA, 98109
+INFO 2012-01-19 14:00:51,464 89620683406: Imported successfully as YinzerParty.com. Loc: , Portland, OR, 
+ERROR 2012-01-19 14:00:51,464 43246695373: 'false' response returned
+INFO 2012-01-19 14:00:51,745 160952297262214: Imported successfully as Pittsburgh Horror Film Festival. Loc: , Pittsburgh, PA, 
+INFO 2012-01-19 14:00:51,748 8582573089: Record for Place exists
+INFO 2012-01-19 14:00:51,894 184142654825: Imported successfully as Pittsburgh Post-Gazette. Loc: 34 Boulevard of the Allies, Pittsburgh, PA, 15222
+INFO 2012-01-19 14:00:51,897 52462820965: Record for Place exists
+INFO 2012-01-19 14:00:52,043 200907259938787: Imported successfully as Lawrenceville Hospitality Association. Loc: PO Box 40383, Pittsburgh, PA, 
+ERROR 2012-01-19 14:00:52,047 231127495028: Cannot store object without location key as a Place.
+INFO 2012-01-19 14:00:52,062 24239386691: Record for Place exists
+ERROR 2012-01-19 14:00:52,063 98985619819: 'false' response returned
+INFO 2012-01-19 14:00:52,072 135261526501378: Record for Place exists
+INFO 2012-01-19 14:00:52,084 49033192650: Record for Place exists
+INFO 2012-01-19 14:00:52,087 35942576698: Record for Place exists
+ERROR 2012-01-19 14:00:52,087 173205309369201: 'false' response returned
+INFO 2012-01-19 14:00:52,163 39442731149: Imported successfully as Shadow Lounge. Loc: 5972 Baum Blvd, Pittsburgh, PA, 
+INFO 2012-01-19 14:00:52,226 186545458050286: Imported successfully as CityLAB. Loc: 945 Liberty Avenue, Unit 610, Pittsburgh, PA, 
+ERROR 2012-01-19 14:00:52,229 180202535327646: Cannot store object without location key as a Place.
+ERROR 2012-01-19 14:00:52,254 19822307654: Cannot store object without location key as a Place.
+ERROR 2012-01-19 14:00:52,259 135605626026: Cannot store object without location key as a Place.
+ERROR 2012-01-19 14:00:52,264 285942258081: Cannot store object without location key as a Place.
+ERROR 2012-01-19 14:00:52,267 81689463423: Cannot store object without location key as a Place.
+ERROR 2012-01-19 14:00:52,272 131081043586334: Cannot store object without location key as a Place.
+ERROR 2012-01-19 14:00:52,275 121185354657356: Cannot store object without location key as a Place.
+INFO 2012-01-19 14:00:52,276 26 new Places imported
+INFO 2012-01-19 14:00:52,277 Searching 72 pages for events.
+INFO 2012-01-19 14:03:08,425 Importing events for Facebook page 105690877222
+INFO 2012-01-19 14:03:08,425 210429465704863: Record for Event exists
+INFO 2012-01-19 14:03:08,425 177491429016702: Record for Event exists
+INFO 2012-01-19 14:03:08,425 133907670050180: Record for Event exists
+INFO 2012-01-19 14:03:08,425 282029958504621: Record for Event exists
+ERROR 2012-01-19 14:03:08,426 None: null response returned
+INFO 2012-01-19 14:03:08,426 154509344641133: Record for Event exists
+INFO 2012-01-19 14:03:08,426 308069295899401: Record for Event exists
+INFO 2012-01-19 14:03:08,426 277282215653570: Record for Event exists
+INFO 2012-01-19 14:03:08,426 238398649565048: Record for Event exists
+INFO 2012-01-19 14:03:08,426 315978155098617: Record for Event exists
+INFO 2012-01-19 14:03:09,543 Importing events for Facebook page 63893177312
+INFO 2012-01-19 14:03:09,543 165891856851046: Record for Event exists
+INFO 2012-01-19 14:03:09,545 290372420998139: Record for Event exists
+INFO 2012-01-19 14:03:09,545 297089760323693: Record for Event exists
+INFO 2012-01-19 14:03:57,304 Importing events for Facebook page 55254374259
+INFO 2012-01-19 14:03:57,304 312579092097195: Record for Event exists
+INFO 2012-01-19 14:03:57,304 363563730323895: Record for Event exists
+INFO 2012-01-19 14:03:57,304 186236518131529: Record for Event exists
+INFO 2012-01-19 14:03:57,305 127625440688268: Record for Event exists
+ERROR 2012-01-19 14:03:57,305 None: null response returned
+INFO 2012-01-19 14:03:57,305 227905340625232: Record for Event exists
+INFO 2012-01-19 14:03:57,305 195033643915020: Record for Event exists
+INFO 2012-01-19 14:03:57,305 307067812654746: Record for Event exists
+INFO 2012-01-19 14:03:57,306 333923599958565: Record for Event exists
+INFO 2012-01-19 14:03:57,306 141828462598200: Record for Event exists
+INFO 2012-01-19 14:03:57,306 142890342491402: Record for Event exists
+INFO 2012-01-19 14:03:57,306 185755911512138: Record for Event exists
+INFO 2012-01-19 14:03:57,306 128553717256215: Record for Event exists
+INFO 2012-01-19 14:03:57,306 300303003323149: Record for Event exists
+INFO 2012-01-19 14:03:57,306 200511076698348: Record for Event exists
+INFO 2012-01-19 14:03:57,306 207198629374112: Record for Event exists
+INFO 2012-01-19 14:03:57,306 234345019965604: Record for Event exists
+INFO 2012-01-19 14:03:57,307 163622320397295: Record for Event exists
+INFO 2012-01-19 14:03:57,307 192016187551598: Record for Event exists
+ERROR 2012-01-19 14:03:57,307 None: null response returned
+INFO 2012-01-19 14:03:57,307 277918625580900: Record for Event exists
+INFO 2012-01-19 14:03:57,307 156499211122710: Record for Event exists
+INFO 2012-01-19 14:03:57,307 282365575154866: Record for Event exists
+ERROR 2012-01-19 14:03:57,307 None: null response returned
+INFO 2012-01-19 14:03:57,307 153271681449977: Record for Event exists
+INFO 2012-01-19 14:03:57,308 247870598603693: Record for Event exists
+INFO 2012-01-19 14:03:57,308 154106424694845: Record for Event exists
+INFO 2012-01-19 14:03:57,308 201146493296421: Record for Event exists
+INFO 2012-01-19 14:03:57,308 269321016437515: Record for Event exists
+INFO 2012-01-19 14:03:57,308 128303697281734: Record for Event exists
+INFO 2012-01-19 14:03:57,308 314951891857567: Record for Event exists
+INFO 2012-01-19 14:03:57,308 301515883214695: Record for Event exists
+INFO 2012-01-19 14:03:57,308 261253707273530: Record for Event exists
+ERROR 2012-01-19 14:03:57,309 None: null response returned
+INFO 2012-01-19 14:03:57,309 170093319756825: Record for Event exists
+INFO 2012-01-19 14:03:57,309 164661763639021: Record for Event exists
+INFO 2012-01-19 14:03:57,309 231032146951854: Record for Event exists
+INFO 2012-01-19 14:03:57,309 264013236985437: Record for Event exists
+INFO 2012-01-19 14:03:57,309 282609615107962: Record for Event exists
+INFO 2012-01-19 14:03:57,309 367442133273233: Record for Event exists
+INFO 2012-01-19 14:03:57,309 228650223877938: Record for Event exists
+INFO 2012-01-19 14:03:57,310 209459135801556: Record for Event exists
+INFO 2012-01-19 14:03:57,310 338672092818671: Record for Event exists
+INFO 2012-01-19 14:03:57,310 270796159650483: Record for Event exists
+INFO 2012-01-19 14:03:57,310 346986598664231: Record for Event exists
+INFO 2012-01-19 14:03:57,310 247894808598700: Record for Event exists
+INFO 2012-01-19 14:03:57,310 255156134550311: Record for Event exists
+INFO 2012-01-19 14:03:57,310 209630402456068: Record for Event exists
+INFO 2012-01-19 14:03:57,311 146123232162831: Record for Event exists
+ERROR 2012-01-19 14:03:57,311 None: null response returned
+INFO 2012-01-19 14:03:57,311 184248831671921: Record for Event exists
+ERROR 2012-01-19 14:03:57,312 None: null response returned
+ERROR 2012-01-19 14:03:57,312 None: null response returned
+INFO 2012-01-19 14:03:57,312 223563601041591: Record for Event exists
+INFO 2012-01-19 14:03:57,313 232365580164618: Record for Event exists
+ERROR 2012-01-19 14:03:57,313 None: null response returned
+INFO 2012-01-19 14:03:57,313 132796983500810: Record for Event exists
+INFO 2012-01-19 14:03:57,313 321157061246902: Record for Event exists
+INFO 2012-01-19 14:03:57,313 280912675283929: Record for Event exists
+INFO 2012-01-19 14:03:57,313 335375883145839: Record for Event exists
+INFO 2012-01-19 14:03:57,313 298511470191972: Record for Event exists
+INFO 2012-01-19 14:03:57,313 271918246186430: Record for Event exists
+INFO 2012-01-19 14:03:57,314 119178631525714: Record for Event exists
+INFO 2012-01-19 14:03:57,314 278108148903439: Record for Event exists
+INFO 2012-01-19 14:03:57,314 271637759544434: Record for Event exists
+INFO 2012-01-19 14:03:57,314 307292365969563: Record for Event exists
+INFO 2012-01-19 14:03:57,314 288087281231633: Record for Event exists
+INFO 2012-01-19 14:03:57,314 248232708574146: Record for Event exists
+INFO 2012-01-19 14:03:57,314 184691918282138: Record for Event exists
+INFO 2012-01-19 14:03:57,314 125280187585817: Imported successfully as Madi Diaz 1/18 at Club Cafe
+INFO 2012-01-19 14:03:57,315 271164776263999: Record for Event exists
+INFO 2012-01-19 14:03:57,315 333916083288881: Record for Event exists
+INFO 2012-01-19 14:03:57,315 189432717797716: Record for Event exists
+INFO 2012-01-19 14:03:57,315 276805895693394: Record for Event exists
+INFO 2012-01-19 14:03:57,315 186976298058386: Record for Event exists
+INFO 2012-01-19 14:03:57,315 303423326336376: Record for Event exists
+INFO 2012-01-19 14:03:57,316 159093044188345: Record for Event exists
+INFO 2012-01-19 14:03:57,316 193288684083860: Record for Event exists
+INFO 2012-01-19 14:03:57,316 162751757152657: Record for Event exists
+INFO 2012-01-19 14:03:57,316 180436965380651: Record for Event exists
+INFO 2012-01-19 14:03:57,316 309667165719923: Record for Event exists
+INFO 2012-01-19 14:03:57,316 171754189589292: Record for Event exists
+INFO 2012-01-19 14:03:57,316 319283908084989: Record for Event exists
+INFO 2012-01-19 14:03:57,316 307397019271899: Record for Event exists
+INFO 2012-01-19 14:03:57,317 213394232072264: Record for Event exists
+ERROR 2012-01-19 14:03:57,317 None: null response returned
+INFO 2012-01-19 14:03:57,317 257348920988220: Record for Event exists
+INFO 2012-01-19 14:03:57,317 315338761811379: Record for Event exists
+INFO 2012-01-19 14:03:57,317 264880136898854: Record for Event exists
+INFO 2012-01-19 14:03:57,317 156557387776409: Record for Event exists
+INFO 2012-01-19 14:03:57,317 121426267969415: Record for Event exists
+INFO 2012-01-19 14:03:57,317 197518256999717: Record for Event exists
+INFO 2012-01-19 14:03:57,318 145897192178123: Record for Event exists
+ERROR 2012-01-19 14:03:57,318 None: null response returned
+INFO 2012-01-19 14:03:57,318 256943944354382: Record for Event exists
+INFO 2012-01-19 14:03:57,318 186905361393254: Record for Event exists
+INFO 2012-01-19 14:03:57,318 282611931783510: Record for Event exists
+INFO 2012-01-19 14:03:57,318 225743954153355: Record for Event exists
+INFO 2012-01-19 14:03:57,318 303494356344308: Record for Event exists
+INFO 2012-01-19 14:03:57,318 133154523454967: Record for Event exists
+INFO 2012-01-19 14:03:57,319 278051515546684: Record for Event exists
+INFO 2012-01-19 14:03:57,319 273238166050651: Record for Event exists
+INFO 2012-01-19 14:03:57,319 213044315435136: Record for Event exists
+INFO 2012-01-19 14:03:57,319 237487869646696: Record for Event exists
+INFO 2012-01-19 14:03:57,319 168216289933050: Record for Event exists
+INFO 2012-01-19 14:03:57,319 280229955350390: Record for Event exists
+ERROR 2012-01-19 14:03:57,319 None: null response returned
+INFO 2012-01-19 14:03:57,319 146396252127705: Record for Event exists
+INFO 2012-01-19 14:03:57,320 211011502301558: Record for Event exists
+INFO 2012-01-19 14:03:57,320 265829006788009: Record for Event exists
+INFO 2012-01-19 14:03:57,320 124032644370600: Record for Event exists
+INFO 2012-01-19 14:03:57,320 175653862518395: Record for Event exists
+INFO 2012-01-19 14:03:57,320 249478058442291: Record for Event exists
+INFO 2012-01-19 14:03:57,320 131979960236820: Record for Event exists
+INFO 2012-01-19 14:03:57,320 241074412615531: Record for Event exists
+INFO 2012-01-19 14:03:57,320 151838634911682: Record for Event exists
+INFO 2012-01-19 14:03:57,321 206998182697371: Record for Event exists
+INFO 2012-01-19 14:03:57,321 102986319816698: Record for Event exists
+INFO 2012-01-19 14:03:57,321 182184041855652: Record for Event exists
+INFO 2012-01-19 14:03:57,321 241671545890558: Record for Event exists
+INFO 2012-01-19 14:03:57,321 115226758585378: Record for Event exists
+INFO 2012-01-19 14:03:57,321 192727394135328: Record for Event exists
+INFO 2012-01-19 14:03:57,321 169232666497131: Record for Event exists
+INFO 2012-01-19 14:04:24,014 Importing events for Facebook page 64648244877
+INFO 2012-01-19 14:04:24,015 304386579600166: Record for Event exists
+INFO 2012-01-19 14:04:24,015 242258275830931: Record for Event exists
+INFO 2012-01-19 14:04:24,015 192278364203350: Record for Event exists
+INFO 2012-01-19 14:04:24,015 282074528505058: Record for Event exists
+INFO 2012-01-19 14:04:24,016 165713213520668: Record for Event exists
+ERROR 2012-01-19 14:04:24,016 None: null response returned
+INFO 2012-01-19 14:04:24,016 307533922618073: Record for Event exists
+INFO 2012-01-19 14:04:24,016 212048318875871: Record for Event exists
+INFO 2012-01-19 14:04:24,016 339553019392216: Record for Event exists
+INFO 2012-01-19 14:04:24,016 265334340192134: Record for Event exists
+INFO 2012-01-19 14:04:24,016 142624232512692: Record for Event exists
+INFO 2012-01-19 14:04:24,016 184873554919262: Record for Event exists
+INFO 2012-01-19 14:04:24,017 211222765639471: Record for Event exists
+INFO 2012-01-19 14:04:24,017 272710232763385: Record for Event exists
+INFO 2012-01-19 14:04:24,017 116198798496946: Record for Event exists
+INFO 2012-01-19 14:04:24,017 318425501525172: Record for Event exists
+INFO 2012-01-19 14:04:24,017 159099077527192: Record for Event exists
+INFO 2012-01-19 14:04:24,017 163625480401320: Record for Event exists
+INFO 2012-01-19 14:04:24,017 326914494004182: Record for Event exists
+INFO 2012-01-19 14:04:24,017 310985832273831: Record for Event exists
+INFO 2012-01-19 14:04:24,018 338937256135810: Record for Event exists
+INFO 2012-01-19 14:04:24,018 171129912975587: Record for Event exists
+INFO 2012-01-19 14:04:24,018 337975059554524: Record for Event exists
+INFO 2012-01-19 14:04:24,018 271173096269921: Record for Event exists
+INFO 2012-01-19 14:04:24,018 235103476544212: Record for Event exists
+INFO 2012-01-19 14:04:24,018 340338269314212: Record for Event exists
+INFO 2012-01-19 14:04:24,018 125885490864006: Record for Event exists
+INFO 2012-01-19 14:04:24,018 275896375804779: Record for Event exists
+ERROR 2012-01-19 14:04:24,019 None: null response returned
+INFO 2012-01-19 14:04:24,019 203382246414885: Record for Event exists
+ERROR 2012-01-19 14:04:24,019 None: null response returned
+INFO 2012-01-19 14:04:24,019 303216939719880: Record for Event exists
+ERROR 2012-01-19 14:04:24,019 None: null response returned
+INFO 2012-01-19 14:04:24,019 305701842795828: Record for Event exists
+INFO 2012-01-19 14:04:24,019 155087894592765: Record for Event exists
+INFO 2012-01-19 14:04:24,019 169017886539331: Record for Event exists
+INFO 2012-01-19 14:04:24,020 191685900924413: Record for Event exists
+INFO 2012-01-19 14:04:24,020 288019571231696: Record for Event exists
+INFO 2012-01-19 14:04:24,020 136044876502519: Record for Event exists
+INFO 2012-01-19 14:04:24,020 214269548659672: Record for Event exists
+INFO 2012-01-19 14:04:24,020 225859577497003: Record for Event exists
+INFO 2012-01-19 14:04:24,020 343425392341257: Record for Event exists
+INFO 2012-01-19 14:04:24,020 326368637379039: Record for Event exists
+INFO 2012-01-19 14:04:24,020 306438812726521: Record for Event exists
+INFO 2012-01-19 14:04:24,021 150269611753737: Record for Event exists
+INFO 2012-01-19 14:04:24,021 335316096495770: Record for Event exists
+INFO 2012-01-19 14:04:24,021 201178996630573: Record for Event exists
+INFO 2012-01-19 14:04:24,021 263464057054885: Record for Event exists
+INFO 2012-01-19 14:04:24,021 264002540325237: Record for Event exists
+INFO 2012-01-19 14:04:24,021 280778281967651: Record for Event exists
+INFO 2012-01-19 14:04:24,021 297424393603343: Record for Event exists
+INFO 2012-01-19 14:04:24,022 104648466323389: Record for Event exists
+INFO 2012-01-19 14:04:24,022 128895323891900: Record for Event exists
+INFO 2012-01-19 14:04:24,022 259917177401437: Record for Event exists
+INFO 2012-01-19 14:04:24,022 298920853473873: Record for Event exists
+INFO 2012-01-19 14:04:24,022 328228857192896: Record for Event exists
+INFO 2012-01-19 14:04:24,022 127112930740581: Record for Event exists
+INFO 2012-01-19 14:04:24,022 174433082653538: Record for Event exists
+INFO 2012-01-19 14:04:24,022 297381960301278: Record for Event exists
+INFO 2012-01-19 14:04:24,022 346697778679474: Record for Event exists
+INFO 2012-01-19 14:04:24,023 230018180389820: Record for Event exists
+INFO 2012-01-19 14:04:24,023 252508681438887: Record for Event exists
+ERROR 2012-01-19 14:04:24,023 None: null response returned
+INFO 2012-01-19 14:04:24,023 171379232950387: Record for Event exists
+INFO 2012-01-19 14:04:24,023 262631413788686: Record for Event exists
+INFO 2012-01-19 14:04:24,023 256613904397269: Record for Event exists
+INFO 2012-01-19 14:04:24,023 286787221353995: Record for Event exists
+INFO 2012-01-19 14:04:24,023 176622949078782: Record for Event exists
+INFO 2012-01-19 14:04:24,024 177139109040563: Record for Event exists
+INFO 2012-01-19 14:04:24,024 220534431341972: Record for Event exists
+INFO 2012-01-19 14:04:24,024 236677723056257: Record for Event exists
+INFO 2012-01-19 14:04:24,025 287500447938195: Record for Event exists
+INFO 2012-01-19 14:04:24,025 212428022162844: Record for Event exists
+INFO 2012-01-19 14:04:24,026 153419601418853: Record for Event exists
+INFO 2012-01-19 14:04:24,026 218572881543927: Record for Event exists
+INFO 2012-01-19 14:04:24,026 226229034110897: Record for Event exists
+ERROR 2012-01-19 14:04:24,026 None: null response returned
+ERROR 2012-01-19 14:04:24,026 None: null response returned
+INFO 2012-01-19 14:04:24,026 238379709545225: Record for Event exists
+INFO 2012-01-19 14:04:24,027 309044412445764: Record for Event exists
+INFO 2012-01-19 14:04:24,027 239767942742388: Record for Event exists
+INFO 2012-01-19 14:04:24,027 215233051871992: Record for Event exists
+INFO 2012-01-19 14:04:24,027 290709700945840: Record for Event exists
+INFO 2012-01-19 14:04:24,695 Importing events for Facebook page 90421944415
+INFO 2012-01-19 14:04:24,695 269592436437590: Record for Event exists
+INFO 2012-01-19 14:04:24,696 285108334859203: Record for Event exists
+INFO 2012-01-19 14:04:25,305 Importing events for Facebook page 78716328021
+INFO 2012-01-19 14:04:25,305 247899728617372: Record for Event exists
+INFO 2012-01-19 14:04:25,305 223540357726198: Record for Event exists
+INFO 2012-01-19 14:04:26,278 Importing events for Facebook page 150516201679201
+ERROR 2012-01-19 14:04:26,278 None: null response returned
+INFO 2012-01-19 14:04:26,278 310670098957150: Imported successfully as JOIN US!
+INFO 2012-01-19 14:04:26,592 Importing events for Facebook page 94563290388
+INFO 2012-01-19 14:04:26,592 272639912781063: Record for Event exists
+INFO 2012-01-19 14:04:31,377 Importing events for Facebook page 109854719044265
+ERROR 2012-01-19 14:04:31,378 None: null response returned
+ERROR 2012-01-19 14:04:31,378 None: null response returned
+INFO 2012-01-19 14:04:31,378 299710120079324: Record for Event exists
+INFO 2012-01-19 14:04:31,378 338196889540863: Record for Event exists
+INFO 2012-01-19 14:04:31,378 240286539372745: Record for Event exists
+INFO 2012-01-19 14:04:31,379 193997400693675: Record for Event exists
+INFO 2012-01-19 14:04:31,379 342003482484237: Record for Event exists
+INFO 2012-01-19 14:04:31,379 273193896077904: Record for Event exists
+INFO 2012-01-19 14:04:31,379 261469550580348: Record for Event exists
+INFO 2012-01-19 14:04:31,379 162500753850352: Record for Event exists
+INFO 2012-01-19 14:04:31,380 332227770138890: Record for Event exists
+INFO 2012-01-19 14:04:31,380 155834827857786: Record for Event exists
+INFO 2012-01-19 14:04:31,380 204294562991860: Record for Event exists
+INFO 2012-01-19 14:04:31,380 274476115900249: Record for Event exists
+INFO 2012-01-19 14:04:31,380 168517159873729: Record for Event exists
+INFO 2012-01-19 14:04:31,966 Importing events for Facebook page 257456362121
+INFO 2012-01-19 14:04:31,966 169378796502275: Record for Event exists
+INFO 2012-01-19 14:04:31,966 152671241507788: Record for Event exists
+ERROR 2012-01-19 14:04:31,967 None: null response returned
+INFO 2012-01-19 14:04:33,111 Importing events for Facebook page 123450319864
+ERROR 2012-01-19 14:04:33,111 None: null response returned
+INFO 2012-01-19 14:04:33,111 163434453751848: Imported successfully as I Made It! Original
+INFO 2012-01-19 14:04:33,111 205929652804043: Imported successfully as I Made It! for the Holidays
+INFO 2012-01-19 14:04:35,260 Importing events for Facebook page 111815322185853
+INFO 2012-01-19 14:04:35,260 208673035891728: Record for Event exists
+INFO 2012-01-19 14:04:35,260 232069446867115: Record for Event exists
+INFO 2012-01-19 14:04:35,261 236930819714753: Record for Event exists
+INFO 2012-01-19 14:04:35,261 171699006264964: Record for Event exists
+INFO 2012-01-19 14:04:35,261 108747675910665: Record for Event exists
+INFO 2012-01-19 14:04:35,261 315439268479786: Record for Event exists
+INFO 2012-01-19 14:04:35,261 251854378212236: Record for Event exists
+INFO 2012-01-19 14:04:35,596 Importing events for Facebook page 56614993489
+INFO 2012-01-19 14:04:35,596 250932601640128: Imported successfully as The Hang Lows with Hop A Train
+INFO 2012-01-19 14:04:37,843 Importing events for Facebook page 180022602641
+ERROR 2012-01-19 14:04:37,844 None: null response returned
+INFO 2012-01-19 14:04:37,844 189065151127086: Record for Event exists
+INFO 2012-01-19 14:04:37,844 196088837084069: Record for Event exists
+INFO 2012-01-19 14:04:37,844 110580932351209: Record for Event exists
+INFO 2012-01-19 14:04:37,844 141315505931546: Record for Event exists
+INFO 2012-01-19 14:04:37,844 171609126219253: Record for Event exists
+INFO 2012-01-19 14:04:37,844 198375806841030: Record for Event exists
+INFO 2012-01-19 14:04:37,845 188264307872000: Record for Event exists
+INFO 2012-01-19 14:04:37,845 194577710571068: Record for Event exists
+INFO 2012-01-19 14:04:39,042 Importing events for Facebook page 35466002033
+INFO 2012-01-19 14:04:39,043 176982155735426: Imported successfully as From the Ground UP!
+INFO 2012-01-19 14:04:45,312 Importing events for Facebook page 36773390241
+INFO 2012-01-19 14:04:45,312 127222590728210: Record for Event exists
+INFO 2012-01-19 14:04:45,312 306517042726544: Record for Event exists
+INFO 2012-01-19 14:04:45,313 272292859500185: Record for Event exists
+ERROR 2012-01-19 14:04:45,313 None: null response returned
+INFO 2012-01-19 14:04:45,313 109806085802993: Record for Event exists
+INFO 2012-01-19 14:04:45,313 297716853607807: Record for Event exists
+INFO 2012-01-19 14:04:45,313 272732462774637: Record for Event exists
+INFO 2012-01-19 14:04:45,313 297860256918290: Record for Event exists
+INFO 2012-01-19 14:04:45,313 322397047777539: Record for Event exists
+INFO 2012-01-19 14:04:45,313 177279142372983: Record for Event exists
+INFO 2012-01-19 14:04:45,313 190607927683803: Record for Event exists
+INFO 2012-01-19 14:04:45,314 294215057267909: Record for Event exists
+INFO 2012-01-19 14:04:45,314 292552737441659: Record for Event exists
+INFO 2012-01-19 14:04:45,314 168635826558580: Record for Event exists
+INFO 2012-01-19 14:04:45,314 224927197572206: Record for Event exists
+INFO 2012-01-19 14:04:47,448 Importing events for Facebook page 358732526381
+INFO 2012-01-19 14:04:47,449 331217650223045: Record for Event exists
+ERROR 2012-01-19 14:04:47,449 None: null response returned
+INFO 2012-01-19 14:04:47,449 261110870615992: Record for Event exists
+INFO 2012-01-19 14:04:47,449 172182772872261: Record for Event exists
+INFO 2012-01-19 14:04:48,130 Importing events for Facebook page 288803693224
+INFO 2012-01-19 14:04:48,130 234584656610899: Record for Event exists
+INFO 2012-01-19 14:04:48,130 128141263967107: Record for Event exists
+INFO 2012-01-19 14:04:48,468 Importing events for Facebook page 210179182355132
+INFO 2012-01-19 14:04:48,469 122897701158492: Record for Event exists
+INFO 2012-01-19 14:04:52,352 Importing events for Facebook page 21315572698
+INFO 2012-01-19 14:04:52,353 327673473921769: Imported successfully as Japanese Scotch Tasting
+INFO 2012-01-19 14:04:52,353 225545937527134: Imported successfully as "Brunch Bunch" with PUMP & CORO
+INFO 2012-01-19 14:04:52,353 226982934035573: Imported successfully as PUMP Holiday Quiz Night
+INFO 2012-01-19 14:04:52,353 286796981354584: Imported successfully as Dukes vs Penn State at CONSOL Energy Center
+INFO 2012-01-19 14:04:52,353 235001393230177: Imported successfully as PUMP night at the Pittsburgh Glass Center
+INFO 2012-01-19 14:05:18,908 Importing events for Facebook page 24446366693
+ERROR 2012-01-19 14:05:18,908 None: null response returned
+INFO 2012-01-19 14:05:18,908 230439280347809: Imported successfully as The Gershwins- Here to Stay
+INFO 2012-01-19 14:05:18,908 254799214563231: Imported successfully as The Gershwins- Here to Stay
+INFO 2012-01-19 14:05:18,909 289165784428066: Imported successfully as The Gershwins here to Stay
+INFO 2012-01-19 14:05:18,909 229972940390885: Imported successfully as A Grand Finale with Honeck
+INFO 2012-01-19 14:05:18,909 118140584959698: Imported successfully as A Grande Finale with Honeck
+INFO 2012-01-19 14:05:18,909 274595012571557: Imported successfully as A Grand Ginale with Honeck
+INFO 2012-01-19 14:05:18,909 159037194187843: Imported successfully as Joshua Bell Plays Brahms
+INFO 2012-01-19 14:05:18,909 297264010290608: Imported successfully as Joshua Bell Plays Brahms
+INFO 2012-01-19 14:05:18,909 256274061084583: Imported successfully as Joshua Bell Plays Brahms
+INFO 2012-01-19 14:05:18,909 184023161675062: Imported successfully as Spring Into Summer
+INFO 2012-01-19 14:05:18,910 157017114391027: Imported successfully as Cirque de la Symphony
+INFO 2012-01-19 14:05:18,910 145630038854026: Imported successfully as Music 101 with Lawrence Loh and Thomas Hong
+INFO 2012-01-19 14:05:18,910 201659556562184: Imported successfully as Debussy & Ravel's Bolero
+INFO 2012-01-19 14:05:18,910 235278756514836: Imported successfully as Debussy & Ravel's Bolero
+INFO 2012-01-19 14:05:18,910 286252011427248: Imported successfully as MythBusters: Behind the Myths
+INFO 2012-01-19 14:05:18,910 100719620031065: Imported successfully as Music 101 with Ron Samuels
+INFO 2012-01-19 14:05:18,910 149672408451954: Imported successfully as Pinchas Zukerman in Recital
+INFO 2012-01-19 14:05:18,910 204445892944736: Imported successfully as Music 101 with William Caballero
+INFO 2012-01-19 14:05:18,911 181030721991150: Imported successfully as Trey Anastasio with the Pittsburgh Symphony Orchestra
+INFO 2012-01-19 14:05:18,911 206605512760103: Imported successfully as Marvin, Dave Koz, and the Movies
+INFO 2012-01-19 14:05:18,911 123774921074218: Imported successfully as An Evening of Cooking and Conducting with Marvin Hamlisch & Andrew Morrison
+ERROR 2012-01-19 14:05:18,911 None: null response returned
+ERROR 2012-01-19 14:05:18,911 None: null response returned
+ERROR 2012-01-19 14:05:18,911 None: null response returned
+INFO 2012-01-19 14:05:18,911 261588293879886: Imported successfully as Rachmaninoff's Symphonic Dances
+INFO 2012-01-19 14:05:18,911 255022847874324: Imported successfully as Rachmaninoff's Symphonic Dances
+INFO 2012-01-19 14:05:18,912 186055791469989: Imported successfully as Rachmaninoff's Symphonic Dances
+INFO 2012-01-19 14:05:18,912 229524040435713: Imported successfully as Highmark Holiday Pops with Marvin
+INFO 2012-01-19 14:05:18,912 228362970553229: Imported successfully as Highmark Holiday Pops with Marvin
+INFO 2012-01-19 14:05:18,912 258707057498070: Imported successfully as Highmark Holiday Pops with Marvin
+INFO 2012-01-19 14:05:18,912 184777568264133: Imported successfully as Highmark Holiday Pops with Marvin
+INFO 2012-01-19 14:05:18,912 224532420941081: Imported successfully as Highmark Holiday Pops with Marvin
+INFO 2012-01-19 14:05:18,912 161025553989157: Imported successfully as Highmark Holiday Pops with Marvin
+INFO 2012-01-19 14:05:18,912 265533736793681: Imported successfully as Celtic Woman with the PSO
+INFO 2012-01-19 14:05:18,913 228884267157312: Imported successfully as Highmark Family Holiday Pops
+INFO 2012-01-19 14:05:18,913 159664854124483: Imported successfully as Holiday Pops
+INFO 2012-01-19 14:05:18,913 257416394282409: Imported successfully as Yo-Yo Ma with the PSO
+ERROR 2012-01-19 14:05:18,913 None: null response returned
+INFO 2012-01-19 14:05:18,913 289540484390475: Imported successfully as Honeck Conducts Handel's Messiah
+INFO 2012-01-19 14:05:18,913 103866253057352: Imported successfully as Honeck Conducts Handel's Messiah
+INFO 2012-01-19 14:05:19,580 Importing events for Facebook page 43246695373
+INFO 2012-01-19 14:05:19,581 254427747960193: Imported successfully as After Hours @ the Library
+INFO 2012-01-19 14:05:19,581 127728444003666: Imported successfully as Shop for a Cause! Friends of CLP Shopping Night at Ten Thousand Villages
+INFO 2012-01-19 14:05:24,530 Importing events for Facebook page 8582573089
+INFO 2012-01-19 14:05:24,531 181906651868014: Record for Event exists
+INFO 2012-01-19 14:05:24,531 224464864253365: Record for Event exists
+INFO 2012-01-19 14:05:24,531 212916222077455: Record for Event exists
+INFO 2012-01-19 14:05:24,531 183920251664053: Record for Event exists
+INFO 2012-01-19 14:05:24,531 165011873565125: Record for Event exists
+INFO 2012-01-19 14:05:24,531 119193398168470: Record for Event exists
+INFO 2012-01-19 14:05:24,532 201045666607690: Record for Event exists
+INFO 2012-01-19 14:05:24,532 124527067632635: Record for Event exists
+INFO 2012-01-19 14:05:24,532 232811886738094: Record for Event exists
+INFO 2012-01-19 14:05:24,532 195147500534834: Record for Event exists
+INFO 2012-01-19 14:05:24,532 182570085133038: Record for Event exists
+ERROR 2012-01-19 14:05:24,532 None: null response returned
+INFO 2012-01-19 14:05:24,532 140085629399162: Record for Event exists
+INFO 2012-01-19 14:05:32,171 Importing events for Facebook page 184142654825
+INFO 2012-01-19 14:05:32,172 149975141780863: Record for Event exists
+INFO 2012-01-19 14:05:32,172 262044570514626: Record for Event exists
+INFO 2012-01-19 14:05:32,172 343005885726994: Record for Event exists
+INFO 2012-01-19 14:05:32,172 341843792494679: Record for Event exists
+INFO 2012-01-19 14:05:32,172 198636086898918: Record for Event exists
+INFO 2012-01-19 14:05:32,173 283166678408175: Record for Event exists
+INFO 2012-01-19 14:05:32,173 129325960512367: Record for Event exists
+INFO 2012-01-19 14:05:32,173 199865493432086: Record for Event exists
+ERROR 2012-01-19 14:05:32,173 None: null response returned
+INFO 2012-01-19 14:05:32,173 196378093785392: Record for Event exists
+INFO 2012-01-19 14:05:32,173 331435693535533: Record for Event exists
+INFO 2012-01-19 14:05:32,173 261867420535507: Record for Event exists
+INFO 2012-01-19 14:05:32,173 274904659214285: Record for Event exists
+INFO 2012-01-19 14:05:32,174 272800986107871: Record for Event exists
+INFO 2012-01-19 14:05:32,174 216873655057979: Record for Event exists
+INFO 2012-01-19 14:05:32,174 290686304300988: Record for Event exists
+INFO 2012-01-19 14:05:32,174 154895574613891: Record for Event exists
+INFO 2012-01-19 14:05:32,174 173152709443880: Record for Event exists
+INFO 2012-01-19 14:05:32,174 229291153797743: Record for Event exists
+INFO 2012-01-19 14:05:32,174 199361506815036: Record for Event exists
+ERROR 2012-01-19 14:05:32,174 None: null response returned
+INFO 2012-01-19 14:05:32,175 297734030253082: Record for Event exists
+INFO 2012-01-19 14:05:32,175 258004360890177: Record for Event exists
+INFO 2012-01-19 14:05:32,175 246181948744777: Record for Event exists
+INFO 2012-01-19 14:05:32,175 216393991761183: Record for Event exists
+ERROR 2012-01-19 14:05:32,175 None: null response returned
+INFO 2012-01-19 14:05:32,175 184097568337409: Record for Event exists
+INFO 2012-01-19 14:05:35,956 Importing events for Facebook page 52462820965
+ERROR 2012-01-19 14:05:35,956 None: null response returned
+INFO 2012-01-19 14:05:35,956 214961878590426: Record for Event exists
+INFO 2012-01-19 14:05:35,956 298130433567018: Record for Event exists
+INFO 2012-01-19 14:05:35,957 274478242605757: Record for Event exists
+INFO 2012-01-19 14:05:35,957 317367578273944: Record for Event exists
+INFO 2012-01-19 14:05:35,957 300597996629218: Record for Event exists
+ERROR 2012-01-19 14:05:35,957 None: null response returned
+INFO 2012-01-19 14:05:35,958 131104440332998: Record for Event exists
+INFO 2012-01-19 14:05:35,958 213128682091297: Record for Event exists
+INFO 2012-01-19 14:05:35,958 230252287048708: Record for Event exists
+INFO 2012-01-19 14:05:35,958 Importing events for Facebook page 49033192650
+ERROR 2012-01-19 14:05:35,959 None: null response returned
+INFO 2012-01-19 14:05:38,740 Importing events for Facebook page 35942576698
+INFO 2012-01-19 14:05:38,740 211788142241845: Imported successfully as SHABAAM SAHDEEQ w/ Varsity Squad and BlackSun
+INFO 2012-01-19 14:05:38,740 145048978942800: Imported successfully as Nicolay with the Hot at Nights 1/31/12
+INFO 2012-01-19 14:05:38,741 265953896793197: Imported successfully as Saleem & The Music Lovers, with Sonji
+INFO 2012-01-19 14:05:38,741 239258672811543: Imported successfully as Drinks with Benefits: Asante's fundraiser
+INFO 2012-01-19 14:05:38,741 220556098014037: Imported successfully as Swfit Technique, CHRIS & the Dope Technique, and More
+INFO 2012-01-19 14:05:39,404 Importing events for Facebook page 173205309369201
+INFO 2012-01-19 14:05:39,404 111846122262735: Imported successfully as Business, Meet the Arts
+INFO 2012-01-19 14:05:39,782 Importing events for Facebook page 186545458050286
+INFO 2012-01-19 14:05:39,782 113354015449641: Imported successfully as Valentine's Pudding Massacre in Pittsburgh
+INFO 2012-01-19 14:05:42,719 Importing events for Facebook page 19822307654
+INFO 2012-01-19 14:05:42,719 350826114944985: Imported successfully as Call for Artists Due: Tone It UP!
+ERROR 2012-01-19 14:05:42,719 None: null response returned
+INFO 2012-01-19 14:05:42,719 176043382496869: Imported successfully as Call for Artists Due: Lenses and Filters: A view through the Needle’s Eye
+INFO 2012-01-19 14:05:42,720 255216721214413: Imported successfully as Opening Reception: 10 Solo Exhibits
+INFO 2012-01-19 14:05:42,720 250772734995540: Imported successfully as Call for Artists Due: Recreation/Renewal/Rebirth
+INFO 2012-01-19 14:05:42,720 286351434755290: Imported successfully as Opening Reception: Ivette Spradlin
+INFO 2012-01-19 14:05:47,968 Importing events for Facebook page 135605626026
+INFO 2012-01-19 14:05:47,968 297103047002554: Imported successfully as February Happy Hour
+INFO 2012-01-19 14:05:47,969 291943067524641: Imported successfully as Networking Event with the Young Lawyers
+INFO 2012-01-19 14:05:47,969 188480017917262: Imported successfully as February Dinner Club
+INFO 2012-01-19 14:05:47,969 149979381779825: Imported successfully as Wigle Whiskey Tour
+INFO 2012-01-19 14:05:47,969 207085356049321: Imported successfully as January Dinner Club
+INFO 2012-01-19 14:05:47,969 295447110505480: Imported successfully as January Happy Hour
+INFO 2012-01-19 14:05:47,969 220231778055490: Imported successfully as New Member Social
+INFO 2012-01-19 14:05:47,969 251692368220653: Imported successfully as Holiday Happy Hour
+INFO 2012-01-19 14:05:52,491 Importing events for Facebook page 285942258081
+INFO 2012-01-19 14:05:52,491 283610701674927: Record for Event exists
+INFO 2012-01-19 14:05:52,492 208345722592957: Record for Event exists
+ERROR 2012-01-19 14:05:52,492 None: null response returned
+INFO 2012-01-19 14:05:52,492 283569865021472: Record for Event exists
+INFO 2012-01-19 14:05:52,492 297040990342261: Record for Event exists
+INFO 2012-01-19 14:05:52,492 326890447334699: Record for Event exists
+INFO 2012-01-19 14:05:52,492 202251043180468: Record for Event exists
+INFO 2012-01-19 14:05:52,493 179677375460850: Record for Event exists
+INFO 2012-01-19 14:05:52,493 128289960617843: Record for Event exists
+INFO 2012-01-19 14:05:52,493 230670497006832: Record for Event exists
+INFO 2012-01-19 14:05:52,493 320825814596626: Record for Event exists
+INFO 2012-01-19 14:05:52,493 241263442588504: Record for Event exists
+INFO 2012-01-19 14:05:52,493 Imported 69 new Events

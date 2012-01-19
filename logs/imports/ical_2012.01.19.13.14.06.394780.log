@@ -1,0 +1,350 @@
+INFO 2012-01-19 13:14:07,960 Event import start
+INFO 2012-01-19 13:14:07,998 Reading 8 feeds for Event importing
+INFO 2012-01-19 13:14:07,999 Processing new events from feed "Attack Theatre"
+INFO 2012-01-19 13:14:09,568 UID 9bbd1jkqk91nl7lt3k01fk3iv4@google.com: Imported new event, id=19037
+INFO 2012-01-19 13:14:09,569 UID 9bbd1jkqk91nl7lt3k01fk3iv4@google.com: Report status notice: EventImportNotice: LocationResolveStatus: "Attack Theatre 2425 Liberty Avenue, Strip District" resolved with parse status RESOLVED_FIELD0_NAME_FIELD1_ADDRESS
+INFO 2012-01-19 13:14:09,968 UID btr0vhc6f4rq2vbk7djhvk1a0k@google.com: Imported new event, id=19038
+INFO 2012-01-19 13:14:09,969 UID btr0vhc6f4rq2vbk7djhvk1a0k@google.com: Report status notice: EventImportNotice: LocationResolveStatus: "Attack Theatre Studios, 2425 Liberty Avenue, Strip District" resolved with parse status RESOLVED_FIELD0_NAME_FIELD1_ADDRESS
+INFO 2012-01-19 13:14:10,363 UID 8ebodtgjbv260m9v085d6n6ed0@google.com: Imported new event, id=19039
+INFO 2012-01-19 13:14:10,363 UID 8ebodtgjbv260m9v085d6n6ed0@google.com: Report status notice: EventImportNotice: LocationResolveStatus: "Attack Theatre, 2425 Liberty Avenue Strip District" resolved with parse status RESOLVED_FIELD0_NAME_FIELD1_ADDRESS
+INFO 2012-01-19 13:14:10,677 UID 1fbq0am3b90smsmps32uvjkkas@google.com: Imported new event, id=19040
+INFO 2012-01-19 13:14:10,677 UID 1fbq0am3b90smsmps32uvjkkas@google.com: Report status notice: EventImportNotice: FailedLocationResolve: "Location TBA"
+INFO 2012-01-19 13:14:11,020 UID o2kha1d6bokuv5d4hq45f69kok@google.com: Imported new event, id=19041
+INFO 2012-01-19 13:14:11,020 UID o2kha1d6bokuv5d4hq45f69kok@google.com: Report status notice: EventImportNotice: FailedLocationResolve: "Heinz Hall"
+INFO 2012-01-19 13:14:11,026 UID s1n2vedi4lruje1a947sk6g6gk@google.com: Imported new event, id=19042
+INFO 2012-01-19 13:14:11,027 UID s1n2vedi4lruje1a947sk6g6gk@google.com: Report status notice: EventImportNotice: FailedLocationResolve: "Heinz Hall"
+INFO 2012-01-19 13:14:11,048 UID pevqsppcg3thpu32rhaaafo5v4@google.com: Imported new event, id=19043
+INFO 2012-01-19 13:14:11,049 UID pevqsppcg3thpu32rhaaafo5v4@google.com: Report status notice: EventImportNotice: FailedLocationResolve: "Heinz Hall"
+INFO 2012-01-19 13:14:11,429 UID a6q7mf6mskj5vn311ir8qqhgt4@google.com: Imported new event, id=19044
+INFO 2012-01-19 13:14:11,429 UID a6q7mf6mskj5vn311ir8qqhgt4@google.com: Report status notice: EventImportNotice: FailedLocationResolve: "New Hazlett Theater"
+INFO 2012-01-19 13:14:11,437 UID r6j20rvthme6u3f2cukjlfi8bo@google.com: Imported new event, id=19045
+INFO 2012-01-19 13:14:11,437 UID r6j20rvthme6u3f2cukjlfi8bo@google.com: Report status notice: EventImportNotice: FailedLocationResolve: "New Hazlett Theater"
+INFO 2012-01-19 13:14:11,442 UID 0rmilf9kdauh9t00sa2crf8p30@google.com: Imported new event, id=19046
+INFO 2012-01-19 13:14:11,443 UID 0rmilf9kdauh9t00sa2crf8p30@google.com: Report status notice: EventImportNotice: FailedLocationResolve: "New Hazlett Theater"
+INFO 2012-01-19 13:14:11,449 10 new Events imported from feed "Attack Theatre"
+INFO 2012-01-19 13:14:11,449 Processing new events from feed "Bike Pittsburgh"
+INFO 2012-01-19 13:14:18,001 UID 2ssdb6c1qeaarch275ti89kba4@google.com: Imported new event, id=19047
+INFO 2012-01-19 13:14:18,902 UID 0l0m7kr25ifcsst099l8kkvug0@google.com: Imported new event, id=19048
+INFO 2012-01-19 13:14:18,902 UID 0l0m7kr25ifcsst099l8kkvug0@google.com: Report status notice: EventImportNotice: FailedLocationResolve: "Bud harris Cycling Track, Washington Blvd, Pittsburgh, PA"
+INFO 2012-01-19 13:14:19,184 UID s1nickv3qc9pg7fcp7feqj30as@google.com: Imported new event, id=19049
+INFO 2012-01-19 13:14:19,185 UID s1nickv3qc9pg7fcp7feqj30as@google.com: Report status notice: EventImportNotice: FailedLocationResolve: "see PittsburghRandonneurs.com"
+INFO 2012-01-19 13:14:19,462 UID j6j0rl5o790o33hdsjeg2s672k@google.com: Imported new event, id=19050
+INFO 2012-01-19 13:14:19,463 UID j6j0rl5o790o33hdsjeg2s672k@google.com: Report status notice: EventImportNotice: FailedLocationResolve: "See www.PittsburghRandonneurs.com"
+INFO 2012-01-19 13:14:22,407 UID dhobbagnmdu8vdu670rtv5htmo@google.com: Imported new event, id=19051
+INFO 2012-01-19 13:14:22,408 UID dhobbagnmdu8vdu670rtv5htmo@google.com: Report status notice: EventImportNotice: LocationResolveStatus: "Point Park University, Lawrence Hall (corner of Blvd of the Allies and Wood St.)" resolved with parse status GEOCODED_IN_PARENTHESIS
+INFO 2012-01-19 13:14:24,959 UID dj65p1996sqr2khs865ff79tf4@google.com: Imported new event, id=19052
+INFO 2012-01-19 13:14:24,959 UID dj65p1996sqr2khs865ff79tf4@google.com: Report status notice: EventImportNotice: FailedLocationResolve: "University of Pittsburgh Alumni Hall Ballroom 4227 Fifth Ave. (between Lytton & Tennyson avenues) in Oakland"
+INFO 2012-01-19 13:14:24,966 UID fhp6upevaa49qnbcp0pdtm7oi0@google.com: Imported new event, id=19053
+INFO 2012-01-19 13:14:24,966 UID fhp6upevaa49qnbcp0pdtm7oi0@google.com: Report status notice: EventImportNotice: FailedLocationResolve: "University of Pittsburgh Alumni Hall Ballroom 4227 Fifth Ave. (between Lytton & Tennyson avenues) in Oakland"
+INFO 2012-01-19 13:14:24,971 UID f1a7uqejj3qhs5esc66qu2ej7o@google.com: Imported new event, id=19054
+INFO 2012-01-19 13:14:25,262 UID 15o2hmunbvk2ilnk3s0egigeos@google.com: Imported new event, id=19055
+INFO 2012-01-19 13:14:25,263 UID 15o2hmunbvk2ilnk3s0egigeos@google.com: Report status notice: EventImportNotice: FailedLocationResolve: "Midland Borough Building"
+INFO 2012-01-19 13:14:25,413 UID qenr8jot81fn64rgmdo3c2g1hk@google.com: Imported new event, id=19056
+INFO 2012-01-19 13:14:25,414 UID qenr8jot81fn64rgmdo3c2g1hk@google.com: Report status notice: EventImportNotice: LocationResolveStatus: "Pittsburgh Airport Marriott" resolved with parse status RESOLVED_FULL_STRING
+INFO 2012-01-19 13:14:25,921 UID pm5ebjia9spmcukoc9637m0bos@google.com: Imported new event, id=19057
+INFO 2012-01-19 13:14:25,921 UID pm5ebjia9spmcukoc9637m0bos@google.com: Report status notice: EventImportNotice: LocationResolveStatus: "Southside Works Cinema, 425 Cinema Drive, Pittsburgh" resolved with parse status RESOLVED_FIELD0_NAME_FIELD1_ADDRESS
+INFO 2012-01-19 13:14:26,243 UID 95bn4plf9jlcibtomh7fsp9n9k@google.com: Imported new event, id=19058
+INFO 2012-01-19 13:14:26,243 UID 95bn4plf9jlcibtomh7fsp9n9k@google.com: Report status notice: EventImportNotice: FailedLocationResolve: "REI Southside Works"
+INFO 2012-01-19 13:14:27,370 UID 6ile4i3d7i2ua2f78t6f7s3rhs@google.com: Imported new event, id=19059
+INFO 2012-01-19 13:14:27,371 UID 6ile4i3d7i2ua2f78t6f7s3rhs@google.com: Report status notice: EventImportNotice: FailedLocationResolve: "Trek of PGH--Tue.(Robinson), Wed. (Cranberry), & Thurs. (Shadyside)*"
+INFO 2012-01-19 13:14:27,378 UID 83o5bfloq3bjifhst852i2q54s@google.com: Imported new event, id=19060
+INFO 2012-01-19 13:14:27,378 UID 83o5bfloq3bjifhst852i2q54s@google.com: Report status notice: EventImportNotice: FailedLocationResolve: "Trek of PGH--Tue.(Robinson), Wed. (Cranberry), & Thurs. (Shadyside)*"
+INFO 2012-01-19 13:14:27,384 UID ca4b8kn3u698vaab4lm6udhiv8@google.com: Imported new event, id=19061
+INFO 2012-01-19 13:14:27,385 UID ca4b8kn3u698vaab4lm6udhiv8@google.com: Report status notice: EventImportNotice: FailedLocationResolve: "Trek of PGH--Tue.(Robinson), Wed. (Cranberry), & Thurs. (Shadyside)*"
+INFO 2012-01-19 13:14:27,394 UID 3huv2ukp204sl9qd32skj1umhk@google.com: Imported new event, id=19062
+INFO 2012-01-19 13:14:27,394 UID 3huv2ukp204sl9qd32skj1umhk@google.com: Report status notice: EventImportNotice: FailedLocationResolve: "Trek of PGH--Tue.(Robinson), Wed. (Cranberry), & Thurs. (Shadyside)*"
+INFO 2012-01-19 13:14:27,399 UID h5vkjqpev3novu13ti2s2r4qts@google.com: Imported new event, id=19063
+INFO 2012-01-19 13:14:27,399 UID h5vkjqpev3novu13ti2s2r4qts@google.com: Report status notice: EventImportNotice: FailedLocationResolve: "Trek of PGH--Tue.(Robinson), Wed. (Cranberry), & Thurs. (Shadyside)*"
+INFO 2012-01-19 13:14:27,413 UID mf1h7va34jkl3744m8rp11a480@google.com: Imported new event, id=19064
+INFO 2012-01-19 13:14:27,413 UID mf1h7va34jkl3744m8rp11a480@google.com: Report status notice: EventImportNotice: FailedLocationResolve: "Trek of PGH--Tue.(Robinson), Wed. (Cranberry), & Thurs. (Shadyside)*"
+INFO 2012-01-19 13:14:27,427 UID no8v36huf726ac27j6a0ugu48g@google.com: Imported new event, id=19065
+INFO 2012-01-19 13:14:27,428 UID no8v36huf726ac27j6a0ugu48g@google.com: Report status notice: EventImportNotice: FailedLocationResolve: "Trek of PGH--Tue.(Robinson), Wed. (Cranberry), & Thurs. (Shadyside)*"
+INFO 2012-01-19 13:14:27,433 UID c9mpvjp1atuu1gg244p4if5nug@google.com: Imported new event, id=19066
+INFO 2012-01-19 13:14:27,433 UID c9mpvjp1atuu1gg244p4if5nug@google.com: Report status notice: EventImportNotice: FailedLocationResolve: "Trek of PGH--Tue.(Robinson), Wed. (Cranberry), & Thurs. (Shadyside)*"
+INFO 2012-01-19 13:14:27,439 UID 99ib51i1i9qttnv1uab6i4q138@google.com: Imported new event, id=19067
+INFO 2012-01-19 13:14:27,439 UID 99ib51i1i9qttnv1uab6i4q138@google.com: Report status notice: EventImportNotice: FailedLocationResolve: "Trek of PGH--Tue.(Robinson), Wed. (Cranberry), & Thurs. (Shadyside)*"
+INFO 2012-01-19 13:14:27,445 UID nphmtd48vrss00d7u6seolk0d8@google.com: Imported new event, id=19068
+INFO 2012-01-19 13:14:27,445 UID nphmtd48vrss00d7u6seolk0d8@google.com: Report status notice: EventImportNotice: FailedLocationResolve: "Trek of PGH--Tue.(Robinson), Wed. (Cranberry), & Thurs. (Shadyside)*"
+INFO 2012-01-19 13:14:27,451 UID 61hu8c78k23d3ui1cmuf14adk8@google.com: Imported new event, id=19069
+INFO 2012-01-19 13:14:27,451 UID 61hu8c78k23d3ui1cmuf14adk8@google.com: Report status notice: EventImportNotice: FailedLocationResolve: "Trek of PGH--Tue.(Robinson), Wed. (Cranberry), & Thurs. (Shadyside)*"
+INFO 2012-01-19 13:14:27,456 UID pkq92su7e2me6g1h59gfk0l7rg@google.com: Imported new event, id=19070
+INFO 2012-01-19 13:14:27,457 UID pkq92su7e2me6g1h59gfk0l7rg@google.com: Report status notice: EventImportNotice: FailedLocationResolve: "Trek of PGH--Tue.(Robinson), Wed. (Cranberry), & Thurs. (Shadyside)*"
+INFO 2012-01-19 13:14:27,466 UID 0b49enaa528qa10kjf49qheul0@google.com: Imported new event, id=19071
+INFO 2012-01-19 13:14:27,466 UID 0b49enaa528qa10kjf49qheul0@google.com: Report status notice: EventImportNotice: FailedLocationResolve: "Trek of PGH--Tue.(Robinson), Wed. (Cranberry), & Thurs. (Shadyside)*"
+INFO 2012-01-19 13:14:27,472 UID cv8hgcddhkf1urggmp3m1oto94@google.com: Imported new event, id=19072
+INFO 2012-01-19 13:14:27,472 UID cv8hgcddhkf1urggmp3m1oto94@google.com: Report status notice: EventImportNotice: FailedLocationResolve: "Trek of PGH--Tue.(Robinson), Wed. (Cranberry), & Thurs. (Shadyside)*"
+INFO 2012-01-19 13:14:27,478 UID 27ba63uqeg541r9ista07nvptk@google.com: Imported new event, id=19073
+INFO 2012-01-19 13:14:27,479 UID 27ba63uqeg541r9ista07nvptk@google.com: Report status notice: EventImportNotice: FailedLocationResolve: "Trek of PGH--Tue.(Robinson), Wed. (Cranberry), & Thurs. (Shadyside)*"
+INFO 2012-01-19 13:14:27,857 UID vgdr2u3schnrr39qg06q2b2e50@google.com: Imported new event, id=19074
+INFO 2012-01-19 13:14:27,857 UID vgdr2u3schnrr39qg06q2b2e50@google.com: Report status notice: EventImportNotice: LocationResolveStatus: "Saint Lawrence O’Toole Activity Building North Atlantic Avenue, pittsburgh, pa" resolved with parse status RESOLVED_FULL_STRING
+INFO 2012-01-19 13:14:28,054 UID mnqtvjvbld579ao2kvmpmq1qlk@google.com: Imported new event, id=19075
+INFO 2012-01-19 13:14:28,055 UID mnqtvjvbld579ao2kvmpmq1qlk@google.com: Report status notice: EventImportNotice: LocationResolveStatus: "Slippery Rock University" resolved with parse status RESOLVED_FULL_STRING
+INFO 2012-01-19 13:14:28,105 29 new Events imported from feed "Bike Pittsburgh"
+INFO 2012-01-19 13:14:28,105 Processing new events from feed "CommuniTeach"
+INFO 2012-01-19 13:14:28,326 0 new Events imported from feed "CommuniTeach"
+INFO 2012-01-19 13:14:28,326 Processing new events from feed "Pittsburgh Comedy"
+INFO 2012-01-19 13:14:30,468 UID 9u9b4rado0b3br0qgq02ssbhmg@google.com: Imported new event, id=19076
+INFO 2012-01-19 13:14:30,468 UID 9u9b4rado0b3br0qgq02ssbhmg@google.com: Report status notice: EventImportNotice: FailedLocationResolve: "CLO Cabaret Theater, Downtown Pittsburgh"
+INFO 2012-01-19 13:14:30,474 UID 0gvn9po0sel8ognlib7e6fiqro@google.com: Imported new event, id=19077
+INFO 2012-01-19 13:14:30,478 UID 0qfs94fpkqq1d347l3fql16ok8@google.com: Imported new event, id=19078
+INFO 2012-01-19 13:14:30,483 UID huq1bi1v3auue3crf3tcqd3imo@google.com: Imported new event, id=19079
+INFO 2012-01-19 13:14:30,488 UID cjsaa5j6fp8jqc40hqg5634a94@google.com: Imported new event, id=19080
+INFO 2012-01-19 13:14:30,493 UID j5oh728vv16n0155qu7t4hjtos@google.com: Imported new event, id=19081
+INFO 2012-01-19 13:14:30,498 UID 8ukit28id3h37ncifn714gb3o0@google.com: Imported new event, id=19082
+INFO 2012-01-19 13:14:30,505 UID 6jabqaga8gj4r0c7ahjg52pfgk@google.com: Imported new event, id=19083
+INFO 2012-01-19 13:14:30,513 UID d4cc92a209biuqd9vkna0j1dhs@google.com: Imported new event, id=19084
+INFO 2012-01-19 13:14:30,518 UID 20jtcfbhhunpe6ojg5gg7ntsno@google.com: Imported new event, id=19085
+INFO 2012-01-19 13:14:30,525 UID vg1lqrdo1uq1cvu0djifsm688g@google.com: Imported new event, id=19086
+INFO 2012-01-19 13:14:30,531 UID inud8cn7gbt1hgcmigcbooh1go@google.com: Imported new event, id=19087
+INFO 2012-01-19 13:14:30,535 UID t4t20st3udknod80gbl9ul72d4@google.com: Imported new event, id=19088
+INFO 2012-01-19 13:14:30,827 UID ts3579ett7rs52tggov0fb16rc@google.com: Imported new event, id=19089
+INFO 2012-01-19 13:14:30,828 UID ts3579ett7rs52tggov0fb16rc@google.com: Report status notice: EventImportNotice: FailedLocationResolve: "Improv Waterfront"
+INFO 2012-01-19 13:14:30,835 UID rkkh56vcph3m0dbe2so1dbppkg@google.com: Imported new event, id=19090
+INFO 2012-01-19 13:14:30,836 UID rkkh56vcph3m0dbe2so1dbppkg@google.com: Report status notice: EventImportNotice: FailedLocationResolve: "Improv Waterfront"
+INFO 2012-01-19 13:14:32,842 UID hbttbipfcsvqmengdrhjosnmmo@google.com: Imported new event, id=19091
+INFO 2012-01-19 13:14:32,842 UID hbttbipfcsvqmengdrhjosnmmo@google.com: Report status notice: EventImportNotice: LocationResolveStatus: "The Beerhive 2117 Penn Ave, Strip District, Pittsburgh, PA" resolved with parse status GEOCODED_FULL_STRING
+INFO 2012-01-19 13:14:33,552 UID 0ia6lhl27rb3bs8vdiamnnlkb8@google.com: Imported new event, id=19092
+INFO 2012-01-19 13:14:33,552 UID 0ia6lhl27rb3bs8vdiamnnlkb8@google.com: Report status notice: EventImportNotice: LocationResolveStatus: "CLUB CAFE, 56-58 South 12th Street, Pittsburgh, PA 15203" resolved with parse status RESOLVED_FIELD0_NAME_FIELD1_ADDRESS
+INFO 2012-01-19 13:14:33,557 UID ig4rvp7k8eed8400uco3374pqg@google.com: Imported new event, id=19093
+INFO 2012-01-19 13:14:33,567 UID i2ev0us01kupmq96ah2vu4hbcc@google.com: Imported new event, id=19094
+INFO 2012-01-19 13:14:33,573 UID cl092f7nsdno1c09sh5ft76jak@google.com: Imported new event, id=19095
+INFO 2012-01-19 13:14:33,993 UID nscccpcj4hf9ldb6s3k14g2qhg@google.com: Imported new event, id=19096
+INFO 2012-01-19 13:14:33,993 UID nscccpcj4hf9ldb6s3k14g2qhg@google.com: Report status notice: EventImportNotice: FailedLocationResolve: "Byham Theater"
+INFO 2012-01-19 13:14:34,300 UID 9nm47b13h4d2ik8956jf1dut9o@google.com: Imported new event, id=19097
+INFO 2012-01-19 13:14:34,300 UID 9nm47b13h4d2ik8956jf1dut9o@google.com: Report status notice: EventImportNotice: FailedLocationResolve: "Various Venues in Pittsburgh!"
+INFO 2012-01-19 13:14:36,650 UID fjpeiqo77q2telnt31jg9kb7gg@google.com: Imported new event, id=19098
+INFO 2012-01-19 13:14:36,651 UID fjpeiqo77q2telnt31jg9kb7gg@google.com: Report status notice: EventImportNotice: FailedLocationResolve: "Peter B's 111 Rock N Roll Lane Sarver, PA 16055"
+INFO 2012-01-19 13:14:38,433 UID 7hc7jf7rjcfovg5am5up1ujc4s@google.com: Imported new event, id=19099
+INFO 2012-01-19 13:14:38,433 UID 7hc7jf7rjcfovg5am5up1ujc4s@google.com: Report status notice: EventImportNotice: FailedLocationResolve: "Peter B's 111 Rock N Roll Lane Sarver, PA  16055"
+INFO 2012-01-19 13:14:38,439 UID q5faedqvja5gramq3tmudqcb1o@google.com: Imported new event, id=19100
+INFO 2012-01-19 13:14:38,439 UID q5faedqvja5gramq3tmudqcb1o@google.com: Report status notice: EventImportNotice: FailedLocationResolve: "Peter B's 111 Rock N Roll Lane Sarver, PA 16055"
+INFO 2012-01-19 13:14:38,445 UID sjhk5u8gf7f223jgiv8l5pc9o4@google.com: Imported new event, id=19101
+INFO 2012-01-19 13:14:38,452 26 new Events imported from feed "Pittsburgh Comedy"
+INFO 2012-01-19 13:14:38,452 Processing new events from feed "Pittsburgh Penguins"
+INFO 2012-01-19 13:14:39,372 UID CSVConvertaf88fda52d80e594637307949789f7a4: Imported new event, id=19102
+INFO 2012-01-19 13:14:39,372 UID CSVConvertaf88fda52d80e594637307949789f7a4: Report status notice: EventImportNotice: FailedLocationResolve: "Home"
+INFO 2012-01-19 13:14:39,378 UID CSVConvert2821753056d39652040be04bd740203f: Imported new event, id=19103
+INFO 2012-01-19 13:14:39,378 UID CSVConvert2821753056d39652040be04bd740203f: Report status notice: EventImportNotice: FailedLocationResolve: "Home"
+INFO 2012-01-19 13:14:39,383 UID CSVConvert39ee9f1ef77f27892eda59ab908f03b6: Imported new event, id=19104
+INFO 2012-01-19 13:14:39,383 UID CSVConvert39ee9f1ef77f27892eda59ab908f03b6: Report status notice: EventImportNotice: FailedLocationResolve: "Home"
+INFO 2012-01-19 13:14:39,387 UID CSVConverta17b0f0b7bc7337036356331b3b5198d: Imported new event, id=19105
+INFO 2012-01-19 13:14:39,388 UID CSVConverta17b0f0b7bc7337036356331b3b5198d: Report status notice: EventImportNotice: FailedLocationResolve: "Home"
+INFO 2012-01-19 13:14:39,392 UID CSVConvertd8c4f0261ba6d820e52dca2bde729300: Imported new event, id=19106
+INFO 2012-01-19 13:14:39,393 UID CSVConvertd8c4f0261ba6d820e52dca2bde729300: Report status notice: EventImportNotice: FailedLocationResolve: "Home"
+INFO 2012-01-19 13:14:39,398 UID CSVConvertaeb5ddbdef622e5b6531edad25c52776: Imported new event, id=19107
+INFO 2012-01-19 13:14:39,398 UID CSVConvertaeb5ddbdef622e5b6531edad25c52776: Report status notice: EventImportNotice: FailedLocationResolve: "Home"
+INFO 2012-01-19 13:14:39,403 UID CSVConvert68e156935b0df30ab4d93aa82efba675: Imported new event, id=19108
+INFO 2012-01-19 13:14:39,403 UID CSVConvert68e156935b0df30ab4d93aa82efba675: Report status notice: EventImportNotice: FailedLocationResolve: "Home"
+INFO 2012-01-19 13:14:39,411 UID CSVConvert31ac3c5e9253642e7d6e9cbeefe1b377: Imported new event, id=19109
+INFO 2012-01-19 13:14:39,411 UID CSVConvert31ac3c5e9253642e7d6e9cbeefe1b377: Report status notice: EventImportNotice: FailedLocationResolve: "Home"
+INFO 2012-01-19 13:14:39,417 UID CSVConvertd276540133027649e042feb2a56d8fa9: Imported new event, id=19110
+INFO 2012-01-19 13:14:39,418 UID CSVConvertd276540133027649e042feb2a56d8fa9: Report status notice: EventImportNotice: FailedLocationResolve: "Home"
+INFO 2012-01-19 13:14:39,423 UID CSVConvert337b7ebcb172d377b8b3b588222b9e0b: Imported new event, id=19111
+INFO 2012-01-19 13:14:39,423 UID CSVConvert337b7ebcb172d377b8b3b588222b9e0b: Report status notice: EventImportNotice: FailedLocationResolve: "Home"
+INFO 2012-01-19 13:14:39,430 UID CSVConvert8ac8c4112717de4ef041de22c03fd4ba: Imported new event, id=19112
+INFO 2012-01-19 13:14:39,430 UID CSVConvert8ac8c4112717de4ef041de22c03fd4ba: Report status notice: EventImportNotice: FailedLocationResolve: "Home"
+INFO 2012-01-19 13:14:39,436 UID CSVConvertf49f32643a30a135e84ed14e71f08a5f: Imported new event, id=19113
+INFO 2012-01-19 13:14:39,436 UID CSVConvertf49f32643a30a135e84ed14e71f08a5f: Report status notice: EventImportNotice: FailedLocationResolve: "Home"
+INFO 2012-01-19 13:14:39,441 UID CSVConvert8a9c7c9dc911e99857a754701aea5125: Imported new event, id=19114
+INFO 2012-01-19 13:14:39,441 UID CSVConvert8a9c7c9dc911e99857a754701aea5125: Report status notice: EventImportNotice: FailedLocationResolve: "Home"
+INFO 2012-01-19 13:14:39,446 UID CSVConvert2e1503a5ca7be8d19d14830579ba6ca9: Imported new event, id=19115
+INFO 2012-01-19 13:14:39,446 UID CSVConvert2e1503a5ca7be8d19d14830579ba6ca9: Report status notice: EventImportNotice: FailedLocationResolve: "Home"
+INFO 2012-01-19 13:14:39,451 UID CSVConvert51f5b6225bb641f044ff064e0297d72b: Imported new event, id=19116
+INFO 2012-01-19 13:14:39,451 UID CSVConvert51f5b6225bb641f044ff064e0297d72b: Report status notice: EventImportNotice: FailedLocationResolve: "Home"
+INFO 2012-01-19 13:14:39,459 UID CSVConvert83fd82bc0040e89a27603029592fcbb2: Imported new event, id=19117
+INFO 2012-01-19 13:14:39,461 UID CSVConvert83fd82bc0040e89a27603029592fcbb2: Report status notice: EventImportNotice: FailedLocationResolve: "Home"
+INFO 2012-01-19 13:14:39,467 UID CSVConvertfc31a9d5ba19c1e7ef1da109dcdf3b8e: Imported new event, id=19118
+INFO 2012-01-19 13:14:39,468 UID CSVConvertfc31a9d5ba19c1e7ef1da109dcdf3b8e: Report status notice: EventImportNotice: FailedLocationResolve: "Home"
+INFO 2012-01-19 13:14:39,472 UID CSVConvertd4611d6659e96b914101538c4aba0651: Imported new event, id=19119
+INFO 2012-01-19 13:14:39,473 UID CSVConvertd4611d6659e96b914101538c4aba0651: Report status notice: EventImportNotice: FailedLocationResolve: "Home"
+INFO 2012-01-19 13:14:39,478 UID CSVConverte8ce9d7731b2611247ee853abe85a199: Imported new event, id=19120
+INFO 2012-01-19 13:14:39,478 UID CSVConverte8ce9d7731b2611247ee853abe85a199: Report status notice: EventImportNotice: FailedLocationResolve: "Home"
+INFO 2012-01-19 13:14:39,483 UID CSVConvert5294c33db5a14cccb1a72b5b3b0078a2: Imported new event, id=19121
+INFO 2012-01-19 13:14:39,484 UID CSVConvert5294c33db5a14cccb1a72b5b3b0078a2: Report status notice: EventImportNotice: FailedLocationResolve: "Home"
+INFO 2012-01-19 13:14:39,489 UID CSVConvertc57cd590ea193fe0506fa1baab4ecee7: Imported new event, id=19122
+INFO 2012-01-19 13:14:39,489 UID CSVConvertc57cd590ea193fe0506fa1baab4ecee7: Report status notice: EventImportNotice: FailedLocationResolve: "Home"
+INFO 2012-01-19 13:14:39,493 UID CSVConvert82aaad3cbdb6c1b383977dfa78a2d205: Imported new event, id=19123
+INFO 2012-01-19 13:14:39,494 UID CSVConvert82aaad3cbdb6c1b383977dfa78a2d205: Report status notice: EventImportNotice: FailedLocationResolve: "Home"
+INFO 2012-01-19 13:14:39,499 UID CSVConvert9abb49e4d2a31c4439f11f96b3f15879: Imported new event, id=19124
+INFO 2012-01-19 13:14:39,499 UID CSVConvert9abb49e4d2a31c4439f11f96b3f15879: Report status notice: EventImportNotice: FailedLocationResolve: "Home"
+INFO 2012-01-19 13:14:39,507 UID CSVConvert06cc214e4942f05b9a52de994f5914ce: Imported new event, id=19125
+INFO 2012-01-19 13:14:39,507 UID CSVConvert06cc214e4942f05b9a52de994f5914ce: Report status notice: EventImportNotice: FailedLocationResolve: "Home"
+INFO 2012-01-19 13:14:39,508 24 new Events imported from feed "Pittsburgh Penguins"
+INFO 2012-01-19 13:14:39,508 Processing new events from feed "Pittsburgh Pirates"
+INFO 2012-01-19 13:14:40,379 UID 332119@mlb.com: Imported new event, id=19126
+INFO 2012-01-19 13:14:40,379 UID 332119@mlb.com: Report status notice: EventImportNotice: LocationResolveStatus: "McKechnie Field, Bradenton" resolved with parse status RESOLVED_FULL_STRING
+INFO 2012-01-19 13:14:40,385 UID 332143@mlb.com: Imported new event, id=19127
+INFO 2012-01-19 13:14:40,391 UID 332167@mlb.com: Imported new event, id=19128
+INFO 2012-01-19 13:14:40,396 UID 332208@mlb.com: Imported new event, id=19129
+INFO 2012-01-19 13:14:40,401 UID 332247@mlb.com: Imported new event, id=19130
+INFO 2012-01-19 13:14:40,407 UID 332309@mlb.com: Imported new event, id=19131
+INFO 2012-01-19 13:14:40,413 UID 332331@mlb.com: Imported new event, id=19132
+INFO 2012-01-19 13:14:40,418 UID 332377@mlb.com: Imported new event, id=19133
+INFO 2012-01-19 13:14:40,426 UID 332397@mlb.com: Imported new event, id=19134
+INFO 2012-01-19 13:14:40,433 UID 332406@mlb.com: Imported new event, id=19135
+INFO 2012-01-19 13:14:40,441 UID 332422@mlb.com: Imported new event, id=19136
+INFO 2012-01-19 13:14:40,446 UID 332447@mlb.com: Imported new event, id=19137
+INFO 2012-01-19 13:14:40,452 UID 332497@mlb.com: Imported new event, id=19138
+INFO 2012-01-19 13:14:40,458 UID 332517@mlb.com: Imported new event, id=19139
+INFO 2012-01-19 13:14:40,463 UID 332521@mlb.com: Imported new event, id=19140
+INFO 2012-01-19 13:14:40,859 UID 317746@mlb.com: Imported new event, id=19141
+INFO 2012-01-19 13:14:40,860 UID 317746@mlb.com: Report status notice: EventImportNotice: LocationResolveStatus: "PNC Park, Pittsburgh" resolved with parse status RESOLVED_FIELD0_NAME
+INFO 2012-01-19 13:14:40,867 UID 317759@mlb.com: Imported new event, id=19142
+INFO 2012-01-19 13:14:40,873 UID 317774@mlb.com: Imported new event, id=19143
+INFO 2012-01-19 13:14:40,879 UID 317937@mlb.com: Imported new event, id=19144
+INFO 2012-01-19 13:14:40,884 UID 317952@mlb.com: Imported new event, id=19145
+INFO 2012-01-19 13:14:40,889 UID 317967@mlb.com: Imported new event, id=19146
+INFO 2012-01-19 13:14:40,894 UID 317973@mlb.com: Imported new event, id=19147
+INFO 2012-01-19 13:14:40,903 UID 317984@mlb.com: Imported new event, id=19148
+INFO 2012-01-19 13:14:40,909 UID 317999@mlb.com: Imported new event, id=19149
+INFO 2012-01-19 13:14:40,915 UID 318118@mlb.com: Imported new event, id=19150
+INFO 2012-01-19 13:14:40,921 UID 318133@mlb.com: Imported new event, id=19151
+INFO 2012-01-19 13:14:40,927 UID 318148@mlb.com: Imported new event, id=19152
+INFO 2012-01-19 13:14:40,932 UID 318185@mlb.com: Imported new event, id=19153
+INFO 2012-01-19 13:14:40,937 UID 318200@mlb.com: Imported new event, id=19154
+INFO 2012-01-19 13:14:40,945 UID 318206@mlb.com: Imported new event, id=19155
+INFO 2012-01-19 13:14:40,951 UID 318213@mlb.com: Imported new event, id=19156
+INFO 2012-01-19 13:14:40,958 UID 318228@mlb.com: Imported new event, id=19157
+INFO 2012-01-19 13:14:40,963 UID 318243@mlb.com: Imported new event, id=19158
+INFO 2012-01-19 13:14:40,968 UID 318364@mlb.com: Imported new event, id=19159
+INFO 2012-01-19 13:14:40,977 UID 318379@mlb.com: Imported new event, id=19160
+INFO 2012-01-19 13:14:40,986 UID 318394@mlb.com: Imported new event, id=19161
+INFO 2012-01-19 13:14:40,991 UID 318408@mlb.com: Imported new event, id=19162
+INFO 2012-01-19 13:14:41,008 UID 318423@mlb.com: Imported new event, id=19163
+INFO 2012-01-19 13:14:41,016 UID 318438@mlb.com: Imported new event, id=19164
+INFO 2012-01-19 13:14:41,024 UID 318455@mlb.com: Imported new event, id=19165
+INFO 2012-01-19 13:14:41,032 UID 318470@mlb.com: Imported new event, id=19166
+INFO 2012-01-19 13:14:41,037 UID 318485@mlb.com: Imported new event, id=19167
+INFO 2012-01-19 13:14:41,048 UID 318598@mlb.com: Imported new event, id=19168
+INFO 2012-01-19 13:14:41,054 UID 318613@mlb.com: Imported new event, id=19169
+INFO 2012-01-19 13:14:41,059 UID 318628@mlb.com: Imported new event, id=19170
+INFO 2012-01-19 13:14:41,065 UID 318745@mlb.com: Imported new event, id=19171
+INFO 2012-01-19 13:14:41,071 UID 318760@mlb.com: Imported new event, id=19172
+INFO 2012-01-19 13:14:41,076 UID 318770@mlb.com: Imported new event, id=19173
+INFO 2012-01-19 13:14:41,081 UID 318777@mlb.com: Imported new event, id=19174
+INFO 2012-01-19 13:14:41,090 UID 318792@mlb.com: Imported new event, id=19175
+INFO 2012-01-19 13:14:41,104 UID 318807@mlb.com: Imported new event, id=19176
+INFO 2012-01-19 13:14:41,114 UID 318924@mlb.com: Imported new event, id=19177
+INFO 2012-01-19 13:14:41,128 UID 318936@mlb.com: Imported new event, id=19178
+INFO 2012-01-19 13:14:41,137 UID 318951@mlb.com: Imported new event, id=19179
+INFO 2012-01-19 13:14:41,143 UID 318964@mlb.com: Imported new event, id=19180
+INFO 2012-01-19 13:14:41,149 UID 318985@mlb.com: Imported new event, id=19181
+INFO 2012-01-19 13:14:41,154 UID 319000@mlb.com: Imported new event, id=19182
+INFO 2012-01-19 13:14:41,160 UID 319015@mlb.com: Imported new event, id=19183
+INFO 2012-01-19 13:14:41,707 UID 319018@mlb.com: Imported new event, id=19184
+INFO 2012-01-19 13:14:41,707 UID 319018@mlb.com: Report status notice: EventImportNotice: LocationResolveStatus: "Kauffman Stadium, Kansas City" resolved with parse status GEOCODED_FULL_STRING
+INFO 2012-01-19 13:14:41,714 UID 319123@mlb.com: Imported new event, id=19185
+INFO 2012-01-19 13:14:41,721 UID 319138@mlb.com: Imported new event, id=19186
+INFO 2012-01-19 13:14:41,726 UID 319153@mlb.com: Imported new event, id=19187
+INFO 2012-01-19 13:14:41,732 UID 319166@mlb.com: Imported new event, id=19188
+INFO 2012-01-19 13:14:41,738 UID 319178@mlb.com: Imported new event, id=19189
+INFO 2012-01-19 13:14:41,749 UID 319193@mlb.com: Imported new event, id=19190
+INFO 2012-01-19 13:14:41,759 UID 319356@mlb.com: Imported new event, id=19191
+INFO 2012-01-19 13:14:41,765 UID 319369@mlb.com: Imported new event, id=19192
+INFO 2012-01-19 13:14:41,771 UID 319384@mlb.com: Imported new event, id=19193
+INFO 2012-01-19 13:14:41,776 UID 319398@mlb.com: Imported new event, id=19194
+INFO 2012-01-19 13:14:41,782 UID 319417@mlb.com: Imported new event, id=19195
+INFO 2012-01-19 13:14:41,788 UID 319432@mlb.com: Imported new event, id=19196
+INFO 2012-01-19 13:14:41,796 UID 319447@mlb.com: Imported new event, id=19197
+INFO 2012-01-19 13:14:41,803 UID 319456@mlb.com: Imported new event, id=19198
+INFO 2012-01-19 13:14:41,810 UID 319469@mlb.com: Imported new event, id=19199
+INFO 2012-01-19 13:14:41,817 UID 319484@mlb.com: Imported new event, id=19200
+INFO 2012-01-19 13:14:41,824 UID 319497@mlb.com: Imported new event, id=19201
+INFO 2012-01-19 13:14:41,829 UID 319605@mlb.com: Imported new event, id=19202
+INFO 2012-01-19 13:14:41,839 UID 319620@mlb.com: Imported new event, id=19203
+INFO 2012-01-19 13:14:41,845 UID 319635@mlb.com: Imported new event, id=19204
+INFO 2012-01-19 13:14:41,856 UID 319652@mlb.com: Imported new event, id=19205
+INFO 2012-01-19 13:14:41,862 UID 319666@mlb.com: Imported new event, id=19206
+INFO 2012-01-19 13:14:41,867 UID 319681@mlb.com: Imported new event, id=19207
+INFO 2012-01-19 13:14:41,875 UID 319748@mlb.com: Imported new event, id=19208
+INFO 2012-01-19 13:14:41,880 UID 319763@mlb.com: Imported new event, id=19209
+INFO 2012-01-19 13:14:41,886 UID 319778@mlb.com: Imported new event, id=19210
+INFO 2012-01-19 13:14:41,898 UID 319793@mlb.com: Imported new event, id=19211
+INFO 2012-01-19 13:14:41,906 UID 319808@mlb.com: Imported new event, id=19212
+INFO 2012-01-19 13:14:41,912 UID 319823@mlb.com: Imported new event, id=19213
+INFO 2012-01-19 13:14:41,918 UID 319945@mlb.com: Imported new event, id=19214
+INFO 2012-01-19 13:14:41,925 UID 319960@mlb.com: Imported new event, id=19215
+INFO 2012-01-19 13:14:41,930 UID 319973@mlb.com: Imported new event, id=19216
+INFO 2012-01-19 13:14:41,935 UID 320077@mlb.com: Imported new event, id=19217
+INFO 2012-01-19 13:14:41,944 UID 320092@mlb.com: Imported new event, id=19218
+INFO 2012-01-19 13:14:41,952 UID 320107@mlb.com: Imported new event, id=19219
+INFO 2012-01-19 13:14:41,959 UID 320120@mlb.com: Imported new event, id=19220
+INFO 2012-01-19 13:14:41,965 UID 320135@mlb.com: Imported new event, id=19221
+INFO 2012-01-19 13:14:41,970 UID 320150@mlb.com: Imported new event, id=19222
+INFO 2012-01-19 13:14:41,972 97 new Events imported from feed "Pittsburgh Pirates"
+INFO 2012-01-19 13:14:41,972 Processing new events from feed "Pittsburgh Steelers"
+INFO 2012-01-19 13:14:42,700 UID Pittsburgh Steelers Calendar (NFL)20120108007@sports.yahoo.com: Imported new event, id=19223
+INFO 2012-01-19 13:14:42,705 UID Pittsburgh Steelers Calendar (NFL)20120101005@sports.yahoo.com: Imported new event, id=19224
+INFO 2012-01-19 13:14:42,705 2 new Events imported from feed "Pittsburgh Steelers"
+INFO 2012-01-19 13:14:42,706 Processing new events from feed "Steel City Improv"
+INFO 2012-01-19 13:14:43,643 UID 6hd712qpr81pildaqft74ari6k@google.com: Imported new event, id=19225
+INFO 2012-01-19 13:14:43,651 UID 4i9akocc4vdhhahihvieu8iono@google.com: Imported new event, id=19226
+INFO 2012-01-19 13:14:43,657 UID revekfbi73ctf3c2h4ltcjam3o@google.com: Imported new event, id=19227
+INFO 2012-01-19 13:14:43,663 UID j022th7j06pe5rd1vth33j3shk@google.com: Imported new event, id=19228
+INFO 2012-01-19 13:14:43,681 UID kep3448tnl75cinuuo1rp4a7j8@google.com: Imported new event, id=19229
+INFO 2012-01-19 13:14:43,687 UID 3lqg4a5l6do850rm1fqldmvj3o@google.com: Imported new event, id=19230
+INFO 2012-01-19 13:14:43,693 UID 1rie3tnoelsbaqehvdscaa2u9g@google.com: Imported new event, id=19231
+INFO 2012-01-19 13:14:43,698 UID 84fapt91oebfj7sb917vckf790@google.com: Imported new event, id=19232
+INFO 2012-01-19 13:14:43,703 UID 6hkccake51tfq237etldnlrs5c@google.com: Imported new event, id=19233
+INFO 2012-01-19 13:14:43,708 UID rcerm5dm97sbh3j6e2rq7tf5vk@google.com: Imported new event, id=19234
+INFO 2012-01-19 13:14:43,715 UID kffv1pv33e7577p6t64b9dird8@google.com: Imported new event, id=19235
+INFO 2012-01-19 13:14:43,719 UID 2ir7jpaj10d40ti1r7dqs0jts8@google.com: Imported new event, id=19236
+INFO 2012-01-19 13:14:43,733 UID ooi6mja9gfp49sol21792o1g14@google.com: Imported new event, id=19237
+INFO 2012-01-19 13:14:43,739 UID sqs0p7u3obmpd3v1svmkfsu4uc@google.com: Imported new event, id=19238
+INFO 2012-01-19 13:14:43,745 UID 1r7bf3jckldc2opqb3fhfj9gp8@google.com: Imported new event, id=19239
+INFO 2012-01-19 13:14:43,750 UID nf19gsji0vepc53ni86bi71ruc@google.com: Imported new event, id=19240
+INFO 2012-01-19 13:14:43,755 UID hvns1jcia9199qank5erocneqg@google.com: Imported new event, id=19241
+INFO 2012-01-19 13:14:43,760 UID 84ms9d0mdcjajp46r027b55sr0@google.com: Imported new event, id=19242
+INFO 2012-01-19 13:14:43,951 UID r3s5mofsg6u1tca2ccfnn6n3d0@google.com: Imported new event, id=19243
+INFO 2012-01-19 13:14:43,952 UID r3s5mofsg6u1tca2ccfnn6n3d0@google.com: Report status notice: EventImportNotice: FailedLocationResolve: "http://www.steelcityimprov.com/wp-content/uploads/2011/10/Death-Show.jpg"
+INFO 2012-01-19 13:14:43,956 UID ra4q6fo66hgrqqasci230drea4@google.com: Imported new event, id=19244
+INFO 2012-01-19 13:14:43,957 UID ra4q6fo66hgrqqasci230drea4@google.com: Report status notice: EventImportNotice: FailedLocationResolve: "http://www.steelcityimprov.com/wp-content/uploads/2011/10/Death-Show.jpg"
+INFO 2012-01-19 13:14:44,223 UID hs4mtktb5ecu98d5lq7q91k1nk@google.com: Imported new event, id=19245
+INFO 2012-01-19 13:14:44,223 UID hs4mtktb5ecu98d5lq7q91k1nk@google.com: Report status notice: EventImportNotice: FailedLocationResolve: "http://www.steelcityimprov.com/wp-content/uploads/2012/01/CIMG7405.jpg"
+INFO 2012-01-19 13:14:44,462 UID o0u4etm886oiq0gkbni9n5tf8s@google.com: Imported new event, id=19246
+INFO 2012-01-19 13:14:44,462 UID o0u4etm886oiq0gkbni9n5tf8s@google.com: Report status notice: EventImportNotice: FailedLocationResolve: "http://www.steelcityimprov.com/wp-content/uploads/2011/12/LuPones-e1326139313339.jpg"
+INFO 2012-01-19 13:14:44,674 UID 7r54psm047i9hseg7s7bldech0@google.com: Imported new event, id=19247
+INFO 2012-01-19 13:14:44,674 UID 7r54psm047i9hseg7s7bldech0@google.com: Report status notice: EventImportNotice: FailedLocationResolve: "http://www.steelcityimprov.com/wp-content/uploads/2012/01/WunderstudiesFBsmall.jpg"
+INFO 2012-01-19 13:14:44,681 UID q1j54lin9fb9p3rsl6vj2mcmpo@google.com: Imported new event, id=19248
+INFO 2012-01-19 13:14:44,682 UID q1j54lin9fb9p3rsl6vj2mcmpo@google.com: Report status notice: EventImportNotice: FailedLocationResolve: "http://www.steelcityimprov.com/wp-content/uploads/2011/12/LuPones-e1326139313339.jpg"
+INFO 2012-01-19 13:14:44,919 UID 6jvdthpl61pe8qdshsrlk60evk@google.com: Imported new event, id=19249
+INFO 2012-01-19 13:14:44,919 UID 6jvdthpl61pe8qdshsrlk60evk@google.com: Report status notice: EventImportNotice: FailedLocationResolve: "http://www.steelcityimprov.com/wp-content/uploads/2012/01/aka1.jpg"
+INFO 2012-01-19 13:14:45,157 UID 8nm8qs3h7ptshbvicb11pllc7o@google.com: Imported new event, id=19250
+INFO 2012-01-19 13:14:45,157 UID 8nm8qs3h7ptshbvicb11pllc7o@google.com: Report status notice: EventImportNotice: FailedLocationResolve: "http://www.steelcityimprov.com/wp-content/uploads/2012/01/810110-hobo_bindlestiff1_large.jpg"
+INFO 2012-01-19 13:14:45,165 UID 5vrvpbbv0l9nuqn2fcu20t7d2c@google.com: Imported new event, id=19251
+INFO 2012-01-19 13:14:45,165 UID 5vrvpbbv0l9nuqn2fcu20t7d2c@google.com: Report status notice: EventImportNotice: FailedLocationResolve: "http://www.steelcityimprov.com/wp-content/uploads/2011/10/Death-Show.jpg"
+INFO 2012-01-19 13:14:45,477 UID a2fmhvidcdct3j896k0mcj0m7k@google.com: Imported new event, id=19252
+INFO 2012-01-19 13:14:45,477 UID a2fmhvidcdct3j896k0mcj0m7k@google.com: Report status notice: EventImportNotice: FailedLocationResolve: "http://www.steelcityimprov.com/wp-content/uploads/2011/04/216957_675866500999_4800726_35695080_2897698_n.jpg"
+INFO 2012-01-19 13:14:45,772 UID f62qlc4npmpv80ltc3fqp1m0as@google.com: Imported new event, id=19253
+INFO 2012-01-19 13:14:45,773 UID f62qlc4npmpv80ltc3fqp1m0as@google.com: Report status notice: EventImportNotice: FailedLocationResolve: "http://www.steelcityimprov.com/wp-content/uploads/2011/10/ic-poster-final-glow.png"
+INFO 2012-01-19 13:14:45,966 UID kqn2u6pv9ppdn94fjqcitaf5b4@google.com: Imported new event, id=19254
+INFO 2012-01-19 13:14:45,966 UID kqn2u6pv9ppdn94fjqcitaf5b4@google.com: Report status notice: EventImportNotice: FailedLocationResolve: "http://www.steelcityimprov.com/wp-content/uploads/2011/11/BSB.jpg"
+INFO 2012-01-19 13:14:46,305 UID vf1juivdall3l335lmd7b9gd0k@google.com: Imported new event, id=19255
+INFO 2012-01-19 13:14:46,305 UID vf1juivdall3l335lmd7b9gd0k@google.com: Report status notice: EventImportNotice: FailedLocationResolve: "http://www.steelcityimprov.com/wp-content/uploads/2011/12/1-13-11-wandering-minstrels-poster.png"
+INFO 2012-01-19 13:14:46,313 UID jlsl4difldn7affc6svt9iipkc@google.com: Imported new event, id=19256
+INFO 2012-01-19 13:14:46,318 UID 9qc134asp9lb5uni0ddf8q30mc@google.com: Imported new event, id=19257
+INFO 2012-01-19 13:14:46,324 UID u8n3jqrs11op48fueujvgp7qgc@google.com: Imported new event, id=19258
+INFO 2012-01-19 13:14:46,330 UID 2bof3u1tveho3f6b2uvafqnnp4@google.com: Imported new event, id=19259
+INFO 2012-01-19 13:14:46,335 UID 4fc3bish4vt3p3292a7k77le6s@google.com: Imported new event, id=19260
+INFO 2012-01-19 13:14:46,345 UID 50ruqaav2tje71a70fb3o18r5k@google.com: Imported new event, id=19261
+INFO 2012-01-19 13:14:46,351 UID rmp22l341s08jnf34t1fs6fog0@google.com: Imported new event, id=19262
+INFO 2012-01-19 13:14:46,357 UID 4uv2jphjkd8vt6dslob9l4sud8@google.com: Imported new event, id=19263
+INFO 2012-01-19 13:14:46,363 UID t8f58ouler4p0i29lb0k078ut0@google.com: Imported new event, id=19264
+INFO 2012-01-19 13:14:46,368 UID 450u7tjtn85a2gs15aba2rp12o@google.com: Imported new event, id=19265
+INFO 2012-01-19 13:14:46,373 UID 95phav2r5kqakdtm1m3r27erg8@google.com: Imported new event, id=19266
+INFO 2012-01-19 13:14:46,380 UID 6gbq5gi6bm5gke1bitarba93ak@google.com: Imported new event, id=19267
+INFO 2012-01-19 13:14:46,385 UID 3ip8g0kbth125na2a3n8sl9an8@google.com: Imported new event, id=19268
+INFO 2012-01-19 13:14:46,391 UID 2ian0s7fi3gf7td975hj5qlt80@google.com: Imported new event, id=19269
+INFO 2012-01-19 13:14:46,400 UID 27o3kjconfcs5nc31nvs00qhbs@google.com: Imported new event, id=19270
+INFO 2012-01-19 13:14:46,405 UID lkju63bvjdfjrhm75nm9581is0@google.com: Imported new event, id=19271
+INFO 2012-01-19 13:14:46,413 UID 0uvrta5d32e7kme7o299oobii8@google.com: Imported new event, id=19272
+INFO 2012-01-19 13:14:46,418 UID vgsdt187089feutijqgd5haipc@google.com: Imported new event, id=19273
+INFO 2012-01-19 13:14:46,616 UID 9leeurtopqq2agj89snce0jku4@google.com: Imported new event, id=19274
+INFO 2012-01-19 13:14:46,617 UID 9leeurtopqq2agj89snce0jku4@google.com: Report status notice: EventImportNotice: FailedLocationResolve: "http://www.steelcityimprov.com/wp-content/uploads/2012/01/TwoProvJan.jpg"
+INFO 2012-01-19 13:14:46,625 UID 86us81bpbapl6otfvs3j2me42s@google.com: Imported new event, id=19275
+INFO 2012-01-19 13:14:46,850 UID 1dcprmoav936pgontuqs4a08ig@google.com: Imported new event, id=19276
+INFO 2012-01-19 13:14:46,850 UID 1dcprmoav936pgontuqs4a08ig@google.com: Report status notice: EventImportNotice: FailedLocationResolve: "http://www.steelcityimprov.com/wp-content/uploads/2011/12/LuPones.jpg"
+INFO 2012-01-19 13:14:47,066 UID 1k83s9ju81atetmp2qmpbkj5i0@google.com: Imported new event, id=19277
+INFO 2012-01-19 13:14:47,066 UID 1k83s9ju81atetmp2qmpbkj5i0@google.com: Report status notice: EventImportNotice: FailedLocationResolve: "http://www.steelcityimprov.com/wp-content/uploads/2011/12/6Jan12.pdf"
+INFO 2012-01-19 13:14:47,073 53 new Events imported from feed "Steel City Improv"
+INFO 2012-01-19 13:14:47,074 Event import complete

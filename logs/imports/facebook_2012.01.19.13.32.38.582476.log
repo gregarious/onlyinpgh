@@ -1,0 +1,216 @@
+INFO 2012-01-19 13:32:39,014 Importing Organizations into database from 2 pages
+INFO 2012-01-19 13:32:39,726 105690877222: Imported successfully as Drusky Entertainment
+INFO 2012-01-19 13:32:39,728 63893177312: Record for Organization exists
+INFO 2012-01-19 13:32:39,728 1 new Organizations imported
+INFO 2012-01-19 13:32:39,843 105690877222: Imported successfully as Drusky Entertainment. Loc: 226 Siebert Rd, Pittsburgh, PA, 
+INFO 2012-01-19 13:32:39,845 63893177312: Record for Place exists
+INFO 2012-01-19 13:32:39,846 1 new Places imported
+INFO 2012-01-19 13:32:39,846 Searching 2 pages for events.
+INFO 2012-01-19 13:33:52,729 Importing events for Facebook page 105690877222
+INFO 2012-01-19 13:33:52,729 312579092097195: Record for Event exists
+INFO 2012-01-19 13:33:52,729 363563730323895: Record for Event exists
+INFO 2012-01-19 13:33:52,729 186236518131529: Record for Event exists
+INFO 2012-01-19 13:33:52,729 127625440688268: Record for Event exists
+INFO 2012-01-19 13:33:52,729 208148242608796: Record for Event exists
+INFO 2012-01-19 13:33:52,730 227905340625232: Record for Event exists
+INFO 2012-01-19 13:33:52,730 195033643915020: Record for Event exists
+INFO 2012-01-19 13:33:52,730 307067812654746: Record for Event exists
+INFO 2012-01-19 13:33:52,730 333923599958565: Record for Event exists
+INFO 2012-01-19 13:33:52,730 141828462598200: Record for Event exists
+INFO 2012-01-19 13:33:52,730 142890342491402: Record for Event exists
+INFO 2012-01-19 13:33:52,730 185755911512138: Record for Event exists
+INFO 2012-01-19 13:33:52,730 128553717256215: Record for Event exists
+INFO 2012-01-19 13:33:52,731 300303003323149: Record for Event exists
+INFO 2012-01-19 13:33:52,731 200511076698348: Record for Event exists
+INFO 2012-01-19 13:33:52,731 207198629374112: Record for Event exists
+INFO 2012-01-19 13:33:52,731 234345019965604: Record for Event exists
+INFO 2012-01-19 13:33:52,731 163622320397295: Record for Event exists
+INFO 2012-01-19 13:33:52,731 192016187551598: Record for Event exists
+INFO 2012-01-19 13:33:52,731 173222986107625: Record for Event exists
+INFO 2012-01-19 13:33:52,731 277918625580900: Record for Event exists
+INFO 2012-01-19 13:33:52,732 156499211122710: Record for Event exists
+INFO 2012-01-19 13:33:52,732 282365575154866: Record for Event exists
+INFO 2012-01-19 13:33:52,732 334411836585269: Record for Event exists
+INFO 2012-01-19 13:33:52,732 153271681449977: Record for Event exists
+INFO 2012-01-19 13:33:52,732 247870598603693: Record for Event exists
+INFO 2012-01-19 13:33:52,733 154106424694845: Record for Event exists
+INFO 2012-01-19 13:33:52,733 201146493296421: Record for Event exists
+INFO 2012-01-19 13:33:52,733 269321016437515: Record for Event exists
+INFO 2012-01-19 13:33:52,733 128303697281734: Record for Event exists
+INFO 2012-01-19 13:33:52,733 314951891857567: Record for Event exists
+INFO 2012-01-19 13:33:52,733 301515883214695: Record for Event exists
+INFO 2012-01-19 13:33:52,733 261253707273530: Record for Event exists
+INFO 2012-01-19 13:33:52,733 275729345813911: Record for Event exists
+INFO 2012-01-19 13:33:52,734 170093319756825: Record for Event exists
+INFO 2012-01-19 13:33:52,734 164661763639021: Record for Event exists
+INFO 2012-01-19 13:33:52,734 231032146951854: Record for Event exists
+INFO 2012-01-19 13:33:52,734 264013236985437: Record for Event exists
+INFO 2012-01-19 13:33:52,734 282609615107962: Record for Event exists
+INFO 2012-01-19 13:33:52,734 367442133273233: Record for Event exists
+INFO 2012-01-19 13:33:52,734 228650223877938: Record for Event exists
+INFO 2012-01-19 13:33:52,734 209459135801556: Record for Event exists
+INFO 2012-01-19 13:33:52,734 338672092818671: Record for Event exists
+INFO 2012-01-19 13:33:52,735 270796159650483: Record for Event exists
+INFO 2012-01-19 13:33:52,735 346986598664231: Record for Event exists
+INFO 2012-01-19 13:33:52,735 247894808598700: Record for Event exists
+INFO 2012-01-19 13:33:52,735 255156134550311: Record for Event exists
+INFO 2012-01-19 13:33:52,735 209630402456068: Record for Event exists
+INFO 2012-01-19 13:33:52,735 146123232162831: Record for Event exists
+INFO 2012-01-19 13:33:53,037 157417234363701: Record for Event exists
+INFO 2012-01-19 13:33:53,040 184248831671921: Record for Event exists
+INFO 2012-01-19 13:33:53,040 309512179071931: Record for Event exists
+INFO 2012-01-19 13:33:53,040 210594319023831: Record for Event exists
+INFO 2012-01-19 13:33:53,041 223563601041591: Record for Event exists
+INFO 2012-01-19 13:33:53,041 232365580164618: Record for Event exists
+INFO 2012-01-19 13:33:53,041 325483610812727: Record for Event exists
+INFO 2012-01-19 13:33:53,041 132796983500810: Record for Event exists
+INFO 2012-01-19 13:33:53,041 321157061246902: Record for Event exists
+INFO 2012-01-19 13:33:53,041 280912675283929: Record for Event exists
+INFO 2012-01-19 13:33:53,042 335375883145839: Record for Event exists
+INFO 2012-01-19 13:33:53,042 298511470191972: Record for Event exists
+INFO 2012-01-19 13:33:53,042 271918246186430: Record for Event exists
+INFO 2012-01-19 13:33:53,043 119178631525714: Record for Event exists
+INFO 2012-01-19 13:33:53,043 278108148903439: Record for Event exists
+INFO 2012-01-19 13:33:53,043 271637759544434: Record for Event exists
+INFO 2012-01-19 13:33:53,043 307292365969563: Record for Event exists
+INFO 2012-01-19 13:33:53,043 288087281231633: Record for Event exists
+INFO 2012-01-19 13:33:53,044 248232708574146: Record for Event exists
+INFO 2012-01-19 13:33:53,044 184691918282138: Record for Event exists
+INFO 2012-01-19 13:33:53,044 271164776263999: Record for Event exists
+INFO 2012-01-19 13:33:53,044 333916083288881: Record for Event exists
+INFO 2012-01-19 13:33:53,044 189432717797716: Record for Event exists
+INFO 2012-01-19 13:33:53,044 276805895693394: Record for Event exists
+INFO 2012-01-19 13:33:53,044 186976298058386: Record for Event exists
+INFO 2012-01-19 13:33:53,044 303423326336376: Record for Event exists
+INFO 2012-01-19 13:33:53,044 159093044188345: Record for Event exists
+INFO 2012-01-19 13:33:53,045 162751757152657: Record for Event exists
+INFO 2012-01-19 13:33:53,045 193288684083860: Record for Event exists
+INFO 2012-01-19 13:33:53,045 180436965380651: Record for Event exists
+INFO 2012-01-19 13:33:53,045 309667165719923: Record for Event exists
+INFO 2012-01-19 13:33:53,045 171754189589292: Record for Event exists
+INFO 2012-01-19 13:33:53,045 319283908084989: Record for Event exists
+INFO 2012-01-19 13:33:53,046 307397019271899: Record for Event exists
+INFO 2012-01-19 13:33:53,046 213394232072264: Record for Event exists
+INFO 2012-01-19 13:33:53,047 277000902338958: Record for Event exists
+INFO 2012-01-19 13:33:53,047 257348920988220: Record for Event exists
+INFO 2012-01-19 13:33:53,047 315338761811379: Record for Event exists
+INFO 2012-01-19 13:33:53,047 264880136898854: Record for Event exists
+INFO 2012-01-19 13:33:53,051 156557387776409: Record for Event exists
+INFO 2012-01-19 13:33:53,052 121426267969415: Record for Event exists
+INFO 2012-01-19 13:33:53,052 197518256999717: Record for Event exists
+INFO 2012-01-19 13:33:53,053 145897192178123: Record for Event exists
+INFO 2012-01-19 13:33:53,053 287628977922996: Record for Event exists
+INFO 2012-01-19 13:33:53,053 256943944354382: Record for Event exists
+INFO 2012-01-19 13:33:53,053 186905361393254: Record for Event exists
+INFO 2012-01-19 13:33:53,053 282611931783510: Record for Event exists
+INFO 2012-01-19 13:33:53,053 225743954153355: Record for Event exists
+INFO 2012-01-19 13:33:53,053 303494356344308: Record for Event exists
+INFO 2012-01-19 13:33:53,053 133154523454967: Record for Event exists
+INFO 2012-01-19 13:33:53,054 278051515546684: Record for Event exists
+INFO 2012-01-19 13:33:53,054 273238166050651: Record for Event exists
+INFO 2012-01-19 13:33:53,054 213044315435136: Record for Event exists
+INFO 2012-01-19 13:33:53,054 237487869646696: Record for Event exists
+INFO 2012-01-19 13:33:53,054 168216289933050: Record for Event exists
+INFO 2012-01-19 13:33:53,054 280229955350390: Record for Event exists
+INFO 2012-01-19 13:33:53,054 222119581155892: Record for Event exists
+INFO 2012-01-19 13:33:53,054 146396252127705: Record for Event exists
+INFO 2012-01-19 13:33:53,055 211011502301558: Record for Event exists
+INFO 2012-01-19 13:33:53,145 265829006788009: Record for Event exists
+INFO 2012-01-19 13:33:53,145 124032644370600: Record for Event exists
+INFO 2012-01-19 13:33:53,145 175653862518395: Record for Event exists
+INFO 2012-01-19 13:33:53,145 249478058442291: Record for Event exists
+INFO 2012-01-19 13:33:53,145 131979960236820: Record for Event exists
+INFO 2012-01-19 13:33:53,146 241074412615531: Record for Event exists
+INFO 2012-01-19 13:33:53,146 151838634911682: Record for Event exists
+INFO 2012-01-19 13:33:53,146 206998182697371: Record for Event exists
+INFO 2012-01-19 13:33:53,146 102986319816698: Record for Event exists
+INFO 2012-01-19 13:33:53,146 182184041855652: Record for Event exists
+INFO 2012-01-19 13:33:53,146 241671545890558: Record for Event exists
+INFO 2012-01-19 13:33:53,147 115226758585378: Record for Event exists
+INFO 2012-01-19 13:33:53,147 192727394135328: Record for Event exists
+INFO 2012-01-19 13:33:53,147 169232666497131: Record for Event exists
+INFO 2012-01-19 13:34:50,738 Importing events for Facebook page 63893177312
+INFO 2012-01-19 13:34:50,738 304386579600166: Imported successfully as Colin Hay live at Rex Theater in Pittsburgh!
+INFO 2012-01-19 13:34:50,739 242258275830931: Imported successfully as WXDX Presents Rise Against & A Day To Remember @ Trib Total Media Amph
+INFO 2012-01-19 13:34:50,739 192278364203350: Imported successfully as Lee MacDougall @ Hard Rock Cafe
+INFO 2012-01-19 13:34:50,739 282074528505058: Imported successfully as Sabaton @ The Altar Bar
+INFO 2012-01-19 13:34:50,739 165713213520668: Imported successfully as Distant Signals (Rush Tribute Band) @ Hard Rock Cafe
+INFO 2012-01-19 13:34:50,739 239516829451684: Imported successfully as Lez Zeppelin (All female tribute to Led Zeppelin) at Altar Bar
+INFO 2012-01-19 13:34:50,739 307533922618073: Imported successfully as Jimmie's Chicken Shack live in Pittsburgh on April 20th!
+INFO 2012-01-19 13:34:50,740 212048318875871: Imported successfully as Howler with special guests @ The Smiling Moose
+INFO 2012-01-19 13:34:50,740 339553019392216: Imported successfully as We Came As Romans with Emmure, Bless The Fall and more
+INFO 2012-01-19 13:34:50,740 265334340192134: Imported successfully as None More Black & Voice In The Wire @ The Smiling Moose
+INFO 2012-01-19 13:34:50,740 142624232512692: Imported successfully as A Great Big Pile of Leaves @ The Smiling Moose
+INFO 2012-01-19 13:34:50,740 184873554919262: Imported successfully as Bela Fleck and the Flecktones @ Carnegie Library Music Hall of Homestead
+INFO 2012-01-19 13:34:50,740 211222765639471: Imported successfully as Nile with Hour of Pennance @ The Altar Bar
+INFO 2012-01-19 13:34:50,740 272710232763385: Imported successfully as D.R.I. Reunion Tour - MorgueMart - Plastered Bastards & more
+INFO 2012-01-19 13:34:50,740 116198798496946: Imported successfully as The Dangerous Summer return to The Smiling Moose!
+INFO 2012-01-19 13:34:50,741 318425501525172: Imported successfully as Wolves At Bay & HisDayHasCome @ The Smiling Moose
+INFO 2012-01-19 13:34:50,741 159099077527192: Imported successfully as Iced Earth live at The Altar Bar in Pittsburgh!
+INFO 2012-01-19 13:34:50,741 163625480401320: Imported successfully as The Tossers with We Are The Union @ The Altar Bar in Pittsburgh!
+INFO 2012-01-19 13:34:50,770 326914494004182: Imported successfully as Eisley are coming to Pittsburgh on March 14th!
+INFO 2012-01-19 13:34:50,770 310985832273831: Imported successfully as Anti-Flag "The General Strike" Record Release Show @ Altar Bar
+INFO 2012-01-19 13:34:50,771 338937256135810: Imported successfully as Native with Girlfight and more @ The Smiling Moose
+INFO 2012-01-19 13:34:50,771 171129912975587: Imported successfully as Reverend Horton Heat - Larry and His Flask - The Goddamn Gallows
+INFO 2012-01-19 13:34:50,771 337975059554524: Imported successfully as Pianos Become The Teeth & Xerxes @ The Smiling Moose in Pgh!
+INFO 2012-01-19 13:34:50,771 271173096269921: Imported successfully as Saint Motel (explosive, cinematic, indie-pop band) @ Shadow Lounge
+INFO 2012-01-19 13:34:50,771 235103476544212: Imported successfully as The Saw Doctors live at The Altar Bar in Pittsburgh!
+INFO 2012-01-19 13:34:50,772 340338269314212: Imported successfully as Sleeping With Sirens with Abandon All Ships @ Altar Bar
+INFO 2012-01-19 13:34:50,772 125885490864006: Imported successfully as Matt Pryor (of The Get Up Kids & The New Amsterdams) in Pittsburgh!
+INFO 2012-01-19 13:34:50,772 275896375804779: Imported successfully as Phil Keaggy live at Carnegie Library Music Hall of Homestead
+INFO 2012-01-19 13:34:50,780 309715025716216: Imported successfully as Puscifer (featuring Maynard James Keenan) @ Byham Theatre
+INFO 2012-01-19 13:34:50,781 203382246414885: Imported successfully as LIGHTS is coming to Altar Bar in Pittsburgh!
+INFO 2012-01-19 13:34:50,781 286567224722889: Imported successfully as Pink Droyd: The Ultimate Tribute to Pink Floyd plus laser show!
+INFO 2012-01-19 13:34:50,781 303216939719880: Imported successfully as The Fab Four (The Ultimate Beatles Tribute) for only night only!
+INFO 2012-01-19 13:34:50,781 322617734421066: Imported successfully as Bruce in the USA - The #1 Tribute to Bruce Springsteen & the E Street Band
+INFO 2012-01-19 13:34:50,781 305701842795828: Imported successfully as Chris Webby @ The Altar Bar
+INFO 2012-01-19 13:34:50,782 155087894592765: Imported successfully as Doomtree ft. P.O.S., Dessa, SIMS, Cecil Otter, & more
+INFO 2012-01-19 13:34:50,782 169017886539331: Imported successfully as Days of the New (Acoustic) @ The Altar Bar
+INFO 2012-01-19 13:34:50,782 191685900924413: Imported successfully as Rehab "The Gullible's Travels 2012 Tour" @ Hard Rock Cafe
+INFO 2012-01-19 13:34:50,782 288019571231696: Imported successfully as Hanson performing live for one night only in Pittsburgh!
+INFO 2012-01-19 13:34:50,796 136044876502519: Imported successfully as Allstar Weekend with The After Party @ The Altar Bar
+INFO 2012-01-19 13:34:50,796 214269548659672: Imported successfully as Parabelle (Acoustic) @ The Altar Bar
+INFO 2012-01-19 13:34:50,797 225859577497003: Imported successfully as Aer (for fans of Mac Miller & Dirty Heads) @ The Altar Bar
+INFO 2012-01-19 13:34:50,797 343425392341257: Imported successfully as Cassadee Pope of Hey Monday @ Altar Bar
+INFO 2012-01-19 13:34:50,797 326368637379039: Imported successfully as Mr. Greengenes returns to The Altar Bar on Friday, Feb 10th!
+INFO 2012-01-19 13:34:50,797 306438812726521: Imported successfully as The Lighthouse and the Whaler @ The Smiling Moose
+INFO 2012-01-19 13:34:50,797 150269611753737: Imported successfully as Kip Winger (Acoustic) @ The Altar Bar
+INFO 2012-01-19 13:34:50,797 335316096495770: Imported successfully as Ballyhoo! at Hard Rock Cafe
+INFO 2012-01-19 13:34:50,797 201178996630573: Imported successfully as Down With Webster & Freesol @ The Smiling Moose
+INFO 2012-01-19 13:34:50,798 263464057054885: Imported successfully as Barb Wire Dolls (New Punk Revolution) @ The Altar Bar
+INFO 2012-01-19 13:34:50,798 264002540325237: Imported successfully as Action Item with Music From Another Room & more @ Altar Bar
+INFO 2012-01-19 13:34:50,798 280778281967651: Imported successfully as Uli Jon Roth @ Altar Bar
+INFO 2012-01-19 13:34:50,798 297424393603343: Imported successfully as Gardening, Not Architecture @ The Smiling Moose
+INFO 2012-01-19 13:34:50,798 104648466323389: Imported successfully as The Red Western & Gypsy and His Band of Ghosts
+INFO 2012-01-19 13:34:50,798 128895323891900: Imported successfully as You Me At Six & The Swellers @ The Smiling Moose
+INFO 2012-01-19 13:34:50,798 259917177401437: Imported successfully as Mustard Pimp (Dim Mak) plus Cutups & Keeb$ and Dominant Force!
+INFO 2012-01-19 13:34:50,798 298920853473873: Imported successfully as Junior Battles (Paper + Plastick) @ The Smiling Moose
+INFO 2012-01-19 13:34:50,799 328228857192896: Imported successfully as Mansions, The Front Bottoms, Bluebird Midwest & Lookout Loretta (PGH)
+INFO 2012-01-19 13:34:50,799 127112930740581: Imported successfully as Midnight Special: The Classic Rock Experience
+INFO 2012-01-19 13:34:50,799 174433082653538: Imported successfully as TYCHO with Beacon @ Shadow Lounge
+INFO 2012-01-19 13:34:50,799 297381960301278: Imported successfully as Chris Conley (Solo Acoustic) @ The Smiling Moose
+INFO 2012-01-19 13:34:50,799 346697778679474: Imported successfully as Fungus - Pittsburgh's Grateful Dead Tribute @ Altar Bar
+INFO 2012-01-19 13:34:50,799 230018180389820: Imported successfully as Velveeta - New Years Eve Show at The Altar Bar!
+INFO 2012-01-19 13:34:50,799 252508681438887: Imported successfully as Get The Led Out: The American Led Zeppelin live in Pittsburgh!
+INFO 2012-01-19 13:34:50,800 146425115452266: Imported successfully as Punchline "The. Greatest. Party. Ever." Annual Holiday Show @ Altar Bar
+INFO 2012-01-19 13:34:50,800 171379232950387: Imported successfully as Space Capone @ Hard Rock Cafe
+INFO 2012-01-19 13:34:50,800 262631413788686: Imported successfully as The Early November with Man Overboard & Hostage Calm
+INFO 2012-01-19 13:34:50,800 256613904397269: Imported successfully as Dr. Dirty is coming back to Pittsburgh! XXX for Mature Audiences
+INFO 2012-01-19 13:34:50,800 286787221353995: Imported successfully as An evening with Steel Hollow @ Hard Rock Cafe
+INFO 2012-01-19 13:34:50,800 176622949078782: Imported successfully as Good Old War live at The Altar Bar in Pittsburgh!
+INFO 2012-01-19 13:34:50,800 177139109040563: Imported successfully as NIV Official Birthday Party at The Altar Bar
+INFO 2012-01-19 13:34:50,800 220534431341972: Imported successfully as Joe Grushecky and the Houserockers - Christmas Show @ The Altar Bar
+INFO 2012-01-19 13:34:50,801 236677723056257: Imported successfully as Two days of The Reverend Bob Levy (of the Howard Stern Show) in Pgh!
+INFO 2012-01-19 13:34:50,801 287500447938195: Imported successfully as Jackyl with Nigel Dupree Band @ The Altar Bar
+INFO 2012-01-19 13:34:50,801 212428022162844: Imported successfully as TR3 featuring Tim Reynolds @ Hard Rock Cafe
+INFO 2012-01-19 13:34:50,801 153419601418853: Imported successfully as WYEP Presents: BEIRUT - Dec 10 & Dec 11 (Two Intimate Shows!)
+INFO 2012-01-19 13:34:50,801 218572881543927: Imported successfully as WDVE Holiday Event featuring Kenny Wayne Shepherd
+INFO 2012-01-19 13:34:50,801 226229034110897: Imported successfully as H20 with Cruel Hand @ The Smiling Moose
+INFO 2012-01-19 13:34:50,801 319702068055540: Imported successfully as Friends return to Pittsburgh @ Shadow Lounge
+INFO 2012-01-19 13:34:50,801 267509306598106: Imported successfully as Between The Buried And Me with Animals As Leaders @ Altar Bar
+INFO 2012-01-19 13:34:50,802 238379709545225: Imported successfully as Livan with special guests @ Hard Rock Cafe
+INFO 2012-01-19 13:34:50,802 309044412445764: Imported successfully as YACHT with special guests @ Rex Theater
+INFO 2012-01-19 13:34:50,802 239767942742388: Imported successfully as Street Dogs "7th Annual Wreck The Halls Tour" @ The Altar Bar
+INFO 2012-01-19 13:34:50,802 215233051871992: Imported successfully as Hit The Lights & The Dangerous Summer (Early Show) @ The Altar Bar
+INFO 2012-01-19 13:34:50,802 290709700945840: Imported successfully as Gene The Werewolf CD Release Show @ The Altar Bar
+INFO 2012-01-19 13:34:50,802 Imported 83 new Events
