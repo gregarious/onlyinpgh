@@ -123,6 +123,7 @@ INSTALLED_APPS = (
     'onlyinpgh.tagging',
     'onlyinpgh.offers',
     'onlyinpgh.checkin',
+    'onlyinpgh.oldevents',
     'onlyinpgh.outsourcing',
 )
 

@@ -1,7 +1,14 @@
-required external package installs (might include these in source later -- we'll see):
-
 django-extensions
 pytz
 pil
 dateutil (v1.5 for Python 2.x -- for pip use "pip install dateutil==1.5")
 icalendar
+
+Loading initial events data (pre December 2011):
+
+All events added to onlyinpgh.com prior to 12/14/2011 are frozen
+in a different set of models with the appname "oldevents".
+
+To load this initial data, run the following after syncdb:
+
+python manage.py loaddata oldsite_events
