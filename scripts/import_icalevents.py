@@ -1,5 +1,8 @@
 from onlyinpgh.outsourcing.models import ICalendarFeed
 from onlyinpgh.outsourcing.icalevents import FeedImporter, EventImportReport
+
+from datetime import datetime
+
 import logging
 importlog = logging.getLogger('onlyinpgh.ical_import')
 
@@ -12,7 +15,7 @@ def import_all():
         import_count = 0
         importlog.info('Processing new events from feed "%s"' % (unicode(feed)))
         importer = FeedImporter(feed)
-        for report in importer.import_new():
+        for report in importer.import_new(start_filter=datetime(2012,1,1)):
             if not report:
                 importlog.error(u'UID %s: Unexpected failure' % record.uid)
                 continue

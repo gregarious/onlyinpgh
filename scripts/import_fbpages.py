@@ -1,14 +1,12 @@
 from onlyinpgh.outsourcing.fbpages import PageImportManager, PageImportReport
-from onlyinpgh.outsourcing.fbevents import EventImportManager
 from onlyinpgh.outsourcing.models import FacebookPage
 import logging
 importlog = logging.getLogger('onlyinpgh.fb_import')
 
-def import_all():
-    page_ids = [str(page.fb_id) for page in FacebookPage.objects.all()]
-    
-    importlog.info('Importing Organizations into database from %d pages' % len(page_ids))
+def import_ids(page_ids):
     page_mgr = PageImportManager()
+
+    importlog.info('Importing Organizations into database from %d pages' % len(page_ids))
     reports = page_mgr.import_orgs(page_ids)    # generator object
     import_count = 0
     for report in reports:
@@ -36,6 +34,10 @@ def import_all():
             importlog.info('%s: Imported successfully as %s' % (report.page_id,unicode(report.model_instance)))
             import_count += 1
     importlog.info('%d new Places imported' % import_count)
+
+def import_all():
+    page_ids = [str(page.fb_id) for page in FacebookPage.objects.filter(ignore=False)]
+    import_fbids(page_ids)
 
 def run():
     try:

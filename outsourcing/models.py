@@ -6,7 +6,7 @@ references to our objects.
 from django.db import models
 from onlyinpgh.identity.models import Organization
 from onlyinpgh.places.models import Place
-from onlyinpgh.events.models import Event
+from onlyinpgh.events.models import Event, Role
 
 import pytz
 
@@ -77,10 +77,11 @@ class FacebookOrgRecord(models.Model):
 class ICalendarFeed(models.Model):
     url = models.URLField(max_length=300)
     owner = models.ForeignKey(Organization,null=True,blank=True)
-    xcal_name = models.CharField(max_length=100)
+    name = models.CharField(max_length=100,blank=True)
+    event_role_type = models.CharField(max_length=50,choices=Role.ROLE_TYPES)
 
     def __unicode__(self):
-        return self.xcal_name
+        return self.name
 
 class VEventRecord(models.Model):
     feed = models.ForeignKey(ICalendarFeed)

@@ -10,7 +10,7 @@ from onlyinpgh.identity.models import Organization
 from onlyinpgh.places.models import Location, Place, Meta as PlaceMeta
 from onlyinpgh.outsourcing.models import FacebookOrgRecord, ExternalPlaceSource
 
-from onlyinpgh.outsourcing.places import resolve_place
+from onlyinpgh.outsourcing.places import resolve_place, resolve_location
 
 import logging, copy
 outsourcing_log = logging.getLogger('onlyinpgh.outsourcing')
@@ -37,7 +37,7 @@ def get_full_place_pages(pids):
             page_details.append(resp)
 
     for pid in pids:
-        cmds.append(facebook.BatchCommand(pid,{'metadata':1}))
+        cmds.append(facebook.BatchCommand(str(pid),{'metadata':1}))
         if len(cmds) == 50:
             _add_batch(cmds)
             cmds = []
@@ -252,7 +252,7 @@ def store_fbpage_place(page_info,create_owner=True):
     # really want geolocation, go to Google Geocoding for it if we need it
     if location.longitude is None or location.latitude is None:
         seed_loc = copy.deepcopy(location)
-        resolved_location = resolve_location(seed_loc)
+        resolved_location = resolve_location(seed_loc,allow_numberless=False)
         if resolved_location: 
             location = resolved_location
 
