@@ -1,0 +1,34 @@
+{% comment %}
+template to be included inside ul#offersFeed
+{% endcomment %}
+
+{% for o in offers|slice:":4" %}
+
+  <li>  
+    <article class="feed-item">
+      <h1 class="feed-item-title">{{ o.description }}</h1>
+      <div class="feed-item-content">
+        <ul>
+          <li>{{ o.sponsor }}</li>
+          <li><time datetime="">Date deal ends</time></li>
+          <li><a href="">Details...</a></li>
+        </ul>
+        <a href="#grabbitModal" name="modal">Grabbit!</a>
+      </div>
+      <div class="feed-item-thumb">
+        <img src="{{ o.sponsor.avatar }}" width="100" height="100" alt="{{ o.name }}" />
+      </div>
+    </article>
+  </li>
+
+  <section id="grabbitModal" class="window">
+    <h3>Grab this coupon...</h3>
+    <p>{{ o.description }} from {{ o.sponsor }}<br />
+    Would you like to...</p>
+    <button>Pay with PayPal</button> or <button>Credit Card</button>
+    <p>You will recieve a printable receipt to redeem your coupon. You can also use your phone.</p>
+  </section>
+
+  <div id="modalMask"></div>
+
+{% endfor %}

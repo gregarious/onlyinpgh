@@ -1,16 +1,10 @@
-Deployment notes:
+django-extensions
+pytz
+pil
+dateutil (v1.5 for Python 2.x -- for pip use "pip install dateutil==1.5")
+icalendar
 
-1. Python package dependencies (via pip):
-
-REQUIRED:
-    pytz
-    pil
-    icalendar
-RECOMMENDED:
-    django-extensions        
-
-
-2. Initial data:
+Loading initial events data (pre December 2011):
 
 All events added to onlyinpgh.com prior to 12/14/2011 are frozen
 in a different set of models with the appname "oldevents".

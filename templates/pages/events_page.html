@@ -1,0 +1,97 @@
+{% comment %}
+	
+ ** Template for the events page
+	Rendered when menu item 'Events' is clicked
+	
+ ** Should
+	{% include "/feeds/events_feed.html " %}
+	or {% block %} - copied events_feed.html for 
+  development 
+
+{% endcomment %}
+
+
+<header>
+  <h2>Events Page</h2>
+  <a id="showCalendar" href="">Switch to Calendar View</a>
+</header>
+
+{% comment %} Commented out for now and not up to date!!
+<ul class="feed-items">
+  
+  {% for e in events %}
+
+  <li>
+
+    <article class="feed-item-single">
+	    
+      <h1 class="feed-item-title">{{ e.name }}</h1>
+
+      <div class="feed-item-content">
+        <ul>
+          <li><time datetime="">{{ e.dtstart }}</time> - <time datetime="">{{ e.dtend }}</time></li>
+          <li>Hosted By: <a href="">{{ e.place }}</a></li>
+          <li>{{ e.place.location.address }}</li>
+          <li>12{{ e.attendees }} plan to attend</li>
+          <li>{{ e.description|truncatewords:10|urlizetrunc:15 }}</li>
+          <li><a href="">Go to Event Page</a></li>
+        </ul>
+      </div> <!-- .page-item-content -->
+
+      <div class="feed-item-thumb">
+        <img class="thumbnail" width="100" height="100" alt="{{ e.name }}" src="{{ e.image_url }}" />
+      </div>
+
+      <div class="feed-item-tags">
+        <ul class="tags-list">
+          <li>A Place</li>
+          <li>Holder</li>
+          <li>For Tags</li>
+        </ul>
+      </div>
+
+    </article> <!-- .page-item -->
+
+  </li>
+
+  {% endfor %}
+
+</ul>
+{% endcomment %}
+
+{% comment %}
+  Here is the calendar.
+  We'll need daily, weekly (or bi-weekly), and monthly views.
+  To be revealed when the "Calendar view" option is chosen.
+{% endcomment %}
+
+
+<!-- Calendar View -->
+
+<section class="calendar-view calendar-toggled">
+
+  <header>
+    <h3 class=".calendar-view-title">Calendar View</h3>
+    <nav class="page-utility-nav">
+  	  <ul id="calendarViews">
+  	    <li id="dailyView">Daily</li>
+  	    <li id="weeklyView">Weekly</li>
+  	    <li class="selected-menu-item" id="monthlyView">Monthly</li>
+  	  </ul>
+  	</nav>
+  </header>
+
+  <ul class="calendar">
+    {% for e in events %}
+      <li class="monthly-day">
+        <p>{{ e.name }}</p>
+      </li>
+    {% endfor %}
+  </ul>
+
+</section>
+
+<div>
+  Map Goes here
+</div>
+

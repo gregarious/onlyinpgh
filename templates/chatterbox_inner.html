@@ -1,0 +1,40 @@
+{% comment %}
+template to be included inside a #chatter-tab-* div
+{% endcomment %}
+<ul class="chatterbox-posts">
+{% for post in posts %}
+    <li class="ui-corner-all" id="{{id_prefix}}post-{{forloop.counter}}">
+
+        <aside class="voting onecol last">
+            <div class="upvote"></div>
+            <p class="numvotes">28</p>
+            <div class="downvote"></div>    
+        </aside>
+
+        <h3>{{ post.title }}</h3>
+
+        <p><img src="{{ post.author.avatar }}" width="30px" height="30px"> 
+        <span class="meta">{{ post.author.display_name }}</span></p>
+
+        {% if post.image_url %}
+            <img src="{{ post.image_url }}">
+        {% endif %}
+
+        <p>{{ post.content }}</p>
+        <p class="meta">{{ post.dt|timesince }} ago</p>
+
+        {% if post.comment_set.all %}
+            <ul class="comments" style="margin-left:20px">
+            {% for comment in post.comment_set.all %}
+                <li class="comment ui-corner-all">
+                    <div><img src="{{ comment.commenter.avatar }}" width="30px" height="30px"><span class="meta">{{ comment.commenter.display_name }}</span></div>
+                    <p>{{ comment.content }}</p>
+                    <span class="meta">{{ comment.dt|timesince }} ago</span>
+                </li>
+            {% endfor %}
+            </ul>
+        {% endif %}
+
+    </li>
+{% endfor %}
+</ul>

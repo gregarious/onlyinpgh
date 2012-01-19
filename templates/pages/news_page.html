@@ -1,0 +1,44 @@
+{% comment %}
+	
+ ** Template for the news page
+	Rendered when menu item 'News' is clicked
+	
+ ** Should
+	{% include "feeds/news_feed.html " %}
+	right now it's copied
+
+{% endcomment %}
+
+<header>
+  <h2>Scene News</h2>
+</header>
+
+<ul>
+
+{% for a in articles %}
+	<li>
+		<article class="feed-item">
+	        <h1 class="feed-item-title">{{ a.title }}</h1>
+	        <ul>
+	          <li><address><a href="{{ a.source_url }}">{{ a.source_name }}</a></address></li>
+	          <li><time datetime="" pubdate>Date published</time></li>
+	          <li><a>See full article...</a></li>
+	        </ul>
+	    </article>
+    </li>
+{% endfor %}
+
+</ul>
+
+<section>
+	<header>	
+		<h3>Contributing Sources</h3>
+	</header>
+
+	<ul>
+	{% for a in articles %}
+		<li><address><a href="{{ a.source_url }}">{{ a.source_name }}</a></address></li>
+	{% endfor %}
+	</ul>
+
+</section>

@@ -17,7 +17,8 @@ class Identity(models.Model):
         return self.name
 
 class Organization(Identity):
-    pass
+    url = models.URLField(max_length=400,blank=True)
 
 class Individual(Identity):
     pass
+

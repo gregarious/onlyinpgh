@@ -2,6 +2,8 @@ from django.db import models
 from django.core.validators import MinValueValidator, MaxValueValidator, MinLengthValidator
 from django.core.exceptions import ValidationError
 
+from math import sqrt, pow
+
 from onlyinpgh.tagging.models import Tag
 from onlyinpgh.identity.models import Organization
 
@@ -11,6 +13,91 @@ class Neighborhood(models.Model):
     description = models.TextField(blank=True)
     def __unicode__(self):
         return self.name
+
+def _calc_distance(p0,p1):
+    return sqrt(pow(p1[0]-p0[0],2),
+                pow(p1[1]-p0[1],2))
+
+class CloseLocationManager(models.Manager):
+    def get_close(self,**kwargs):
+        '''
+        Runs a get query that allows some leeway on exact matching of 
+        the geocoding data. Assuming any results are close (within some
+        error tolerance), the closest one to the input will be returned.
+
+        In addition to normal arguments, a dict of options with the
+        keyword name '_close_options' can be passed in with the following
+        keys:
+        - lat_error (+/- bounds put on latitude [default: .001])
+        - lng_error (+/- bounds put on longitude [default: .001])
+        - assert_single_match (raise an error if more than one result 
+            matches the full query with bounding criteria [default: False])
+        '''
+        assert kwargs, 'get_close() only support keyword arguments'
+
+        close_options = kwargs.pop('_close_options',{})
+        lat_error = close_options.get('lat_error',1e-3)
+        lng_error = close_options.get('lng_error',1e-3)
+        assert_single_match = close_options.get('assert_single_match',False)
+
+        # remove the equality constraints and add a pair of bounding ones
+        lat = kwargs.get('latitude')
+        if lat is not None:
+            kwargs.pop('latitude')
+            kwargs['latitude__lt'] = lat + lat_error
+            kwargs['latitude__gt'] = lat - lat_error
+        lng = kwargs.get('longitude')
+        if lng is not None:
+            kwargs['longitude__lt'] = lng + lng_error
+            kwargs['longitude__gt'] = lng - lng_error
+        
+        # if we can only have one match (or no geocoding in query anyway), just run regular get
+        if assert_single_match or (lng is None and lat is None):
+            return self.get(**kwargs)
+        
+        # otherwise, we need to run filter with the relaxed constraints and then find the closest result among them
+        results = self.filter(**kwargs)
+        if len(results) == 0:
+            raise Location.DoesNotExist("Location matching 'close query' does not exist")
+        elif len(results) == 1:
+            return results[0]
+        else:
+            calc_distance = lambda p0,p1: sqrt(pow(float(p1[0])-float(p0[0]),2) +
+                                                pow(float(p1[1])-float(p0[1]),2))
+            if lat is None: lat = 0
+            if lng is None: lng = 0
+            anchor = (lat,lng)
+            best, best_dist = None, float('inf')
+            for r in results:
+                point = (r.latitude or 0, r.longitude or 0)
+                dist = calc_distance(anchor,point)
+                if dist < best_dist:
+                    best, best_dist = r, dist
+            return best
+    
+    def get_close_or_create(self,**kwargs):
+        '''
+        Runs get_or_create query with some leeway on matching geocoding
+        criteria for the get attempt.
+
+        Note: be careful on using this function with address-less
+        locations that just feature geocoding. Doing so will encourage all
+        address-less locations to converge to focus points (the first 
+        one created).
+
+        Accepts same _close_options as get_close() -- see that method's 
+        docstring for more details.
+
+        Note, this involves one extra query than a normal get_or_create
+        when the get_close fails because I didn't want to muck around 
+        in duplicating the intricaies of Django's own get_or_create.
+        '''
+        try:
+            return self.get_close(**kwargs), False
+        except Location.DoesNotExist:
+            kwargs.pop('_close_options', {})
+            return self.get_or_create(**kwargs)
+        
 
 class Location(models.Model):
     '''
@@ -47,27 +134,9 @@ class Location(models.Model):
                                     validators=[MinValueValidator(-180),
                                                 MaxValueValidator(180)])
 
-    def _normalize_address(self):
-        '''
-        Replaces the current contents of the address field with a normalized
-        version of it (e.g. '201 S. Bouquet Street' -> '201 S Bouquet St').
-
-        Currently uses Google Geocoding API's formatted_address field in 
-        development, though this should change.
-        '''
-        # TODO: revisit address normalization api
-        pass
+    objects = models.Manager()
+    close_manager = CloseLocationManager()
     
-    def _complete_missing_fields(self):
-        '''
-        Refers to an authoritative source to complete missing fields. 
-        
-        Currently uses Google Geocoding API, but will hopefully move to 
-        Factual Resolve API.
-        '''
-        # TODO: revisit missing location info api
-        pass
-
     def save(self,*args,**kwargs):
         self.full_clean()        # run field validators
         # ensure country and state are saved in db in uppercase
@@ -75,6 +144,7 @@ class Location(models.Model):
             self.country = self.country.upper()
         if self.state:
             self.state = self.state.upper()
+        # TODO: normalize?
         return super(Location,self).save(*args,**kwargs)
 
     def clean(self,*args,**kwargs):
@@ -89,13 +159,33 @@ class Location(models.Model):
         lat_s = '%.3f' % self.latitude if self.latitude is not None else '-'
         lon_s = '%.3f' % self.longitude if self.longitude is not None else '-'
         return u'%s (%s,%s)' % (addr_s,lat_s,lon_s)
+    
+    @property
+    def full_string(self):
+        s = ''
+        if self.address:
+            s += '%s, ' % self.address
+        if self.town:
+            s += '%s, ' % self.town
+        
+        if self.state and self.postcode:
+            s += '%s %s, ' % (self.state, self.postcode)
+        elif self.state:
+            s += '%s, ' % self.state
+        elif self.postcode:
+            s += '%s, ' % self.postcode
+        
+        if self.latitude or self.longitude:
+            s += '(%s,%s)' % ('%.3f'%self.latitude if self.latitude else '-',
+                              '%.3f'%self.longitude if self.latitude else '-')
+
+        return s.rstrip(', ')
 
 class Place(models.Model):
     '''
     Handles information about places.
     '''
     class Meta:
-        unique_together = ('name','location')
         ordering = ['name']
 
     dtcreated = models.DateTimeField('dt created',auto_now_add=True)
@@ -110,10 +200,11 @@ class Place(models.Model):
     def __unicode__(self):
         s = self.name
         if self.location:
-            s += '. Loc: ' + self.location.address + ', ' + self.location.town  + ', ' + self.location.state + ', ' + self.location.postcode  
-        return unicode(s)
+            s += u'. Loc: ' + self.location.address + u', ' + self.location.town  + u', ' + self.location.state + u', ' + self.location.postcode  
+        assert type(s==unicode)
+        return s
 
-class PlaceMeta(models.Model):
+class Meta(models.Model):
     '''
     Handles meta information for a Place.
     '''
@@ -133,36 +224,6 @@ class PlaceMeta(models.Model):
         else:
             val = self.meta_value[:16] + '...'
         return u'%s: %s' % (self.meta_key,val)
-
-class ExternalPlaceSource(models.Model):
-    '''
-    Model used to relate external API IDs to unique objects in our
-    database (e.g. Factual GUIDs an onlyinpgh.places.models.Place)
-    '''
-    class Meta:
-        unique_together = (('service','uid'),)
-
-    service_choices = [('fb',   'Facebook Object ID'),
-                       ('fact', 'Factual GUID')]
-
-    service = models.CharField(max_length=8,choices=service_choices)
-    uid = models.CharField('string representation of UID',max_length=36)
-    place = models.OneToOneField(Place)
-
-    last_checked = models.DateTimeField(auto_now_add=True)
-
-    def __unicode__(self):
-        return '%s:%s -> %s' % (self.service,self.uid,self.place)
-
-class FacebookPageRecord(models.Model):
-    fb_id = models.BigIntegerField(primary_key=True)
-    time_added = models.DateTimeField(auto_now_add=True)
-    last_checked = models.DateTimeField(auto_now_add=True)
-
-    # related_name argument necessary because identifier needs to be unique for organizations vs. individuals
-    associated_organization = models.ForeignKey(Organization,null=True,blank=True,
-                                        related_name="%(app_label)s_%(class)s_related")
-    associated_place = models.ForeignKey(Place,null=True,blank=True,related_name="%(app_label)s_%(class)s_related")
 
 class LocationLookupNotice(models.Model):
     '''

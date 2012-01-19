@@ -1,11 +1,12 @@
 # Django settings for onlyinpgh project.
 
+import os, datetime
 # import settings that differ based on deployment
 import settings_local
 
 def to_abspath(path):
     '''prepends ROOT_DIR setting from settings_local to the given path'''
-    return settings_local.ROOT_DIR + '/' + path
+    return os.path.join(settings_local.ROOT_DIR, path)
 
 DEBUG = settings_local.DEBUG
 TEMPLATE_DEBUG = settings_local.TEMPLATE_DEBUG
@@ -16,6 +17,7 @@ MANAGERS = settings_local.ADMINS
 DATABASES = {
     'default': settings_local.DB_DEFAULT
 }
+DATABASES['default']['TEST_CHARSET'] = 'utf8'
 
 # Local time zone for this installation. Choices can be found here:
 # http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
@@ -113,7 +115,6 @@ INSTALLED_APPS = (
     # Uncomment the next line to enable admin documentation:
     # 'django.contrib.admindocs',
     'django_extensions',
-    'onlyinpgh.apitools',
     'onlyinpgh.places',
     'onlyinpgh.events',
     'onlyinpgh.identity',
@@ -123,6 +124,7 @@ INSTALLED_APPS = (
     'onlyinpgh.offers',
     'onlyinpgh.checkin',
     'onlyinpgh.oldevents',
+    'onlyinpgh.outsourcing',
 )
 
 # A sample logging configuration. The only tangible logging
@@ -130,6 +132,7 @@ INSTALLED_APPS = (
 # the site admins on every HTTP 500 error.
 # See http://docs.djangoproject.com/en/dev/topics/logging for
 # more details on how to customize your logging configuration.
+_timestamp = datetime.datetime.now().strftime('%Y.%m.%d.%H.%M.%S.%f')
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
@@ -143,12 +146,40 @@ LOGGING = {
             'class': 'logging.StreamHandler',
             'formatter': 'simple'
         },
-        'file': {
+        'debug_file': {
             'level': 'DEBUG',
             'class': 'logging.FileHandler',
             'formatter': 'verbose',
-            'filename': '/Users/gdn/Sites/onlyinpgh/logs/debug.log'
+            'filename': to_abspath('logs/debug.log')
         },
+        'resolve_file': {
+            'level': 'DEBUG',
+            'class': 'logging.FileHandler',
+            'formatter': 'verbose',
+            'filename': to_abspath('logs/resolve.log')
+        },
+        'outsourcing_file': {
+            'level': 'DEBUG',
+            'class': 'logging.FileHandler',
+            'formatter': 'verbose',
+            'filename': to_abspath('logs/outsourcing.log')
+        },
+        'fb_import_file': {
+            'level': 'DEBUG',
+            'class': 'logging.FileHandler',
+            'formatter': 'simple_timestamped',
+            'filename': to_abspath('logs/imports/facebook_%s.log' % _timestamp),
+            'delay': True,      # only open if message is emitted
+            'mode': 'w'
+        },
+        'ical_import_file': {
+            'level': 'DEBUG',
+            'class': 'logging.FileHandler',
+            'formatter': 'simple_timestamped',
+            'filename': to_abspath('logs/imports/ical_%s.log' % _timestamp),
+            'delay': True,      # only open if message is emitted
+            'mode': 'w'
+        }
     },
     'loggers': {
         'django.request': {
@@ -157,10 +188,30 @@ LOGGING = {
             'propagate': True,
         },
         'onlyinpgh.debugging': {
-            'handlers': ['console','file'],
+            'handlers': ['console','debug_file'],
             'level':'DEBUG',
             'propagate': False
-        }
+        },
+        'onlyinpgh.resolve': {
+            'handlers': ['console','resolve_file'],
+            'level':'DEBUG',
+            'propagate': False
+        },
+        'onlyinpgh.outsourcing': {
+            'handlers': ['console','outsourcing_file'],
+            'level':'DEBUG',
+            'propagate': False
+        },
+        'onlyinpgh.fb_import': {
+            'handlers': ['console','fb_import_file'],
+            'level':'DEBUG',
+            'propagrate': False
+        },
+        'onlyinpgh.ical_import': {
+            'handlers': ['console','ical_import_file'],
+            'level':'DEBUG',
+            'propagrate': False
+        },
     },
     'formatters': {
         'verbose': {
@@ -168,6 +219,12 @@ LOGGING = {
         },
         'simple': {
             'format': '%(levelname)s %(message)s'
-        }
+        },
+        'simple_timestamped': {
+            'format': '%(levelname)s %(asctime)s %(message)s'  
+        },
     }
 }
+
+FIXTURE_DIRS = ( to_abspath('fixtures'),
+)

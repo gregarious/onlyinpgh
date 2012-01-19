@@ -1,0 +1,18 @@
+{% comment %}
+template to be included inside the #places div
+{% endcomment %}
+
+{% for a in articles %}
+	
+	<li>
+		<article class="feed-item">
+	        <h1 class="feed-item-title">{{ a.title }}</h1>
+	        <ul>
+	          <li><address><a href="{{ a.source_url }}">{{ a.source_name }}</a></address></li>
+	          <li><time datetime="" pubdate>Date published</time></li>
+	          <li><a>See full article...</a></li>
+	        </ul>
+	    </article>
+    </li>
+
+{% endfor %}
