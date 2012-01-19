@@ -86,8 +86,8 @@ class GraphAPIClient(object):
         flexibility (i.e. calling urllib2.urlopen on a urllib2.Request)
         '''
         response = delayed_retry_on_ioerror(lambda:json.load(urllib_module.urlopen(request)),
-                                            delay_seconds=5,
-                                            retry_limit=1,
+                                            delay_seconds=6,
+                                            retry_limit=3,
                                             logger=outsourcing_log)
         return self.postprocess_response(request,response)
 
@@ -96,7 +96,10 @@ class GraphAPIClient(object):
         '''
         Does some post-processing -- mostly error handling.
         '''
-        if response == False:
+        if response == []:
+            raise FacebookAPIError(unicode(request),
+                                   "empty response returned")
+        elif response == False:
             raise FacebookAPIError(unicode(request),
                                    "'false' response returned")
         elif response is None:

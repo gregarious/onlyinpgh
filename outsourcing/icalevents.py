@@ -70,7 +70,7 @@ class FeedImporter(object):
 		cal_name = ical.get('X-WR-CALNAME',url)
 
 		feed, created = ICalendarFeed.objects.get_or_create(
-							url=url,xcal_name=cal_name)
+							url=url,name=cal_name)
 		
 		if organization:
 			# if we need to set the owner, but found an existing feed whose owner is different, fail
@@ -221,7 +221,7 @@ class FeedImporter(object):
 											 place=place,
 				        					 dtmodified=dtmodified)
 				if owner:
-					Role.objects.create(role_name='host',
+					Role.objects.create(role_type='host',
 										organization=owner,
 										event=event)
 
