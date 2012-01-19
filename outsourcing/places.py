@@ -6,8 +6,8 @@ places-related tasks.
 from itertools import chain
 import re, copy
 
+from onlyinpgh.outsourcing.apitools.factual import FactualAPIError
 from onlyinpgh.outsourcing.apitools import google, factual
-
 from onlyinpgh.places.models import Place, Location
 
 import logging  
@@ -57,17 +57,20 @@ def resolve_place(partial_place=None,partial_location=None):
         loc = partial_location
         pl_name = None
 
-    if loc is None:
-        resp = factual.oip_client.resolve(name=pl_name)
-    else:
-        resp = factual.oip_client.resolve(
-            name=pl_name,
-            address=loc.address,
-            town=loc.town,
-            state=loc.state,
-            postcode=loc.postcode,
-            latitude=loc.latitude,
-            longitude=loc.longitude)
+    try:
+        if loc is None:
+            resp = factual.oip_client.resolve(name=pl_name)
+        else:
+            resp = factual.oip_client.resolve(
+                name=pl_name,
+                address=loc.address,
+                town=loc.town,
+                state=loc.state,
+                postcode=loc.postcode,
+                latitude=loc.latitude,
+                longitude=loc.longitude)
+    except FactualAPIError:
+        return None
 
     result = resp.get_resolved_result()
     if result:

@@ -98,6 +98,9 @@ class GraphAPIClient(object):
         '''
         if response == []:
             raise FacebookAPIError(unicode(request),
+                                   "empty response returned")
+        elif response == False:
+            raise FacebookAPIError(unicode(request),
                                    "'false' response returned")
         elif response is None:
             raise FacebookAPIError(unicode(request),

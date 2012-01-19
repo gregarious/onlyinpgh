@@ -457,7 +457,7 @@ class EventImportManager(object):
             stubs = self._cached_page_estub_lists.get(pid,[])
             if start_filter:
                 stubs = [stub for stub in stubs
-                            if dtparser.parse(stub['start_time']) >= start_filter ]
+                            if dtparser.parse(stub.get('start_time','1970-01-01')) >= start_filter ]
             page_eids_map[pid] = [stub['id'] for stub in stubs]
 
         # flatten list of eids

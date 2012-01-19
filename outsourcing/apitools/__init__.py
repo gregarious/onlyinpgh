@@ -24,7 +24,7 @@ def delayed_retry_on_ioerror(apicall,delay_seconds,retry_limit=1,logger=None):
     '''
     Function designed to automatically reattempt a function call on the
     event that it returns an IOError. Each reattempt is preceded by a
-    sleep count. 
+    sleep count. The delay time will be doubled each retry.
 
     This is a convenient way to avoid the common pattern of causing a 
     delayed-retry when an API service denies access momentarily because
@@ -46,4 +46,5 @@ def delayed_retry_on_ioerror(apicall,delay_seconds,retry_limit=1,logger=None):
                     retry_limit,
                     delay_seconds))
             time.sleep(delay_seconds)
+            delay_seconds *= 2
             
