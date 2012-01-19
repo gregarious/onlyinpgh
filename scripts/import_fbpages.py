@@ -1,5 +1,4 @@
 from onlyinpgh.outsourcing.fbpages import PageImportManager, PageImportReport
-from onlyinpgh.outsourcing.fbevents import EventImportManager
 from onlyinpgh.outsourcing.models import FacebookPage
 import logging
 importlog = logging.getLogger('onlyinpgh.fb_import')

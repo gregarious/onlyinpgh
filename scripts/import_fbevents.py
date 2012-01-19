@@ -34,4 +34,4 @@ def import_all(start_filter=None):
     import_by_pageids(page_ids,start_filter)
 
 def run():
-    import_by_pageids(fb_ids,datetime(2011,12,1))
+    import_all(datetime(2011,12,1))
