@@ -25,7 +25,7 @@ Differences between this branch and master:
 	3. ./manage loaddata oldsite_events
 	4. At this point, any other means necessary to add new events. e.g. ./manage loaddata <fixture file>
  
- - fixture files and logs:
+- fixture files and logs:
  	These are saved fixtures/logs from previous imports. Should be timestamped.
  	.gitignore file is edited to track these logs.
 

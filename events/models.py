@@ -100,3 +100,6 @@ class Attendee(models.Model):
     def __unicode__(self):
         return unicode(self.individual) + u'@' + unicode(self.event)
 
+class HackAttendance(models.Model):
+    event_id = models.IntegerField()
+    user_id = models.IntegerField()
