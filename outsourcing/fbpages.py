@@ -12,6 +12,8 @@ from onlyinpgh.outsourcing.models import FacebookOrgRecord, ExternalPlaceSource
 
 from onlyinpgh.outsourcing.places import resolve_place, resolve_location
 
+from onlyinpgh import utils
+
 import logging, copy
 outsourcing_log = logging.getLogger('onlyinpgh.outsourcing')
 
@@ -133,13 +135,21 @@ def store_fbpage_organization(page_info):
     try:
         # url field can be pretty free-formed and list multiple urls. 
         # we take the first one (identified by whitespace parsing)
-        url = page_info.get('website','').split()[0].strip()[:400]
+        url = page_info.get('website','').split()[0].strip()
     except IndexError:
         # otherwise, go with the fb link (and manually create it if even that fails)
         url = page_info.get('link','http://www.facebook.com/%s'%pid)
+    
+    # ensure URL starts with protocol (PHP site didn't handle these URLs well)
+    url_p = re.compile(utils.url_pattern)
+    if not url_p.match(url):
+        url = 'http://'+url
+        if not url_p.match(url):    # if that didn't work, blank out the url
+            url = ''
+
     organization, created = Organization.objects.get_or_create(name=pname[:200],
                                                                 avatar=page_info.get('picture','')[:400],
-                                                                url=url)
+                                                                url=url[:400])
 
     if not created:
         outsourcing_log.info('An organization matching fbid %s already existed with '\
