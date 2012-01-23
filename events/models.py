@@ -6,8 +6,8 @@ from onlyinpgh.places.models import Place
 from onlyinpgh.tagging.models import Tag
 from onlyinpgh.identity.models import Identity, Organization
 
-from utils.time import utctolocal
-from settings import TIME_ZONE
+from onlyinpgh.utils.time import utctolocal
+from onlyinpgh.settings import TIME_ZONE
 
 # Create your models here.
 class Event(models.Model):
