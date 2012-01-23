@@ -132,10 +132,11 @@ class GraphAPIClient(object):
         size can be among 'small','normal','large'
         '''
         url = 'http://graph.facebook.com/%s/picture?type=%s' % (fbid,size)
-        return delayed_retry_on_ioerror(lambda:urllib.urlopen(url),
+        response =  delayed_retry_on_ioerror(lambda:urllib.urlopen(url),
                                             delay_seconds=3,
                                             retry_limit=2,
                                             logger=outsourcing_log)
+        return response.url
 
     def graph_api_objects_request(self,ids,metadata=False):
         '''
