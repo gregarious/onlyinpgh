@@ -1,11 +1,11 @@
 '''
-Module containing code for maanging Facebook pages, including Organization
+Module containing code for managing Facebook pages, including Organization
 or Place insertion, updating, etc.
 '''
 
 from django.db import transaction
 
-from onlyinpgh.outsourcing.apitools import facebook, google, factual
+from onlyinpgh.outsourcing.apitools import facebook, facebook_client
 from onlyinpgh.identity.models import Organization
 from onlyinpgh.places.models import Location, Place, Meta as PlaceMeta
 from onlyinpgh.outsourcing.models import FacebookOrgRecord, ExternalPlaceSource
@@ -14,7 +14,7 @@ from onlyinpgh.outsourcing.places import resolve_place, resolve_location
 
 from onlyinpgh import utils
 
-import logging, copy
+import logging, copy, re
 outsourcing_log = logging.getLogger('onlyinpgh.outsourcing')
 
 # reverse the US_STATE_MAP for eaach lookup of full names to abbreviations
@@ -30,10 +30,10 @@ def get_full_place_pages(pids):
     page_details = []
     cmds = []
     def _add_batch(batch):
-        responses = facebook.oip_client.run_batch_request(batch)
+        responses = facebook_client.run_batch_request(batch)
         for resp,batch_req in zip(responses,batch):
             try:
-                resp = facebook.oip_client.postprocess_response(batch_req.to_GET_format(),resp)
+                resp = facebook_client.postprocess_response(batch_req.to_GET_format(),resp)
             except facebook.FacebookAPIError as e:
                 resp = e
             page_details.append(resp)
@@ -83,11 +83,11 @@ def gather_fb_place_pages(center,radius,query=None,limit=4000,batch_requests=Tru
                 opts = copy.copy(search_opts)
                 opts['q']=letter
                 batch_commands.append(facebook.BatchCommand('search',options=opts))
-            for response in facebook.oip_client.run_batch_request(batch_commands):
+            for response in facebook_client.run_batch_request(batch_commands):
                 pages_unfilitered.extend(response['data'])
         else:
             for letter in letters:
-                pages_unfilitered.extend(facebook.oip_client.graph_api_collection_request('search',q=letter,**search_opts))
+                pages_unfilitered.extend(facebook_client.graph_api_collection_request('search',q=letter,**search_opts))
                   
         # need to go through the 26 separate page sets to filter out dups
         ids_seen = set()    # cache the ids in the list for a quick duplicate check
@@ -98,7 +98,7 @@ def gather_fb_place_pages(center,radius,query=None,limit=4000,batch_requests=Tru
                 pages.append(page)
         return pages
     else:
-        return facebook.oip_client.graph_api_collection_request('search',q=query,**search_opts)
+        return facebook_client.graph_api_collection_request('search',q=query,**search_opts)
 
 @transaction.commit_on_success
 def store_fbpage_organization(page_info):
@@ -407,27 +407,23 @@ class PageImportManager(object):
         except TypeError as e:
             return PageImportReport(pid,None,notices=[e])
 
-    def import_orgs(self,page_ids,use_cache=True):
+    def import_org(self,page_id,use_cache=True):
         '''
-        Inserts Organizations for a batch of page_ids from Facebook. 
-        Yields a parallel list of PageImportReports (is a generator).
+        Inserts Organizations for a page_id from Facebook. Returns a 
+        PageImportReport.
 
-        Will skip over creating any Organizations already tracked by a 
-        FacebookOrgRecord instance and return a result with a 
+        If a batch of orgs are being imported, building up the cache
+        first with a pull_page_info call is recommended.
+
+        Will skip over any Organizations already tracked by 
+        aFacebookOrgRecord instance and return a result with a 
         ModelInstanceExists set as the error.
-
-        If use_cache is True, any available cached page information stored 
-        in this manager will be used.
         '''
-        # TODO: could do something here to filter out page ids that we 
-        #       already have info for before we pull them
-        page_infos = self.pull_page_info(page_ids,use_cache)
-        
-        for pid,info in zip(page_ids,page_infos):
-            if not isinstance(info,Exception):
-                yield self._store_org(info)
-            else:
-                yield PageImportReport(pid,None,[info])
+        page_info = self.pull_page_info([page_id],use_cache)[0]
+        if not isinstance(page_info,Exception):
+            return self._store_org(page_info)
+        else:
+            return PageImportReport(page_id,None,[page_info])
 
     def _store_place(self,info,import_owners=True):
         '''
@@ -450,43 +446,34 @@ class PageImportManager(object):
         except TypeError as e:
             return PageImportReport(pid,None,notices=[e])
 
-    def import_places(self,page_ids,use_cache=True,import_owners=True):
+    def import_place(self,page_id,use_cache=True,import_owners=True):
         '''
-        Inserts Places for a batch of page_ids from Facebook.
+        Inserts Place corresponding to a page_id from Facebook. Returns a
+        PageImportReport.
 
-        Will skip over creating any Places already tracked by a 
+        Will skip over creating a Place already tracked by a 
         FacebookOrgRecord instance and return a result with a
         ModelInstanceExists set as the error.
 
-        If use_cache is True, any available cached page information stored 
-        in this manager will be used.
-
         If import_owners is True, an Organization owning the Place that 
         does not already exist will be imported as well.
-
-        Returns a parallel list of PageImportReport objects.
         '''
-        # TODO: could do something here to filter out page ids that we 
-        #       already have info for before we pull them
-        page_infos = self.pull_page_info(page_ids,use_cache)
+        page_info = self.pull_page_info([page_id],use_cache)[0]
         
-        for pid,info in zip(page_ids,page_infos):
-            if not isinstance(info,Exception):
-                yield self._store_place(info,import_owners)
-            else:
-                yield PageImportReport(pid,None,[info])
+        if not isinstance(page_info,Exception):
+            return self._store_place(page_info,import_owners)
+        else:
+            return PageImportReport(page_id,None,[page_info])
 
 def import_org(page_id):
     '''
     Quick import of an Organization given an fb page id. Returns a 
     PageImportReport.
     '''
-    mgr = PageImportManager()
-    return mgr.import_orgs([page_id])[0]
+    return PageImportManager().import_org(page_id)
 
 def import_place(page_id,import_owner=True):
     '''
     Quick import of a Place given an fb page id. Returns a PageImportReport.
     '''
-    mgr = PageImportManager()
-    return mgr.import_places([page_id],import_owners=import_owner)[0]
+    return PageImportManager().import_place(page_id,import_owners=import_owner)

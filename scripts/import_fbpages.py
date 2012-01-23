@@ -5,11 +5,14 @@ importlog = logging.getLogger('onlyinpgh.fb_import')
 
 def import_ids(page_ids):
     page_mgr = PageImportManager()
-
+    importlog.info('Pulling %d pages from Facebook' % len(page_ids))
+    
     importlog.info('Importing Organizations into database from %d pages' % len(page_ids))
-    reports = page_mgr.import_orgs(page_ids)    # generator object
+    page_mgr.pull_page_info(page_ids)    # cache pages
+    
     import_count = 0
-    for report in reports:
+    for pid in page_ids:
+        report = page_mgr.import_org(pid)
         if report.notices:
             for notice in report.notices:
                 if isinstance(notice,PageImportReport.ModelInstanceExists):
@@ -21,9 +24,10 @@ def import_ids(page_ids):
             import_count += 1
     importlog.info('%d new Organizations imported' % import_count)
 
-    reports = page_mgr.import_places(page_ids,import_owners=True)    # generator object
+    reports = page_mgr.import_place(page_ids,import_owners=True)    # generator object
     import_count = 0
-    for report in reports:
+    for pid in page_ids:
+        report = page_mgr.import_place(pid)
         if report.notices:
             for notice in report.notices:
                 if isinstance(notice,PageImportReport.ModelInstanceExists):

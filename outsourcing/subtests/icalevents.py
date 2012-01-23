@@ -50,18 +50,18 @@ class ICalEventTest(TestCase):
 		test_org = Organization.objects.create(name="TestOrg")
 		importer = FeedImporter.from_url(url='file://'+_to_feed_path('test.ics'),
 										 organization=test_org)
-		reports = importer.import_new()
+		reports = list(importer.import_new())
 
 		# ensure all events were created
 		self.assertEquals(len(reports),4)
 		self.assertEquals(Event.objects.count(),self.init_ev_count+4)
 		self.assertEquals(VEventRecord.objects.count(),self.init_vev_count+4)
 		for r in reports:
-			event = r.event_instance
+			event = r.vevent_record.event
 			self.assertIsNotNone(event)
 
 		# test the first event fully
-		event = reports[0].event_instance
+		event = reports[0].vevent_record.event
 		# event starts on 11/20/2011 at 23:00 UTC, ends 2 hours later
 		self.assertEquals(event.dtstart,test_event['dtstart'])
 		self.assertEquals(event.dtend,test_event['dtend'])
@@ -93,13 +93,13 @@ class ICalEventTest(TestCase):
 		importer = FeedImporter.from_url(url='file://'+_to_feed_path('test.ics'))
 
 		cutoff = datetime(2011,11,19)	# only 2 events occur after this
-		reports = importer.import_new(start_filter=cutoff)
+		reports = list(importer.import_new(start_filter=cutoff))
 
 		# ensure just two events were created
 		self.assertEquals(len(reports),2)
 		self.assertEquals(Event.objects.count(),self.init_ev_count+2)
 		for r in reports:
-			event = r.event_instance
+			event = r.vevent_record.event
 			self.assertIsNotNone(event)
 			self.assertGreaterEqual(event.dtstart,cutoff)
 
@@ -122,21 +122,21 @@ class ICalEventTest(TestCase):
 		self.assertEquals(VEventRecord.objects.count(),self.init_vev_count+1)
 
 		# ensure only three events are added
-		reports = importer.import_new()
+		reports = list(importer.import_new())
 		self.assertEquals(Event.objects.count(),self.init_ev_count+4)
 		self.assertEquals(VEventRecord.objects.count(),self.init_vev_count+4)
 
 		# find the report for the event that already existed
 		for r in reports:
-			if r.event_instance == dummy_event:
-				# assert an EventExists notice was created
+			if r.vevent_record.event == dummy_event:
+				# assert an RecordExists notice was created
 				self.assertNotEqual(r.notices,[])
-				self.assertNoticeIn(r,EventImportReport.EventExists)
+				self.assertNoticeIn(r,EventImportReport.RecordExists)
 
 	def test_timezone_handling(self):
 		fn = _to_feed_path('test.ics')
 		importer = FeedImporter.from_url(url='file://'+_to_feed_path('timezone.ics'))
-		reports = importer.import_new()
+		reports = list(importer.import_new())
 
 		# events start at 19:00 relative to the following timezones:
 		# 1: Pacific (3am UTC), 2: Eastern (12am UTC), 3: UTC, 4: Unknown
@@ -145,12 +145,12 @@ class ICalEventTest(TestCase):
 								datetime(2011, 11, 20, 19, 0),
 							]
 		for report,exp in zip(reports[:3],expected_dtstarts):
-			self.assertEquals(report.event_instance.dtstart,exp)
+			self.assertEquals(report.vevent_record.event.dtstart,exp)
 		
 		# the last event has a made up timezone that won't process
 		self.assertNoticeIn(reports[3],EventImportReport.UnknownTimezone)
 
 		# finally try an ics file that has no default timezone (no X-WR-TIMEZONE)
 		importer = FeedImporter.from_url(url='file://'+_to_feed_path('timezone-nodefault.ics'))
-		reports = importer.import_new()
+		reports = list(importer.import_new())
 		self.assertNoticeIn(reports[0],EventImportReport.UnavailableTimezone)

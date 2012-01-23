@@ -1,6 +1,6 @@
 from django.db import transaction
 
-from onlyinpgh.outsourcing.apitools import facebook
+from onlyinpgh.outsourcing.apitools import facebook, facebook_client
 from onlyinpgh.outsourcing.apitools.facebook import FacebookAPIError
 
 from onlyinpgh.outsourcing import fbpages
@@ -25,11 +25,11 @@ EST = pytz.timezone('US/Eastern')
 
 # TODO: should be in apitools.facebook somewhere
 def _run_batch(batch):
-    batch_response = facebook.oip_client.run_batch_request(batch)
+    batch_response = facebook_client.run_batch_request(batch)
     responses = []
     for resp,batch_req in zip(batch_response,batch):
         try:
-            resp = facebook.oip_client.postprocess_response(batch_req.to_GET_format(),resp)
+            resp = facebook_client.postprocess_response(batch_req.to_GET_format(),resp)
         except FacebookAPIError as e:
             resp = e
         responses.append(resp)
@@ -286,7 +286,7 @@ def store_fbevent(event_info,event_image=None,
     # process image
     if event_image is None:
         try:
-            event.image_url = facebook.oip_client.graph_api_picture_request(fbid)
+            event.image_url = facebook_client.graph_api_picture_request(fbid)
         except IOError as e:
             outsourcing_log.error('Error retreiving picture for event %s: %s' % (unicode(eid),unicode(e)))
         
@@ -493,77 +493,72 @@ class EventImportManager(object):
         except TypeError as e:
             return EventImportReport(eid,None,notices=[e])
 
-    def import_events(self,fbevent_ids,use_cache=True,import_owners=True):
+    def import_event(self,fbevent_id,use_cache=True,import_owners=True):
         '''
-        Inserts Events for a batch of fbevent_ids from Facebook. Generates
-        a parallel list of EventImportReport objects (via yields).
+        Inserts Event for an fbevent_ids from Facebook. Returns an
+        EventImportReport objects.
 
-        Will skip over creating any Events already tracked by a 
+        Will skip over creating an Events already tracked by a 
         FacebookEventRecord instance and return a result with a 
         EventInstanceExists set as the error.
 
-        If use_cache is True, any available cached event information 
-        stored in this manager will be used.
+        If importing a batch of events, it's recommended to cache the 
+        event infos with either of the pull_event_info calls.
 
         If import_owners is True, a new Organization will be created for 
         the event owner if it not yet linked to the relevant fbid.
         '''
-        # TODO: could do something here to filter out fbevent ids that we 
-        #       already have info for before we pull them
-        fbevent_infos = self.pull_event_info(fbevent_ids,use_cache=use_cache)
+        info = self.pull_event_info([fbevent_id],use_cache=use_cache)[0]
+        try:
+            pic = facebook_client.graph_api_picture_request(fbevent_id)
+        except IOError as e:
+            outsourcing_log.error('Error retreiving picture for event %s: %s' % (unicode(fbevent_id),unicode(e)))
+            fbevent_pics.append('')
+        
+        if not isinstance(info,Exception):
+            return self._store_event(info,pic,import_owners=import_owners)
+        else:
+            return EventImportReport(fbevent_id,None,[info])
 
-        for eid,info in zip(fbevent_ids,fbevent_infos):
-            try:
-                pic = facebook.oip_client.graph_api_picture_request(eid)
-            except IOError as e:
-                outsourcing_log.error('Error retreiving picture for event %s: %s' % (unicode(eid),unicode(e)))
-                fbevent_pics.append('')
-            
-            if not isinstance(info,Exception):
-                yield self._store_event(info,pic,import_owners=import_owners)
-            else:
-                yield EventImportReport(eid,None,[info])
-
-    def import_events_from_pages(self,page_ids,start_filter=None,use_cache=True,import_owners=True):
+    def import_events_from_page(self,page_id,start_filter=None,use_cache=True,import_owners=True):
         '''
-        Inserts Places for a batch of page_ids from Facebook. Generates a 
-        series of lists of EventImportReport objects that were generated
-        from each import page id.
+        Inserts Events for a batch of events belonging to a Facebook page
+        id. Returns a list of EventImportReport objects, one per attached
+        event.
 
         If start_filter is provided, events occuring before the given 
         datetime will not be imported.
         
         If querying of page fails, no error will be procuded, just an 
-        empty list in it's slot in the return list.
+        empty list.
 
-        See import_events for notes about options.
+        See import_event for notes about options.
         '''
-        # TODO: could do something here to filter out fbevent ids that we 
-        #       already have info for before we pull them
-        page_fbevents_map = self.pull_event_info_from_pages(page_ids,
+        page_fbevents_map = self.pull_event_info_from_pages([page_id],
                                                             start_filter=start_filter,
                                                             use_cache=use_cache)
+        fbevents = page_fbevents_map[page_id]
         page_reports_map = {}
-        for pid,fbevents in page_fbevents_map.items():
-            venue_cache = VenueResolveCache()   # used to prevent redundant resolve calls for a 
-                                                # series of events at the same location
-            reports = []
-            for fbevent in fbevents:
-                # TODO: don't like fbevent being a possible exception. revisit.
-                if isinstance(fbevent,Exception):
-                    reports.append( EventImportReport(None,None,[fbevent]) )
-                else:
-                    eid = fbevent['id']
-                    try:
-                        pic = facebook.oip_client.graph_api_picture_request(eid)
-                    except IOError as e:
-                        outsourcing_log.error('Error retreiving picture for event %s: %s' % (unicode(eid),unicode(e)))
-                        pic = ''
-                    reports.append( self._store_event( fbevent,
-                                                        pic,
-                                                        import_owners=import_owners,
-                                                        resolve_cache=venue_cache))
-            yield reports
+
+        venue_cache = VenueResolveCache()   # used to prevent redundant resolve calls for a 
+                                            # series of events at the same location
+        reports = []
+        for fbevent in fbevents:
+            # TODO: don't like fbevent being a possible exception. revisit.
+            if isinstance(fbevent,Exception):
+                reports.append( EventImportReport(None,None,[fbevent]) )
+            else:
+                eid = fbevent['id']
+                try:
+                    pic = facebook_client.graph_api_picture_request(eid)
+                except IOError as e:
+                    outsourcing_log.error('Error retreiving picture for event %s: %s' % (unicode(eid),unicode(e)))
+                    pic = ''
+                reports.append( self._store_event( fbevent,
+                                                    pic,
+                                                    import_owners=import_owners,
+                                                    resolve_cache=venue_cache))
+        return reports
 
 def import_event(event_id,import_owners=True):
     '''
@@ -571,4 +566,4 @@ def import_event(event_id,import_owners=True):
     EvenImportReport.
     '''
     mgr = EventImportManager()
-    return mgr.import_events([event_id],import_owners=import_owners)[0]
+    return mgr.import_event(event_id,import_owners=import_owners)
