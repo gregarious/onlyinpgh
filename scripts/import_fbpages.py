@@ -50,36 +50,33 @@ def import_ids(page_ids):
 
 def import_all():
     page_ids = [str(page.fb_id) for page in FacebookPage.objects.filter(ignore=False)]
-    import_fbids(page_ids)
+    import_ids(page_ids)
 
-def import_pageinfos():
-    all_page_ids = [str(page.fb_id) for page in FacebookPage.objects.filter(pageinfo_json='')]
-    page_mgr = PageImportManager()
+# def import_pageinfos():
+#     all_page_ids = [str(page.fb_id) for page in FacebookPage.objects.filter(pageinfo_json='')]
+#     page_mgr = PageImportManager()
 
-    offset, step_size = 0, 2000
-    importlog.info('Pulling %d pages from Facebook (step of %d)' % (len(all_page_ids),step_size))    
-    while offset < len(all_page_ids):
-        page_ids = all_page_ids[offset:min(offset+step_size,len(all_page_ids)-1)]
-        infos = page_mgr.pull_page_info(page_ids)
-        importlog.info('Importing %d page infos into database' % len(page_ids))
+#     offset, step_size = 0, 2000
+#     importlog.info('Pulling %d pages from Facebook (step of %d)' % (len(all_page_ids),step_size))    
+#     while offset < len(all_page_ids):
+#         page_ids = all_page_ids[offset:min(offset+step_size,len(all_page_ids)-1)]
+#         infos = page_mgr.pull_page_info(page_ids)
+#         importlog.info('Importing %d page infos into database' % len(page_ids))
         
-        for pid,info in zip(page_ids,infos):
-            if not isinstance(info,dict):
-                importlog.info('Bad response for page id %s' % str(pid))
-                continue
-            info.pop('metadata',None)
-            record = FacebookPage.objects.get(fb_id=pid)
-            record.pageinfo_json = json.dumps(info)
-            record.save()
-        offset += step_size
+#         for pid,info in zip(page_ids,infos):
+#             if not isinstance(info,dict):
+#                 importlog.info('Bad response for page id %s' % str(pid))
+#                 continue
+#             info.pop('metadata',None)
+#             record = FacebookPage.objects.get(fb_id=pid)
+#             record.pageinfo_json = json.dumps(info)
+#             record.save()
+#         offset += step_size
 
 def run():
     try:
-        importlog.info('PageInfo import start')
-        import_pageinfos()
-        importlog.info('PageInfo import complete')
-        # importlog.info('Org/Place import start')
-        # import_all()
-        # importlog.info('Org/Place import complete')
+        importlog.info('Org/Place import start')
+        import_all()
+        importlog.info('Org/Place import complete')
     except Exception as e:
         importlog.critical('Unexpected error: %s' % str(e))
