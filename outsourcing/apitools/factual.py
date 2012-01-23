@@ -102,5 +102,3 @@ class ResolveResponse(object):
 
 OIP_OAUTH_KEY = 'sJqNeJAzOeBwmIpdubcyguqAxG8OVqQ65Pu7lUxj'
 OIP_OAUTH_SECRET = 'QQUO9RjZOETZVjRRV8uYrmaaSMs2ulNDb7mALus8'
-
-oip_client = FactualClient(OIP_OAUTH_KEY,OIP_OAUTH_SECRET)

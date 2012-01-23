@@ -10,11 +10,11 @@ from itertools import izip
 def import_by_pageids(page_ids,start_filter=None):
     event_mgr = EventImportManager()
     importlog.info('Searching %d pages for events.' % len(page_ids))
-
-    reports_by_page = event_mgr.import_events_from_pages(page_ids,start_filter)
+    event_mgr.pull_event_info_from_pages(page_ids)
 
     import_count = 0
-    for page_id,reports in izip(page_ids,reports_by_page):
+    for page_id in page_ids:
+        reports = event_mgr.import_events_from_page(page_id,start_filter)
         if len(reports):
             importlog.info('Importing events for Facebook page %s' % page_id)
         for report in reports:

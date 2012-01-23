@@ -64,7 +64,7 @@ class FeedImporter(object):
 	def from_url(cls,url,organization=None):
 		'''initialize from a url and Organization instance'''
 
-		f = urllib.urlopen(self.feed_instance.url)
+		f = urllib.urlopen(url)
 		ical = icalendar.Calendar.from_string(f.read())
 		f.close()
 		cal_name = ical.get('X-WR-CALNAME',url)
@@ -98,7 +98,6 @@ class FeedImporter(object):
 		# neither the location nor place are in the DB yet. do this now
 		l = place.location
 		if l:
-			print location_str, l.state, l.country, result.parse_status
 			place.location, _ = Location.close_manager.get_close_or_create(
 									address=l.address,
 									postcode=l.postcode,

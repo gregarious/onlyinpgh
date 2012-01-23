@@ -153,7 +153,9 @@ class EventImportingTest(TestCase):
 
         # run insertion code
         mgr = EventImportManager()
-        results = mgr.import_events([pair[0] for pair in eid_notice_pairs])
+        eids = [pair[0] for pair in eid_notice_pairs]
+        mgr.pull_event_info(eids)
+        results = [mgr.import_event(eid) for eid in eids]
         self.assertEquals([result.fbevent_id for result in results],
                           [eid for eid,_ in eid_notice_pairs],
                           'non-parallel list of EventImportReports returned')
@@ -201,9 +203,10 @@ class EventImportingTest(TestCase):
         #  lightweight. Mostly just looking for unexpected failured.
         pids = [pid for pid,_ in pid_expected_pairs]
         mgr = EventImportManager()
-        result_lists = mgr.import_events_from_pages(pids,start_filter=start_filter,import_owners=True)
-        self.assertEquals(set(result_lists.keys()),
-                            set(pids),
+        mgr.pull_event_info_from_pages(pids)
+        result_lists = [mgr.import_events_from_page(pid,start_filter=start_filter,import_owners=True)
+                            for pid in pids]
+        self.assertEquals(len(result_lists),len(pids),
                             'unexpected number of EventImportReport groups returned')
 
         for pid_exp_pair,result_list in zip(pid_expected_pairs,result_lists):
@@ -231,18 +234,18 @@ class EventImportingTest(TestCase):
         before_org_records = list(FacebookOrgRecord.objects.all())
 
         mgr = EventImportManager()
-        results = mgr.import_events([owner_not_stored,owner_stored],
-                                    import_owners=False)
-
-        # ensure no event role was set for the first event since nothing existed without an import
-        self.assertEquals(0,results[0].event_instance.role_set.count())
+        
+        # ensure no event role is set since nothing existed without an import
+        result = mgr.import_event(owner_not_stored,import_owners=False)
+        self.assertEquals(0,result.event_instance.role_set.count())
 
         # get the related host id Facebook id for the event that has a host already stored
         event_info = mgr.pull_event_info([owner_stored])[0]
         host_fbid = event_info['owner']['id']
 
         # ensure the existing org was found used to connect to the second event
-        self.assertEquals(results[1].event_instance.role_set.get(role_type='host').organization,
+        result = mgr.import_event(owner_stored,import_owners=False)
+        self.assertEquals(result.event_instance.role_set.get(role_type='host').organization,
                             FacebookOrgRecord.objects.get(fb_id=host_fbid).organization)
 
         # double check that the Place, Organization, and related link tables weren't touched

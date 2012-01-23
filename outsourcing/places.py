@@ -7,7 +7,7 @@ from itertools import chain
 import re, copy
 
 from onlyinpgh.outsourcing.apitools.factual import FactualAPIError
-from onlyinpgh.outsourcing.apitools import google, factual
+from onlyinpgh.outsourcing.apitools import geocoding_client, factual_client
 from onlyinpgh.places.models import Place, Location
 
 import logging  
@@ -59,9 +59,9 @@ def resolve_place(partial_place=None,partial_location=None):
 
     try:
         if loc is None:
-            resp = factual.oip_client.resolve(name=pl_name)
+            resp = factual_client.resolve(name=pl_name)
         else:
-            resp = factual.oip_client.resolve(
+            resp = factual_client.resolve(
                 name=pl_name,
                 address=loc.address,
                 town=loc.town,
@@ -110,7 +110,7 @@ def resolve_location(partial_location,allow_numberless=True):
         biasing_args['region'] = partial_location.country
 
     # Run the geocoding
-    response = google.GoogleGeocodingClient.run_geocode_request(address_text,**biasing_args)
+    response = geocoding_client.run_geocode_request(address_text,**biasing_args)
     result = response.best_result(wrapped=True)
     # TODO: add ambiguous result handling
     if not result or not result.is_address_concrete(allow_numberless):
@@ -354,7 +354,7 @@ def normalize_street_address(address_text):
 
     Returns None if normalization was not possible.
     '''
-    response = google.GoogleGeocodingClient.run_geocode_request(address_text)
+    response = geocoding_client.run_geocode_request(address_text)
     result = response.best_result(wrapped=True)
     # TODO: add ambiguous result handling
     if not result:
