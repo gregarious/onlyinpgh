@@ -48,6 +48,7 @@ class FacebookPage(models.Model):
     '''
     fb_id = models.BigIntegerField(primary_key=True)
     ignore = models.BooleanField('always ignore this page',default=False)    
+    pageinfo_json = models.TextField(blank=True)
 
 class FacebookEventRecord(models.Model):
     '''
