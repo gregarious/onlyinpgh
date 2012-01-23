@@ -46,7 +46,7 @@ class FactualClient(object):
         request = build_oauth_request(full_url,self.key,self.secret)
 
         response = delayed_retry_on_ioerror(lambda:ResolveResponse(urllib2.urlopen(request)),
-                                            5,2,outsourcing_log)
+                                            5,5,outsourcing_log)
 
         if response.status != 'ok':
             raise FactualAPIError(request,response.error_type,response.message)
@@ -68,14 +68,16 @@ class ResolveResponse(object):
             # assume it's a string
             response_text = response
 
-        response = json.loads(response_text)
-        self.version = response['version']
-        self.status = response['status']
-        self.error_type = response.get('error_type',None)
-        self.message = response.get('message',None)
-
+        self.version, self.status, self.error_type, self.message = None, None, None, None
         try:
+            response = json.loads(response_text)
+            self.version = response['version']
+            self.status = response['status']
+            self.error_type = response.get('error_type',None)
+            self.message = response.get('message',None)
             data = response['response']['data']
+        except ValueError:      # result for 02053b6a-a96b-42b4-99dd-8e865d029e2e had some bad json?
+            self.results = None
         except KeyError:
             self.results = None
         else:
@@ -100,5 +102,3 @@ class ResolveResponse(object):
 
 OIP_OAUTH_KEY = 'sJqNeJAzOeBwmIpdubcyguqAxG8OVqQ65Pu7lUxj'
 OIP_OAUTH_SECRET = 'QQUO9RjZOETZVjRRV8uYrmaaSMs2ulNDb7mALus8'
-
-oip_client = FactualClient(OIP_OAUTH_KEY,OIP_OAUTH_SECRET)

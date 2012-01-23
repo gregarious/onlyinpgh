@@ -1,0 +1,138 @@
+BEGIN:VCALENDAR
+PRODID:-//Google Inc//Google Calendar 70.9054//EN
+VERSION:2.0
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+X-WR-CALNAME:Test Events
+X-WR-TIMEZONE:America/Los_Angeles
+X-WR-CALDESC:Test iCal taken adopted from Bike PGH
+BEGIN:VTIMEZONE
+TZID:America/New_York
+X-LIC-LOCATION:America/New_York
+BEGIN:DAYLIGHT
+TZOFFSETFROM:-0500
+TZOFFSETTO:-0400
+TZNAME:EDT
+DTSTART:19700308T020000
+RRULE:FREQ=YEARLY;BYMONTH=3;BYDAY=2SU
+END:DAYLIGHT
+BEGIN:STANDARD
+TZOFFSETFROM:-0400
+TZOFFSETTO:-0500
+TZNAME:EST
+DTSTART:19701101T020000
+RRULE:FREQ=YEARLY;BYMONTH=11;BYDAY=1SU
+END:STANDARD
+END:VTIMEZONE
+BEGIN:VEVENT
+DTSTART:20111120T230000Z
+DTEND:20111121T010000Z
+DTSTAMP:20111129T191024Z
+UID:tl0mpin4693ilfgprlggl6ls0g@google.com
+CREATED:20111117T175932Z
+DESCRIPTION:One of the most influential\, memorable movies of all time.  Si
+ ght & Sound’s 2002 Director’s Poll ranked this film the 6th greatest of all
+  time.  Empire Magazine included TBT in its 2010 compilation of “The 100 Be
+ st Films of World Cinema.” This movie is in Black & White and has sottotito
+ los (Italian for ‘subtitles’).  If this is an issue you may \nwant to sit t
+ his one out. \n\nAlso:  announcing the First Annual OTB Innertube Changing 
+ Contest!!  Show off your skills replacing a tube and win a prize!!!  Contes
+ t rules to be announced as soon as we think them up.  There will be categor
+ ies for novice riders\, established riders and a female category.  \n\nThe 
+ OTB will be offering drink specials and a special $4.99 Spaghetti and Meatb
+ alls Dinner. We want to get an idea of the attendance.  If you are planning
+  to attend please send an email to Ken at valuekaszak@yahoo.com.  Let us kn
+ ow if you have \nan interest in participating in the First Annual OTB Inner
+ tube Changing Contest (something you can tell your grandchildren!) \n  \nTh
+ e movie will start promptly at 6:00.  Be in your seats and ready for a grea
+ t evening of \ncinema\, spaghetti and…..innertubes. \n
+LAST-MODIFIED:20111117T175952Z
+LOCATION:OTB Bicycle Cafe, 2518 E Carson Street
+SEQUENCE:0
+STATUS:CONFIRMED
+SUMMARY:The Bicycle Thief
+TRANSP:OPAQUE
+END:VEVENT
+BEGIN:VEVENT
+DTSTART:20120303T130000Z
+DTEND:20120303T190000Z
+DTSTAMP:20111129T191024Z
+UID:mnqtvjvbld579ao2kvmpmq1qlk@google.com
+CREATED:20111111T205057Z
+DESCRIPTION:The second annual RACE TO ANY PLACE scheduled for Saturday\, Ma
+ rch 3\, 2012 at Slippery Rock University’s Aebersold Recreation Center! We 
+ expect over 250 participants\, plus families and friends\, to join in the e
+ xcitement of this 6 hour stationary bike race. Teams will compete for the t
+ itle of most miles achieved and top fundraiser\, but most importantly will 
+ be pedaling to save lives!\n\nAll proceeds from the event benefits The Leuk
+ emia & Lymphoma Society’s Western Pennsylvania & West Virginia Chapter. The
+  Society’s mission is to cure leukemia\, lymphoma\, Hodgkin’s disease and m
+ yeloma\, and to improve the quality of life for patients and their families
+  by funding various programs to support research and local patient aid.\n\n
+ www.brittany.murray@lls.org/ racetoanyplace.org/WPA 
+LAST-MODIFIED:20111111T205057Z
+LOCATION:Slippery Rock University
+SEQUENCE:0
+STATUS:CONFIRMED
+SUMMARY:Race To Any Place- Slippery Rock
+TRANSP:OPAQUE
+END:VEVENT
+BEGIN:VEVENT
+DTSTART:20111117T230000Z
+DTEND:20111118T010000Z
+DTSTAMP:20111129T191024Z
+UID:cjjnf6nr75o94r7n4ps459eq9g@google.com
+CREATED:20111103T160648Z
+DESCRIPTION:Allegheny Riverfront Green Boulevard - first public meeting\nSo
+ ciety for Contemporary Craft\n2100 Smallman St (Strip District)\nwww.greenb
+ oulevardpgh.com\n11.17.2011 6–8 pm\n\nPlanning for the Allegheny Riverfront
+  Green Boulevard is underway! Come learn about the Green Boulevard\, meet t
+ he planning team\, share your thoughts on the future of the Allegheny River
+ front\, and learn about opportunities for participation over the next year.
+ \nThe Green Boulevard study will develop the Allegheny Riverfront vision in
+  further detail\, focusing on open space and ecology\, transportation\, and
+  land use and urban design for the Lawrenceville area.\n\nQuestions? Contac
+ t Lena Andrews at the Urban Redevelopment Authority of Pittsburgh. landrews
+ @ura.org 412.255.6439
+LAST-MODIFIED:20111103T160648Z
+LOCATION:Society for Contemporary Craft 2100 Smallman St (Strip District)
+SEQUENCE:0
+STATUS:CONFIRMED
+SUMMARY:Allegheny Riverfront Green Boulevard - first public meeting
+TRANSP:OPAQUE
+END:VEVENT
+BEGIN:VEVENT
+DTSTART:20110804T220000Z
+DTEND:20110805T000000Z
+DTSTAMP:20111129T191024Z
+UID:66n3tpg41plliep9va10kravcg@google.com
+CREATED:20110804T004435Z
+DESCRIPTION:The meeting will take place Thursday\, August 4 from 6-8 p.m. a
+ t East Liberty Presbyterian Church (116 S. Highland Avenue). For more infor
+ mation\, please contact Patrick Roberts\, Principal Transportation Planner 
+ Department of City Planning at 412-255-2224.\n\nThe City of Pittsburgh has 
+ engaged a consulting team to examine the feasibility of creating a Transit 
+ Revitalization District (TRID) within the neighborhood of East Liberty with
+ in the vicinity of the Port Authority of Allegheny County MLK East Busway. 
+ The East Liberty TRID Study (elTRID) seeks to build a strategy to revitaliz
+ e the neighborhood through transit-oriented development within a “Livable C
+ ommunities” model. This planning study is being completed with a focus on i
+ nnovation\, sustainability\, implementation and social equity\, representin
+ g the vision of all local stakeholders.\n\nAs part of the public outreach f
+ or the elTRID the City and its consultant team will hold a community planni
+ ng session in conjunction with East Liberty Development\, Inc. In this meet
+ ing\, we will review the purpose of elTRID\, and its progress to date\, and
+  we will convene a planning workshop to gather public input on what kinds o
+ f public improvements should be considered to improve mobility in East Libe
+ rty and to encourage transit oriented development around the busway stop. W
+ orking in small groups participants and the consultant team will discuss a 
+ series of questions about the future of the station area and movement in ge
+ neral in East Liberty.
+LAST-MODIFIED:20110804T004435Z
+LOCATION:116 S. Highland Avenue\, Pittsburgh\, PA
+SEQUENCE:0
+STATUS:CONFIRMED
+SUMMARY:East Liberty TRID Study Public Meeting
+TRANSP:OPAQUE
+END:VEVENT
+END:VCALENDAR

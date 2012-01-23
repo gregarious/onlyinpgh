@@ -3,10 +3,17 @@ required external package installs (might include these in source later -- we'll
 django-extensions
 pytz
 pil
-
-
-## PROBLEMS ENCOUNTERED DURING DEMO PREP ##
-
-- all constraints have ON DELETE RESTRICT -- django docs suggest default should be CASCADE?
-
+dateutil (v1.5 for Python 2.x -- for pip use "pip install dateutil==1.5")
 icalendar
+
+-----------------
+
+Notes on South db migrations:
+- Only apps that have gone through some development time have been converted
+  to south. Since there may be some large upheavals still, the conversion for 
+  the baseline of these apps can wait till they've been more properly "vetted"
+
+- The following fixtures will need migrated when a model change causes a schema
+	change in the apps listed below each:
+	- events/fixtures/initial_data:
+		* events

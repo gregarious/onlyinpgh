@@ -4,19 +4,87 @@ from onlyinpgh.outsourcing.apitools import APIError, delayed_retry_on_ioerror
 import logging
 outsourcing_log = logging.getLogger('onlyinpgh.outsourcing')
 
-class GoogleGeocodingAPIError(APIError):
+class GoogleAPIError(APIError):
     def __init__(self,request,response,*args,**kwargs):
         self.request = request
         self.response = response
-        super(GoogleGeocodingAPIError,self).__init__('google-geocoding',*args,**kwargs)    
+        super(GoogleAPIError,self).__init__('google',*args,**kwargs)    
     
     def __str__(self):
         truncated = len(self.response) > 200
-        return 'GoogleGeocodingAPIError [req=%s, resp=%s%s]' % (self.request,self.response[:200],'...' if truncated else '')
+        return 'GoogleAPIError [req=%s, resp=%s%s]' % (self.request,self.response[:200],'...' if truncated else '')
 
-class GoogleGeocodingThrottleError(GoogleGeocodingAPIError):
+class GoogleGeocodingThrottleError(GoogleAPIError):
     def __init__(self,request,*args,**kwargs):
         super(GoogleGeocodingThrottleError,self).__init__(request,'OVER_QUERY_LIMIT',*args,**kwargs)
+
+class GooglePlacesClient(object):
+    '''
+    Simple wrapper around Google Places API calls. Supports methods 
+    for search and detail requests, and returns bare dicts.
+    '''
+    def __init__(self,api_key):
+        self.key = api_key
+
+    def search_request(self,coords,radius,keyword=None,name=None):
+        '''
+        Returns a list of result dicts. See 
+        http://code.google.com/apis/maps/documentation/places/#PlaceSearchResults
+        for contents of these dicts.
+
+        Can raise a GoogleAPIError.
+        '''
+        opts = {    'key': self.key,
+                    'location': '%f,%f' % coords,
+                    'radius': radius,
+                    'sensor': 'false' }
+        if keyword is not None:
+            opts['keyword'] = keyword
+        if name is not None:
+            opts['name'] = name
+
+        request_url = 'https://maps.googleapis.com/maps/api/place/search/json' + '?' + urllib.urlencode(opts)
+        response = ''
+        try:
+            response = delayed_retry_on_ioerror(
+                            lambda:json.load(urllib.urlopen(request_url)),
+                            delay_seconds=5,
+                            retry_limit=2)
+            if response['status'] != 'OK' and response['status'] != 'ZERO_RESULTS':
+                print response
+                raise GoogleAPIError(request_url,response)
+            else:
+                return response['results']
+        except ValueError, KeyError:
+            raise GoogleAPIError(request_url,response)
+    
+    def details_request(self,reference):
+        '''
+        Returns a detail dict for a Google Places reference token. See 
+        http://code.google.com/apis/maps/documentation/places/#PlaceDetailsResults
+        for contents of this dict. If the place no longer exists, the resulting
+        dict will be empty.
+
+        Can raise a GoogleAPIError.
+        '''
+        opts = {    'key': self.key,
+                    'reference': reference,
+                    'sensor': 'false' }
+
+        request_url = 'https://maps.googleapis.com/maps/api/place/details/json' + '?' + urllib.urlencode(opts)
+        response = ''
+        try:
+            response = delayed_retry_on_ioerror(
+                            lambda:json.load(urllib.urlopen(request_url)),
+                            delay_seconds=5,
+                            retry_limit=2)
+            if response['status'] != 'OK' and response['status'] != 'ZERO_RESULTS':
+                print response
+                raise GoogleAPIError(request_url,response)
+            else:
+                return response['result']
+        except ValueError, KeyError:
+            raise GoogleAPIError(request_url,response)
 
 class GoogleGeocodingClient(object):
     '''
@@ -38,7 +106,7 @@ class GoogleGeocodingClient(object):
         Will pass on errors of urllib.urlopen if the API's URL has trouble
         connecting.
         '''
-        cleaned_address = cls._preprocess_address(query)
+        cleaned_address = cls._preprocess_address(query).encode('utf8')
         options = { 'address': cleaned_address,
                     'sensor': 'true' if sensor else 'false' }
         if bounds is not None:
@@ -73,7 +141,7 @@ class GoogleGeocodingClient(object):
     def _package_response(cls,raw_response,request=None):
         response = GoogleGeocodingResponse(raw_response)
         if response.status in ['REQUEST_DENIED','INVALID_REQUEST']:
-            raise GoogleGeocodingAPIError(request,raw_response)
+            raise GoogleAPIError(request,raw_response)
         elif response.status == 'OVER_QUERY_LIMIT':
             raise GoogleGeocodingThrottleError(request)
         return response
@@ -260,7 +328,7 @@ class GoogleGeocodingResult(object):
                                 if comp is not None ]
         # HACK ON
         # manually get the establishments
-        establishments = self.get_address_component(t,allow_multiple=True)
+        establishments = self.get_address_component('establishment',allow_multiple=True)
         # if there's more than one, grab the first one that isn't the university name
         if len(establishments) > 1:
             for estab in establishments:
@@ -350,5 +418,4 @@ class GoogleGeocodingResult(object):
             return None
         return (geocoding['lat'],geocoding['lng'])
 
-# this is pointless since there's no API key, but keeps module interface similar to factual/facebook
-oip_client = GoogleGeocodingClient()
+OIP_PLACES_ACCESS_TOKEN = 'AIzaSyC7INTXYluYDoz0yZRX89jLORKJEGeQeCY'

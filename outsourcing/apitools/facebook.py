@@ -86,8 +86,8 @@ class GraphAPIClient(object):
         flexibility (i.e. calling urllib2.urlopen on a urllib2.Request)
         '''
         response = delayed_retry_on_ioerror(lambda:json.load(urllib_module.urlopen(request)),
-                                            delay_seconds=5,
-                                            retry_limit=1,
+                                            delay_seconds=6,
+                                            retry_limit=3,
                                             logger=outsourcing_log)
         return self.postprocess_response(request,response)
 
@@ -96,7 +96,10 @@ class GraphAPIClient(object):
         '''
         Does some post-processing -- mostly error handling.
         '''
-        if response == False:
+        if response == []:
+            raise FacebookAPIError(unicode(request),
+                                   "empty response returned")
+        elif response == False:
             raise FacebookAPIError(unicode(request),
                                    "'false' response returned")
         elif response is None:
@@ -129,10 +132,11 @@ class GraphAPIClient(object):
         size can be among 'small','normal','large'
         '''
         url = 'http://graph.facebook.com/%s/picture?type=%s' % (fbid,size)
-        return delayed_retry_on_ioerror(lambda:urllib.urlopen(url),
+        response =  delayed_retry_on_ioerror(lambda:urllib.urlopen(url),
                                             delay_seconds=3,
                                             retry_limit=2,
                                             logger=outsourcing_log)
+        return response.url
 
     def graph_api_objects_request(self,ids,metadata=False):
         '''
@@ -275,6 +279,3 @@ OIP_APP_ID = '203898346321665'
 OIP_APP_SECRET = '897ca9d744d43da15d40d3f793f112e3'
 # if this stops working, try calling get_basic_access_token directly
 OIP_ACCESS_TOKEN = '203898346321665|e_aVTLcJCsV3c9tiQJn0tZjWcZg'
-
-# a default GraphAPIClient that uses OIP's credentials
-oip_client = GraphAPIClient(OIP_ACCESS_TOKEN)

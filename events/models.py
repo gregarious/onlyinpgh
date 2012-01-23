@@ -73,7 +73,7 @@ class Role(models.Model):
         ('referer','Referer'),
     )
 
-    role_name = models.CharField(max_length=50,choices=ROLE_TYPES)
+    role_type = models.CharField(max_length=50,choices=ROLE_TYPES)
     event = models.ForeignKey(Event)
     organization = models.ForeignKey(Organization)
 
@@ -82,7 +82,7 @@ class Role(models.Model):
     referrers = ReferrerRoleManager()
 
     def __unicode__(self):
-        return self.role_name + u':' + unicode(self.organization) + u'(%s)' % self.role_name
+        return self.role_type + u':' + unicode(self.organization) + u'(%s)' % self.role_type
 
 class Meta(models.Model):
     event = models.ForeignKey(Event)
@@ -99,4 +99,3 @@ class Attendee(models.Model):
 
     def __unicode__(self):
         return unicode(self.individual) + u'@' + unicode(self.event)
-
