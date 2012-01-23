@@ -17,6 +17,7 @@ Notes on South db migrations:
 		* events
 
 -------------------
+
 !!!!!! oldsite-events-handling branch notes !!!!!!!
 
 This branch exists for the benefit of importing new events to the old site.
