@@ -12,3 +12,8 @@ Notes on South db migrations:
 - Only apps that have gone through some development time have been converted
   to south. Since there may be some large upheavals still, the conversion for 
   the baseline of these apps can wait till they've been more properly "vetted"
+
+- The following fixtures will need migrated when a model change causes a schema
+	change in the apps listed below each:
+	- events/fixtures/initial_data:
+		* events
