@@ -1,29 +1,12 @@
 from django.shortcuts import render_to_response
 from onlyinpgh.places.models import Place, Meta as PlaceMeta
 
-subset_names = [
-    "3 Guys Optical Center",
-    "Antoon's Pizza",
-    "Bootlegger's",
-    "Carnegie Mellon University",
-    "Carnegie Music Hall",
-    "Dave & Andy's Ice Cream",
-    "Kiva Han Cafe",
-    "Milano's Pizza",
-    "Oakland BID",
-    "Panther Hollow Inn",
-    "Peter's Pub",
-    "Sir Speedy Printing",
-    "Touch of Gold and Silver",
-    "Uncle Sam's Subs",
-    "Union Grill",
-    "Vera Cruz"
-]
 
 # TODO: there must obviously be a better way to do this. Works for now
 class PlaceForTemplate:
     def __init__(self,place,url='',phone=''):
         self.phone = phone
+        self.id = place.id
         self.url = url
         self.owner = place.owner
         self.description = place.description
@@ -38,12 +21,19 @@ def _package_place(place):
     phone_numbers = place.meta_set.filter(meta_key='phone')
     if phone_numbers and phone_numbers[0].meta_value:
         p.phone = phone_numbers[0].meta_value
+    image_url = place.meta_set.filter(meta_key='image_url')
+    if image_url and image_url[0].meta_value:
+        p.image_url = image_url[0].meta_value
     return p
 
-def demo_places_page(request):
-    variables = { 'places': [_package_place(p) for p in Place.objects.filter(name__in=subset_names)] }
-    return render_to_response('pages/places_page.html',variables)
+def places_page(request):
+    variables = { 'places': [_package_place(p) for p in Place.objects.all()] }
+    return render_to_response('places.html',variables)
 
-def demo_places_single(request):
-    variables = { 'places': [_package_place(p) for p in Place.objects.filter(name__in=subset_names)] }
-    return render_to_response('pages/places_page.html',variables)
+def single_place_page(request, id):
+    #o = owner.replace(' ', '-')
+    variables = { 'place' : _package_place(Place.objects.get(id=id)) }
+    return render_to_response('single_place.html', variables)
+    
+    #p = get_object_or_404(Poll, pk=poll_id)
+    #return render_to_response('polls/detail.html', {'poll' : p})

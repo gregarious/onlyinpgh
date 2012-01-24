@@ -1,0 +1,21 @@
+
+<h2>News Page</h2>
+
+<ul>
+
+{% for a in articles %}
+	
+	<li class="feed-item">
+		<article class="feed-item-container">
+	        <h1 class="feed-item-title">{{ a.title }}</h1>
+	        <ul>
+	          <li><address><a href="{{ a.source_url }}">{{ a.source_name }}</a></address></li>
+	          <li><time datetime="" pubdate>Date published</time></li>
+	          <li><a>See full article...</a></li>
+	        </ul>
+	    </article>
+    </li>
+
+{% endfor %}
+
+</ul>
