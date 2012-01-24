@@ -1,0 +1,15 @@
+{% extends "single.html" %}
+
+{% block page_header %}
+	{{ o.description }}
+{% endblock %}
+
+{% block single_id %}offerSingle{% endblock %}
+
+{% block single_details %}
+	{% include "offers/offers_feed_item.html" %}
+{% endblock %}
+
+{% block page_footer %}
+	
+{% endblock %}

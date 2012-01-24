@@ -1,0 +1,39 @@
+{% extends "feed_item.html" %}
+
+{% block feed_item_title %}{{ e.name }}{% endblock %}
+
+{% block feed_item_content %}
+
+	{% if e.dtstart and e.dtend %}
+ 		<li>{{ e.dtstart }} - {{ e.dtend }}</li>
+ 	{% endif %}
+
+ 	{% if e.place %}
+  		<li>Hosted by {{ e.place }}</li>
+	{% endif %}
+
+	{% if e.place.location.address %}
+		<li>{{ e.place.location.address }}</li>
+	{% endif %}
+
+	{% if e.description %}
+  		<li>{{ e.description }}</li>
+  	{% endif %}
+
+{% endblock %}
+
+{% block feed_item_image_url %}
+
+	{% if e.image_url %}
+		{{ e.image_url }}
+	{% endif %}
+
+{% endblock %}
+
+{% block feed_item_image_alt %}
+	{{ e.name }}
+{% endblock %}
+
+{% block feed_item_more_url %}
+	{{ ROOT_DIR }}/events/{{ e.id }}/
+{% endblock %}

@@ -28,12 +28,9 @@ def _package_place(place):
 
 def places_page(request):
     variables = { 'places': [_package_place(p) for p in Place.objects.all()] }
-    return render_to_response('places.html',variables)
+    return render_to_response('places/places_page.html',variables)
 
 def single_place_page(request, id):
-    #o = owner.replace(' ', '-')
-    variables = { 'place' : _package_place(Place.objects.get(id=id)) }
-    return render_to_response('single_place.html', variables)
+    variables = { 'p' : _package_place(Place.objects.get(id=id)) }
+    return render_to_response('places/places_single.html', variables)
     
-    #p = get_object_or_404(Poll, pk=poll_id)
-    #return render_to_response('polls/detail.html', {'poll' : p})

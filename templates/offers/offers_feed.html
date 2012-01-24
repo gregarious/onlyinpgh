@@ -1,0 +1,13 @@
+{% extends "feed.html" %}
+
+{% block feed_id %}offersFeed{% endblock %}
+
+{% block feed_content %}
+	
+	{% for o in offers %}
+
+		{% include "offers/offers_feed_item.html" %}
+
+	{% endfor %}
+
+{% endblock %}

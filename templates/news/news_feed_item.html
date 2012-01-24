@@ -1,0 +1,51 @@
+{% extends "feed_item.html" %}
+
+{% block feed_item_title %}
+	{{ a.title }}
+{% endblock %}
+
+{% block feed_item_content %}
+
+	{%  if a.source_name %}
+		<li>
+			{% if a.source_url %}
+				<a href="{{ a.source_url }}">{{ a.source_name }}</a>
+			{% else %}
+				{{ a.source_name }}	
+			{% endif %}
+		</li>
+	{% endif %}
+
+	{% if a.pub_date %}
+		<li>{{ a.pub_date }}</li>
+	{% endif %}
+
+	{% if a.short_description %}
+		<li>{{ a.short_description }}</li>
+	{% endif %}
+
+{% endblock %}
+
+{% comment %}
+-----------------------------------------
+-----Need a thumbnail slot in object-----
+-----------------------------------------
+{% block feed_item_image_url %}
+
+	{% if o.image_url %}
+
+		{{ o.image_url }}
+
+		{% block feed_item_image_alt %}
+			{{ o.description }}
+		{% endblock %}
+
+	{% endif %}
+
+{% endblock %}
+-----------------------------------------
+{% endcomment %}
+
+{% block feed_item_more_url %}
+	{{ ROOT_DIR }}/news/{{ a.id }}/
+{% endblock %}

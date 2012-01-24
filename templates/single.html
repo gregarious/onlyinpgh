@@ -1,3 +1,9 @@
-{% block title %}{% endblock %}
+{% extends "page.html" %}
 
-{% block content %}{% endblock %}
+{% block content %}
+
+	<section id="{% block single_id %}{% endblock %}">
+		{% block single_details %}{% endblock %}
+	</section>
+
+{% endblock %}

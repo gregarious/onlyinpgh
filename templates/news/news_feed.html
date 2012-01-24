@@ -1,0 +1,13 @@
+{% extends "feed.html" %}
+
+{% block feed_id %}newsFeed{% endblock %}
+
+{% block feed_content %}
+
+	{% for a in articles %}	
+		
+		{% include "news/news_feed_item.html" %}
+
+	{% endfor %}
+
+{% endblock %}

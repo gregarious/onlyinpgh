@@ -17,13 +17,13 @@
 
   <!-- Home screen icon  Mathias Bynens http://goo.gl/6nVq0 -->
   <!-- For iPhone 4 with high-resolution Retina display: -->
-  <link rel="apple-touch-icon-precomposed" sizes="114x114" href="{{ STATIC_URL }}img/h/apple-touch-icon.png">
+  <link rel="apple-touch-icon-precomposed" sizes="114x114" href="/static/img/h/apple-touch-icon.png">
   <!-- For first-generation iPad: -->
-  <link rel="apple-touch-icon-precomposed" sizes="72x72" href="{{ STATIC_URL }}img/m/apple-touch-icon.png">
+  <link rel="apple-touch-icon-precomposed" sizes="72x72" href="/static/img/m/apple-touch-icon.png">
   <!-- For non-Retina iPhone, iPod Touch, and Android 2.1+ devices: -->
-  <link rel="apple-touch-icon-precomposed" href="{{ STATIC_URL }}img/l/apple-touch-icon-precomposed.png">
+  <link rel="apple-touch-icon-precomposed" href="/static/img/l/apple-touch-icon-precomposed.png">
   <!-- For nokia devices: -->
-  <link rel="shortcut icon" href="{{ STATIC_URL }}img/l/apple-touch-icon.png">
+  <link rel="shortcut icon" href="/static/img/l/apple-touch-icon.png">
 
   <!--iOS web app, deletable if not needed -->
   <!--the script prevents links from opening in mobile safari. https://gist.github.com/1042026
@@ -41,123 +41,34 @@
   <link rel="stylesheet" href="/static/css/style.css?v=1">
 
   <!-- All JavaScript at the bottom, except for Modernizr which enables HTML5 elements & feature detects -->
-  <script src="{{ STATIC_URL }}js/libs/modernizr-custom.js"></script>
+  <script src="/static/js/libs/modernizr-custom.js"></script>
 
   <!-- Media Queries Polyfill https://github.com/shichuan/mobile-html5-boilerplate/wiki/Media-Queries-Polyfill -->
-  <script>Modernizr.mq('(min-width:0)') || document.write('<script src="{{ STATIC_URL }}js/libs/respond.min.js">\x3C/script>')</script>
+  <script>Modernizr.mq('(min-width:0)') || document.write('<script src="/static/js/libs/respond.min.js">\x3C/script>')</script>
 </head>
 
 <body>
 
   <header class="site-header">
-  
-    <hgroup>
-      <h1>Oakland Scene</h1>
-    </hgroup>
-
-    <nav>
-      <ul class="global-nav">
-        <li class="selected-menu-item"><a href="/">Home</a></li>
-        <li class="places-page-link"><a href="places">Places</a></li>
-        <li class="events-page-link"><a href="events">Events</a></li>
-        <li class="news-page-link"><a href="news">News</a></li>
-        <li class="offers-page-link"><a href="specials">Specials</a></li>
-      </ul>
-    </nav>
-
+    {% block site_header %}{% endblock %}
   </header>
 
   <article class="main">
-  
-  <!-- To be consolidated into "At A Glance" template -->
 
-    <header>
-      <h2>{% block page_title %}At a Glance...{% endblock %}</h2>
+    <header class="page-header">
+      <h2>{% block page_header %}{% endblock %}</h2>
     </header>
 
-    {% block content %}
+    {% block content %}{% endblock %}
 
-    <section class="feed">
-
-      <header class="feed-header">
-        <h3>Upcoming Events</h3>
-      </header>
-
-      <ul id="eventsFeed" class="feed-items">
-
-        {% include "events.html" %}
-
-      </ul>
-
-      <footer class="feed-footer">
-        <a href="" class="see-more"><a>More events...</a>
-      </footer>
-
-    </section>
- 
-    <!-- No decision on how this will function yet ***
-    <section class="feed" id="placesFeed">
-      
-      <header>
-        <h1 class="feed-title">Smattering of Places</h1>
-      </header>
-
-      <article class="feed-item">
-        <h1 class="feed-item-title">Place Name</h1>
-        <div class="feed-item-content">
-          <ul>
-            <li>Address</li>
-            <li>Description</li>
-            <li><a href="">Details...</a></li>
-          </ul>
-        </div>
-        <div class="feed-item-thumb">
-          <img src="" alt="" />
-        </div>
-      </article>
-      
-      <p class="see-more"><a>See more...</a></p>
-
-    </section>
-    *** end places -->
-
-   
-    <!--<section class="feed">
-
-      <header>
-        <h3 class="feed-title">Coupon Book</h3>
-      </header>
-      <ul id="offersFeed" class="feed-items"><!-- sammichboard_feed template </ul>
-      <!--<footer>
-        <p class="see-more"><a>More coupons...</a></p>
-      </footer>
-
-    </section>
-
-    <section class="feed">
-
-      <header>
-        <h3 class="feed-title">Scene News</h3>
-      </header>
-      <ul id="newsFeed" class="feed-items"><!-- news_feed template </ul>
-      <p class="see-more"><a>More news...</a></p>
-
-    </section>
-
-  <!-- end "At a Glance" template-->
-
-  {% endblock %}
+    <footer class="page-footer">
+      {% block page_footer %}{% endblock %}
+    </footer>
 
   </article> <!-- .main -->
 
-  <!-- <aside class="sidebar">
-    <header>
-      <h2>Featured</h2>
-    </header>
-  </aside> -->
-
   <footer class="site-footer">
-    Hey here's the footer!!
+    {% block site_footer %}{% endblock %}
   </footer>
 
   <!-- JavaScript at the bottom for fast page loading -->
@@ -165,18 +76,18 @@
   <!-- Grab Google CDN's jQuery, with a protocol relative URL; fall back to local if necessary -->
   <!-- Unminified for development -->
   <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.js"></script>
-  <script>window.jQuery || document.write('<script src="{{ STATIC_URL }}js/libs/jquery-1.7.1.js"><\/script>')</script>
+  <script>window.jQuery || document.write('<script src="/static/js/libs/jquery-1.7.1.js"><\/script>')</script>
 
   <!-- Google Maps API v3
   <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=false"></script> -->
 
 
   <!-- scripts concatenated and minified via ant build script -->
-  <script src="{{ STATIC_URL }}js/mylibs/helper.js"></script>
+  <script src="/static/js/mylibs/helper.js"></script>
   <!-- end concatenated and minified scripts-->
 
   <!-- Sceneable Scripts -->
-  <script src="{{ STATIC_URL }}js/script.js"></script>
+  <script src="/static/js/script.js"></script>
 
   <script>
     // iPhone Scale Bug Fix, read this when using http://www.blog.highub.com/mobile-2/a-fix-for-iphone-viewport-scale-bug/
@@ -187,12 +98,12 @@
   <!-- <script src="https://getfirebug.com/firebug-lite.js"></script> -->
 
   <!-- mathiasbynens.be/notes/async-analytics-snippet Change UA-XXXXX-X to be your site's ID -->
-  <script>
+  <!-- <script>
     var _gaq=[["_setAccount","UA-XXXXX-X"],["_trackPageview"]];
     (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];g.async=1;
     g.src=("https:"==location.protocol?"//ssl":"//www")+".google-analytics.com/ga.js";
     s.parentNode.insertBefore(g,s)}(document,"script"));
-  </script>
+  </script> -->
   
 </body>
 </html>

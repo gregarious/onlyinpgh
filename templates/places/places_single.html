@@ -1,0 +1,15 @@
+{% extends "single.html" %}
+
+{% block page_header %}
+	{{ p.name }}
+{% endblock %}
+
+{% block single_id %}placeSingle{% endblock %}
+
+{% block single_details %}
+	{% include "places/places_feed_item.html" %}
+{% endblock %}
+
+{% block page_footer %}
+	
+{% endblock %}

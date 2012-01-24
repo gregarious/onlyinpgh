@@ -1,0 +1,15 @@
+{% extends "single.html" %}
+
+{% block page_header %}
+	{{ e.name }}
+{% endblock %}
+
+{% block single_id %}eventSingle{% endblock %}
+
+{% block single_details %}
+	{% include "events/events_feed_item.html" %}
+{% endblock %}
+
+{% block page_footer %}
+	
+{% endblock %}
