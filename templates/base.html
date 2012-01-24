@@ -38,7 +38,7 @@
   <!-- more tags for your 'head' to consider https://gist.github.com/849231 -->
 
   <!-- Main Stylesheet -->
-  <link rel="stylesheet" href="{{ STATIC_URL }}css/style.css?v=1">
+  <link rel="stylesheet" href="/static/css/style.css?v=1">
 
   <!-- All JavaScript at the bottom, except for Modernizr which enables HTML5 elements & feature detects -->
   <script src="{{ STATIC_URL }}js/libs/modernizr-custom.js"></script>
@@ -57,11 +57,11 @@
 
     <nav>
       <ul class="global-nav">
-        <li id="homeMenuItem" class="selected-menu-item">At a Glance</li>
-        <li class="places-page-link">Places</li>
-        <li class="events-page-link">Events</li>
-        <li class="news-page-link">News</li>
-        <li class="offers-page-link">Sammich Board</li>
+        <li class="selected-menu-item"><a href="/">Home</a></li>
+        <li class="places-page-link"><a href="places">Places</a></li>
+        <li class="events-page-link"><a href="events">Events</a></li>
+        <li class="news-page-link"><a href="news">News</a></li>
+        <li class="offers-page-link"><a href="specials">Specials</a></li>
       </ul>
     </nav>
 
@@ -72,15 +72,22 @@
   <!-- To be consolidated into "At A Glance" template -->
 
     <header>
-      <h2>At a Glance...</h2>
+      <h2>{% block page_title %}At a Glance...{% endblock %}</h2>
     </header>
+
+    {% block content %}
 
     <section class="feed">
 
       <header class="feed-header">
         <h3>Upcoming Events</h3>
       </header>
-      <ul id="eventsFeed" class="feed-items"><!-- events_feed template --></ul>
+
+      <ul id="eventsFeed" class="feed-items">
+
+        {% include "events.html" %}
+
+      </ul>
 
       <footer class="feed-footer">
         <a href="" class="see-more"><a>More events...</a>
@@ -120,7 +127,7 @@
       <header>
         <h3 class="feed-title">Coupon Book</h3>
       </header>
-      <ul id="offersFeed" class="feed-items"><!-- sammichboard_feed template --></ul>
+      <ul id="offersFeed" class="feed-items"><!-- sammichboard_feed template </ul>
       <!--<footer>
         <p class="see-more"><a>More coupons...</a></p>
       </footer>
@@ -139,14 +146,15 @@
 
   <!-- end "At a Glance" template-->
 
+  {% endblock %}
+
   </article> <!-- .main -->
 
-  <aside class="sidebar">
+  <!-- <aside class="sidebar">
     <header>
       <h2>Featured</h2>
-      
     </header>
-  </aside>
+  </aside> -->
 
   <footer class="site-footer">
     Hey here's the footer!!

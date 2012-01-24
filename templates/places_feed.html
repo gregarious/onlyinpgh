@@ -1,0 +1,30 @@
+{% extends "feed.html" %}
+
+{% block feed_item_title %}{% endblock %}
+  
+{% block feed_item_content %}
+
+	  {% if i.location.address %}
+  	 <li>{{ i.location.address }}</li>
+  	{% endif %}
+  	{% if i.hours %}
+   		<li>{{ i.hours }}</li>
+   	{% endif %}
+   	{% if i.phone %}
+    		<li>{{ i.phone }}</li>
+  	{% endif %}
+  	{% if i.description %}
+    		<li>{{ i.description }}</li>
+    {% endif %}
+
+    <li><a href="/places/{{ i.id }}/" class="load-single-place">Go to Place Page</a></li>
+
+{% endblock %}
+
+{% block feed_item_avatar %}
+  {% if i.image_url %}
+    <div class="feed-item-thumb">
+        <img class="thumbnail" width="100" height="100" alt="{{ i.name }}" src="{{ i.image_url }}" />
+      </div>
+  {% endif %}
+{% endblock %}
