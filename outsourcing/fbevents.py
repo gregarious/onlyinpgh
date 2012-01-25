@@ -289,6 +289,8 @@ def store_fbevent(event_info,event_image=None,
             event.image_url = facebook_client.graph_api_picture_request(fbid)
         except IOError as e:
             outsourcing_log.error('Error retreiving picture for event %s: %s' % (unicode(eid),unicode(e)))
+    else:
+        event.image_url = event_image
         
     # process place
     if resolve_cache:
@@ -513,7 +515,7 @@ class EventImportManager(object):
             pic = facebook_client.graph_api_picture_request(fbevent_id)
         except IOError as e:
             outsourcing_log.error('Error retreiving picture for event %s: %s' % (unicode(fbevent_id),unicode(e)))
-            fbevent_pics.append('')
+            pic = ''
         
         if not isinstance(info,Exception):
             return self._store_event(info,pic,import_owners=import_owners)
