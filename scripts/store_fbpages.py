@@ -12,6 +12,7 @@ def store_pages(coords,radius,infinite_attempts=False):
     tend to fail a lot.
     '''
     page_stubs = []
+    # manually cycle through the letters. gather_fb_place_pages will do this too, but one failure will ruin the whole lot
     for letter in [chr(o) for o in range(ord('a'),ord('z')+1)]:
         importlog.info('Query: %s' % letter)
         try_again = True
@@ -53,4 +54,4 @@ def run():
             store_pages(coords,radius,infinite_attempts=False)
         importlog.info('Page import complete')
     except Exception as e:
-        importlog.error('Failure searching region (%.3f,%.3f): %s. Aborting.' % (lat,lng,str(e)))
+        importlog.critical('Failure searching region (%.3f,%.3f): %s. Aborting.' % (lat,lng,str(e)))
