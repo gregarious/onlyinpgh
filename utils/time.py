@@ -1,4 +1,3 @@
-import settings
 from pytz import timezone, utc
 
 # cliff's notes on converting a UTC dt:
