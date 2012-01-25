@@ -10,6 +10,7 @@ def import_ids(page_ids):
     importlog.info('Importing Organizations into database from %d pages' % len(page_ids))
     page_infos = page_mgr.pull_page_info(page_ids)    # cache pages
     
+    importlog.info('Refresing cached FB page infos')
     for pid,info in zip(page_ids,page_infos):
         if not isinstance(info,dict):
             importlog.info('Cannot store page info JSON for fb id %s' % str(pid))
@@ -29,7 +30,9 @@ def import_ids(page_ids):
                 else:
                     importlog.error('%s: %s' % (report.page_id,unicode(notice)))
         else:
-            importlog.info('%s: Imported successfully as %s' % (report.page_id,unicode(report.model_instance)))
+            importlog.info('%s: Imported successfully as %s (id=%d)' % (report.page_id,
+                                                                        unicode(report.model_instance),
+                                                                        report.model_instance.id))
             import_count += 1
     importlog.info('%d new Organizations imported' % import_count)
 
@@ -44,7 +47,9 @@ def import_ids(page_ids):
                 else:
                     importlog.error('%s: %s' % (report.page_id,unicode(notice)))
         else:
-            importlog.info('%s: Imported successfully as %s' % (report.page_id,unicode(report.model_instance)))
+            importlog.info('%s: Imported successfully as %s (id=%d)' % (report.page_id,
+                                                                        unicode(report.model_instance),
+                                                                        report.model_instance.id))
             import_count += 1
     importlog.info('%d new Places imported' % import_count)
 
