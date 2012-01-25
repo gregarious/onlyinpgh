@@ -64,13 +64,13 @@ class FeedImporter(object):
 	def from_url(cls,url,organization=None):
 		'''initialize from a url and Organization instance'''
 
-		f = urllib.urlopen(self.feed_instance.url)
+		f = urllib.urlopen(url)
 		ical = icalendar.Calendar.from_string(f.read())
 		f.close()
 		cal_name = ical.get('X-WR-CALNAME',url)
 
 		feed, created = ICalendarFeed.objects.get_or_create(
-							url=url,xcal_name=cal_name)
+							url=url,name=cal_name)
 		
 		if organization:
 			# if we need to set the owner, but found an existing feed whose owner is different, fail
@@ -98,7 +98,6 @@ class FeedImporter(object):
 		# neither the location nor place are in the DB yet. do this now
 		l = place.location
 		if l:
-			print location_str, l.state, l.country, result.parse_status
 			place.location, _ = Location.close_manager.get_close_or_create(
 									address=l.address,
 									postcode=l.postcode,
@@ -221,7 +220,7 @@ class FeedImporter(object):
 											 place=place,
 				        					 dtmodified=dtmodified)
 				if owner:
-					Role.objects.create(role_name='host',
+					Role.objects.create(role_type='host',
 										organization=owner,
 										event=event)
 

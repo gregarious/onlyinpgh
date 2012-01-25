@@ -1,7 +1,7 @@
 import urllib2, time
 from urlparse import urlparse, parse_qsl
 
-from onlyinpgh.outsourcing.apitools import oauth
+import oauth
 
 class APIError(IOError):
     def __init__(self,api_name,*args):
@@ -24,7 +24,7 @@ def delayed_retry_on_ioerror(apicall,delay_seconds,retry_limit=1,logger=None):
     '''
     Function designed to automatically reattempt a function call on the
     event that it returns an IOError. Each reattempt is preceded by a
-    sleep count. 
+    sleep count. The delay time will be doubled each retry.
 
     This is a convenient way to avoid the common pattern of causing a 
     delayed-retry when an API service denies access momentarily because
@@ -46,4 +46,13 @@ def delayed_retry_on_ioerror(apicall,delay_seconds,retry_limit=1,logger=None):
                     retry_limit,
                     delay_seconds))
             time.sleep(delay_seconds)
+            delay_seconds *= 2
             
+import google
+import facebook
+import factual
+
+geocoding_client = google.GoogleGeocodingClient()
+gplaces_client = google.GooglePlacesClient(google.OIP_PLACES_ACCESS_TOKEN)
+facebook_client = facebook.GraphAPIClient(facebook.OIP_ACCESS_TOKEN)
+factual_client = factual.FactualClient(factual.OIP_OAUTH_KEY,factual.OIP_OAUTH_SECRET)

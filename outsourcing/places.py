@@ -6,8 +6,8 @@ places-related tasks.
 from itertools import chain
 import re, copy
 
-from onlyinpgh.outsourcing.apitools import google, factual
-
+from onlyinpgh.outsourcing.apitools.factual import FactualAPIError
+from onlyinpgh.outsourcing.apitools import geocoding_client, factual_client
 from onlyinpgh.places.models import Place, Location
 
 import logging  
@@ -23,10 +23,10 @@ def _resolve_result_to_place(result):
     '''
     resolved_loc = Location(
             country='US',           
-            address=result.get('address',''),
-            town=result.get('locality',''),
-            state=result.get('region',''),
-            postcode=result.get('postcode',''),
+            address=result.get('address','').strip(),
+            town=result.get('locality','').strip(),
+            state=result.get('region','').strip(),
+            postcode=result.get('postcode','').strip(),
             latitude=result.get('latitude'),
             longitude=result.get('longitude'))
     
@@ -35,11 +35,11 @@ def _resolve_result_to_place(result):
 def _geocode_result_to_location(result):
     coords = result.get_geocoding()
     return Location(
-        address = result.get_street_address(),
-        postcode = result.get_postalcode(),
-        town = result.get_town(),
-        state = result.get_state(),
-        country = result.get_country(),
+        address = result.get_street_address().strip(),
+        postcode = result.get_postalcode().strip(),
+        town = result.get_town().strip(),
+        state = result.get_state().strip(),
+        country = result.get_country().strip(),
         latitude = coords[0],
         longitude = coords[1]
     )
@@ -57,17 +57,20 @@ def resolve_place(partial_place=None,partial_location=None):
         loc = partial_location
         pl_name = None
 
-    if loc is None:
-        resp = factual.oip_client.resolve(name=pl_name)
-    else:
-        resp = factual.oip_client.resolve(
-            name=pl_name,
-            address=loc.address,
-            town=loc.town,
-            state=loc.state,
-            postcode=loc.postcode,
-            latitude=loc.latitude,
-            longitude=loc.longitude)
+    try:
+        if loc is None:
+            resp = factual_client.resolve(name=pl_name)
+        else:
+            resp = factual_client.resolve(
+                name=pl_name,
+                address=loc.address,
+                town=loc.town,
+                state=loc.state,
+                postcode=loc.postcode,
+                latitude=loc.latitude,
+                longitude=loc.longitude)
+    except FactualAPIError:
+        return None
 
     result = resp.get_resolved_result()
     if result:
@@ -107,7 +110,7 @@ def resolve_location(partial_location,allow_numberless=True):
         biasing_args['region'] = partial_location.country
 
     # Run the geocoding
-    response = google.GoogleGeocodingClient.run_geocode_request(address_text,**biasing_args)
+    response = geocoding_client.run_geocode_request(address_text,**biasing_args)
     result = response.best_result(wrapped=True)
     # TODO: add ambiguous result handling
     if not result or not result.is_address_concrete(allow_numberless):
@@ -351,7 +354,7 @@ def normalize_street_address(address_text):
 
     Returns None if normalization was not possible.
     '''
-    response = google.GoogleGeocodingClient.run_geocode_request(address_text)
+    response = geocoding_client.run_geocode_request(address_text)
     result = response.best_result(wrapped=True)
     # TODO: add ambiguous result handling
     if not result:

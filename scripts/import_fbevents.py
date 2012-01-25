@@ -7,14 +7,16 @@ importlog = logging.getLogger('onlyinpgh.fb_import')
 from datetime import datetime
 from itertools import izip
 
-def import_events(start_filter=None):
-    page_ids = [obj.fb_id for obj in FacebookOrgRecord.objects.all()]
-
+def import_by_pageids(page_ids,start_filter=None):
     event_mgr = EventImportManager()
-    reports_by_page = event_mgr.import_events_from_pages(page_ids,start_filter)
+    importlog.info('Searching %d pages for events.' % len(page_ids))
+    event_mgr.pull_event_info_from_pages(page_ids)
 
-    for page_id,reports in izip(page_ids,reports_by_page):
-        importlog.info('Importing events for Facebook page %s' % page_id)
+    import_count = 0
+    for page_id in page_ids:
+        reports = event_mgr.import_events_from_page(page_id,start_filter)
+        if len(reports):
+            importlog.info('Importing events for Facebook page %s' % page_id)
         for report in reports:
             if report.notices:
                 for notice in report.notices:
@@ -24,6 +26,12 @@ def import_events(start_filter=None):
                         importlog.error('%s: %s' % (report.fbevent_id,unicode(notice)))
             else:
                 importlog.info('%s: Imported successfully as %s' % (report.fbevent_id,unicode(report.event_instance)))
+                import_count += 1
+    importlog.info('Imported %d new Events' % import_count)
+
+def import_all(start_filter=None):
+    page_ids = [obj.fb_id for obj in FacebookOrgRecord.objects.filter(ignore=False)]
+    import_by_pageids(page_ids,start_filter)
 
 def run():
-    import_events(datetime(2011,12,1))
+    import_all(datetime(2011,12,1))

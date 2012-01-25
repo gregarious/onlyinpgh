@@ -116,8 +116,11 @@ class OrgImportingTest(TestCase):
         for pid,notice in pid_notice_pairs:
             if notice is PageImportReport.ModelInstanceExists:
                 original_fb_records[pid] = FacebookOrgRecord.objects.get(fb_id=pid)
+        pids = [pair[0] for pair in pid_notice_pairs]
+
         # run insertion code
-        results = mgr.import_orgs([pair[0] for pair in pid_notice_pairs])
+        mgr.pull_page_info(pids)    # cache pages
+        results = [mgr.import_org(pid) for pid in pids]
         self.assertEquals([result.page_id for result in results],
                   [pid for pid,_ in pid_notice_pairs],
                   'non-parallel list of PageImportReports returned')
@@ -249,9 +252,11 @@ class PlaceImportingTest(TestCase):
         for pid,notice in pid_notice_pairs:
             if notice is PageImportReport.ModelInstanceExists:
                 original_fb_records[pid] = ExternalPlaceSource.facebook.get(uid=pid)
+        pids = [pair[0] for pair in pid_notice_pairs]
 
         # run insertion code
-        results = mgr.import_places([pair[0] for pair in pid_notice_pairs])
+        mgr.pull_page_info(pids)    # cache pages
+        results = [mgr.import_place(pid) for pid in pids]
         self.assertEquals([result.page_id for result in results],
                           [pid for pid,_ in pid_notice_pairs],
                           'non-parallel list of PageImportReports returned')
@@ -293,13 +298,15 @@ class PlaceImportingTest(TestCase):
         before_records = list(FacebookOrgRecord.objects.all())
 
         mgr = PageImportManager()
-        results = mgr.import_places([no_owner_stored,owner_stored],import_owners=False)
 
-        # ensure no org was created for the first page
-        self.assertIsNone(results[0].model_instance.owner)
-        # ensure the existing org was found for the second page, even without import
-        self.assertIsNotNone(results[1].model_instance)
-        self.assertEquals(results[1].model_instance.owner,
+        # ensure no org is created 
+        result = mgr.import_place(no_owner_stored,import_owners=False)
+        self.assertIsNone(result.model_instance.owner)
+
+        # ensure the existing org is found, even without import
+        result = mgr.import_place(owner_stored,import_owners=False)
+        self.assertIsNotNone(result.model_instance)
+        self.assertEquals(result.model_instance.owner,
                             FacebookOrgRecord.objects.get(fb_id=owner_stored).organization)
 
         # double check that the Organization and FacebookOrgRecord tables weren't touched

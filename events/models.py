@@ -6,8 +6,8 @@ from onlyinpgh.places.models import Place
 from onlyinpgh.tagging.models import Tag
 from onlyinpgh.identity.models import Identity, Organization
 
-from utils.time import utctolocal
-from settings import TIME_ZONE
+from onlyinpgh.utils.time import utctolocal
+from onlyinpgh.settings import TIME_ZONE
 
 # Create your models here.
 class Event(models.Model):
@@ -61,11 +61,11 @@ class Event(models.Model):
 ## custom Role managers to make it simpler to query a particular type of Role
 class HostRoleManager(models.Manager):
     def get_query_set(self):
-        return super(HostRoleManager, self).get_query_set().filter(role_name='host')
+        return super(HostRoleManager, self).get_query_set().filter(role_type='host')
 
 class ReferrerRoleManager(models.Manager):
     def get_query_set(self):
-        return super(HostRoleManager, self).get_query_set().filter(role_name='referrer')
+        return super(HostRoleManager, self).get_query_set().filter(role_type='referrer')
 
 class Role(models.Model):
     ROLE_TYPES = (
@@ -73,7 +73,7 @@ class Role(models.Model):
         ('referer','Referer'),
     )
 
-    role_name = models.CharField(max_length=50,choices=ROLE_TYPES)
+    role_type = models.CharField(max_length=50,choices=ROLE_TYPES)
     event = models.ForeignKey(Event)
     organization = models.ForeignKey(Organization)
 
@@ -82,7 +82,7 @@ class Role(models.Model):
     referrers = ReferrerRoleManager()
 
     def __unicode__(self):
-        return self.role_name + u':' + unicode(self.organization) + u'(%s)' % self.role_name
+        return self.role_type + u':' + unicode(self.organization) + u'(%s)' % self.role_type
 
 class Meta(models.Model):
     event = models.ForeignKey(Event)
@@ -99,4 +99,3 @@ class Attendee(models.Model):
 
     def __unicode__(self):
         return unicode(self.individual) + u'@' + unicode(self.event)
-
