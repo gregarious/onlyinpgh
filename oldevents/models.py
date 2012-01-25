@@ -1,7 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from pytz import timezone
-from settings import TIME_ZONE
+from onlyinpgh.settings import TIME_ZONE
 
 # the following a step towawrds a more appropriate model for the new Django version of the site. the current one
 # needs to follow the current conventions, so individuals and organizations aren't related
