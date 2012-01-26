@@ -1,0 +1,97 @@
+accounting,accounting,accountant,service
+airport,airport,travel,airplane,flight
+amusement_park,amusement park,rollercoaster,fair,tourism,entertainment
+aquarium,aquarium,fish,tourism,entertainment
+art_gallery,art gallery,art,painting,sculpture ,tourism,entertainment
+atm,atm,bank,money
+bakery,bakery,food,baking
+bank,bank,money
+bar,bar,drink,alcohol ,entertainment
+beauty_salon,beauty salon,hair,makeover
+bicycle_store,bicycle store,bicycle,bike,repair,fitness
+book_store,book store,book,reading
+bowling_alley,bowling alley,bowling,entertainment
+bus_station,bus station,bus,transportation
+cafe,cafe,food,drink,meal,coffee
+campground,campground,camping,recreation
+car_dealer,car dealer,car
+car_rental,car rental,car
+car_repair,car repair,car
+car_wash,car wash,car
+casino,casino,gambling,gaming,entertainment
+cemetery,cemetery
+church,church,religious
+city_hall,city hall,government
+clothing_store,clothing store,clothes,shopping
+convenience_store,convenience store,food,drink,lottery,cigarettes
+courthouse,courthouse,legal
+dentist,dentist,medical
+department_store,department store,clothes,shopping
+doctor,doctor,medical
+electrician,electrician,service
+electronics_store,electronics store,electronics ,shopping
+embassy,embassy,government
+establishment,establishment
+finance,finance,money
+fire_station,fire station,safety
+florist,florist,flowers,shopping
+food,food
+funeral_home,funeral home
+furniture_store,furniture store,furniture
+gas_station,gas station,car,gas
+general_contractor,general contractor,service
+geocode,geocode
+grocery_or_supermarket,grocery,supermarket,food
+gym,gym,fitness
+hair_care,hair care,beauty,hair
+hardware_store,hardware store,hardware
+health,health
+hindu_temple,hindu temple,religious
+home_goods_store,home goods store,shopping
+hospital,hospital,medical
+insurance_agency,insurance agency,service
+jewelry_store,jewelry store,jewelry
+laundry,laundry
+lawyer,lawyer,service
+library,library,books,reading
+liquor_store,liquor store,drink,alcohol 
+local_government_office,government
+locksmith,locksmith,service
+lodging,lodging,hotel
+meal_delivery,meal delivery,food
+meal_takeaway,meal takeaway,food
+mosque,mosque,religious
+movie_rental,movie rental,entertainment
+movie_theater,movie theater,entertainment
+moving_company,moving company,service
+museum,museum,art ,history,entertainment,tourism
+night_club,night club,music,entertainment
+painter,painter,art
+park,park,entertainment,recreation
+parking,parking
+pet_store,pet store,animals
+pharmacy,pharmacy,medical
+physiotherapist,physiotherapist,medical
+place_of_worship,place of worship,religious
+plumber,plumber,service
+police,police,safety
+post_office,post office,mail
+real_estate_agency,real estate agency
+restaurant,restaurant,food ,entertainment
+roofing_contractor,roofing contractor,service
+rv_park,rv park
+school,school,education
+shoe_store,shoe store,shoes,shopping
+shopping_mall,shopping mall,shopping
+spa,spa,health,beauty
+stadium,stadium,sports,entertainment
+storage,storage
+store,store,shopping
+subway_station,subway station,transportation
+synagogue,synagogue,religious
+taxi_stand,taxi stand,transportation
+train_station,train station,transportation
+travel_agency,travel agency,service
+university,university,education
+veterinary_care,veterinary care,animals,medical
+zoo ,zoo ,animals,tourism,entertainment

@@ -1,0 +1,4 @@
+CSV files in this directory should map an external API's category to one
+or more Scenable tags. They are expected to have the following format:
+
+source_category,tag1[,tag2[,tag3[,...]]]
