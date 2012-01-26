@@ -2,8 +2,39 @@
 
 {% block content %}
 
-	<section id="{% block single_id %}{% endblock %}">
-		{% block single_details %}{% endblock %}
+	<section id="{% block single_id %}{% endblock %}" class="single-item">
+
+		<header>
+
+			<div class="item-thumb-container">
+				<img class="single-item-thumb" width="80" height="80" alt="{% block single_item_image_alt %}{% endblock %}" src="{% block single_item_image_url %}{% endblock %}" />
+			</div>
+
+			<h2 class="single-item-title">
+		  		{% block single_item_title %}
+			    {% endblock %}
+			</h2>
+
+		</header>
+		
+		<section class="item-content-container">
+
+		    <div class="item-desc">
+		    	{% block single_item_content %}
+		    	{% endblock %}
+		    </div>
+		</section>
+
+		<div class="item-tags">
+			<ul class="item-tags-list">
+				{% block single_item_tags %}{% endblock %}
+			</ul>
+		</div>
+
+		<footer>
+			{% block single_item_footer %}{% endblock %}
+		</footer>
+
 	</section>
 
 {% endblock %}

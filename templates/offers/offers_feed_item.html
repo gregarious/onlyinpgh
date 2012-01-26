@@ -5,11 +5,11 @@
 {% block feed_item_content %}
 
 	{% if o.point_value %}
-		<li>{{ o.point_value }}</li>
+		<p>{{ o.point_value }}</p>
 	{% endif %}
 	
 	{% if o.sponsor %}
-  		<li>{{ o.sponsor }}</li>
+  		<p>{{ o.sponsor }}</p>
   	{% endif %}
 
   	<!-- <li>o.expiration_date</li> -->
@@ -23,13 +23,9 @@
 {% block feed_item_image_url %}
 
 	{% if o.image_url %}
-
 		{{ o.image_url }}
-
-		{% block feed_item_image_alt %}
-			{{ o.description }}
-		{% endblock %}
-
+	{% else %}
+		http://www.nasm.si.edu/images/collections/media/thumbnails/DefaultThumbnail.gif
 	{% endif %}
 
 {% endblock %}
@@ -37,5 +33,5 @@
 {% endcomment %}
 
 {% block feed_item_more_url %}
-	{{ ROOT_DIR }}/specials/{{ o.id }}/
+	/specials/{{ o.id }}/
 {% endblock %}

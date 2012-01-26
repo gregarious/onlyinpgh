@@ -37,7 +37,10 @@
 
   <!-- more tags for your 'head' to consider https://gist.github.com/849231 -->
 
-  <!-- Main Stylesheet -->
+  <!-- jQuery Mobile -->
+  <link rel="stylesheet" href="http://code.jquery.com/mobile/1.0/jquery.mobile-1.0.min.css" />
+
+  <!-- Scenable Styles -->
   <link rel="stylesheet" href="/static/css/style.css?v=1">
 
   <!-- All JavaScript at the bottom, except for Modernizr which enables HTML5 elements & feature detects -->
@@ -49,27 +52,27 @@
 
 <body>
 
-  <header class="site-header">
-    {% block site_header %}{% endblock %}
-  </header>
+  <div data-role="page" id="wrapper">
 
-  <article class="main">
-
-    <header class="page-header">
-      <h2>{% block page_header %}{% endblock %}</h2>
+    <header data-role="header" class="site-header">
+      <h1 id="siteTitle">Oakland Scene</h1>
+      <div id="mapLink">
+        <a href="/map" id="switchToMapMode" data-role="button"><span class="ui-btn-inner ui-btn-corner-all"></span></a>
+      </div>
+      {% block site_header_content %}{% endblock %}
     </header>
 
-    {% block content %}{% endblock %}
+    <article data-role="content" class="site-content">
 
-    <footer class="page-footer">
-      {% block page_footer %}{% endblock %}
+      {% block content %}{% endblock %}
+
+    </article>
+
+    <footer data-role="footer" class="site-footer ui-bar-c">
+      {% block site_footer %}{% endblock %}
     </footer>
 
-  </article> <!-- .main -->
-
-  <footer class="site-footer">
-    {% block site_footer %}{% endblock %}
-  </footer>
+  </div><!-- #wrapper -->
 
   <!-- JavaScript at the bottom for fast page loading -->
 
@@ -78,6 +81,14 @@
   <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.js"></script>
   <script>window.jQuery || document.write('<script src="/static/js/libs/jquery-1.7.1.js"><\/script>')</script>
 
+  <!-- Sceneable Scripts -->
+  <script src="/static/js/script.js"></script>
+
+
+  <!-- jQuery Mobile -->
+  <script src="http://code.jquery.com/mobile/1.0/jquery.mobile-1.0.js"></script>
+  <!--<script src="/static/js/libs/jquery.mobile-1.0.js"></script>-->
+
   <!-- Google Maps API v3
   <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=false"></script> -->
 
@@ -85,9 +96,6 @@
   <!-- scripts concatenated and minified via ant build script -->
   <script src="/static/js/mylibs/helper.js"></script>
   <!-- end concatenated and minified scripts-->
-
-  <!-- Sceneable Scripts -->
-  <script src="/static/js/script.js"></script>
 
   <script>
     // iPhone Scale Bug Fix, read this when using http://www.blog.highub.com/mobile-2/a-fix-for-iphone-viewport-scale-bug/

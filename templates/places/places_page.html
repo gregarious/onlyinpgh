@@ -1,5 +1,12 @@
 {% extends "page.html" %}
 
+<script>
+	// WHATS GOING ON HER!
+	$('#showSeachForm').click(function(){
+		$('.page-search-form').slideUp(300);
+	});
+</script>
+
 {% block content %}
 
 	{% include "places/places_feed.html" %}

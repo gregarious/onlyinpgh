@@ -6,22 +6,22 @@
 
 {% block feed_item_content %}
 
-	{%  if a.source_name %}
-		<li>
+	{% if a.source_name %}
+		<p>
 			{% if a.source_url %}
-				<a href="{{ a.source_url }}">{{ a.source_name }}</a>
+				{{ a.source_name }}
 			{% else %}
 				{{ a.source_name }}	
 			{% endif %}
-		</li>
+		</p>
 	{% endif %}
 
 	{% if a.pub_date %}
-		<li>{{ a.pub_date }}</li>
+		<p>{{ a.pub_date }}</p>
 	{% endif %}
 
 	{% if a.short_description %}
-		<li>{{ a.short_description }}</li>
+		<p>{{ a.short_description }}</p>
 	{% endif %}
 
 {% endblock %}
@@ -32,14 +32,10 @@
 -----------------------------------------
 {% block feed_item_image_url %}
 
-	{% if o.image_url %}
-
-		{{ o.image_url }}
-
-		{% block feed_item_image_alt %}
-			{{ o.description }}
-		{% endblock %}
-
+	{% if a.image_url %}
+		{{ a.image_url }}
+	{% else %}
+		http://www.nasm.si.edu/images/collections/media/thumbnails/DefaultThumbnail.gif
 	{% endif %}
 
 {% endblock %}
@@ -47,5 +43,5 @@
 {% endcomment %}
 
 {% block feed_item_more_url %}
-	{{ ROOT_DIR }}/news/{{ a.id }}/
+	/news/{{ a.id }}/
 {% endblock %}

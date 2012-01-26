@@ -1,30 +1,27 @@
-<li class="feed-item">
-	<article class="feed-item-content-container">
-
-	  	<h4 class="feed-item-title">
-	  		{% block feed_item_title %}
-		    {% endblock %}
-		</h4>
-
-	  	<div class="feed-item-content">
-		    <ul>
-		    	{% block feed_item_content %}
-		    	{% endblock %}
-		    </ul>
-
-	    	<div class="feed-item-thumb">
-				<img class="thumbnail" width="100" height="100" alt="{% block feed_item_image_alt %}{% endblock %}" src="{% block feed_item_image_url %}{% endblock %}" />
-		    </div>
-
-		    <li><a href="{% block feed_item_more_url %}{% endblock %}" class="load-single-place">More...</a></li>
-
+<li class="item">
+	<a href="{% block feed_item_more_url %}{% endblock %}" class="load-single-place">
+		
+		<div class="item-thumb-container">
+			<img class="item-thumb" width="80" height="80" alt="{% block feed_item_image_alt %}{% endblock %}" src="{% block feed_item_image_url %}{% endblock %}" />
 		</div>
 
-		<div class="feed-item-tags">
-			<ul class="tags-list">
+		<section class="item-content-container">
+		  	<h3 class="item-title">
+		  		{% block feed_item_title %}
+			    {% endblock %}
+			</h3>
+
+		    <div class="item-desc">
+		    	{% block feed_item_content %}
+		    	{% endblock %}
+		    </div>
+		</section>
+
+		<div class="item-tags">
+			<ul class="item-tags-list">
 				{% block feed_item_tags %}{% endblock %}
 			</ul>
 		</div>
-
-	</article>
+		
+	</a>
 </li>

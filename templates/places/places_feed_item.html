@@ -5,19 +5,19 @@
 {% block feed_item_content %}
 
 	{% if p.location.address %}
-		<li>{{ p.location.address }}</li>
+		<p>{{ p.location.address }}</p>
 	{% endif %}
 
 	{% if p.hours %}
- 		<li>{{ p.hours }}</li>
+ 		<p>{{ p.hours }}</p>
  	{% endif %}
 
  	{% if p.phone %}
-  		<li>{{ p.phone }}</li>
+  		<p>{{ p.phone }}</p>
 	{% endif %}
 
 	{% if p.description %}
-  		<li>{{ p.description }}</li>
+  		<p>{{ p.description }}</p>
   	{% endif %}
 
 {% endblock %}
@@ -26,6 +26,8 @@
 
 	{% if p.image_url %}
 		{{ p.image_url }}
+	{% else %}
+		http://www.nasm.si.edu/images/collections/media/thumbnails/DefaultThumbnail.gif
 	{% endif %}
 
 {% endblock %}
@@ -35,5 +37,5 @@
 {% endblock %}
 
 {% block feed_item_more_url %}
-	{{ ROOT_DIR }}/places/{{ p.id }}/
+	/places/{{ p.id }}/
 {% endblock %}

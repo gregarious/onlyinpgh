@@ -224,132 +224,133 @@ td { vertical-align: top; }
 /* COLORS ---------- */
 
 
-
-
 /* 1 ROOT ---------- */
 
-section {
-  
+body, #wrapper{
+
 }
 
 /* 2 HEADINGS ---------- */
+
+#globalHeading {
+  .column(10);
+}
+
+#siteTitle {
+  float: left;
+  font-size: 1.7em;
+  margin-left: 0.6em;
+}
+
+#mapLink {
+  float: right;
+  margin-right: 1em;
+  img {
+    padding: 0.6em;
+  }
+}
+
 /* 3 TYPOGRAPHY ---------- */
 /* 4 LINKS ---------- */
 /* 5 FIGURES & IMAGES ---------- */
-/* 6 TABLES ---------- */
 /* 7 FORMS ---------- */
-/* 8 HEADER ---------- */
 
-.site-header {
+.page-search-form {
+  display: none;
+}
+
+.page-options {
+  .column(12);
+  div {
+    .column(6);
+  }
+}
+
+/* 8 BASE ---------- */
+
+.site-content {
   .clearfix;
-  left: 0;
-  right: 0;
-  position: fixed;
-  z-index: 9000;  
-  background-color: #A9D5E4;
+  overflow: visible;
 }
 
 .site-footer {
-  .column(12);
-  background-color: #A9D5E4;
+  margin-top: 2em;
+  p {
+    font-weight: normal; 
+    margin-left: 1em;
+  }
+
 }
+
 
 /* 9 NAVIGATION ---------- */
 
-.global-nav, .feed-item-tags, .page-utility-nav {
+#homepageNav {
+
+  a {  
+    .column(5.3);
+    cursor: pointer;
+    font-size: 1.5em;
+    margin: @total-width*((@gutter-width*1.5)/@_gridsystem-width);
+    padding: @total-width*((@gutter-width*5)/@_gridsystem-width) 0;
+    .rounded(0.6em);
+    text-align: center;
+
+  }
+}
+
+#globalNav {
 
   .column(12);
 
-  li {
+  li a {
+    font-size: 0.8em;
+    &:visited {
+      color: #fff;
 
-    cursor: pointer;
-    float: left;
-    list-style-type: none;
-    padding: 0.5em;
-    text-decoration: underline;
-
-    &:hover {
-      background-color: #ccc;
     }
-
-    &:active {
-      background-color: #aaa;
-    } 
-       
-  }
-  
-  .selected-menu-item {
-
-    background-color: #999;
-
-    &:hover {
-      background-color: #999;
-    }
-
   }
 
 }
 
-.selected-menu-item {
-  background-color: #999;
+#switchToMapMode {
+  margin-top: 0.5em;
+  padding: 0.3em;
+  span {
+    background-color: white;
+    background-image: url("/static/img/icons/103-map.png");
+  }
 }
 
-/* 10 MAIN ---------- */
+/* 10 CONTENT ---------- */
 
-.main {
-  background-color: #f3f3f3;
-  .column(9);
-}
-
-.sidebar {
-  background-color: #ccc;
-  .column(3);
-}
-
-.main, .sidebar, .site-footer {
-  position: relative;
-  top: 10em;
+.page-header {
+  .column(12);
+  background-color: green;
 }
   
 /* 11 FEEDS ---------- */
 
-.feed {
-  background-color: #aaa;
-  .clearfix;
-  .column(12);
-  .rounded(0.5em);
-}
-
-.feed-item {
+.item {
   .column(6);
-  .rounded(0.2em);
 }
 
-.feed-item-content-container {
-  background-color: #fff;
-  .clearfix;
-  margin: 0.5em;
-  padding: 0.5em;
+.item-title {
+  font-size: 1.1em;
 }
 
-.feed-item-title {
-  margin: 0 0 0.5em 0;
-  padding: 0.2em;
-  background-color: #f1f1f1;
+.item-content-container {
+  margin: 0 10px;
 }
 
-.feed-item-content {
-  .column(9);
-}
-
-.feed-item-thumb {
-  .column(3);
+.item-thumb-container {
+  float: left;
+  height: 80px;
+  margin: 1em 1.2em 0 0;
   overflow: hidden;
+  width: 80px;
 }
 
-.feed-footer {
-  .column(12);
-}
 
 /* 11 CALENDAR ---------- */
 
@@ -380,41 +381,19 @@ section {
 
 /* 12 UTILITY ---------- */
 
-#modalMask {
-  position:absolute;
-  left:0;
-  top:0;
-  z-index:9000;
-  background-color:#000;
-  display:none;
+
+
+/* 13 SEARCH ---------- */
+
+.page-search {
+  .column(12);
 }
 
-.window {
-  position:absolute;
-  left:0;
-  top:0;
-  width:30%; 
-  height:30%;
-  display:none;
-  z-index:9999;
-  padding:20px;
-}
-
-#grabbitModal {
-  padding:10px;
-  background-color:#ffffff;
-}
-
-
-/* 13 CONTENTINFO ---------- */
 /* 14 GLOBAL OBJECTS ---------- */
 /* 15 VENDOR-SPECIFIC ---------- */
 /* 16 MODERNIZR ---------- */
 /* 17 TEMPLATE SPECIFICS ---------- */
 /* 18 MEDIA QUERIES ---------- */
-
-
-
 
 /*
  * Media queries for responsive design https://github.com/shichuan/mobile-html5-boilerplate/wiki/The-Style
@@ -423,9 +402,8 @@ section {
 /* Styles for mobile ----------- */
 
 @media screen and (max-width: 720px) {
-  .feed-item, .sidebar, .main {
+  .item {
     .column(12);
-    margin-bottom: 1em;
   }
 }
 

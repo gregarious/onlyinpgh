@@ -1,15 +1,40 @@
 {% extends "single.html" %}
 
-{% block page_header %}
+{% block single_id %}placeSingle{% endblock %}
+
+{% block single_item_title %}{{ p.name }}{% endblock %}
+
+{% block single_item_content %}
+
+	{% if p.location.address %}
+		<p>{{ p.location.address }}</p>
+	{% endif %}
+
+	{% if p.hours %}
+ 		<p>{{ p.hours }}</p>
+ 	{% endif %}
+
+ 	{% if p.phone %}
+  		<p>{{ p.phone }}</p>
+	{% endif %}
+
+	{% if p.description %}
+  		<p>{{ p.description }}</p>
+  	{% endif %}
+
+{% endblock %}
+
+{% block single_item_image_url %}
+
+	{% if p.image_url %}
+		{{ p.image_url }}
+	{% else %}
+		http://www.nasm.si.edu/images/collections/media/thumbnails/DefaultThumbnail.gif
+	{% endif %}
+
+{% endblock %}
+
+{% block single_item_image_alt %}
 	{{ p.name }}
 {% endblock %}
 
-{% block single_id %}placeSingle{% endblock %}
-
-{% block single_details %}
-	{% include "places/places_feed_item.html" %}
-{% endblock %}
-
-{% block page_footer %}
-	
-{% endblock %}

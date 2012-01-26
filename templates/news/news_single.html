@@ -1,1 +1,6 @@
 {% extends "single.html" %}
+
+{% block content %}
+	{{ a.short_description }}
+	<a href="{{ a.source_url }}" data-role="button">Go to full article...</a>
+{% endblock %}

@@ -334,155 +334,128 @@ body:after {
 /* COLORS ---------- */
 /* 1 ROOT ---------- */
 /* 2 HEADINGS ---------- */
+#globalHeading {
+  display: inline;
+  float: left;
+  width: 81.25%;
+  margin: 0 1.0416666666666665%;
+}
+#siteTitle {
+  float: left;
+  font-size: 1.7em;
+  margin-left: 0.6em;
+}
+#mapLink {
+  float: right;
+  margin-right: 1em;
+}
+#mapLink img {
+  padding: 0.6em;
+}
 /* 3 TYPOGRAPHY ---------- */
 /* 4 LINKS ---------- */
 /* 5 FIGURES & IMAGES ---------- */
-/* 6 TABLES ---------- */
 /* 7 FORMS ---------- */
-/* 8 HEADER ---------- */
-.site-header {
-  *zoom: 1;
-  *zoom: 1;
-  left: 0;
-  right: 0;
-  position: fixed;
-  z-index: 9000;
-  background-color: #A9D5E4;
+.page-search-form {
+  display: none;
 }
-.site-header:before, .site-header:after {
-  content: "";
-  display: table;
-}
-.site-header:after {
-  clear: both;
-}
-.site-footer {
-  display: inline;
-  float: left;
-  width: 97.91666666666666%;
-  margin: 0 1.0416666666666665%;
-  background-color: #A9D5E4;
-}
-/* 9 NAVIGATION ---------- */
-.global-nav, .feed-item-tags, .page-utility-nav {
+.page-options {
   display: inline;
   float: left;
   width: 97.91666666666666%;
   margin: 0 1.0416666666666665%;
 }
-.global-nav li, .feed-item-tags li, .page-utility-nav li {
-  cursor: pointer;
-  float: left;
-  list-style-type: none;
-  padding: 0.5em;
-  text-decoration: underline;
-}
-.global-nav li:hover, .feed-item-tags li:hover, .page-utility-nav li:hover {
-  background-color: #ccc;
-}
-.global-nav li:active, .feed-item-tags li:active, .page-utility-nav li:active {
-  background-color: #aaa;
-}
-.global-nav .selected-menu-item, .feed-item-tags .selected-menu-item, .page-utility-nav .selected-menu-item {
-  background-color: #999;
-}
-.global-nav .selected-menu-item:hover, .feed-item-tags .selected-menu-item:hover, .page-utility-nav .selected-menu-item:hover {
-  background-color: #999;
-}
-.selected-menu-item {
-  background-color: #999;
-}
-/* 10 MAIN ---------- */
-.main {
-  background-color: #f3f3f3;
-  display: inline;
-  float: left;
-  width: 72.91666666666666%;
-  margin: 0 1.0416666666666665%;
-}
-.sidebar {
-  background-color: #ccc;
-  display: inline;
-  float: left;
-  width: 22.916666666666664%;
-  margin: 0 1.0416666666666665%;
-}
-.main, .sidebar, .site-footer {
-  position: relative;
-  top: 10em;
-}
-/* 11 FEEDS ---------- */
-.feed {
-  background-color: #aaa;
-  *zoom: 1;
-  *zoom: 1;
-  display: inline;
-  float: left;
-  width: 97.91666666666666%;
-  margin: 0 1.0416666666666665%;
-  -webkit-border-radius: 0.5em;
-  -moz-border-radius: 0.5em;
-  border-radius: 0.5em;
-  -moz-background-clip: padding;
-  -webkit-background-clip: padding-box;
-  background-clip: padding-box;
-}
-.feed:before, .feed:after {
-  content: "";
-  display: table;
-}
-.feed:after {
-  clear: both;
-}
-.feed-item {
+.page-options div {
   display: inline;
   float: left;
   width: 47.91666666666667%;
   margin: 0 1.0416666666666665%;
-  -webkit-border-radius: 0.2em;
-  -moz-border-radius: 0.2em;
-  border-radius: 0.2em;
-  -moz-background-clip: padding;
-  -webkit-background-clip: padding-box;
-  background-clip: padding-box;
 }
-.feed-item-content-container {
-  background-color: #fff;
+/* 8 BASE ---------- */
+.site-content {
   *zoom: 1;
   *zoom: 1;
-  margin: 0.5em;
-  padding: 0.5em;
+  overflow: visible;
 }
-.feed-item-content-container:before, .feed-item-content-container:after {
+.site-content:before, .site-content:after {
   content: "";
   display: table;
 }
-.feed-item-content-container:after {
+.site-content:after {
   clear: both;
 }
-.feed-item-title {
-  margin: 0 0 0.5em 0;
-  padding: 0.2em;
-  background-color: #f1f1f1;
+.site-footer {
+  margin-top: 2em;
 }
-.feed-item-content {
+.site-footer p {
+  font-weight: normal;
+  margin-left: 1em;
+}
+/* 9 NAVIGATION ---------- */
+#homepageNav a {
   display: inline;
   float: left;
-  width: 72.91666666666666%;
+  width: 42.083333333333336%;
   margin: 0 1.0416666666666665%;
+  cursor: pointer;
+  font-size: 1.5em;
+  margin: 3.125%;
+  padding: 10.416666666666668% 0;
+  -webkit-border-radius: 0.6em;
+  -moz-border-radius: 0.6em;
+  border-radius: 0.6em;
+  -moz-background-clip: padding;
+  -webkit-background-clip: padding-box;
+  background-clip: padding-box;
+  text-align: center;
 }
-.feed-item-thumb {
-  display: inline;
-  float: left;
-  width: 22.916666666666664%;
-  margin: 0 1.0416666666666665%;
-  overflow: hidden;
-}
-.feed-footer {
+#globalNav {
   display: inline;
   float: left;
   width: 97.91666666666666%;
   margin: 0 1.0416666666666665%;
+}
+#globalNav li a {
+  font-size: 0.8em;
+}
+#globalNav li a:visited {
+  color: #fff;
+}
+#switchToMapMode {
+  margin-top: 0.5em;
+  padding: 0.3em;
+}
+#switchToMapMode span {
+  background-color: white;
+  background-image: url("/static/img/icons/103-map.png");
+}
+/* 10 CONTENT ---------- */
+.page-header {
+  display: inline;
+  float: left;
+  width: 97.91666666666666%;
+  margin: 0 1.0416666666666665%;
+  background-color: green;
+}
+/* 11 FEEDS ---------- */
+.item {
+  display: inline;
+  float: left;
+  width: 47.91666666666667%;
+  margin: 0 1.0416666666666665%;
+}
+.item-title {
+  font-size: 1.1em;
+}
+.item-content-container {
+  margin: 0 10px;
+}
+.item-thumb-container {
+  float: left;
+  height: 80px;
+  margin: 1em 1.2em 0 0;
+  overflow: hidden;
+  width: 80px;
 }
 /* 11 CALENDAR ---------- */
 .calendar-toggled {
@@ -516,29 +489,13 @@ body:after {
   height: 300px;
 }
 /* 12 UTILITY ---------- */
-#modalMask {
-  position: absolute;
-  left: 0;
-  top: 0;
-  z-index: 9000;
-  background-color: #000;
-  display: none;
+/* 13 SEARCH ---------- */
+.page-search {
+  display: inline;
+  float: left;
+  width: 97.91666666666666%;
+  margin: 0 1.0416666666666665%;
 }
-.window {
-  position: absolute;
-  left: 0;
-  top: 0;
-  width: 30%;
-  height: 30%;
-  display: none;
-  z-index: 9999;
-  padding: 20px;
-}
-#grabbitModal {
-  padding: 10px;
-  background-color: #ffffff;
-}
-/* 13 CONTENTINFO ---------- */
 /* 14 GLOBAL OBJECTS ---------- */
 /* 15 VENDOR-SPECIFIC ---------- */
 /* 16 MODERNIZR ---------- */
@@ -549,12 +506,11 @@ body:after {
  */
 /* Styles for mobile ----------- */
 @media screen and (max-width: 720px) {
-  .feed-item, .sidebar, .main {
+  .item {
     display: inline;
     float: left;
     width: 97.91666666666666%;
     margin: 0 1.0416666666666665%;
-    margin-bottom: 1em;
   }
 }
 /* Styles for desktop and large screen ----------- */

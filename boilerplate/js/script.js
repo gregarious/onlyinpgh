@@ -10,6 +10,7 @@
 
 jQuery(document).ready( function($) {
 
+	$.mobile.ajaxEnabled=false
 	/**********************/
 	/*** CALENDAR VIEWS ***/
 	/**********************/	
