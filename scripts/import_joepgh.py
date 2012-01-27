@@ -28,7 +28,8 @@ def import_all():
         if report.notices:
             for notice in report.notices:
                 if isinstance(notice,EventImportReport.EventInstanceExists):
-                    importlog.info('%s: Record for Event exists' % report.fbevent_id)
+                    pass
+                    #importlog.info('%s: Record for Event exists' % report.fbevent_id)
                 else:
                     importlog.error('%s: %s' % (report.fbevent_id,unicode(notice)))
         else:
