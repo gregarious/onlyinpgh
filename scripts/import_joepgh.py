@@ -41,8 +41,8 @@ def import_all():
 
 def run():
     try:
-        importlog.info('Org/Place import start')
+        importlog.info('JoePgh import start')
         import_all()
-        importlog.info('Org/Place import complete')
+        importlog.info('JoePgh import complete')
     except Exception as e:
         importlog.critical('Unexpected error: %s' % str(e))
