@@ -4,23 +4,34 @@
 
 {% block single_item_title %}{{ p.name }}{% endblock %}
 
-{% block single_item_content %}
+{% block single_item_header_content %}
 
-	{% if p.location.address %}
-		<p>{{ p.location.address }}</p>
-	{% endif %}
+	<ul class="single-item-details">
+		{% if p.location.address %}
+			<li>{{ p.location.address }}</li>
+		{% endif %}
 
-	{% if p.hours %}
- 		<p>{{ p.hours }}</p>
- 	{% endif %}
+		{% if p.hours %}
+	 		<li>{{ p.hours }}</li>
+	 	{% endif %}
 
- 	{% if p.phone %}
-  		<p>{{ p.phone }}</p>
-	{% endif %}
+	 	{% if p.phone %}
+	  		<li>Phone: {{ p.phone }}</li>
+		{% endif %}
 
-	{% if p.description %}
-  		<p>{{ p.description }}</p>
-  	{% endif %}
+		<li>Parking: Street</li>
+
+	</ul>
+
+{% endblock %}
+
+
+{% block single_item_tags %}
+	
+	<li>Food</li>
+	<li>Social</li>
+	<li>Fancy</li>
+	<li>Services</li>
 
 {% endblock %}
 
@@ -37,4 +48,33 @@
 {% block single_item_image_alt %}
 	{{ p.name }}
 {% endblock %}
+
+{% block single_item_content %}
+	<button id="checkIn" data-inline="true">I'm here!</button>
+	
+	{% if p.description %}
+		<section class="single-item-desc">
+			<h3>About</h3>
+	  		<p>{{ p.description|linebreaksbr|truncatewords:50|urlizetrunc:20 }}</p>
+	  	</section>
+  	{% endif %}
+
+
+{% endblock %}
+
+{% block single_item_related %}
+
+	<section class="single-item-related">
+		<h3>Specials</h3>
+		{% include "events/events_feed_item.html" %}
+	</section>
+
+	<section class="single-item-related">
+		<h3>Happenings</h3>
+		{% include "events/events_feed_item.html" %}
+	</section>
+
+{% endblock %}
+
+
 

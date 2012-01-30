@@ -2,10 +2,11 @@
 	<a href="{% block feed_item_more_url %}{% endblock %}" class="load-single-place">
 		
 		<div class="item-thumb-container">
-			<img class="item-thumb" width="80" height="80" alt="{% block feed_item_image_alt %}{% endblock %}" src="{% block feed_item_image_url %}{% endblock %}" />
+			<img class="item-thumb" height="60" width="60" alt="{% block feed_item_image_alt %}{% endblock %}" src="{% block feed_item_image_url %}{% endblock %}" />
 		</div>
 
 		<section class="item-content-container">
+		
 		  	<h3 class="item-title">
 		  		{% block feed_item_title %}
 			    {% endblock %}
@@ -15,13 +16,10 @@
 		    	{% block feed_item_content %}
 		    	{% endblock %}
 		    </div>
+				
+			{% include "tags.html" %}
+
 		</section>
 
-		<div class="item-tags">
-			<ul class="item-tags-list">
-				{% block feed_item_tags %}{% endblock %}
-			</ul>
-		</div>
-		
 	</a>
 </li>

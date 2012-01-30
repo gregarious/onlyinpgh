@@ -1,1 +1,26 @@
 {% extends "page.html" %}
+
+{% block content %}
+
+	<section id="eventsHot">
+		<header>
+			<h3>What to do..</h3>
+		</header>
+		{% include "events/events_feed.html" %}
+	</section>
+
+	<section id="specialsHot">
+		<header>
+			<h3>Specials</h3>
+		</header>
+		{% include "offers/offers_feed.html" %}
+	</section>
+
+	<section id="newsHot">
+		<header>
+			<h3>Recent News</h3>
+		</header>
+		{% include "news/news_feed.html" %}
+	</section>
+
+{% endblock %}

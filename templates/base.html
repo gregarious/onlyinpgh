@@ -56,9 +56,22 @@
 
     <header data-role="header" class="site-header">
       <h1 id="siteTitle">Oakland Scene</h1>
-      <div id="mapLink">
+      <!-- <div id="mapLink">
         <a href="/map" id="switchToMapMode" data-role="button"><span class="ui-btn-inner ui-btn-corner-all"></span></a>
-      </div>
+      </div> -->
+
+      <nav id="globalNav">
+        <select name="select-choice-a" id="select-choice-a" data-native-menu="false">
+          <option value="hot">Hot</option>
+          <option value="events">Events</option>
+          <option value="places">Places</option>
+          <option value="specials">Specials</option>
+          <option value="news">News</option>
+          <option value="jobs">Jobs</option>
+          <option value="chatter">Chatter</option>
+        </select>
+      </nav>
+
       {% block site_header_content %}{% endblock %}
     </header>
 
@@ -68,7 +81,7 @@
 
     </article>
 
-    <footer data-role="footer" class="site-footer ui-bar-c">
+    <footer data-role="footer" data-theme="d" class="site-footer">
       {% block site_footer %}{% endblock %}
     </footer>
 

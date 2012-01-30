@@ -1,6 +1,31 @@
 {% extends "single.html" %}
 
-{% block content %}
-	{{ a.short_description }}
-	<a href="{{ a.source_url }}" data-role="button">Go to full article...</a>
+{% block single_id %}newsSingle{% endblock %}
+
+{% block single_item_title %}
+	{{ a.title }}
+{% endblock %}
+
+{% block single_item_image_url %}
+
+	{% if a.image_url %}
+		{{ a.image_url }}
+	{% else %}
+		http://www.nasm.si.edu/images/collections/media/thumbnails/DefaultThumbnail.gif
+	{% endif %}
+
+{% endblock %}
+
+{% block single_item_header_content %}
+
+	<h3 id="singleNewsSource"><a href="{{ a.source_url }}">{{ a.source_name }}</a></h3>
+	<p>{{ a.dt_published }}</p>
+
+{% endblock %}
+
+{% block single_item_content %}
+	
+	<p class="single-item-desc">{{ a.short_description }}</p>
+	<a href="" data-role="button">Go to full article</a>
+
 {% endblock %}

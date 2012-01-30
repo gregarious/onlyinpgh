@@ -4,6 +4,7 @@ from django.views.generic.simple import direct_to_template
 # Uncomment the next two lines to enable the admin:
 from django.contrib import admin
 
+from onlyinpgh.chatter import views as chatter_views
 from onlyinpgh.places import views as places_views
 from onlyinpgh.events import views as events_views
 from onlyinpgh.offers import views as offers_views
@@ -20,14 +21,13 @@ urlpatterns = patterns('',
     # Uncomment the admin/doc line below to enable admin documentation:
     # url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
     url(r'^admin/', include(admin.site.urls)),
-    url(r'^$', home_views.home_page),
-
-    url(r'^hot$', home_views.hot_page),
+    url(r'^$', home_views.hot_page),
     url(r'^specials$', offers_views.offers_page),
     url(r'^news$', news_views.news_page),
     url(r'^events$', events_views.events_page),
     url(r'^places$', places_views.places_page),
     url(r'^search$', home_views.search_page),
+    url(r'^chatter$', chatter_views.chatter_posts_questions),
 
 
 

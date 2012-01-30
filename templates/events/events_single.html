@@ -1,28 +1,30 @@
 {% extends "single.html" %}
 
+{% block single_id %}eventsSingle{% endblock %}
+
 {% block single_item_title %}
 	{{ e.name }}
 {% endblock %}
 
-{% block single_id %}eventSingle{% endblock %}
+{% block single_item_header_content %}
 
-{% block single_item_content %}
+	<ul class="single-item-details">
 
-	{% if e.dtstart and e.dtend %}
- 		<p>{{ e.dtstart }} - {{ e.dtend }}</p>
- 	{% endif %}
+		{% if e.dtstart and e.dtend %}
+	 		<li>{{ e.dtstart }} - {{ e.dtend }}</li>
+	 	{% endif %}
 
- 	{% if e.place %}
-  		<p>Hosted by {{ e.place }}</p>
-	{% endif %}
+	 	{% if e.place %}
+	  		<li><a href="/places/{{ e.place.id }}">{{ e.place }}</a></li>
+		{% endif %}
 
-	{% if e.place.location.address %}
-		<p>{{ e.place.location.address }}</p>
-	{% endif %}
+		{% if e.place.location.address %}
+			<li>{{ e.place.location.address }}</li>
+		{% endif %}
 
-	{% if e.description %}
-  		<p>{{ e.description }}</p>
-  	{% endif %}
+		<li><a href="http://google.com/maps">Get directions...</a></li>
+
+	</ul>
 
 {% endblock %}
 
@@ -40,6 +42,14 @@
 	{{ e.name }}
 {% endblock %}
 
+{% block single_item_content %}
+
+	{% if e.description %}
+  		<p class="single-item-desc">{{ e.description }}</p>
+  	{% endif %}
+
+{% endblock %}
+ 
 {% block single_item_footer %}
 	
 {% endblock %}

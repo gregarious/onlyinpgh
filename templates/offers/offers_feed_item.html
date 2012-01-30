@@ -1,37 +1,29 @@
-{% extends "feed_item.html" %}
+{% comment %} {% extends "feed_item.html" %} {% endcomment %}
+<!-- Not extending feed.html because using point value instead of thumbnial - should be a better way to do this though -->
 
-{% block feed_item_title %}{{ o.description }}{% endblock %}
 
-{% block feed_item_content %}
+<li class="item">
+	<a href="/specials/{{ o.id }}/">
+		
+		<div class="item-point-value">
+			+{{ o.point_value }}
+		</div>
 
-	{% if o.point_value %}
-		<p>{{ o.point_value }}</p>
-	{% endif %}
-	
-	{% if o.sponsor %}
-  		<p>{{ o.sponsor }}</p>
-  	{% endif %}
+		<section class="item-content-container">
+		
+		  	<h3 class="item-title">
+		  		{{ o.description }}
+			</h3>
 
-  	<!-- <li>o.expiration_date</li> -->
+		    <div class="item-desc">
+				{% if o.sponsor %}
+			  		<p>{{ o.sponsor }}</p>
+			  	{% endif %}
+		    </div>
+				
+			{% include "tags.html" %}
 
-{% endblock %}
+		</section>
 
-{% comment %}
------------------------------------------
------Need a thumbnail slot in object-----
------------------------------------------
-{% block feed_item_image_url %}
-
-	{% if o.image_url %}
-		{{ o.image_url }}
-	{% else %}
-		http://www.nasm.si.edu/images/collections/media/thumbnails/DefaultThumbnail.gif
-	{% endif %}
-
-{% endblock %}
------------------------------------------
-{% endcomment %}
-
-{% block feed_item_more_url %}
-	/specials/{{ o.id }}/
-{% endblock %}
+	</a>
+</li>

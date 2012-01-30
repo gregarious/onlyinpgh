@@ -4,7 +4,7 @@
 
 {% block feed_content %}
 
-	{% for p in places|slice:":4" %}
+	{% for p in places|dictsort:"location.address" %}
 
 		{% include "places/places_feed_item.html" %}
 

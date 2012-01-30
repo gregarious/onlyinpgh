@@ -7,29 +7,25 @@
 {% block feed_item_content %}
 
 	{% if a.source_name %}
-		<p>
+		<p><em>
 			{% if a.source_url %}
 				{{ a.source_name }}
 			{% else %}
 				{{ a.source_name }}	
 			{% endif %}
-		</p>
+		</em></p>
 	{% endif %}
 
 	{% if a.pub_date %}
 		<p>{{ a.pub_date }}</p>
 	{% endif %}
 
-	{% if a.short_description %}
+	<!-- {% if a.short_description %}
 		<p>{{ a.short_description }}</p>
-	{% endif %}
+	{% endif %} -->
 
 {% endblock %}
 
-{% comment %}
------------------------------------------
------Need a thumbnail slot in object-----
------------------------------------------
 {% block feed_item_image_url %}
 
 	{% if a.image_url %}
@@ -39,8 +35,6 @@
 	{% endif %}
 
 {% endblock %}
------------------------------------------
-{% endcomment %}
 
 {% block feed_item_more_url %}
 	/news/{{ a.id }}/

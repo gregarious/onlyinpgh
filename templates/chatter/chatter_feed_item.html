@@ -1,0 +1,8 @@
+{% extends "feed_item.html" %}
+
+{% block feed_item_title %}{{ c.title }}{% endblock %}
+
+{% block feed_item_content %}
+	<p>{{ c.author }}</p>
+	<p>{{ c.content }}</p>
+{% endblock %}

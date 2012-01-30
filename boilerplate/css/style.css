@@ -331,7 +331,7 @@ body:before, body:after {
 body:after {
   clear: both;
 }
-/* COLORS ---------- */
+/* MIXINS ---------- */
 /* 1 ROOT ---------- */
 /* 2 HEADINGS ---------- */
 #globalHeading {
@@ -352,7 +352,13 @@ body:after {
 #mapLink img {
   padding: 0.6em;
 }
+.section-title {
+  font-style: italic;
+}
 /* 3 TYPOGRAPHY ---------- */
+p {
+  margin: 0.1em 0;
+}
 /* 4 LINKS ---------- */
 /* 5 FIGURES & IMAGES ---------- */
 /* 7 FORMS ---------- */
@@ -384,12 +390,9 @@ body:after {
 .site-content:after {
   clear: both;
 }
-.site-footer {
-  margin-top: 2em;
-}
 .site-footer p {
+  font-size: 0.65em;
   font-weight: normal;
-  margin-left: 1em;
 }
 /* 9 NAVIGATION ---------- */
 #homepageNav a {
@@ -407,19 +410,27 @@ body:after {
   -moz-background-clip: padding;
   -webkit-background-clip: padding-box;
   background-clip: padding-box;
+  -webkit-border-radius: 0.6em;
+  -moz-border-radius: 0.6em;
+  border-radius: 0.6em;
+  -moz-background-clip: padding;
+  -webkit-background-clip: padding-box;
+  background-clip: padding-box;
   text-align: center;
 }
 #globalNav {
-  display: inline;
-  float: left;
-  width: 97.91666666666666%;
-  margin: 0 1.0416666666666665%;
-}
-#globalNav li a {
-  font-size: 0.8em;
-}
-#globalNav li a:visited {
-  color: #fff;
+  float: right;
+  margin: 0.8em 1em 0 0;
+  /*
+  li a {
+    font-size: 0.8em;
+    &:visited {
+      color: #fff;
+
+    }
+  }
+*/
+
 }
 #switchToMapMode {
   margin-top: 0.5em;
@@ -430,64 +441,112 @@ body:after {
   background-image: url("/static/img/icons/103-map.png");
 }
 /* 10 CONTENT ---------- */
-.page-header {
-  display: inline;
-  float: left;
-  width: 97.91666666666666%;
-  margin: 0 1.0416666666666665%;
-  background-color: green;
-}
-/* 11 FEEDS ---------- */
+/* 11 ITEMS ---------- */
 .item {
   display: inline;
   float: left;
   width: 47.91666666666667%;
   margin: 0 1.0416666666666665%;
+  padding-top: 0.7em;
 }
 .item-title {
   font-size: 1.1em;
+  margin-top: 0;
+}
+.item-thumb-container, .item-point-value {
+  display: inline;
+  float: left;
+  width: 18.75%;
+  margin: 0 1.0416666666666665%;
+  overflow: hidden;
 }
 .item-content-container {
-  margin: 0 10px;
-}
-.item-thumb-container {
+  display: inline;
   float: left;
-  height: 80px;
-  margin: 1em 1.2em 0 0;
-  overflow: hidden;
-  width: 80px;
+  width: 77.08333333333334%;
+  margin: 0 1.0416666666666665%;
 }
-/* 11 CALENDAR ---------- */
-.calendar-toggled {
-  display: none;
-}
-.calendar {
-  display: inline-block;
-  width: 102.08333333333333%;
-  margin: 0 -1.0416666666666665%;
+.item-list {
   *zoom: 1;
   *zoom: 1;
+  display: inline;
+  float: left;
+  width: 97.91666666666666%;
+  margin: 0 1.0416666666666665%;
+  margin: 0.5em 0;
 }
-.calendar:before, .calendar:after {
+.item-list:before, .item-list:after {
   content: "";
   display: table;
 }
-.calendar:after {
+.item-list:after {
   clear: both;
 }
-.daily-event {
-  border-bottom: 2px #999 solid;
+.item-point-value {
+  font-size: 1.8em;
+  text-shadow: 0.1em 0.1em 0 #ccc;
 }
-.monthly-day, .weekly-day {
-  list-style-type: none;
+.item-list li, #checkIn {
+  background-color: #ccc;
+  border: 1px #999 solid;
   float: left;
-  width: 100px;
-  height: 100px;
-  border: 1px solid #999;
+  font-size: 0.8em;
+  margin-right: 3.125%;
+  padding: 0.3em;
+  -webkit-border-radius: 0.5em;
+  -moz-border-radius: 0.5em;
+  border-radius: 0.5em;
+  -moz-background-clip: padding;
+  -webkit-background-clip: padding-box;
+  background-clip: padding-box;
+  -webkit-border-radius: 0.5em;
+  -moz-border-radius: 0.5em;
+  border-radius: 0.5em;
+  -moz-background-clip: padding;
+  -webkit-background-clip: padding-box;
+  background-clip: padding-box;
+  text-align: center;
 }
-.weekly-day {
-  height: 300px;
+/* SINGLE ---------- */
+.single-item-header {
+  display: inline;
+  float: left;
+  width: 97.91666666666666%;
+  margin: 0 1.0416666666666665%;
+  margin-bottom: 0.5em;
 }
+.single-item-title {
+  font-size: 1.3em;
+  margin: 0 0 0.3em 0;
+}
+.single-item-header-content {
+  float: left;
+  margin-left: 0;
+  padding-left: 1em;
+}
+.single-item-thumb-container {
+  float: left;
+  margin: 0;
+}
+.single-item-details {
+  list-style-type: square;
+  padding-left: 1.5em;
+}
+.single-item-content-container {
+  clear: both;
+}
+.single-item-desc {
+  font-size: 1em;
+  line-height: 1.4em;
+  margin: 1em 0.5em;
+}
+.single-item-related {
+  margin-top: 1em;
+}
+.single-item-related div {
+  clear: both;
+}
+/* 11 CALENDAR ---------- */
 /* 12 UTILITY ---------- */
 /* 13 SEARCH ---------- */
 .page-search {
@@ -500,6 +559,30 @@ body:after {
 /* 15 VENDOR-SPECIFIC ---------- */
 /* 16 MODERNIZR ---------- */
 /* 17 TEMPLATE SPECIFICS ---------- */
+#offersSingle .item-point-value {
+  font-size: 2.4em;
+  margin: 0;
+}
+#singleNewsSource {
+  margin: 0 0 0.3em 0;
+}
+#eventsSingle .single-item-desc {
+  background-color: #f1f1f1;
+  border: 1px solid #e1e1e1;
+  padding: 0.5em;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  border-radius: 10px;
+  -moz-background-clip: padding;
+  -webkit-background-clip: padding-box;
+  background-clip: padding-box;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  border-radius: 10px;
+  -moz-background-clip: padding;
+  -webkit-background-clip: padding-box;
+  background-clip: padding-box;
+}
 /* 18 MEDIA QUERIES ---------- */
 /*
  * Media queries for responsive design https://github.com/shichuan/mobile-html5-boilerplate/wiki/The-Style

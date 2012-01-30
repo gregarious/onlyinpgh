@@ -1,15 +1,38 @@
-{% extends "single.html" %}
 
-{% block page_header %}
-	{{ o.description }}
-{% endblock %}
+{% extends "page.html" %}
 
-{% block single_id %}offerSingle{% endblock %}
+{% block content %}
 
-{% block single_details %}
-	{% include "offers/offers_feed_item.html" %}
-{% endblock %}
+	<section id="offersSingle" class="single-item">
 
-{% block page_footer %}
+		<header class="single-item-header">
+
+			<h2 class="single-item-title">
+			  	{{ o.description }}
+			</h2>
+
+			<div class="single-item-header-content">
+
+				<p>{{ o.sponsor }}</p>
+
+				<ul id="singleItemTags" class="item-list">
+					{% include "tags.html" %}
+				</ul>
+
+			</div>
+
+			<div class="item-point-value">
+				+{{ o.point_value }}
+			</div>
+
+		</header>
+		
+		<section class="single-item-content-container">
+	    
+			<button>Grabbit!</button>
+
+		</section>
 	
+	</section>
+
 {% endblock %}

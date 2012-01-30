@@ -10,7 +10,15 @@
 
 jQuery(document).ready( function($) {
 
-	$.mobile.ajaxEnabled=false
+
+	$('#select-choice-a').change( function() {
+
+		var menuItem = $(this).attr('value');		
+		window.location = "/" + menuItem;
+
+	});
+	
+
 	/**********************/
 	/*** CALENDAR VIEWS ***/
 	/**********************/	
