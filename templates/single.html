@@ -1,13 +1,16 @@
 {% extends "page.html" %}
 
 {% block page_nav %}
-	<nav data-role="navbar" class="page-nav">
+
+	{% include "page_nav.html" %}
+	<!-- <nav data-role="navbar" class="page-nav">
       <ul>
-      	<li><a href="" rel="external">I'm here!</a></li>
+      	<li><a href="" rel="external">&larr; Back</a></li>
       	<li><a href="/post-form" rel="dialog">Post about it</a></li>
+      	<li><a href="" rel="external">I'm here!</a></li>
       	<li><a href="" rel="external">Add to Faves</a></li>
       </ul>
-    </nav>
+    </nav> -->
 {% endblock %}
 
 {% block content %}

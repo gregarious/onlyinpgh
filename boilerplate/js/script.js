@@ -16,12 +16,25 @@ jQuery(document).ready( function($) {
 		printSelectedTags();
 	});
 
+	
+	// Make main nav select items links - somewhat a hack, will likely need to change
+	$('#select-choice-a').change( function() {
+
+		var menuItem = $(this).attr('value');		
+		window.location = "/" + menuItem;
+
+	});
+
 
 	function printSelectedTags() {
 		$('#tagSearchChoice option').each( function() {
 			$('#searchSummary').text($(this).val());
 		});
 	}
+
+	$('#expandQuickSearch').click( function() {
+		$('.quick-search').slideToggle(300);
+	})
 		
 }); // document.ready
 

@@ -4,16 +4,7 @@
   <div data-role="page" id="wrapper">
 
     <header data-role="header" class="site-header">
-      <h1 id="siteTitle">Oakland Scene</h1>
-      <div id="mapLink" class="quick-nav">
-        <a href="/map" id="switchToMapMode" data-role="button"><!-- <span class="ui-btn-inner ui-btn-corner-all"></span> -->Map</a>
-      </div>
-      <div class="quick-nav">
-        <a href="/check-in" id="switchToMapMode" data-role="button"><!-- <span class="ui-btn-inner ui-btn-corner-all"></span> -->Checkin</a>
-      </div>
-      <div class="quick-nav">
-        <a href="/filter" id="switchToMapMode" data-role="button"><!-- <span class="ui-btn-inner ui-btn-corner-all"></span> -->+ Filter</a>
-      </div>
+      <h1 id="siteTitle">Oakland !</h1>
 
       {% include "global_nav.html" %}
 
@@ -24,7 +15,7 @@
     {% block page_nav %}{% endblock %}
 
     <article data-role="content" class="site-content">
-
+    
       {% block content %}{% endblock %}
 
     </article>
