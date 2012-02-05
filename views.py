@@ -10,6 +10,10 @@ def hot_page(request):
     variables = { 'places': Place.objects.all(), 'events': Event.objects.all(), 'news': Article.objects.all(), 'offers': Offer.objects.all() }
     return render_to_response('hot.html',variables)
 
+def map_page(request):
+	variables = { 'places': Place.objects.all(), 'events': Event.objects.all(), 'news': Article.objects.all(), 'offers': Offer.objects.all() }
+	return render_to_response('map.html',variables)	
+
 # Empty template for splash and search pages
 def home_page(request):
 	variables = {}

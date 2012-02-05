@@ -11,7 +11,7 @@
 	<ul class="single-item-details">
 
 		{% if e.dtstart and e.dtend %}
-	 		<li>{{ e.dtstart }} - {{ e.dtend }}</li>
+	 		<li><time datetime="">{{ e.dtstart }} - {{ e.dtend }}</time></li>
 	 	{% endif %}
 
 	 	{% if e.place %}

@@ -344,12 +344,17 @@ body:after {
   float: left;
   font-size: 1.7em;
   margin-left: 0.6em;
+  margin-right: 0;
 }
-#mapLink {
+.quick-nav {
   float: right;
   margin-right: 1em;
 }
-#mapLink img {
+.quick-nav a {
+  color: #000;
+  text-shadow: none;
+}
+.quick-nav img {
   padding: 0.6em;
 }
 .section-title {
@@ -358,6 +363,9 @@ body:after {
 /* 3 TYPOGRAPHY ---------- */
 p {
   margin: 0.1em 0;
+}
+.meta {
+  margin-top: 0.2em;
 }
 /* 4 LINKS ---------- */
 /* 5 FIGURES & IMAGES ---------- */
@@ -418,19 +426,26 @@ p {
   background-clip: padding-box;
   text-align: center;
 }
+.site-nav {
+  display: inline;
+  float: left;
+  width: 97.91666666666666%;
+  margin: 0 1.0416666666666665%;
+}
 #globalNav {
-  float: right;
-  margin: 0.8em 1em 0 0;
-  /*
-  li a {
-    font-size: 0.8em;
-    &:visited {
-      color: #fff;
-
-    }
-  }
-*/
-
+  margin: auto;
+}
+#globalNav.ui-grid-a .ui-block-a {
+  clear: none;
+}
+#globalNav li {
+  width: 14.2857142857143%;
+}
+#globalNav li a {
+  font-size: 0.8em;
+}
+#globalNav li a:visited {
+  color: #fff;
 }
 #switchToMapMode {
   margin-top: 0.5em;
@@ -509,24 +524,41 @@ p {
 }
 /* SINGLE ---------- */
 .single-item-header {
-  display: inline;
-  float: left;
-  width: 97.91666666666666%;
-  margin: 0 1.0416666666666665%;
+  *zoom: 1;
+  *zoom: 1;
   margin-bottom: 0.5em;
+}
+.single-item-header:before, .single-item-header:after {
+  content: "";
+  display: table;
+}
+.single-item-header:after {
+  clear: both;
 }
 .single-item-title {
   font-size: 1.3em;
   margin: 0 0 0.3em 0;
 }
 .single-item-header-content {
+  display: inline;
   float: left;
-  margin-left: 0;
-  padding-left: 1em;
+  width: 68.75%;
+  margin: 0 1.0416666666666665%;
+  margin-left: 1em;
 }
 .single-item-thumb-container {
+  display: inline;
+  float: left;
+  width: 22.916666666666664%;
+  margin: 0 1.0416666666666665%;
   float: left;
   margin: 0;
+}
+.single-item-thumb-container img {
+  display: block;
+  height: 9em;
+  margin: 0 auto;
+  width: 9em;
 }
 .single-item-details {
   list-style-type: square;
@@ -541,7 +573,16 @@ p {
   margin: 1em 0.5em;
 }
 .single-item-related {
+  *zoom: 1;
+  *zoom: 1;
   margin-top: 1em;
+}
+.single-item-related:before, .single-item-related:after {
+  content: "";
+  display: table;
+}
+.single-item-related:after {
+  clear: both;
 }
 .single-item-related div {
   clear: both;
@@ -583,6 +624,13 @@ p {
   -webkit-background-clip: padding-box;
   background-clip: padding-box;
 }
+.user-avatar {
+  float: left;
+  margin: 0.1em  0.3em;
+}
+.chatter-post-form {
+  margin-bottom: 2em;
+}
 /* 18 MEDIA QUERIES ---------- */
 /*
  * Media queries for responsive design https://github.com/shichuan/mobile-html5-boilerplate/wiki/The-Style
@@ -595,10 +643,30 @@ p {
     width: 97.91666666666666%;
     margin: 0 1.0416666666666665%;
   }
+  .single-item-thumb-container img {
+    height: 9em;
+    width: em;
+  }
+}
+@media screen and (max-width: 520px) {
+  .single-item-thumb-container img {
+    height: 7em;
+    width: 7em;
+  }
+}
+@media screen and (max-width: 350px) {
+  #globalNav li a {
+    font-size: 0.5em;
+    font-weight: normal;
+  }
+  .single-item-thumb-container img {
+    height: 4em;
+    width: 4em;
+  }
 }
 /* Styles for desktop and large screen ----------- */
 @media only screen and (min-width: 720px) {
-  /* Styles */
+  
 }
 /*/mediaquery*/
 /* iPhone 4, Opera Mobile 11 and other high pixel ratio devices ----------- 

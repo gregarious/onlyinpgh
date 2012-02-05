@@ -1,13 +1,22 @@
 {% extends "page.html" %}
 
+{% block page_nav %}
+	<nav data-role="navbar" class="page-nav">
+      <ul>
+      	<li><a href="" rel="external">I'm here!</a></li>
+      	<li><a href="/post-form" rel="dialog">Post about it</a></li>
+      	<li><a href="" rel="external">Add to Faves</a></li>
+      </ul>
+    </nav>
+{% endblock %}
+
 {% block content %}
 
 	<section id="{% block single_id %}{% endblock %}" class="single-item">
 
 		<header class="single-item-header">
-
 			<div class="single-item-thumb-container">
-				<img class="single-item-thumb" width="100" height="100" alt="{% block single_item_image_alt %}{% endblock %}" src="{% block single_item_image_url %}{% endblock %}" />
+				<img class="single-item-thumb" alt="{% block single_item_image_alt %}{% endblock %}" src="{% block single_item_image_url %}{% endblock %}" />
 			</div>
 
 			<div class="single-item-header-content">
@@ -23,7 +32,6 @@
 				
 			</div>
 
-
 		</header>
 		
 		<section class="single-item-content-container">
@@ -31,12 +39,10 @@
 	    	{% block single_item_content %}
 	    	{% endblock %}
 
-		</section>
-			
+		</section>			
 		
 		{% block single_item_related %}{% endblock %}	
-		
-	
+
 	</section>
 
 {% endblock %}

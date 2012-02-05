@@ -1,9 +1,38 @@
 {% extends "base.html" %}
 
-{% block site_header_content %}
-	<!-- {% include "global_nav.html" %} -->
-{% endblock %}
+{% block main_body %}
+  <div data-role="page" id="wrapper">
 
-{% block site_footer %}
-	{% include "global_footer.html" %}
+    <header data-role="header" class="site-header">
+      <h1 id="siteTitle">Oakland Scene</h1>
+      <div id="mapLink" class="quick-nav">
+        <a href="/map" id="switchToMapMode" data-role="button"><!-- <span class="ui-btn-inner ui-btn-corner-all"></span> -->Map</a>
+      </div>
+      <div class="quick-nav">
+        <a href="/check-in" id="switchToMapMode" data-role="button"><!-- <span class="ui-btn-inner ui-btn-corner-all"></span> -->Checkin</a>
+      </div>
+      <div class="quick-nav">
+        <a href="/filter" id="switchToMapMode" data-role="button"><!-- <span class="ui-btn-inner ui-btn-corner-all"></span> -->+ Filter</a>
+      </div>
+
+      {% include "global_nav.html" %}
+
+      {% block site_header_content %}{% endblock %}
+      
+    </header>
+
+    {% block page_nav %}{% endblock %}
+
+    <article data-role="content" class="site-content">
+
+      {% block content %}{% endblock %}
+
+    </article>
+
+    <footer data-role="footer" data-theme="d" class="site-footer">
+      {% include "global_footer.html" %}
+    </footer>
+
+  </div><!-- #wrapper -->
+
 {% endblock %}

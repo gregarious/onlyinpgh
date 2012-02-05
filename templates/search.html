@@ -1,26 +1,38 @@
+{% include "head.html" %}
+
+<article data-role="page">
 	
-	<button id="loadRandom">Suprise Me!</button>   
+	<header data-role="header">
+		<h1>Oakland Events Search</h1>
+	</header>
 
-	<!-- <section data-role="collapsible" class="page-search">
 
-	<h3>Search...</h3>
- -->
-	<div data-role="fieldcontain">
-		<select name="select-choice-0" id="select-choice-1" data-native-menu="false" multiple="multiple">
-			<option value="search-by-tag" data-placeholder="true">Search by tag...</option>
-			<option value="general-fun">General Fun</option>
-			<option value="food">Food</option>
-			<option value="outdoors">Outdoors</option>
-			<option value="social">Social</option>
-			<option value="arts">Arts</option>
-			<option value="entertaiment">Entertaiment</option>
-		</select>
-	</div>
+	<section data-role="content" data-theme="c">
+		    <label for="tag-search-choice">Tag search:</label>
+		    <select name="tag-search-choice" id="tagSearchChoice" multiple="multiple" data-native-menu="false">
 
-	<!-- 	<label>Address:</label>
-		<input type="text" placeholder="Location">
-		<br />
-		<label>Keyword:</label>
-		<input type="text" placeholder="Keyword">
+		    	<!-- Will actually be for t in events.tags -->
+
+		    	<option>Add some tags...</option>
+		    	<option value="food">Food</option>
+		    	<option value="sports-and-outdoors">Sports &amp; Outdoors</option>
+		    	<option value="arts">Arts</option>
+		    	<option value="music">Music</option>
+		    	<option value="social">Social</option>
+		    	<option value="fancy">Fancy</option>
+		    </select>
+
+
+		    <label for="search">Search by Keyword:</label>
+		    <input type="search" name="keyword" id="keyword" value="" />
+
+
+		<button id="submitSearch">GO!</button>
+
+		<p id="searchSummary"></p>
 	
-	</section> -->
+	</section>
+
+</article>
+
+{% include "foot.html" %}

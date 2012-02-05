@@ -236,9 +236,6 @@ td { vertical-align: top; }
 
 /* 1 ROOT ---------- */
 
-body, #wrapper{
-
-}
 
 /* 2 HEADINGS ---------- */
 
@@ -250,11 +247,18 @@ body, #wrapper{
   float: left;
   font-size: 1.7em;
   margin-left: 0.6em;
+  margin-right: 0;
 }
 
-#mapLink {
+.quick-nav {
   float: right;
   margin-right: 1em;
+
+  a {
+    color: #000;
+    text-shadow: none;
+  }
+
   img {
     padding: 0.6em;
   }
@@ -268,6 +272,10 @@ body, #wrapper{
 
 p {
   margin: 0.1em 0;
+}
+
+.meta {
+  margin-top: 0.2em;
 }
 
 /* 4 LINKS ---------- */
@@ -318,19 +326,29 @@ p {
   }
 }
 
+.site-nav {
+  .column(12);  
+}
+
 #globalNav {
+  
+  margin: auto;
 
-  float: right;
-  margin: 0.8em 1em 0 0;
-/*
-  li a {
-    font-size: 0.8em;
-    &:visited {
-      color: #fff;
-
-    }
+  &.ui-grid-a .ui-block-a {
+    clear: none;
   }
-*/
+
+  li {
+    width: 14.2857142857143%;
+    a {
+    font-size: 0.8em;
+      &:visited {
+        color: #fff;
+      }
+    }
+
+  }
+
 }
 
 #switchToMapMode {
@@ -343,7 +361,6 @@ p {
 }
 
 /* 10 CONTENT ---------- */
-
 
   
 /* 11 ITEMS ---------- */
@@ -360,7 +377,6 @@ p {
 
 .item-thumb-container, .item-point-value {
   .column(2.5);
-  
   overflow: hidden;
 }
 
@@ -393,7 +409,8 @@ p {
 /* SINGLE ---------- */
 
 .single-item-header {
-  .column(12);
+  //.column(12);
+  .clearfix;
   margin-bottom: 0.5em;
 }
 
@@ -403,14 +420,22 @@ p {
 }
 
 .single-item-header-content {
-  float: left;
-  margin-left: 0;
-  padding-left: 1em;
+  .column(8.5);
+  margin-left: 1em;
 }
 
 .single-item-thumb-container {
+  .column(3);
   float: left;
   margin: 0;  
+
+  img {
+    display: block;
+    height: 9em;
+    margin: 0 auto;    
+    width: 9em;
+  }
+
 }
 
 .single-item-details {
@@ -429,7 +454,7 @@ p {
 }
 
 .single-item-related {
-
+  .clearfix;
   div {
     clear: both;  
   }
@@ -470,6 +495,15 @@ p {
   .rounded(10px);
 }
 
+.user-avatar {
+  float: left;
+  margin: 0.1em  0.3em;
+}
+
+.chatter-post-form {
+  margin-bottom: 2em;
+}
+
 /* 18 MEDIA QUERIES ---------- */
 
 /*
@@ -482,13 +516,40 @@ p {
   .item {
     .column(12);
   }
+
+  .single-item-thumb-container img {
+      height: 9em;
+      width: em;
+  }
+}
+
+@media screen and (max-width: 520px){
+
+  .single-item-thumb-container img {
+    height: 7em;
+    width: 7em;
+  }
+  
+}
+
+@media screen and (max-width: 350px) {
+
+  #globalNav li a {
+    font-size: 0.5em;
+    font-weight: normal;
+  }
+
+  .single-item-thumb-container img {
+      height: 4em;
+      width: 4em;
+  }
+
 }
 
 /* Styles for desktop and large screen ----------- */
 
 @media only screen and (min-width: 720px) {
 
-  /* Styles */
 
 
 }/*/mediaquery*/

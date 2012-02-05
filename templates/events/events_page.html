@@ -1,8 +1,16 @@
 {% extends "page.html" %}
 
-{% block content %}
+{% block page_nav %}
+	<nav data-role="navbar" class="page-nav">
+	  <ul>
+	  	<li><a href="/search" data-rel="dialog">Search</a></li>
+	  	<li><a href="/search">Suprise Me!</a></li>
+	    <li><a href="/search">Calendar View</a></li>
+	  </ul>
+	</nav>
+{% endblock %}
 
-	{% include "search.html" %}
+{% block content %}
 
 	{% include "events/events_feed.html" %}
 

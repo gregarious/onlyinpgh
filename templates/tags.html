@@ -1,8 +1,7 @@
 <div class="item-tags">
 	<ul class="item-list">	
-		<li>Food</li>
-		<li>Social</li>
-		<li>Fancy</li>
-		<li>Services</li>
+		{% for t in tags %}
+			<li>{{ t.name }}</li>
+		{% endfor %}
 	</ul>
 </div>
