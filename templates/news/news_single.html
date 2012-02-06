@@ -16,6 +16,10 @@
 
 {% endblock %}
 
+{% block page_nav %}
+	{% include "page_nav.html" %}
+{% endblock %}
+
 {% block single_item_header_content %}
 
 	<h3 id="singleNewsSource"><a href="{{ a.source_url }}">{{ a.source_name }}</a></h3>
