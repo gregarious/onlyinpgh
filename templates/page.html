@@ -5,14 +5,18 @@
 
     <header data-role="header" class="site-header">
       <h1 id="siteTitle">Oakland !</h1>
-
-      {% include "global_nav.html" %}
-
+      <nav class="quick-nav">
+        <ul>
+          <li id="switchToMapMode" data-role="button" data-inline="true" data-icon="grid"></li>
+          <li id="search" data-role="button" data-inline="true" data-icon="search"></li>
+        </ul>
+        <div 
+      </nav>
       {% block site_header_content %}{% endblock %}
-      
     </header>
-
+    
     {% block page_nav %}{% endblock %}
+    
 
     <article data-role="content" class="site-content">
     
