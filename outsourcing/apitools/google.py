@@ -418,4 +418,4 @@ class GoogleGeocodingResult(object):
             return None
         return (geocoding['lat'],geocoding['lng'])
 
-OIP_PLACES_ACCESS_TOKEN = 'AIzaSyC7INTXYluYDoz0yZRX89jLORKJEGeQeCY'
+OIP_PLACES_ACCESS_TOKEN = 'AIzaSyCIjgYeOiTFpVHHtT9x7rZ43SEtF-mgFP8'
