@@ -1,6 +1,6 @@
 # Django settings for onlyinpgh project.
 
-import os
+import os, datetime
 # import settings that differ based on deployment
 import settings_local
 
@@ -114,6 +114,7 @@ INSTALLED_APPS = (
     'django.contrib.admin',
     # Uncomment the next line to enable admin documentation:
     # 'django.contrib.admindocs',
+    'south',
     'django_extensions',
     'onlyinpgh.places',
     'onlyinpgh.events',
@@ -131,6 +132,7 @@ INSTALLED_APPS = (
 # the site admins on every HTTP 500 error.
 # See http://docs.djangoproject.com/en/dev/topics/logging for
 # more details on how to customize your logging configuration.
+_timestamp = datetime.datetime.now().strftime('%Y.%m.%d.%H.%M.%S.%f')
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
@@ -148,29 +150,36 @@ LOGGING = {
             'level': 'DEBUG',
             'class': 'logging.FileHandler',
             'formatter': 'verbose',
-            # Lara:
-            'filename': '/Volumes/OSX/Lara/Dropbox/Sites/onlyinpgh/logs/debug.log'
-            # Greg:
-            #'filename': '/Users/gdn/Sites/onlyinpgh/logs/debug.log'
+            'filename': to_abspath('logs/debug.log')
         },
         'resolve_file': {
             'level': 'DEBUG',
             'class': 'logging.FileHandler',
             'formatter': 'verbose',
-             # Lara:
-            'filename': '/Volumes/OSX/Lara/Dropbox/Sites/onlyinpgh/logs/resolve.log'
-            # Greg:
-            #'filename': '/Users/gdn/Sites/onlyinpgh/logs/resolve.log'
+            'filename': to_abspath('logs/resolve.log')
         },
         'outsourcing_file': {
             'level': 'DEBUG',
             'class': 'logging.FileHandler',
             'formatter': 'verbose',
-             # Lara:
-            'filename': '/Volumes/OSX/Lara/Dropbox/Sites/onlyinpgh/logs/outsourcing.log'
-            # Greg:
-            #'filename': '/Users/gdn/Sites/onlyinpgh/logs/outsourcing.log'
+            'filename': to_abspath('logs/outsourcing.log')
         },
+        'fb_import_file': {
+            'level': 'DEBUG',
+            'class': 'logging.FileHandler',
+            'formatter': 'simple_timestamped',
+            'filename': to_abspath('logs/imports/facebook_%s.log' % _timestamp),
+            'delay': True,      # only open if message is emitted
+            'mode': 'w'
+        },
+        'ical_import_file': {
+            'level': 'DEBUG',
+            'class': 'logging.FileHandler',
+            'formatter': 'simple_timestamped',
+            'filename': to_abspath('logs/imports/ical_%s.log' % _timestamp),
+            'delay': True,      # only open if message is emitted
+            'mode': 'w'
+        }
     },
     'loggers': {
         'django.request': {
@@ -193,6 +202,16 @@ LOGGING = {
             'level':'DEBUG',
             'propagate': False
         },
+        'onlyinpgh.fb_import': {
+            'handlers': ['console','fb_import_file'],
+            'level':'DEBUG',
+            'propagrate': False
+        },
+        'onlyinpgh.ical_import': {
+            'handlers': ['console','ical_import_file'],
+            'level':'DEBUG',
+            'propagrate': False
+        },
     },
     'formatters': {
         'verbose': {
@@ -200,7 +219,10 @@ LOGGING = {
         },
         'simple': {
             'format': '%(levelname)s %(message)s'
-        }
+        },
+        'simple_timestamped': {
+            'format': '%(levelname)s %(asctime)s %(message)s'  
+        },
     }
 }
 

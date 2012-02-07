@@ -77,3 +77,44 @@ class LocationModelTest(TestCase):
         l = self.valid_location_base
         l.latitude = None
         self.assertRaises(ValidationError,l.save)                
+
+class CloseLocationManagerTest(TestCase):
+    def setUp(self):
+        Location.objects.create(address='5467 Penn Ave',town='Pittsburgh',state='PA',
+                                postcode='15206',latitude=40.464751,longitude=-79.93344)
+        Location.objects.create(address='5469 Penn Ave',town='Pittsburgh',state='PA',
+                                postcode='15206',latitude=40.464598,longitude=-79.933881)
+        Location.objects.create(address='5151 Penn Ave',town='Pittsburgh',state='PA',
+                                postcode='15206',latitude=40.464948,longitude=-79.940899)
+
+    def test_get_close(self):
+        lat,lng = 40.464237,-79.932940
+        try:
+            Location.close_manager.get_close(address='5467 Penn Ave',latitude=lat,longitude=lng)
+        except Location.DoesNotExist:
+            self.fail('close_get query failed.')
+
+        # try two tests with the bounds too narrow to find. these should fail to find objects
+        with self.assertRaises(Location.DoesNotExist):
+            Location.close_manager.get_close(address='5467 Penn Ave',latitude=lat,longitude=lng,
+                                        _close_options={'lat_error':1e-4})
+        with self.assertRaises(Location.DoesNotExist):
+            Location.close_manager.get_close(address='5467 Penn Ave',latitude=lat,longitude=lng,
+                                        _close_options={'lng_error':1e-4})
+
+        with self.assertRaises(Location.MultipleObjectsReturned):
+            Location.close_manager.get_close(postcode='15206',latitude=lat,longitude=lng,
+                                        _close_options={'assert_single_match':True})
+
+    def test_get_close_or_create(self):
+        lat,lng = 40.464237,-79.932940
+        l,created = Location.close_manager.get_close_or_create(address='5467 Penn Ave',latitude=lat,longitude=lng)
+        self.assertFalse(created)
+        l,created = Location.close_manager.get_close_or_create(latitude=lat,longitude=lng)
+        self.assertFalse(created)
+        
+        l,created = Location.close_manager.get_close_or_create(address='5468 Penn Ave',latitude=lat,longitude=lng)
+        self.assertTrue(created)
+        self.assertEquals(l.latitude,lat)
+        self.assertEquals(l.longitude,lng)
+        
