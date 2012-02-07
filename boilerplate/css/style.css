@@ -370,14 +370,10 @@ p {
   float: right;
   margin-right: 0.5em;
 }
-.site-nav {
-  display: inline;
-  float: left;
-  width: 97.91666666666666%;
-  margin: 0 1.0416666666666665%;
+.site-nav, .quick-nav {
+  float: right;
 }
 .quick-nav {
-  float: right;
   margin-right: 1em;
 }
 .quick-nav a {

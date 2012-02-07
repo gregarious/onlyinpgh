@@ -1,5 +1,5 @@
-<!-- 
-<nav class="site-nav" data-role="navbar">
+
+<!-- <nav class="site-nav" data-role="navbar">
   <ul id="globalNav">
     <li><a href="/" data-icon="delete"  rel="external" data-iconpos="top" data-transition="flip">Hot</a></li>
     <li><a href="/places" data-icon="grid" rel="external" data-iconpos="top" data-transition="flip">Places</a></li>
@@ -9,18 +9,25 @@
     <li><a href="/jobs" data-icon="search" rel="external" data-iconpos="top" data-transition="flip">Jobs</a></li>
     <li><a href="/chatter" data-icon="forward" rel="external" data-iconpos="top" data-transition="flip">Chatter</a></li>
   </ul>
-</nav>
+</nav> -->
 
- -->
 
 <nav id="globalNav">
-	<select name="select-choice-a" id="select-choice-a" data-native-menu="false">
-	  <option value="hot">Hot</option>
-	  <option value="events">Events</option>
-	  <option value="places">Places</option>
-	  <option value="specials">Specials</option>
-	  <option value="news">News</option>
-	  <option value="jobs">Jobs</option>
-	  <option value="chatter">Chatter</option>
-	</select>
+	<div class="quick-nav">
+	    <ul>
+	      <li id="switchToMapMode" data-role="button" data-inline="true" data-icon="grid"></li>
+	      <li id="expandSearch" data-role="button" data-inline="true" data-icon="search"></li>
+	    </ul>
+    </div>
+	<div class="site-nav">
+		<select name="select-choice-a" id="select-choice-a" data-native-menu="false">
+			<option value="hot">Hot</option>
+			<option value="events">Events</option>
+			<option value="places">Places</option>
+			<option value="specials">Specials</option>
+			<option value="news">News</option>
+			<option value="jobs">Jobs</option>
+			<option value="chatter">Chatter</option>
+		</select>
+	</div>
 </nav>
