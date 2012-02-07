@@ -160,6 +160,10 @@ def add_event_oldtypes(event):
     '''
     content = event.name + "; " + event.description
     categories = [category for category,regex in category_regex_map.items() if regex.search(content)]
+
+    if len(categories) == 0:
+        categories = ['General Fun']
+
     for category in categories:
         Meta.objects.get_or_create(event=event,
                                     meta_key='oldtype',
