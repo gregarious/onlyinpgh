@@ -8,15 +8,13 @@
       <nav class="quick-nav">
         <ul>
           <li id="switchToMapMode" data-role="button" data-inline="true" data-icon="grid"></li>
-          <li id="search" data-role="button" data-inline="true" data-icon="search"></li>
+          <li id="expandSearch" data-role="button" data-inline="true" data-icon="search"></li>
         </ul>
-        <div 
       </nav>
-      {% block site_header_content %}{% endblock %}
+      {% include "global_nav.html" %}
+      
     </header>
-    
-    {% block page_nav %}{% endblock %}
-    
+    <input type="search" id="search" placeholder="Search Scenable"></input>
 
     <article data-role="content" class="site-content">
     

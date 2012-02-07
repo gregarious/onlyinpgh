@@ -12,7 +12,12 @@ jQuery(document).ready( function($) {
 
 	$.mobile.ajaxLinksEnabled = false;
 
-	$('#submitSearch').click(function() {
+	$('#expandSearch').click( function() {
+		$('#globalNav').slideToggle(200);
+		$('#search').slideToggle(200);
+	});
+
+	/*$('#submitSearch').click(function() {
 		printSelectedTags();
 	});
 
@@ -35,7 +40,7 @@ jQuery(document).ready( function($) {
 	$('#expandQuickSearch').click( function() {
 		$('.quick-search').slideToggle(300);
 	})
-		
+		*/
 }); // document.ready
 
 
