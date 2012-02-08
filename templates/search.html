@@ -1,0 +1,51 @@
+{% include "head.html" %}
+
+<article data-role="page">
+	
+	<header data-role="header">
+		<h1>Search the Oakland Scene</h1>
+	</header>
+
+	<section data-role="content" data-theme="c">
+
+	    <label for="tag-search-choice">Search in:</label>
+	    <select name="site-search-choice" id="siteSearchChoice" multiple="multiple" data-native-menu="false">
+	    	<option>Category...</option>
+	    	<option value="everything">Everything</option>
+	    	<option value="events">Events</option>
+	    	<option value="places">Places</option>
+	    	<option value="specials">Specials</option>
+	    	<option value="chatter">Chatter</option>
+	    	<option value="news">News</option>
+	    	<option value="jobs">Jobs</option>
+	    </select>
+
+	    <label for="tag-search-choice">For:</label>
+	    <select name="tag-search-choice" id="tagSearchChoice" multiple="multiple" data-native-menu="false">
+
+	    	<!-- Maybe have tags update based on choice above? -->
+
+	    	<option>Popular tags...</option>
+	    	<option value="food">Food</option>
+	    	<option value="sports-and-outdoors">Sports &amp; Outdoors</option>
+	    	<option value="arts">Arts</option>
+	    	<option value="music">Music</option>
+	    	<option value="social">Social</option>
+	    	<option value="fancy">Fancy</option>
+	    </select>
+
+
+	    <label for="search">Find tags:</label>
+	    <input type="search" name="keyword" id="keyword" value="" />
+
+
+		<a data-role="button" data-inline="true" id="submitSearch">Submit</a>
+		<a data-role="button" data-inline="true" id="submitSearch" data-theme="b">Cancel</a>
+
+		<p id="searchSummary"></p>
+	
+	</section>
+
+</article>
+
+{% include "foot.html" %}

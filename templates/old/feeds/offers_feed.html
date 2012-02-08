@@ -4,8 +4,8 @@ template to be included inside ul#offersFeed
 
 {% for o in offers|slice:":4" %}
 
-  <li>  
-    <article class="feed-item">
+  <li class="feed-item">
+    <article class="feed-item-container">
       <h1 class="feed-item-title">{{ o.description }}</h1>
       <div class="feed-item-content">
         <ul>
@@ -20,15 +20,5 @@ template to be included inside ul#offersFeed
       </div>
     </article>
   </li>
-
-  <section id="grabbitModal" class="window">
-    <h3>Grab this coupon...</h3>
-    <p>{{ o.description }} from {{ o.sponsor }}<br />
-    Would you like to...</p>
-    <button>Pay with PayPal</button> or <button>Credit Card</button>
-    <p>You will recieve a printable receipt to redeem your coupon. You can also use your phone.</p>
-  </section>
-
-  <div id="modalMask"></div>
 
 {% endfor %}

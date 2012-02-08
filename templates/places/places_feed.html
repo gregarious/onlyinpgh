@@ -1,0 +1,14 @@
+{% extends "feed.html" %}
+
+{% block feed_id %}placesFeed{% endblock %}
+
+{% block feed_content %}
+
+	{% for p in places|dictsort:"location.address" %}
+
+		{% include "places/places_feed_item.html" %}
+
+	{% endfor %}
+
+{% endblock %}
+

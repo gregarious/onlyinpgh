@@ -1,0 +1,13 @@
+{% extends "feed.html" %}
+
+{% block feed_id %}chatterFeed{% endblock %}
+
+{% block feed_content %}
+
+	{% for c in posts %}
+
+		{% include "chatter/chatter_feed_item.html" %}
+
+	{% endfor %}
+
+{% endblock %}

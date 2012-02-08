@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+
+{% block main_body %}
+
+  <div id="wrapper">
+
+    <header id="site-header">
+      <h1 id="site-title">Oakland !</h1>
+      <nav class="quick-nav">
+        <ul>
+          <li id="switchToMapMode">Map Mode</li>
+          <li id="expandSearch">Search</li>
+        </ul>
+      </nav>
+
+      <nav id="site-nav">
+        <ul>
+          <li><a href="/" rel="external">Hot</a></li>
+          <li><a href="/events" rel="externåal" data-iconpos="top">Events</a></li>
+          <li><a href="/specials" rel="external">Specials</a></li>
+          <li><a href="/places" rel="external" data-iconpos="top">Places</a></li>
+          <li><a href="/chatter" rel="external">Chatter</a></li>
+          <li><a href="/news" rel="external">News</a></li>
+          <li><a href="/jobs" rel="external">Jobs</a></li>
+        </ul>
+      </nav>
+      
+    </header>
+
+    <input type="search" id="site-search" placeholder="Search Scenable" />
+
+    <article id="site-content">
+    
+      {% block content %}{% endblock %}
+
+    </article>
+
+    <footer id="site-footer">
+      {% include "global_footer.html" %}
+    </footer>
+
+  </div><!-- #wrapper -->
+
+{% endblock %}

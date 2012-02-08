@@ -1,0 +1,41 @@
+{% extends "feed_item.html" %}
+
+{% block feed_item_title %}
+	{{ a.title }}
+{% endblock %}
+
+{% block feed_item_content %}
+
+	{% if a.source_name %}
+		<p><em>
+			{% if a.source_url %}
+				{{ a.source_name }}
+			{% else %}
+				{{ a.source_name }}	
+			{% endif %}
+		</em></p>
+	{% endif %}
+
+	{% if a.pub_date %}
+		<p>{{ a.pub_date }}</p>
+	{% endif %}
+
+	<!-- {% if a.short_description %}
+		<p>{{ a.short_description }}</p>
+	{% endif %} -->
+
+{% endblock %}
+
+{% block feed_item_image_url %}
+
+	{% if a.image_url %}
+		{{ a.image_url }}
+	{% else %}
+		http://www.nasm.si.edu/images/collections/media/thumbnails/DefaultThumbnail.gif
+	{% endif %}
+
+{% endblock %}
+
+{% block feed_item_more_url %}
+	/news/{{ a.id }}/
+{% endblock %}

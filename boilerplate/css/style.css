@@ -171,14 +171,12 @@ sub {
 /* =============================================================================
    Lists
    ========================================================================== */
+/* Boilerplate defaults we aren't using, are preserving */
+/* ul, ol { margin: 1em 0; padding: 0 0 0 40px; }
+dd { margin: 0 0 0 40px; }
+nav ul, nav ol { list-style: none; list-style-image: none; margin: 0; padding: 0; } */
+/* Our [lack of] list style: */
 ul, ol {
-  margin: 1em 0;
-  padding: 0 0 0 40px;
-}
-dd {
-  margin: 0 0 0 40px;
-}
-nav ul, nav ol {
   list-style: none;
   list-style-image: none;
   margin: 0;
@@ -333,132 +331,380 @@ body:before, body:after {
 body:after {
   clear: both;
 }
-/* GRID ---------- */
-/* COLORS ---------- */
+/* MIXINS ---------- */
 /* 1 ROOT ---------- */
 body {
-  margin: 3%;
+  background-color: #f1faff;
 }
-/* 2 HEADINGS ---------- */
-/* 3 TYPOGRAPHY ---------- */
+/* 2 TYPOGRAPHY ---------- */
+header {
+  *zoom: 1;
+  *zoom: 1;
+}
+header:before, header:after {
+  content: "";
+  display: table;
+}
+header:after {
+  clear: both;
+}
+p {
+  margin: 0.1em 0;
+}
+.meta {
+  margin-top: 0.2em;
+}
+/* 3 HEADINGS ---------- */
+#site-title {
+  font-family: 'KomikaTitleRegular';
+  font-size: 1.8em;
+  font-weight: normal;
+  float: left;
+  letter-spacing: 0.1em;
+  margin: 0 0 0 0.8em;
+}
+.section-title {
+  font-style: italic;
+}
 /* 4 LINKS ---------- */
 /* 5 FIGURES & IMAGES ---------- */
-/* 6 TABLES ---------- */
 /* 7 FORMS ---------- */
-/* 8 BANNER ---------- */
-/* 9 NAVIGATION ---------- */
-.global-nav, .feed-item-tags, .page-utility-nav {
-  display: inline-block;
-  width: 102.08333333333333%;
-  margin: 0 -1.0416666666666665%;
-  *zoom: 1;
-  *zoom: 1;
-}
-.global-nav:before,
-.feed-item-tags:before,
-.page-utility-nav:before,
-.global-nav:after,
-.feed-item-tags:after,
-.page-utility-nav:after {
-  content: "";
-  display: table;
-}
-.global-nav:after, .feed-item-tags:after, .page-utility-nav:after {
-  clear: both;
-}
-.global-nav li, .feed-item-tags li, .page-utility-nav li {
-  cursor: pointer;
-  float: left;
-  list-style-type: none;
+textarea,
+input[type="search"],
+input[type="email"],
+input[type="text"] {
+  border: 1px #f1faff solid;
   padding: 0.5em;
-  text-decoration: underline;
+  -webkit-border-radius: 0.2em;
+  -moz-border-radius: 0.2em;
+  border-radius: 0.2em;
+  -moz-background-clip: padding;
+  -webkit-background-clip: padding-box;
+  background-clip: padding-box;
+  -webkit-border-radius: 0.2em;
+  -moz-border-radius: 0.2em;
+  border-radius: 0.2em;
+  -moz-background-clip: padding;
+  -webkit-background-clip: padding-box;
+  background-clip: padding-box;
 }
-.global-nav li:hover, .feed-item-tags li:hover, .page-utility-nav li:hover {
-  background-color: #ccc;
+textarea:focus,
+input[type="search"]:focus,
+input[type="email"]:focus,
+input[type="text"]:focus,
+textarea:hover,
+input[type="search"]:hover,
+input[type="email"]:hover,
+input[type="text"]:hover {
+  border-color: #91D87D;
 }
-.global-nav li:active, .feed-item-tags li:active, .page-utility-nav li:active {
-  background-color: #aaa;
-}
-.global-nav .selected-menu-item, .feed-item-tags .selected-menu-item, .page-utility-nav .selected-menu-item {
-  background-color: #999;
-}
-.global-nav .selected-menu-item:hover, .feed-item-tags .selected-menu-item:hover, .page-utility-nav .selected-menu-item:hover {
-  background-color: #999;
-}
-.selected-menu-item {
-  background-color: #999;
-}
-/* 10 CONTENT ---------- */
-/* 11 MAIN ---------- */
-.calendar-toggled {
+#site-search {
+  display: inline;
+  float: left;
+  width: 97.91666666666666%;
+  margin: 0 1.0416666666666665%;
+  margin-top: 1em;
+  margin-bottom: 1em;
   display: none;
 }
-.calendar {
-  display: inline-block;
-  width: 102.08333333333333%;
-  margin: 0 -1.0416666666666665%;
+#post-form {
+  display: inline;
+  float: left;
+  width: 95.41666666666667%;
+  margin: 0 1.0416666666666665%;
+  margin-bottom: 1em;
+}
+#post-title, #post-content {
+  display: inline;
+  float: left;
+  width: 97.91666666666666%;
+  margin: 0 1.0416666666666665%;
+  margin-bottom: 1em;
+}
+/* 10 NAVIGATION ---------- */
+#site-nav {
+  background-color: #45698b;
+  width: 100%;
+  overflow: hidden;
+}
+#site-nav ul {
+  width: 200%;
+}
+#site-nav ul li {
+  background-color: #90b0cc;
+  border-radius: 0.5em;
+  float: left;
+  height: 44pt;
+  margin: 0.5em 0.25em;
+  padding: 1% 0.5% 0;
+  text-align: center;
+  width: 44pt;
+}
+#site-nav ul li a {
+  color: #000;
+  font-weight: bold;
+  text-decoration: none;
+}
+.quick-nav li {
+  float: right;
+  margin-right: 1em;
+  padding: 0.3em;
+}
+.quick-nav li a {
+  color: #000;
+  text-shadow: none;
+}
+.quick-nav li img {
+  padding: 0.6em;
+}
+/* 8 CONTENT ---------- */
+#site-content {
+  background-color: #092740;
   *zoom: 1;
   *zoom: 1;
 }
-.calendar:before, .calendar:after {
+#site-content:before, #site-content:after {
   content: "";
   display: table;
 }
-.calendar:after {
+#site-content:after {
   clear: both;
 }
-.daily-event {
-  border-bottom: 2px #999 solid;
-}
-.monthly-day, .weekly-day {
-  list-style-type: none;
+/* 11 ITEMS ---------- */
+.item {
+  display: inline;
   float: left;
-  width: 100px;
-  height: 100px;
-  border: 1px solid #999;
+  width: 97.91666666666666%;
+  margin: 0 1.0416666666666665%;
+  cursor: pointer;
+  margin-bottom: 1%;
+  margin-top: 1%;
+  padding: 3% 0;
+  -webkit-border-radius: 0.5em;
+  -moz-border-radius: 0.5em;
+  border-radius: 0.5em;
+  -moz-background-clip: padding;
+  -webkit-background-clip: padding-box;
+  background-clip: padding-box;
+  -webkit-border-radius: 0.5em;
+  -moz-border-radius: 0.5em;
+  border-radius: 0.5em;
+  -moz-background-clip: padding;
+  -webkit-background-clip: padding-box;
+  background-clip: padding-box;
 }
-.weekly-day {
-  height: 300px;
+.item-title {
+  font-size: 1.1em;
+  margin-top: 0;
 }
+.item-thumb-container, .item-point-value {
+  display: inline;
+  float: left;
+  width: 18.75%;
+  margin: 0 1.0416666666666665%;
+  overflow: hidden;
+}
+.item-content-container {
+  display: inline;
+  float: left;
+  width: 77.08333333333334%;
+  margin: 0 1.0416666666666665%;
+}
+.item-point-value {
+  font-size: 1.8em;
+  text-shadow: 0.1em 0.1em 0 #ccc;
+}
+.item-list li, #checkIn {
+  background-color: #ccc;
+  border: 1px #999 solid;
+  float: left;
+  font-size: 0.8em;
+  margin-right: 3.125%;
+  padding: 0.3em;
+  -webkit-border-radius: 0.5em;
+  -moz-border-radius: 0.5em;
+  border-radius: 0.5em;
+  -moz-background-clip: padding;
+  -webkit-background-clip: padding-box;
+  background-clip: padding-box;
+  -webkit-border-radius: 0.5em;
+  -moz-border-radius: 0.5em;
+  border-radius: 0.5em;
+  -moz-background-clip: padding;
+  -webkit-background-clip: padding-box;
+  background-clip: padding-box;
+  text-align: center;
+}
+/* SINGLE ---------- */
+.single-item-header {
+  *zoom: 1;
+  *zoom: 1;
+  margin-bottom: 0.5em;
+}
+.single-item-header:before, .single-item-header:after {
+  content: "";
+  display: table;
+}
+.single-item-header:after {
+  clear: both;
+}
+.single-item-title {
+  font-size: 1.3em;
+  margin: 0 0 0.3em 0;
+}
+.single-item-header-content {
+  display: inline;
+  float: left;
+  width: 68.75%;
+  margin: 0 1.0416666666666665%;
+  margin-left: 1em;
+}
+.single-item-thumb-container {
+  display: inline;
+  float: left;
+  width: 22.916666666666664%;
+  margin: 0 1.0416666666666665%;
+  float: left;
+  margin: 0;
+}
+.single-item-thumb-container img {
+  display: block;
+  height: 9em;
+  margin: 0 auto;
+  width: 9em;
+}
+.single-item-details {
+  list-style-type: square;
+  padding-left: 1.5em;
+}
+.single-item-content-container {
+  clear: both;
+}
+.single-item-desc {
+  font-size: 1em;
+  line-height: 1.4em;
+  margin: 1em 0.5em;
+}
+.single-item-related {
+  *zoom: 1;
+  *zoom: 1;
+  margin-top: 1em;
+}
+.single-item-related:before, .single-item-related:after {
+  content: "";
+  display: table;
+}
+.single-item-related:after {
+  clear: both;
+}
+.single-item-related div {
+  clear: both;
+}
+/* 11 CALENDAR ---------- */
 /* 12 UTILITY ---------- */
-#modalMask {
-  position: absolute;
-  left: 0;
-  top: 0;
-  z-index: 9000;
-  background-color: #000;
-  display: none;
+.container {
+  padding: 0 0.5em;
 }
-.window {
-  position: absolute;
-  left: 0;
-  top: 0;
-  width: 30%;
-  height: 30%;
-  display: none;
-  z-index: 9999;
-  padding: 20px;
-}
-#grabbitModal {
-  padding: 10px;
-  background-color: #ffffff;
-}
-/* 13 CONTENTINFO ---------- */
+/* 13 SEARCH ---------- */
 /* 14 GLOBAL OBJECTS ---------- */
 /* 15 VENDOR-SPECIFIC ---------- */
 /* 16 MODERNIZR ---------- */
+/* 16 EVENTS SPECIFIC ---------- */
+.events .item {
+  background-image: url("http://www.webtexture.net/wp-content/gallery/20-seamless-paper-texture/thumbs/thumbs_papar_texture_thumb10.jpg");
+}
+.events .item:hover {
+  border: 1px #999 solid;
+}
+/* 16 PLACES SPECIFIC ---------- */
+/* 16 SPECIALS SPECIFIC ---------- */
+/* 16 CHATTER SPECIFIC ---------- */
+/* 16 NEWS SPECIFIC ---------- */
+/* 16 JOBS SPECIFIC ---------- */
 /* 17 TEMPLATE SPECIFICS ---------- */
+#offersSingle .item-point-value {
+  font-size: 2.4em;
+  margin: 0;
+}
+#singleNewsSource {
+  margin: 0 0 0.3em 0;
+}
+#eventsSingle .single-item-desc {
+  background-color: #f1f1f1;
+  border: 1px solid #e1e1e1;
+  padding: 0.5em;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  border-radius: 10px;
+  -moz-background-clip: padding;
+  -webkit-background-clip: padding-box;
+  background-clip: padding-box;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  border-radius: 10px;
+  -moz-background-clip: padding;
+  -webkit-background-clip: padding-box;
+  background-clip: padding-box;
+}
+#chatterFeed .item-desc {
+  display: inline;
+  float: left;
+  width: 89.58333333333334%;
+  margin: 0 1.0416666666666665%;
+}
+.user-avatar {
+  float: left;
+  margin: 0.1em  0.3em;
+}
+.chatter-post-form {
+  margin-bottom: 2em;
+}
+.voting {
+  float: left;
+  display: inline;
+  float: left;
+  width: 6.25%;
+  margin: 0 1.0416666666666665%;
+}
+.voting div {
+  cursor: pointer;
+  width: 18px;
+  height: 15px;
+}
+.upvote {
+  background: url('/static/img/votingarrows.png') no-repeat left top;
+}
+.upvote:hover {
+  background-position: right top;
+}
+.downvote {
+  background: url('/static/img/votingarrows.png') no-repeat left bottom;
+}
+.downvote:hover {
+  background-position: right bottom;
+}
 /* 18 MEDIA QUERIES ---------- */
 /*
  * Media queries for responsive design https://github.com/shichuan/mobile-html5-boilerplate/wiki/The-Style
  */
 /* Styles for mobile ----------- */
-@media screen and (max-width: 720px) {
+@media screen and (min-width: 720px) {
+  .item {
+    display: inline;
+    float: left;
+    width: 47.91666666666667%;
+    margin: 0 1.0416666666666665%;
+  }
+}
+@media screen and (max-width: 520px) {
+  
+}
+@media screen and (max-width: 350px) {
   
 }
 /* Styles for desktop and large screen ----------- */
 @media only screen and (min-width: 720px) {
-  /* Styles */
+  
 }
 /*/mediaquery*/
 /* iPhone 4, Opera Mobile 11 and other high pixel ratio devices ----------- 

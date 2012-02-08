@@ -99,9 +99,15 @@ sub { bottom: -0.25em; }
    Lists
    ========================================================================== */
 
-ul, ol { margin: 1em 0; padding: 0 0 0 40px; }
+/* Boilerplate defaults we aren't using, are preserving */
+
+/* ul, ol { margin: 1em 0; padding: 0 0 0 40px; }
 dd { margin: 0 0 0 40px; }
-nav ul, nav ol { list-style: none; list-style-image: none; margin: 0; padding: 0; }
+nav ul, nav ol { list-style: none; list-style-image: none; margin: 0; padding: 0; } */
+
+/* Our [lack of] list style: */
+
+ul, ol { list-style: none; list-style-image: none; margin: 0; padding: 0; }
 
 
 /* =============================================================================
@@ -215,139 +221,383 @@ td { vertical-align: top; }
 
 @import 'grid';
 
-/* GRID ---------- */
+/* MIXINS ---------- */
 
-// Specify the number of columns and set column and gutter widths
-@columns: 12;
-@column-width: 60;
-@gutter-width: 20;
+@green: #8FD36F;
+@dblue: #092740;
+@mblue: #45698B;
+@lblue: #90B0CC;
+@white: #F1FAFF;
 
-// Set max width to 100% for responsive design
-@total-width: 100%;
+.rounded(@val) {
+  
+  -webkit-border-radius: @val; 
+     -moz-border-radius: @val; 
+          border-radius: @val; 
+  
+  -moz-background-clip: padding; -webkit-background-clip: padding-box; background-clip: padding-box;
 
-/* COLORS ---------- */
+}
 
+.gradient (@first, @second) {
+   background-color: @first;
+   background-image: -webkit-gradient(linear, left top, left bottom, from(@first), to(@second)); /* Saf4+, Chrome */
+   background-image: -webkit-linear-gradient(top, @first, @second); /* Chrome 10+, Saf5.1+, iOS 5+ */
+   background-image:    -moz-linear-gradient(top, @first, @second); /* FF3.6 */
+   background-image:     -ms-linear-gradient(top, @first, @second); /* IE10 */
+   background-image:      -o-linear-gradient(top, @first, @second); /* Opera 11.10+ */
+   background-image:      linear-gradient(top, @first, @second);
+             /*filter: progid:DXImageTransform.Microsoft.gradient(startColorStr=@first, EndColorStr=@second); /* IE6-IE9 */
 
+}
 
+.b-shadow(@x, @y, @blue, @color) {
+  -webkit-box-shadow: @x @y @blue @color; 
+     -moz-box-shadow: @x @y @blue @color; 
+          box-shadow: @x @y @blue @color; 
+}
 
 /* 1 ROOT ---------- */
 
 body {
-  margin: 3%;
+  background-color: @white;
 }
 
-/* 2 HEADINGS ---------- */
-/* 3 TYPOGRAPHY ---------- */
+/* 2 TYPOGRAPHY ---------- */
+
+header {
+  .clearfix;
+}
+
+p {
+  margin: 0.1em 0;
+}
+
+.meta {
+  margin-top: 0.2em;
+}
+
+
+/* 3 HEADINGS ---------- */
+
+#site-title {
+  font-family: 'KomikaTitleRegular';
+  font-size: 1.8em;
+  font-weight: normal;
+  float: left;
+  letter-spacing: 0.1em;
+  margin: 0 0 0 0.8em;
+}
+
+.section-title {
+  font-style: italic;
+}
+
+
 /* 4 LINKS ---------- */
 /* 5 FIGURES & IMAGES ---------- */
-/* 6 TABLES ---------- */
 /* 7 FORMS ---------- */
-/* 8 BANNER ---------- */
-/* 9 NAVIGATION ---------- */
 
-.global-nav, .feed-item-tags, .page-utility-nav {
+textarea, input[type="search"], input[type="email"], input[type="text"] {
+  border: 1px @white solid;
+  padding: 0.5em;
+  .rounded(0.2em);
 
-  .row();
-
-  li {
-
-    cursor: pointer;
-    float: left;
-    list-style-type: none;
-    padding: 0.5em;
-    text-decoration: underline;
-
-    &:hover {
-      background-color: #ccc;
-    }
-
-    &:active {
-      background-color: #aaa;
-    } 
-       
-  }
-  
-  .selected-menu-item {
-
-    background-color: #999;
-
-    &:hover {
-      background-color: #999;
-    }
-
+  &:focus, &:hover {
+    border-color: #91D87D;
   }
 
 }
 
-.selected-menu-item {
-  background-color: #999;
-}
-
-/* 10 CONTENT ---------- */
-/* 11 MAIN ---------- */
-
-.calendar-toggled {
+#site-search {
+  .column(12);
+  margin-top: 1em;
+  margin-bottom: 1em;
   display: none;
 }
 
-.calendar {
-  .row();
+#post-form { 
+    .column(11.7);
+    margin-bottom: 1em;
 }
 
-.daily-event {
-  border-bottom: 2px #999 solid;
+#post-title, #post-content {
+  .column(12);
+  margin-bottom: 1em;
 }
 
-.monthly-day, .weekly-day {
-  list-style-type: none;
+/* 10 NAVIGATION ---------- */
+
+#site-nav {
+  background-color: @mblue;
+  width: 100%;
+  overflow: hidden; 
+
+  ul {
+    width: 200%;
+    
+    li {
+      background-color: @lblue;
+      border-radius: 0.5em;
+      float: left;
+      height: 44pt;
+      margin: 0.5em 0.25em;
+      padding: 1% 0.5% 0;
+      text-align: center;
+      width: 44pt;
+
+      a {
+        color: #000;
+        font-weight: bold;
+        text-decoration: none;
+      }
+    }
+  } 
+}
+
+.quick-nav li {
+  float: right;
+  margin-right: 1em;
+  padding: 0.3em;
+
+  a {
+    color: #000;
+    text-shadow: none;
+  }
+
+  img {
+    padding: 0.6em;
+  }
+}
+
+
+/* 8 CONTENT ---------- */
+
+#wrapper {
+  
+}
+
+#site-header {
+  
+}
+
+#site-content {
+  background-color: @dblue;
+  .clearfix;
+
+}
+
+#site-footer {
+
+}
+
+/* 11 ITEMS ---------- */
+
+.item {
+  .column(12);
+  cursor: pointer;
+  margin-bottom: 1%;
+  margin-top: 1%;
+  padding: 3% 0;
+  .rounded(0.5em);
+}
+
+.item-title {
+  font-size: 1.1em;
+  margin-top: 0;
+}
+
+.item-thumb-container, .item-point-value {
+  .column(2.5);
+  overflow: hidden;
+}
+
+.item-content-container {
+  .column(9.5);
+}
+
+.item-point-value {
+  font-size: 1.8em;
+  text-shadow: 0.1em 0.1em 0 #ccc;
+}
+
+.item-list li, #checkIn {
+  background-color: #ccc;
+  border: 1px #999 solid;
   float: left;
-  width: 100px;
-  height: 100px;
-  border: 1px solid #999;
+  font-size: 0.8em;
+  margin-right: @total-width*((@gutter-width*1.5)/@_gridsystem-width);
+  padding: 0.3em;
+  .rounded(0.5em);
+  text-align: center;
 }
 
-.weekly-day {
-  height: 300px;
+/* SINGLE ---------- */
+
+.single-item-header {
+  //.column(12);
+  .clearfix;
+  margin-bottom: 0.5em;
 }
 
+.single-item-title {
+  font-size: 1.3em;
+  margin: 0 0 0.3em 0;
+}
+
+.single-item-header-content {
+  .column(8.5);
+  margin-left: 1em;
+}
+
+.single-item-thumb-container {
+  .column(3);
+  float: left;
+  margin: 0;  
+
+  img {
+    display: block;
+    height: 9em;
+    margin: 0 auto;    
+    width: 9em;
+  }
+
+}
+
+.single-item-details {
+  list-style-type: square;
+  padding-left: 1.5em;
+}
+
+.single-item-content-container {
+  clear: both;
+}
+
+.single-item-desc {
+  font-size: 1em;
+  line-height: 1.4em;
+  margin: 1em 0.5em;
+}
+
+.single-item-related {
+  .clearfix;
+  div {
+    clear: both;  
+  }
+  
+  margin-top: 1em;  
+}
+
+/* 11 CALENDAR ---------- */
 
 /* 12 UTILITY ---------- */
 
-#modalMask {
-  position:absolute;
-  left:0;
-  top:0;
-  z-index:9000;
-  background-color:#000;
-  display:none;
+.container {
+  padding: 0 0.5em;
 }
 
-.window {
-  position:absolute;
-  left:0;
-  top:0;
-  width:30%; 
-  height:30%;
-  display:none;
-  z-index:9999;
-  padding:20px;
-}
+/* 13 SEARCH ---------- */
 
-#grabbitModal {
-  padding:10px;
-  background-color:#ffffff;
-}
-
-
-/* 13 CONTENTINFO ---------- */
 /* 14 GLOBAL OBJECTS ---------- */
 /* 15 VENDOR-SPECIFIC ---------- */
 /* 16 MODERNIZR ---------- */
+
+/* 16 EVENTS SPECIFIC ---------- */
+
+.events {
+  .item {
+    background-image: url("http://www.webtexture.net/wp-content/gallery/20-seamless-paper-texture/thumbs/thumbs_papar_texture_thumb10.jpg");
+    &:hover {
+      border: 1px #999 solid;
+    }
+  }
+}
+
+.places {
+  
+}
+
+.offers {
+  
+}
+
+.chatter {
+  
+}
+
+.news {
+  
+}
+
+.jobs {
+  
+}
+
+
+/* 16 PLACES SPECIFIC ---------- */
+/* 16 SPECIALS SPECIFIC ---------- */
+/* 16 CHATTER SPECIFIC ---------- */
+/* 16 NEWS SPECIFIC ---------- */
+/* 16 JOBS SPECIFIC ---------- */
+
 /* 17 TEMPLATE SPECIFICS ---------- */
+
+
+#offersSingle .item-point-value {
+  font-size: 2.4em;
+  margin: 0;
+}
+
+#singleNewsSource {
+  margin: 0 0 0.3em 0;
+}
+
+#eventsSingle .single-item-desc {
+  background-color: #f1f1f1;
+  border: 1px solid #e1e1e1;
+  padding: 0.5em;
+  .rounded(10px);
+}
+
+#chatterFeed .item-desc {
+  .column(11);
+}
+
+.user-avatar {
+  float: left;
+  margin: 0.1em  0.3em;
+}
+
+.chatter-post-form {
+  margin-bottom: 2em;
+}
+
+.voting {
+  float: left;
+  .column(1);
+  div {
+    cursor: pointer;
+    width: 18px;
+    height: 15px;
+  }
+}
+
+.upvote {
+  background: url('/static/img/votingarrows.png') no-repeat left top;
+  &:hover {
+    background-position: right top;
+  }
+}
+
+.downvote {
+  background: url('/static/img/votingarrows.png') no-repeat left bottom;
+
+  &:hover {
+    background-position: right bottom;
+  }
+}
+
 /* 18 MEDIA QUERIES ---------- */
-
-
-
 
 /*
  * Media queries for responsive design https://github.com/shichuan/mobile-html5-boilerplate/wiki/The-Style
@@ -355,16 +605,25 @@ body {
 
 /* Styles for mobile ----------- */
 
-@media screen and (max-width: 720px) {
-
+@media screen and (min-width: 720px) {
+  .item {
+    .column(6);
+  }
 }
 
+@media screen and (max-width: 520px){
+
+  
+}
+
+@media screen and (max-width: 350px) {
+
+}
 
 /* Styles for desktop and large screen ----------- */
 
 @media only screen and (min-width: 720px) {
 
-  /* Styles */
 
 
 }/*/mediaquery*/

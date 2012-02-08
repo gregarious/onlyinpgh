@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+	<nav id="homepageNav">
+		<a href="/hot" data-role="button">Hot</a>
+		<a href="/places" data-role="button">Places</a>
+		<a href="/events" data-transition="slidedown" data-role="button">Events</a>
+		<a href="/news" data-role="button">News</a>
+		<a href="/specials" data-role="button">Specials</a>
+		<a href="/checkin" data-rel="dialog" data-role="button">Checkin</a>
+	</nav>
+
+{% endblock %}
+
+{% block site_footer %}
+	
+	<p>Brought to you by onlyinpgh, made possible by OBID</p>
+
+{% endblock %}

@@ -1,0 +1,29 @@
+{% extends "page.html" %}
+{% include "global_nav.html" %}
+
+{% block content %}
+
+	<section id="eventsHot" class="events">
+		<header>
+			<h3>What to do..</h3>
+		</header>
+		{% include "events/events_feed.html" %}
+	</section>
+
+	<section id="specialsHot" class="offers">
+		<header>
+			<h3>Specials</h3>
+		</header>
+		{% include "offers/offers_feed.html" %}
+	</section>
+
+	<section id="newsHot" class="news">
+		<header>
+			<h3>Recent News</h3>
+		</header>
+		{% include "news/news_feed.html" %}
+	</section>
+
+<!-- Alo include places, jobs, chatter -->
+
+{% endblock %}

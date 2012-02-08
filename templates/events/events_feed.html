@@ -1,0 +1,13 @@
+{% extends "feed.html" %}
+
+{% block feed_id %}eventsFeed{% endblock %}
+
+{% block feed_content %}
+
+	{% for e in events %}
+
+		{% include "events/events_feed_item.html" %}
+
+	{% endfor %}
+
+{% endblock %}

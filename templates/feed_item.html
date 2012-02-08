@@ -1,0 +1,25 @@
+<li class="item">
+	<!-- <a href="{% block feed_item_more_url %}{% endblock %}"> -->
+		
+		<div class="item-thumb-container">
+			<img class="item-thumb" height="60" width="60" alt="{% block feed_item_image_alt %}{% endblock %}" src="{% block feed_item_image_url %}{% endblock %}" />
+		</div>
+
+		<section class="item-content-container">
+		
+		  	<h3 class="item-title">
+		  		{% block feed_item_title %}
+			    {% endblock %}
+			</h3>
+
+		    <div class="item-desc">
+		    	{% block feed_item_content %}
+		    	{% endblock %}
+		    </div>
+				
+			{% include "tags.html" %}
+
+		</section>
+
+<!-- 	</a> -->
+</li>

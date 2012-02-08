@@ -1,0 +1,85 @@
+{% extends "single.html" %}
+
+{% block single_id %}placeSingle{% endblock %}
+
+{% block single_item_title %}{{ p.name }}{% endblock %}
+
+{% block single_item_header_content %}
+
+	<ul class="single-item-details">
+		{% if p.location.address %}
+			<li>{{ p.location.address }}</li>
+		{% endif %}
+
+		{% if p.hours %}
+	 		<li>{{ p.hours }}</li>
+	 	{% endif %}
+
+	 	{% if p.phone %}
+	  		<li>Phone: {{ p.phone }}</li>
+		{% endif %}
+
+		<li>Parking: Street</li>
+
+	</ul>
+
+{% endblock %}
+
+
+{% block single_item_tags %}
+	
+	<li>Food</li>
+	<li>Social</li>
+	<li>Fancy</li>
+	<li>Services</li>
+
+{% endblock %}
+
+{% block single_item_image_url %}
+
+	{% if p.image_url %}
+		{{ p.image_url }}
+	{% else %}
+		http://www.nasm.si.edu/images/collections/media/thumbnails/DefaultThumbnail.gif
+	{% endif %}
+
+{% endblock %}
+
+{% block single_item_image_alt %}
+	{{ p.name }}
+{% endblock %}
+
+{% block single_item_content %}
+	<button id="checkIn" data-inline="true">I'm here!</button>
+	
+	{% if p.description %}
+		<section class="single-item-desc">
+			<h3>About</h3>
+	  		<p>{{ p.description|linebreaksbr|truncatewords:50|urlizetrunc:20 }}</p>
+	  	</section>
+  	{% endif %}
+
+
+{% endblock %}
+
+{% block single_item_related %}
+
+	<section class="single-item-related">
+		<h3>Specials</h3>
+		{% include "events/events_feed_item.html" %}
+	</section>
+
+	<section class="single-item-related">
+		<h3>Happenings</h3>
+		{% include "events/events_feed_item.html" %}
+	</section>
+
+	<section class="single-item-related">
+		<h3>Chatter</h3>
+		{% include "chatter/chatter_feed_item.html" %}
+	</section>
+
+{% endblock %}
+
+
+

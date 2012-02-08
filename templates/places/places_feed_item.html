@@ -1,0 +1,37 @@
+{% extends "feed_item.html" %}
+
+{% block feed_item_title %}{{ p.name }}{% endblock %}
+
+{% block feed_item_content %}
+
+	{% if p.location.address %}
+		<p>{{ p.location.address }}</p>
+	{% endif %}
+
+	{% if p.hours %}
+ 		<p>{{ p.hours }}</p>
+ 	{% endif %}
+
+ 	{% if p.phone %}
+  		<p>{{ p.phone }}</p>
+	{% endif %}
+
+{% endblock %}
+
+{% block feed_item_image_url %}
+
+	{% if p.image_url %}
+		{{ p.image_url }}
+	{% else %}
+		http://www.nasm.si.edu/images/collections/media/thumbnails/DefaultThumbnail.gif
+	{% endif %}
+
+{% endblock %}
+
+{% block feed_item_image_alt %}
+	{{ p.name }}
+{% endblock %}
+
+{% block feed_item_more_url %}
+	/places/{{ p.id }}/
+{% endblock %}

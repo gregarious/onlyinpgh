@@ -1,0 +1,55 @@
+{% extends "single.html" %}
+
+{% block single_id %}eventsSingle{% endblock %}
+
+{% block single_item_title %}
+	{{ e.name }}
+{% endblock %}
+
+{% block single_item_header_content %}
+
+	<ul class="single-item-details">
+
+		{% if e.dtstart and e.dtend %}
+	 		<li><time datetime="">{{ e.dtstart }} - {{ e.dtend }}</time></li>
+	 	{% endif %}
+
+	 	{% if e.place %}
+	  		<li><a href="/places/{{ e.place.id }}">{{ e.place }}</a></li>
+		{% endif %}
+
+		{% if e.place.location.address %}
+			<li>{{ e.place.location.address }}</li>
+		{% endif %}
+
+		<li><a href="http://google.com/maps">Get directions...</a></li>
+
+	</ul>
+
+{% endblock %}
+
+{% block single_item_image_url %}
+
+	{% if e.image_url %}
+		{{ e.image_url }}
+	{% else %}
+		http://www.nasm.si.edu/images/collections/media/thumbnails/DefaultThumbnail.gif
+	{% endif %}
+
+{% endblock %}
+
+{% block single_item_image_alt %}
+	{{ e.name }}
+{% endblock %}
+
+{% block single_item_content %}
+
+	{% if e.description %}
+  		<p class="single-item-desc">{{ e.description }}</p>
+  	{% endif %}
+
+{% endblock %}
+ 
+{% block single_item_footer %}
+	
+{% endblock %}

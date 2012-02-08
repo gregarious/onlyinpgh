@@ -1,0 +1,37 @@
+{% extends "feed_item.html" %}
+
+{% block feed_item_title %}{{ e.name }}{% endblock %}
+
+{% block feed_item_content %}
+
+	{% if e.dtstart and e.dtend %}
+ 		<p><time>{{ e.dtstart }} - {{ e.dtend }}</time></p>
+ 	{% endif %}
+
+ 	{% if e.place %}
+  		<p>Hosted by {{ e.place.name }}</p>
+	{% endif %}
+
+	{% if e.place.location.address %}
+		<p>{{ e.place.location.address }}</p>
+	{% endif %}
+
+{% endblock %}
+
+{% block feed_item_image_url %}
+
+	{% if e.image_url %}
+		{{ e.image_url }}
+	{% else %}
+		http://www.nasm.si.edu/images/collections/media/thumbnails/DefaultThumbnail.gif
+	{% endif %}
+
+{% endblock %}
+
+{% block feed_item_image_alt %}
+	{{ e.name }}
+{% endblock %}
+
+{% block feed_item_more_url %}
+	/events/{{ e.id }}/
+{% endblock %}

@@ -1,13 +1,11 @@
 from django.shortcuts import render_to_response
 from onlyinpgh.news.models import Article
 
-def demo_news(request):
+def news_page(request):
     variables = { 'articles': Article.objects.all() }
-    return render_to_response('feeds/news_feed.html',variables)
+    return render_to_response('news/news_page.html',variables)
 
-# Note to Greg: Lara is muddling! 
-# Duplicating functions for the sake of speed
-
-def demo_news_page(request):
-    variables = { 'articles': Article.objects.all() }
-    return render_to_response('pages/news_page.html',variables)
+def single_article_page(request, id):
+    variables = { 'a' : Article.objects.get(id=id) }
+    return render_to_response('news/news_single.html', variables)
+    

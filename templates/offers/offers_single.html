@@ -1,0 +1,42 @@
+
+{% extends "page.html" %}
+
+{% block page_nav %}
+	{% include "page_nav.html" %}
+{% endblock %}
+
+{% block content %}
+
+	<section id="offersSingle" class="single-item">
+
+		<header class="single-item-header">
+
+			<h2 class="single-item-title">
+			  	{{ o.description }}
+			</h2>
+
+			<div class="single-item-header-content">
+
+				<p>{{ o.sponsor }}</p>
+
+				<ul id="singleItemTags" class="item-list">
+					{% include "tags.html" %}
+				</ul>
+
+			</div>
+
+			<div class="item-point-value">
+				+{{ o.point_value }}
+			</div>
+
+		</header>
+		
+		<section class="single-item-content-container">
+	    
+			<button>Grabbit!</button>
+
+		</section>
+	
+	</section>
+
+{% endblock %}

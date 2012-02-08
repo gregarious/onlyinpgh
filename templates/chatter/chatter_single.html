@@ -1,0 +1,44 @@
+{% extends "single.html" %}
+
+{% block single_id %}chatterSingle{% endblock %}
+
+{% block single_item_title %}{{ c.title }}{% endblock %}
+
+{% block single_item_header_content %}
+	<p>by {{ c.author }}, {{ c.dt|timesince }} ago</p>
+{% endblock %}
+
+{% block single_item_image_url %}
+	
+	{% if c.image_url %}
+		{{ c.image_url }}
+	{% else %}
+		{% if c.post_type == 'conversation' %}
+			http://www.ncvo-vol.org.uk/sites/default/files/UploadedFiles/speech_icon.jpg
+		{% endif %}
+		{% if c.post_type == 'question' %}
+			http://catalyst.harvard.edu/images/footer/question_mark.png
+		{% endif %}	
+		{% if c.post_type == 'photo' %}
+			http://www.nasm.si.edu/images/collections/media/thumbnails/DefaultThumbnail.gif
+		{% endif %}	
+	{% endif %}
+
+{% endblock %}
+
+{% block single_item_related %}
+
+	{% if c.comment_set.all %}
+	    <ul class="comments">
+	    {% for comment in c.comment_set.all %}
+	        <li class="comment-content">
+	            <header>
+	                <img src="{{ comment.commenter.avatar }}"><span class="meta">by {{ comment.commenter.display_name }}, {{ comment.dt|timesince }} ago</span>
+	            </header>
+	            <p>{{ comment.content }}</p>
+	        </li>
+	    {% endfor %}
+	    </ul>
+	{% endif %}
+
+{% endblock %}

@@ -1,0 +1,28 @@
+{% comment %} {% extends "feed_item.html" %} {% endcomment %}
+<!-- Not extending feed.html because using point value instead of thumbnial - should be a better way to do this though -->
+
+<li class="item">
+	<a href="/specials/{{ o.id }}/">
+		
+		<div class="item-point-value">
+			+{{ o.point_value }}
+		</div>
+
+		<section class="item-content-container">
+		
+		  	<h3 class="item-title">
+		  		{{ o.description }}
+			</h3>
+
+		    <div class="item-desc">
+				{% if o.sponsor %}
+			  		<p>{{ o.sponsor }}</p>
+			  	{% endif %}
+		    </div>
+				
+			{% include "tags.html" %}
+
+		</section>
+
+	</a>
+</li>

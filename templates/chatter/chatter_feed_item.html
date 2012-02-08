@@ -1,0 +1,46 @@
+
+<li class="item">
+	<a href="/chatter/{{ c.id }}/">
+		
+		<div class="item-thumb-container">
+			<img class="item-thumb" height="60" width="60" alt="{{ c.name }}" src="
+
+				{% if c.image_url %}
+					{{ c.image_url }}
+				{% else %}
+					{% if c.post_type == 'conversation' %}
+						http://www.ncvo-vol.org.uk/sites/default/files/UploadedFiles/speech_icon.jpg
+					{% endif %}
+					{% if c.post_type == 'question' %}
+						http://catalyst.harvard.edu/images/footer/question_mark.png
+					{% endif %}	
+					{% if c.post_type == 'photo' %}
+						http://www.nasm.si.edu/images/collections/media/thumbnails/DefaultThumbnail.gif
+					{% endif %}	
+				{% endif %}
+
+			" />
+		</div>
+
+		<section class="item-content-container">
+		
+		  	<h3 class="item-title">
+		  		{{ c.title }}
+			</h3>
+
+			<aside class="voting">
+		        <div class="upvote"></div>
+		        <p class="numvotes">28</p>
+		        <div class="downvote"></div>    
+		    </aside>
+
+		    <div class="item-desc">
+		    	<p class="meta">by <b>{{ c.author }}</b>, {{ c.dt|timesince }} ago</p>
+		    </div>
+				
+			{% include "tags.html" %}
+
+		</section>
+
+	</a>
+</li>
