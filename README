@@ -1,3 +1,13 @@
+NOTE: DEVELOPMENT ON ALL BRANCHES OF THIS REPOSITORY EXCEPT FOR (except for 
+oldsite-event-handling) HAS BEEN SUSPENDED UNTIL THE OBID APP IS COMPLETE.
+
+After completion of the Obid app, it is likely that this repository will be 
+completely refactored and replaced. At the very least, changes from the 
+"forked" obidapp repository will be merged back in.
+
+=====================================================
+=====================================================
+
 required external package installs (might include these in source later -- we'll see):
 
 django-extensions
