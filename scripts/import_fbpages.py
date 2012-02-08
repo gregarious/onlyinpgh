@@ -16,7 +16,7 @@ def import_ids(page_ids):
             importlog.info('Cannot store page info JSON for fb id %s' % str(pid))
             continue
         info.pop('metadata',None)       # don't need to store metadata if it exists
-        record = FacebookPage.objects.get_or_create(fb_id=pid)
+        record, _ = FacebookPage.objects.get_or_create(fb_id=pid)
         record.pageinfo_json = json.dumps(info)
         record.save()
 
