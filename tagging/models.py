@@ -1,10 +1,18 @@
 from django.db import models
 
-class Tag(models.Model):
-    class Meta:
-        ordering = ['name']
+from django.contrib.contenttypes.models import ContentType
+from django.contrib.contenttypes import generic
 
-    name = models.CharField(max_length=50)
-    
+# TOOD: some sort of easy tag creation funcion? maybe part of a mgr?
+
+class Tag(models.Model):
+    name = models.SlugField()
+
+class TaggedItem(models.Model):
+    tag = models.ForeignKey(Tag)
+    content_type = models.ForeignKey(ContentType)
+    object_id = models.PositiveIntegerField()
+    content_object = generic.GenericForeignKey('content_type', 'object_id')
+
     def __unicode__(self):
-        return self.name
+        return self.tag
