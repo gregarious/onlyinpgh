@@ -1,10 +1,11 @@
 from django.db import models
+from django.contrib.contenttypes import generic
 
 import pytz
 
 from onlyinpgh.places.models import Place
-from onlyinpgh.tagging.models import Tag
 from onlyinpgh.identity.models import Identity, Organization
+from onlyinpgh.tagging.models import TaggedItem
 
 from onlyinpgh.utils.time import utctolocal
 from onlyinpgh.settings import TIME_ZONE
@@ -44,7 +45,7 @@ class Event(models.Model):
     # make the event "invisible", meaning it won't be displayable, searchable, etc.
     invisible = models.BooleanField(default=False)
 
-    tags = models.ManyToManyField(Tag,blank=True,null=True)
+    tags = generic.GenericRelation(TaggedItem)
 
     # TODO: change these to template filters
     @property

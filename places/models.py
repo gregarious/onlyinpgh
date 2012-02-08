@@ -1,11 +1,13 @@
 from django.db import models
+from django.contrib.contenttypes import generic
+
 from django.core.validators import MinValueValidator, MaxValueValidator, MinLengthValidator
 from django.core.exceptions import ValidationError
 
 from math import sqrt, pow
 
-from onlyinpgh.tagging.models import Tag
 from onlyinpgh.identity.models import Organization
+from onlyinpgh.tagging.models import TaggedItem
 
 # TODO: largely a placeholder, flesh out more later
 class Neighborhood(models.Model):
@@ -195,7 +197,7 @@ class Place(models.Model):
     location = models.ForeignKey(Location,blank=True,null=True)
 
     owner = models.ForeignKey(Organization,blank=True,null=True)
-    tags = models.ManyToManyField(Tag,blank=True,null=True)
+    tags = generic.GenericRelation(TaggedItem)
 
     def __unicode__(self):
         s = self.name

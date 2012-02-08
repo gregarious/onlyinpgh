@@ -1,6 +1,7 @@
 from django.db import models
+from django.contrib.contenttypes import generic
 
-from onlyinpgh.tagging.models import Tag
+from onlyinpgh.tagging.models import TaggedItem
 
 class Article(models.Model):
     class Meta:
@@ -13,4 +14,4 @@ class Article(models.Model):
     source_name = models.CharField(max_length=100)
     dt_published = models.DateTimeField('datetime of source publication (UTC)')
 
-    tags = models.ManyToManyField(Tag,blank=True,null=True)
+    tags = generic.GenericRelation(TaggedItem)
