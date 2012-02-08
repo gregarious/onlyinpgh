@@ -223,6 +223,11 @@ td { vertical-align: top; }
 
 /* MIXINS ---------- */
 
+@green: #8FD36F;
+@dblue: #092740;
+@mblue: #45698B;
+@lblue: #90B0CC;
+@white: #F1FAFF;
 
 .rounded(@val) {
   
@@ -234,9 +239,35 @@ td { vertical-align: top; }
 
 }
 
+.gradient (@first, @second) {
+   background-color: @first;
+   background-image: -webkit-gradient(linear, left top, left bottom, from(@first), to(@second)); /* Saf4+, Chrome */
+   background-image: -webkit-linear-gradient(top, @first, @second); /* Chrome 10+, Saf5.1+, iOS 5+ */
+   background-image:    -moz-linear-gradient(top, @first, @second); /* FF3.6 */
+   background-image:     -ms-linear-gradient(top, @first, @second); /* IE10 */
+   background-image:      -o-linear-gradient(top, @first, @second); /* Opera 11.10+ */
+   background-image:      linear-gradient(top, @first, @second);
+             /*filter: progid:DXImageTransform.Microsoft.gradient(startColorStr=@first, EndColorStr=@second); /* IE6-IE9 */
+
+}
+
+.b-shadow(@x, @y, @blue, @color) {
+  -webkit-box-shadow: @x @y @blue @color; 
+     -moz-box-shadow: @x @y @blue @color; 
+          box-shadow: @x @y @blue @color; 
+}
+
 /* 1 ROOT ---------- */
 
+body {
+  background-color: @white;
+}
+
 /* 2 TYPOGRAPHY ---------- */
+
+header {
+  .clearfix;
+}
 
 p {
   margin: 0.1em 0;
@@ -249,11 +280,7 @@ p {
 
 /* 3 HEADINGS ---------- */
 
-#globalHeading {
-  .column(10);
-}
-
-#siteTitle {
+#site-title {
   font-family: 'KomikaTitleRegular';
   font-size: 1.8em;
   font-weight: normal;
@@ -271,48 +298,61 @@ p {
 /* 5 FIGURES & IMAGES ---------- */
 /* 7 FORMS ---------- */
 
-.quick-search {
+textarea, input[type="search"], input[type="email"], input[type="text"] {
+  border: 1px @white solid;
+  padding: 0.5em;
+  .rounded(0.2em);
+
+  &:focus, &:hover {
+    border-color: #91D87D;
+  }
+
+}
+
+#site-search {
+  .column(12);
+  margin-top: 1em;
+  margin-bottom: 1em;
   display: none;
-  padding: 1em;
+}
+
+#post-form { 
+    .column(11.7);
+    margin-bottom: 1em;
+}
+
+#post-title, #post-content {
+  .column(12);
+  margin-bottom: 1em;
 }
 
 /* 10 NAVIGATION ---------- */
 
-/*
+#site-nav {
+  background-color: @mblue;
+  width: 100%;
+  overflow: hidden; 
 
-for select nav
-#globalNav {
-  float: right;
-  margin-right: 0.5em;
-}*/
-
-#globalNav {
-  .clearfix;
-  margin: auto;
-  overflow: auto;  
-  width: 200%;
-  
-  li {
-    background-color: #ccc;
-    border-radius: 0.5em;
-    float: left;
-    height: 22pt;
-    margin: 0.5em 0.25em;
-    padding: 1% 0.5% 0;
-    text-align: center;
-    width: 44pt;
-
-    a {
-      
-        
-    }
+  ul {
+    width: 200%;
     
-  }
+    li {
+      background-color: @lblue;
+      border-radius: 0.5em;
+      float: left;
+      height: 44pt;
+      margin: 0.5em 0.25em;
+      padding: 1% 0.5% 0;
+      text-align: center;
+      width: 44pt;
 
-} 
-
-.site-nav {
-
+      a {
+        color: #000;
+        font-weight: bold;
+        text-decoration: none;
+      }
+    }
+  } 
 }
 
 .quick-nav li {
@@ -333,29 +373,33 @@ for select nav
 
 /* 8 CONTENT ---------- */
 
-.site-header {
-  padding: 0.5em 0;
+#wrapper {
+  
 }
 
-.site-content {
+#site-header {
+  
+}
+
+#site-content {
+  background-color: @dblue;
   .clearfix;
-  overflow: visible;
+
 }
 
-.site-footer {
-
-  p {
-    font-size: 0.65em;
-    font-weight: normal; 
-  }
+#site-footer {
 
 }
 
 /* 11 ITEMS ---------- */
 
 .item {
-  .column(6);
-  padding-top: 0.7em;
+  .column(12);
+  cursor: pointer;
+  margin-bottom: 1%;
+  margin-top: 1%;
+  padding: 3% 0;
+  .rounded(0.5em);
 }
 
 .item-title {
@@ -370,12 +414,6 @@ for select nav
 
 .item-content-container {
   .column(9.5);
-}
-
-.item-list {
-  .clearfix;
-  .column(12);
-  margin: 0.5em 0;
 }
 
 .item-point-value {
@@ -454,15 +492,54 @@ for select nav
 
 /* 12 UTILITY ---------- */
 
-/* 13 SEARCH ---------- */
-
-#search {
-  display: none;
+.container {
+  padding: 0 0.5em;
 }
+
+/* 13 SEARCH ---------- */
 
 /* 14 GLOBAL OBJECTS ---------- */
 /* 15 VENDOR-SPECIFIC ---------- */
 /* 16 MODERNIZR ---------- */
+
+/* 16 EVENTS SPECIFIC ---------- */
+
+.events {
+  .item {
+    background-image: url("http://www.webtexture.net/wp-content/gallery/20-seamless-paper-texture/thumbs/thumbs_papar_texture_thumb10.jpg");
+    &:hover {
+      border: 1px #999 solid;
+    }
+  }
+}
+
+.places {
+  
+}
+
+.offers {
+  
+}
+
+.chatter {
+  
+}
+
+.news {
+  
+}
+
+.jobs {
+  
+}
+
+
+/* 16 PLACES SPECIFIC ---------- */
+/* 16 SPECIALS SPECIFIC ---------- */
+/* 16 CHATTER SPECIFIC ---------- */
+/* 16 NEWS SPECIFIC ---------- */
+/* 16 JOBS SPECIFIC ---------- */
+
 /* 17 TEMPLATE SPECIFICS ---------- */
 
 
@@ -528,37 +605,18 @@ for select nav
 
 /* Styles for mobile ----------- */
 
-@media screen and (max-width: 720px) {
+@media screen and (min-width: 720px) {
   .item {
-    .column(12);
-  }
-
-  .single-item-thumb-container img {
-      height: 9em;
-      width: em;
+    .column(6);
   }
 }
 
 @media screen and (max-width: 520px){
 
-  .single-item-thumb-container img {
-    height: 7em;
-    width: 7em;
-  }
   
 }
 
 @media screen and (max-width: 350px) {
-
-  #globalNav li a {
-    font-size: 0.5em;
-    font-weight: normal;
-  }
-
-  .single-item-thumb-container img {
-      height: 4em;
-      width: 4em;
-  }
 
 }
 

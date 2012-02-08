@@ -333,7 +333,21 @@ body:after {
 }
 /* MIXINS ---------- */
 /* 1 ROOT ---------- */
+body {
+  background-color: #f1faff;
+}
 /* 2 TYPOGRAPHY ---------- */
+header {
+  *zoom: 1;
+  *zoom: 1;
+}
+header:before, header:after {
+  content: "";
+  display: table;
+}
+header:after {
+  clear: both;
+}
 p {
   margin: 0.1em 0;
 }
@@ -341,13 +355,7 @@ p {
   margin-top: 0.2em;
 }
 /* 3 HEADINGS ---------- */
-#globalHeading {
-  display: inline;
-  float: left;
-  width: 81.25%;
-  margin: 0 1.0416666666666665%;
-}
-#siteTitle {
+#site-title {
   font-family: 'KomikaTitleRegular';
   font-size: 1.8em;
   font-weight: normal;
@@ -361,41 +369,81 @@ p {
 /* 4 LINKS ---------- */
 /* 5 FIGURES & IMAGES ---------- */
 /* 7 FORMS ---------- */
-.quick-search {
+textarea,
+input[type="search"],
+input[type="email"],
+input[type="text"] {
+  border: 1px #f1faff solid;
+  padding: 0.5em;
+  -webkit-border-radius: 0.2em;
+  -moz-border-radius: 0.2em;
+  border-radius: 0.2em;
+  -moz-background-clip: padding;
+  -webkit-background-clip: padding-box;
+  background-clip: padding-box;
+  -webkit-border-radius: 0.2em;
+  -moz-border-radius: 0.2em;
+  border-radius: 0.2em;
+  -moz-background-clip: padding;
+  -webkit-background-clip: padding-box;
+  background-clip: padding-box;
+}
+textarea:focus,
+input[type="search"]:focus,
+input[type="email"]:focus,
+input[type="text"]:focus,
+textarea:hover,
+input[type="search"]:hover,
+input[type="email"]:hover,
+input[type="text"]:hover {
+  border-color: #91D87D;
+}
+#site-search {
+  display: inline;
+  float: left;
+  width: 97.91666666666666%;
+  margin: 0 1.0416666666666665%;
+  margin-top: 1em;
+  margin-bottom: 1em;
   display: none;
-  padding: 1em;
+}
+#post-form {
+  display: inline;
+  float: left;
+  width: 95.41666666666667%;
+  margin: 0 1.0416666666666665%;
+  margin-bottom: 1em;
+}
+#post-title, #post-content {
+  display: inline;
+  float: left;
+  width: 97.91666666666666%;
+  margin: 0 1.0416666666666665%;
+  margin-bottom: 1em;
 }
 /* 10 NAVIGATION ---------- */
-/*
-
-for select nav
-#globalNav {
-  float: right;
-  margin-right: 0.5em;
-}*/
-#globalNav {
-  *zoom: 1;
-  *zoom: 1;
-  margin: auto;
-  overflow: auto;
+#site-nav {
+  background-color: #45698b;
+  width: 100%;
+  overflow: hidden;
+}
+#site-nav ul {
   width: 200%;
 }
-#globalNav:before, #globalNav:after {
-  content: "";
-  display: table;
-}
-#globalNav:after {
-  clear: both;
-}
-#globalNav li {
-  background-color: #ccc;
+#site-nav ul li {
+  background-color: #90b0cc;
   border-radius: 0.5em;
   float: left;
-  height: 22pt;
+  height: 44pt;
   margin: 0.5em 0.25em;
   padding: 1% 0.5% 0;
   text-align: center;
   width: 44pt;
+}
+#site-nav ul li a {
+  color: #000;
+  font-weight: bold;
+  text-decoration: none;
 }
 .quick-nav li {
   float: right;
@@ -410,32 +458,40 @@ for select nav
   padding: 0.6em;
 }
 /* 8 CONTENT ---------- */
-.site-header {
-  padding: 0.5em 0;
-}
-.site-content {
+#site-content {
+  background-color: #092740;
   *zoom: 1;
   *zoom: 1;
-  overflow: visible;
 }
-.site-content:before, .site-content:after {
+#site-content:before, #site-content:after {
   content: "";
   display: table;
 }
-.site-content:after {
+#site-content:after {
   clear: both;
-}
-.site-footer p {
-  font-size: 0.65em;
-  font-weight: normal;
 }
 /* 11 ITEMS ---------- */
 .item {
   display: inline;
   float: left;
-  width: 47.91666666666667%;
+  width: 97.91666666666666%;
   margin: 0 1.0416666666666665%;
-  padding-top: 0.7em;
+  cursor: pointer;
+  margin-bottom: 1%;
+  margin-top: 1%;
+  padding: 3% 0;
+  -webkit-border-radius: 0.5em;
+  -moz-border-radius: 0.5em;
+  border-radius: 0.5em;
+  -moz-background-clip: padding;
+  -webkit-background-clip: padding-box;
+  background-clip: padding-box;
+  -webkit-border-radius: 0.5em;
+  -moz-border-radius: 0.5em;
+  border-radius: 0.5em;
+  -moz-background-clip: padding;
+  -webkit-background-clip: padding-box;
+  background-clip: padding-box;
 }
 .item-title {
   font-size: 1.1em;
@@ -453,22 +509,6 @@ for select nav
   float: left;
   width: 77.08333333333334%;
   margin: 0 1.0416666666666665%;
-}
-.item-list {
-  *zoom: 1;
-  *zoom: 1;
-  display: inline;
-  float: left;
-  width: 97.91666666666666%;
-  margin: 0 1.0416666666666665%;
-  margin: 0.5em 0;
-}
-.item-list:before, .item-list:after {
-  content: "";
-  display: table;
-}
-.item-list:after {
-  clear: both;
 }
 .item-point-value {
   font-size: 1.8em;
@@ -562,13 +602,25 @@ for select nav
 }
 /* 11 CALENDAR ---------- */
 /* 12 UTILITY ---------- */
-/* 13 SEARCH ---------- */
-#search {
-  display: none;
+.container {
+  padding: 0 0.5em;
 }
+/* 13 SEARCH ---------- */
 /* 14 GLOBAL OBJECTS ---------- */
 /* 15 VENDOR-SPECIFIC ---------- */
 /* 16 MODERNIZR ---------- */
+/* 16 EVENTS SPECIFIC ---------- */
+.events .item {
+  background-image: url("http://www.webtexture.net/wp-content/gallery/20-seamless-paper-texture/thumbs/thumbs_papar_texture_thumb10.jpg");
+}
+.events .item:hover {
+  border: 1px #999 solid;
+}
+/* 16 PLACES SPECIFIC ---------- */
+/* 16 SPECIALS SPECIFIC ---------- */
+/* 16 CHATTER SPECIFIC ---------- */
+/* 16 NEWS SPECIFIC ---------- */
+/* 16 JOBS SPECIFIC ---------- */
 /* 17 TEMPLATE SPECIFICS ---------- */
 #offersSingle .item-point-value {
   font-size: 2.4em;
@@ -636,33 +688,19 @@ for select nav
  * Media queries for responsive design https://github.com/shichuan/mobile-html5-boilerplate/wiki/The-Style
  */
 /* Styles for mobile ----------- */
-@media screen and (max-width: 720px) {
+@media screen and (min-width: 720px) {
   .item {
     display: inline;
     float: left;
-    width: 97.91666666666666%;
+    width: 47.91666666666667%;
     margin: 0 1.0416666666666665%;
-  }
-  .single-item-thumb-container img {
-    height: 9em;
-    width: em;
   }
 }
 @media screen and (max-width: 520px) {
-  .single-item-thumb-container img {
-    height: 7em;
-    width: 7em;
-  }
+  
 }
 @media screen and (max-width: 350px) {
-  #globalNav li a {
-    font-size: 0.5em;
-    font-weight: normal;
-  }
-  .single-item-thumb-container img {
-    height: 4em;
-    width: 4em;
-  }
+  
 }
 /* Styles for desktop and large screen ----------- */
 @media only screen and (min-width: 720px) {

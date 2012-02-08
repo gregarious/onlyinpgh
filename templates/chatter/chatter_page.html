@@ -14,13 +14,11 @@
 
 {% block content %}
 	
-	<form data-role="collapsible" class="chatter-post-form">
+	<form id="post-form">
    		<h3>Add a [ type of chatter ]</h3>
-		<label for="basic">Title:</label>
-	    <input type="text" name="name" id="basic"/>
+	    <input id="post-title" type="text" placeholder="Post Title" />
 		<br />
-		<label for="textarea-a">Content:</label>
-		<textarea name="textarea" id="textarea-a">
+		<textarea id="post-content" placeholder="Post Content"></textarea>
 		</textarea>
 	</form>
 

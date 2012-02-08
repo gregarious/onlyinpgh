@@ -10,11 +10,9 @@
 
 jQuery(document).ready( function($) {
 
-	$.mobile.ajaxLinksEnabled = false;
-
 	$('#expandSearch').click( function() {
-		$('#globalNav').slideToggle(200);
-		$('#search').slideToggle(200);
+		$('#site-nav').slideToggle(200);
+		$('#site-search').slideToggle(200);
 	});
 
 	/*$('#submitSearch').click(function() {

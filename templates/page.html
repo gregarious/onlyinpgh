@@ -1,28 +1,41 @@
 {% extends "base.html" %}
 
 {% block main_body %}
-  <div data-role="page" id="wrapper">
 
-    <header data-role="header" class="site-header">
-      <h1 id="siteTitle">Oakland !</h1>
+  <div id="wrapper">
+
+    <header id="site-header">
+      <h1 id="site-title">Oakland !</h1>
       <nav class="quick-nav">
         <ul>
-          <li id="switchToMapMode" data-role="button" data-inline="true" data-icon="grid"></li>
-          <li id="expandSearch" data-role="button" data-inline="true" data-icon="search"></li>
+          <li id="switchToMapMode">Map Mode</li>
+          <li id="expandSearch">Search</li>
         </ul>
       </nav>
-      {% include "global_nav.html" %}
+
+      <nav id="site-nav">
+        <ul>
+          <li><a href="/" rel="external">Hot</a></li>
+          <li><a href="/events" rel="externåal" data-iconpos="top">Events</a></li>
+          <li><a href="/specials" rel="external">Specials</a></li>
+          <li><a href="/places" rel="external" data-iconpos="top">Places</a></li>
+          <li><a href="/chatter" rel="external">Chatter</a></li>
+          <li><a href="/news" rel="external">News</a></li>
+          <li><a href="/jobs" rel="external">Jobs</a></li>
+        </ul>
+      </nav>
       
     </header>
-    <input type="search" id="search" placeholder="Search Scenable"></input>
 
-    <article data-role="content" class="site-content">
+    <input type="search" id="site-search" placeholder="Search Scenable" />
+
+    <article id="site-content">
     
       {% block content %}{% endblock %}
 
     </article>
 
-    <footer data-role="footer" data-theme="d" class="site-footer">
+    <footer id="site-footer">
       {% include "global_footer.html" %}
     </footer>
 
